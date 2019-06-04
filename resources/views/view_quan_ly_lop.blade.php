@@ -23,9 +23,16 @@
 							<th>Mã</th>
 							<th>Tên lớp</th>
 							<th>Khóa học</th>
-							<th>Số sinh viên</th>
 							<th>Chức năng</th>
 						</tr>
+						@foreach ($array_lop as $lop)
+						<tr>
+							<td>{{$lop->ma_lop}}</td>
+							<td>{{$lop->ten_lop}}</td>
+							<td>{{$lop->ten_khoa_hoc}}</td>
+							<td>Sửa</td>
+						</tr>
+						@endforeach
 					</table>
 				</div>
 			</td>
