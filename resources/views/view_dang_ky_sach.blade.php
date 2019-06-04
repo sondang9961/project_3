@@ -18,6 +18,16 @@
 					<th>Ngày đăng ký sách</th>
 					<th>Ngày nhận sách</th>						
 				</tr>
+				@foreach ($array_dang_ky_sach as $dang_ky_sach)
+				<tr>
+					<td>{{$dang_ky_sach->ma_dang_ky}}</td>
+					<td>{{$dang_ky_sach->ten_sinh_vien}}</td>
+					<td>{{$dang_ky_sach->ten_sach}}</td>
+					<td>{{$dang_ky_sach->tinh_trang_nhan_sach}}</td>
+					<td>{{$dang_ky_sach->ngay_dang_ky}}</td>
+					<td>{{$dang_ky_sach->ngay_nhan_sach}}</td>
+				</tr>
+				@endforeach
 			</table>		
 		</form>
 	</div>

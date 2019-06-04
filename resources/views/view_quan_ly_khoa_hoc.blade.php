@@ -22,6 +22,13 @@
 							<th>Tên khóa học</th>
 							<th>Chức năng</th>
 						</tr>
+						@foreach ($array_khoa_hoc as $khoa_hoc)
+						<tr>
+							<td>{{$khoa_hoc->ma_khoa_hoc}}</td>
+							<td>{{$khoa_hoc->ten_khoa_hoc}}</td>
+							<td><button>Sửa</button></td>
+						</tr>
+						@endforeach
 					</table>
 				</div>
 			</td>
