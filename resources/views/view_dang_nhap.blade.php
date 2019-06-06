@@ -10,9 +10,11 @@
 	.content {margin-left: 20px; font-size: 18px}
 </style>
 </head>
-<body style="background: url(Images/background_1.jpg)">
+<body style="background: url(../public/img/background_1.jpg)">
+	<div>
 		<div id="main">
-			<form id="frm_login" action="{{/dang_nhap}}" method="post">
+			<form id="frm_login" action="trang_chu" method="post">
+				{!! csrf_field() !!}
 				<div class="content">
 					<h1>Đăng nhập</h1>
 				</div>
@@ -29,7 +31,7 @@
 					<input type="password" name="mat_khau" class="textbox">
 				</div>
 				<div align="center">
-					<input type="submit"  value="Đăng nhập" id="button">
+					<input type="submit" value="Đăng nhập" id="button">
 				</div><br>
 				<div align="center"><a href="#" style="text-decoration:none">Quên mật khẩu?</a></div>
 			</form>

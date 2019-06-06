@@ -1,6 +1,7 @@
 <?php
 
-Route::get('trang_chu',"TrangChuController@trang_chu");
+Route::get('dang_nhap',"DangNhapController@get_dang_nhap");
+Route::get('trang_chu','DangKySachController@view_all');
 Route::get('thong_ke',"ThongKeController@view_thong_ke");
 
 Route::group(['prefix' => 'khoa_hoc'], function(){
@@ -58,13 +59,13 @@ Route::group(['prefix' => 'sach'], function(){
 	->name('sach.process_update');
 });
 
-Route::group(['prefix' => 'quan_ly_sach'], function(){
-	Route::get('view_all','QuanLySachController@view_all')
-	->name('quan_ly_sach.view_all');
-	Route::post('process_insert','QuanLySachController@process_insert')
-	->name('quan_ly_sach.process_insert');
-	Route::get('view_update','QuanLySachController@view_update')
-	->name('quan_ly_sach.view_update');
-	Route::post('process_update','QuanLySachController@process_update')
-	->name('quan_ly_sach.process_update');
+Route::group(['prefix' => 'dang_ky_sach'], function(){
+	Route::get('view_all','DangKySachController@view_all')
+	->name('dang_ky_sach.view_all');
+	Route::post('process_insert','DangKySachController@process_insert')
+	->name('dang_ky_sach.process_insert');
+	Route::get('view_update','DangKySachController@view_update')
+	->name('dang_ky_sach.view_update');
+	Route::post('process_update','DangKySachController@process_update')
+	->name('dang_ky_sach.process_update');
 });

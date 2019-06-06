@@ -5,11 +5,11 @@ namespace App\Model;
 use Illuminate\Database\Eloquent\Model;
 use DB;
 
-class Sach extends Model
+class SinhVien extends Model
 {
 	static function get_all()
 	{
-		$array_sach= DB::select ("select * from sach join mon_hoc on sach.ma_mon_hoc = mon_hoc.ma_mon_hoc");
+		$array_sach= DB::select ("select * from sinh_vien join lop on sinh_vien.ma_lop = lop.ma_lop");
 		return $array_sach;
 	}
 }

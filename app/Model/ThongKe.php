@@ -7,7 +7,7 @@ use DB;
 
 class ThongKe extends Model
 {
-	static function get_all_thong_ke()
+	static function get_all()
 	{
 		$array_thong_ke= DB::select ("select 
 				ma_dang_ky,

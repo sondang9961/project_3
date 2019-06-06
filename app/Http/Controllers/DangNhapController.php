@@ -9,7 +9,7 @@ use Session;
 /**
  * 
  */
-class dang_nhap_controller extends Controllers
+class DangNhapConTroller extends Controller
 {
 	
 	function get_dang_nhap()

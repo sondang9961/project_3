@@ -7,7 +7,7 @@ use DB;
 
 class KhoaHoc extends Model
 {
-	static function get_all_khoa_hoc()
+	static function get_all()
 	{
 		$array_khoa_hoc= DB::select ("select * from khoa_hoc");
 		return $array_khoa_hoc;
