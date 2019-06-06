@@ -5,7 +5,7 @@ namespace App\Model;
 use Illuminate\Database\Eloquent\Model;
 use DB;
 
-class Mon_hoc extends Model
+class MonHoc extends Model
 {
 	static function get_all_mon_hoc()
 	{

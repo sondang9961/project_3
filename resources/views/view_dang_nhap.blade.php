@@ -10,9 +10,9 @@
 	.content {margin-left: 20px; font-size: 18px}
 </style>
 </head>
-<body style="background: url(../Images/background_1.jpg)">
+<body style="background: url(Images/background_1.jpg)">
 		<div id="main">
-			<form id="frm_login" action="view_trang_chu.php">
+			<form id="frm_login" action="{{/dang_nhap}}" method="post">
 				<div class="content">
 					<h1>Đăng nhập</h1>
 				</div>

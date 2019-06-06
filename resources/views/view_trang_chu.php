@@ -41,6 +41,7 @@
 			<div id="menu">
 				<ul>
 					<li class="li3"><a href="quan_ly_lop" class="a2">Quản lý lớp</a></li>
+					<li class="li3"><a href="quan_ly_sinh_vien" class="a2">Quản lý sinh viên</a></li>
 					<li class="li3"><a href="quan_ly_mon_hoc" class="a2">Quản lý môn học</a></li>
 					<li class="li3"><a href="quan_ly_khoa_hoc" class="a2">Quản lý khóa học</a></li>
 					<li class="li3"><a href="quan_ly_sach" class="a2">Quản lý sách</a></li>
@@ -49,7 +50,7 @@
 				</ul>			
 			</div>
 			<div id="right_content">
-				
+
 			</div>
 		<div id="footer"></div>	
 	</div>

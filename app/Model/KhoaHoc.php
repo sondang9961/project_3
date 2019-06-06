@@ -5,7 +5,7 @@ namespace App\Model;
 use Illuminate\Database\Eloquent\Model;
 use DB;
 
-class Khoa_hoc extends Model
+class KhoaHoc extends Model
 {
 	static function get_all_khoa_hoc()
 	{
