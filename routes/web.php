@@ -1,7 +1,7 @@
 <?php
 
-Route::get('trang_chu',"trang_chu_controller@trang_chu");
-Route::get('thong_ke',"thong_ke_controller@view_thong_ke");
+Route::get('trang_chu',"TrangChuController@trang_chu");
+Route::get('thong_ke',"ThongKeController@view_thong_ke");
 
 Route::group(['prefix' => 'khoa_hoc'], function(){
 	Route::get('view_all','KhoaHocController@view_all')
