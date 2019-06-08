@@ -31,7 +31,7 @@
 					<a href="{{route('sinh_vien.view_all')}}" class="a2"><li class="li3">Quản lý sinh viên</li></a>		
 					<a href="{{route('mon_hoc.view_all')}}" class="a2"><li class="li3">Quản lý môn học</li></a>
 					<a href="{{route('sach.view_all')}}" class="a2"><li class="li3">Quản lý sách</li></a>
-					<a href="thong_ke" class="a2"><li class="li3">Thống kê</li></a>
+					<a href="{{route('thong_ke.view_all')}}" class="a2"><li class="li3">Thống kê</li></a>
 				</ul>			
 			</div>
 			<div id="right_content_trang_chu">

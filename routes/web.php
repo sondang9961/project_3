@@ -1,7 +1,7 @@
 <?php
 
 Route::get('dang_nhap',"DangNhapController@get_dang_nhap");
-Route::get('trang_chu','DangKySachController@view_all');
+Route::get('trang_chu',"TrangChuController@trang_chu");
 Route::get('thong_ke',"ThongKeController@view_thong_ke");
 
 Route::group(['prefix' => 'khoa_hoc'], function(){
@@ -68,4 +68,9 @@ Route::group(['prefix' => 'dang_ky_sach'], function(){
 	->name('dang_ky_sach.view_update');
 	Route::post('process_update','DangKySachController@process_update')
 	->name('dang_ky_sach.process_update');
+});
+
+Route::group(['prefix' => 'thong_ke'], function(){
+	Route::get('view_all','ThongKeController@view_all')
+	->name('thong_ke.view_all');
 });

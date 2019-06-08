@@ -7,9 +7,15 @@ use DB;
 
 class KhoaHoc extends Model
 {
-	static function get_all()
+	public $table = 'khoa_hoc';
+	public function get_all()
 	{
-		$array_khoa_hoc= DB::select ("select * from khoa_hoc");
+		$array_khoa_hoc= DB::select ("select * from $this->table");
 		return $array_khoa_hoc;
+	}
+
+	public function insert()
+	{
+		DB:: insert("insert into $this->table(ten_khoa_hoc) values (?)", [$this->ten_khoa_hoc]);
 	}
 }

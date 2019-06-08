@@ -12,3 +12,4 @@ class DangKySachController extends Controller
 		return view ('dang_ky_sach.view_all',['array_dang_ky_sach' => $array_dang_ky_sach]);
 	}
 }
+?>

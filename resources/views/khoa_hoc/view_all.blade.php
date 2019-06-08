@@ -1,6 +1,6 @@
 @extends('view_trang_chu')
 @section('content')
-	<center><h1>Quản lý khóa học</h1></center>
+<center><h1>Quản lý khóa học</h1></center>
 	<div id="main_content">
 		<div id="left_content">
 			<div><h2>Danh sách khóa học</h2></div>
@@ -14,7 +14,7 @@
 				<tr>
 					<td>{{$khoa_hoc->ma_khoa_hoc}}</td>
 					<td>{{$khoa_hoc->ten_khoa_hoc}}</td>
-					<td><button>Sửa</button></td>
+					<td><button>Cập nhật</button></td>
 				</tr>
 				@endforeach
 			</table>
@@ -22,10 +22,11 @@
 		<div id="right_content" >
 			<div><h2>Thêm khóa học</h2></div>
 				<div>
-					<form>
+					<form action="{{route('khoa_hoc.process_insert')}}" method="post">
+						{{csrf_field()}}
 						<div>Tên khóa học</div>	
 						<div><input type="text" name="ten_khoa_hoc" id="textbox"></div><br>
-						<div><input type="button" value="Thêm" id="button"></div>
+						<div><input type="submit" value="Thêm" id="button"></div>
 					</form>
 				</div>
 		</div>

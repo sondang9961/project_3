@@ -1,7 +1,8 @@
 @extends('view_trang_chu')
-@section('content')	
+@section('content')
+<link rel="stylesheet" type="text/css" href="css/style.css" />
+<center><h1>Quản lý sách</h1></center>
 	<div id="main_content">
-		<center><h1>Quản lý sách</h1></center>
 		<div id="left_content">
 			<div><h2>Danh sách các đầu sách</h2></div>
 			<table border="1">
@@ -9,8 +10,8 @@
 					<th>Mã</th>
 					<th>Tên sách</th>
 					<th>Tên môn</th>
-					<th>Ngày nhập sách</th>
 					<th>Số lượng nhập</th>
+					<th>Ngày nhập sách</th>
 					<th>Ngày hết hạn đăng ký</th>
 					<th>Chức năng</th>
 				</tr>
@@ -24,21 +25,21 @@
 		<div id="right_content" >
 			<div><h2>Thêm sách</h2></div>
 				<div>
-					<form>
-						<div>Tên sách</div>	
-						<div><input type="text" name="ten_sach" id="textbox"></div><br>
+					<form>			
+						<div>Khóa học</div>
+						<div>
+							<select>
+								<option>--Khóa học--</option>
+							</select>
+						</div><br>
 						<div>Tên môn</div>
 						<div>
 							<select>
 								<option>--Tên môn học--</option>
 							</select>
 						</div><br>
-						<div>Ngày nhập sách</div>
-						<div><input type="date" name="ngay_nhap_sach"></div><br>
-						<div>Số lượng nhập</div>
-						<div><input type="number" name="so_luong_nhap"></div><br>
-						<div>Ngày hết hạn</div>
-						<div><input type="date" name="ngay_het_han"></div><br>
+						<div>Tên sách</div>	
+						<div><input type="text" name="ten_sach" id="textbox"></div><br>	
 						<div><input type="button" value="Thêm" id="button"></div>
 					</form>
 				</div>

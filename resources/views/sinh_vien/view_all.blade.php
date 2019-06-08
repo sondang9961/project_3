@@ -1,9 +1,17 @@
 @extends('view_trang_chu')
 @section('content')
-	<center><h1>Quản lý sách</h1></center>
+	<center><h1>Quản lý sinh viên</h1></center>
 	<div id="main_content">
 		<div id="left_content">
 			<div><h2>Danh sách sinh viên</h2></div>
+			<form>
+				Lớp
+				<select>
+					<option>-- Tên lớp --</option>
+				</select>
+				<input type="submit" value="Xem">
+			</form>
+			<br>
 			<table border="1">
 				<tr>
 					<th>Mã</th>
