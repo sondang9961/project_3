@@ -1,0 +1,15 @@
+/*my_computer(1366 x 768)*/
+@media screen and (max-width: 1366px, max-height: 615px){
+    #wrapper{ width: 100%;}
+    #content{ width: 100%; float: none;}
+    #sidebar { width: 100%;float: none; padding-left: 0px;
+}
+/*Ipad dọc(768 x 1024)*/
+@media screen and (max-width: 768px){
+    #content{ width: 100%; float: none;}
+    #sidebar { width: 100%;float: none; padding-left: 0px;}
+}
+/*Tablet nhỏ(480 x 640)*/
+@media screen and (max-width: 480px){
+    
+}

@@ -1,9 +1,23 @@
 @extends('view_trang_chu')
 @section('content')
+<link rel="stylesheet" type="text/css" href="{{asset('css/style.css')}}" />
 <center><h1>Quản lý lớp</h1></center>
 	<div id="main_content">
 		<div id="left_content" >
 			<div><h2>Danh sách lớp</h2></div>
+			<form>
+				Khóa học
+				<select name="ma_khoa_hoc">
+					<option>--Tên khóa học--</option>
+					@foreach($array_khoa_hoc as $khoa_hoc)
+						<option value="{{$khoa_hoc->ma_khoa_hoc}}">
+							{{$khoa_hoc->ten_khoa_hoc}}
+						</option>
+					@endforeach
+				</select>
+				<input type="submit" value="Xem">
+			</form>
+			<br>
 			<table border="1">
 				<tr>
 					<th>Mã</th>
@@ -24,14 +38,14 @@
 		<div id="right_content">
 			<div><h2>Thêm lớp</h2></div>
 				<div>
-					<form action="{{ route('lop.process_insert')}}" method="post">
+					<form action="{{ route('lop.process_insert')}}" method="post" id="form_insert">
 						{{csrf_field()}}
 						<div>Tên lớp</div>	
 						<div><input type="text" name="ten_lop" id="textbox"></div><br>
 						<div>Khóa học</div>
 						<div>
-							<select name="ma_khoa_hoc">
-								<option>--Tên khóa học--</option>
+							<select name="ma_khoa_hoc" id="ma_khoa_hoc">
+								<option value="-1">--Tên khóa học--</option>
 								@foreach ($array_khoa_hoc as $khoa_hoc) 
 									<option value="{{$khoa_hoc->ma_khoa_hoc}}">
 										{{$khoa_hoc->ten_khoa_hoc}}
@@ -39,7 +53,7 @@
 								@endforeach 								
 							</select>
 						</div><br>
-						<div><input type="submit" value="Thêm" id="button"></div>
+						<div><input type="button" onclick="validate()" value="Thêm" id="button"></div>
 					</form>
 				</div>
 		</div>

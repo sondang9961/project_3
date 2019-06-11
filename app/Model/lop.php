@@ -15,7 +15,7 @@ class Lop extends Model
 
 	public function insert()
 	{
-		DB::insert("insert into $this->table(ten_lop,ma_khoa_hoc)
+		DB::insert("insert into $this->table (ten_lop,ma_khoa_hoc)
     		values (?,?)",[$this->ten_lop,$this->ma_khoa_hoc]);
 	}
 }

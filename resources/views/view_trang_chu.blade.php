@@ -3,8 +3,8 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Quản lý đăng ký sách</title>
+	<link rel="stylesheet" type="text/css" href="{{asset('css/style.css')}}" />
 </head>
-<link rel="stylesheet" type="text/css" href="../../public/css/style.css" />
 <body>
 <font face="Arial, Helvetica, sans-serif">
 	<div>
@@ -37,8 +37,9 @@
 			<div id="right_content_trang_chu">
 				@yield('content')
 			</div>
-		<div id="footer"></div>	
+				
+		</div>
+		<div id="footer"></div>
 	</div>
-</div>
 </body>
 </html>

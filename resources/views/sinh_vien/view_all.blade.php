@@ -6,8 +6,13 @@
 			<div><h2>Danh sách sinh viên</h2></div>
 			<form>
 				Lớp
-				<select>
-					<option>-- Tên lớp --</option>
+				<select name="ma_lop">
+					<option>--Tên lớp--</option>
+					@foreach($array_lop as $lop)
+						<option value="{{$lop->ma_lop}}">
+							{{$lop->ten_lop}}
+						</option>
+					@endforeach
 				</select>
 				<input type="submit" value="Xem">
 			</form>
@@ -17,13 +22,15 @@
 					<th>Mã</th>
 					<th>Tên sinh viên</th>
 					<th>Tên lớp</th>
-					<th>Chức năng</th>
+					<th colspan="2">Chức năng</th>
 				</tr>
 				@foreach ($array_sinh_vien as $sinh_vien)
 				<tr>
-					<td>
-						
-					</td>
+					<td>{{$sinh_vien->ma_sinh_vien}}</td>
+					<td>{{$sinh_vien->ten_sinh_vien}}</td>
+					<td>{{$sinh_vien->ten_lop}}</td>
+					<td><button>Cập nhật</button></td>
+					<td><button>Xóa</button></td>					
 				</tr>
 				@endforeach
 			</table>
@@ -31,16 +38,22 @@
 		<div id="right_content" >
 			<div><h2>Thêm sinh viên</h2></div>
 				<div>
-					<form>
+					<form action="{{ route('sinh_vien.process_insert')}}" method="post">
+						{{csrf_field()}}
 						<div>Tên sinh viên</div>	
 						<div><input type="text" name="ten_sinh_vien" id="textbox"></div><br>
 						<div>Tên lớp</div>
 						<div>
-							<select>
+							<select name="ma_lop">
 								<option>--Tên lớp--</option>
+								@foreach($array_lop as $lop)
+									<option value="{{$lop->ma_lop}}">
+										{{$lop->ten_lop}}
+									</option>
+								@endforeach
 							</select>
 						</div><br>
-						<div><input type="button" value="Thêm" id="button"></div>
+						<div><input type="submit" value="Thêm" id="button"></div>
 					</form>
 				</div>
 		</div>

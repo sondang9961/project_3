@@ -3,39 +3,32 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Đăng nhập</title>
-<style type="text/css">
-	.textbox {border-radius: 6px;height: 25px; width: 93%; box-shadow:none; margin-bottom: 15px}
-	#button {border-radius: 30px; width: 30%; height: 30px; font-weight: bold; background-color: #484646; box-shadow: none;color:white}
-	#main {border-radius: 8px;background-color: #ffffff; height:300px ; width: 28%; margin-left: 36%; margin-top: 9%}
-	.content {margin-left: 20px; font-size: 18px}
-</style>
+	<link rel="stylesheet" type="text/css" href="{{asset('css/style.css')}}" />
 </head>
 <body style="background: url(../public/img/background_1.jpg)">
-	<div>
-		<div id="main">
-			<form id="frm_login" action="trang_chu" method="post">
-				{!! csrf_field() !!}
-				<div class="content">
-					<h1>Đăng nhập</h1>
-				</div>
-				<div class="content">
-					<b style="color: grey">Tên đăng nhập</b>
-				</div>
-				<div class="content">
-					<input type="text" name="ten_dang_nhap" class="textbox">
-				</div>
-				<div class="content">
-					<b style="color: grey">Mật khẩu</b>
-				</div>
-				<div class="content">
-					<input type="password" name="mat_khau" class="textbox">
-				</div>
-				<div align="center">
-					<input type="submit" value="Đăng nhập" id="button">
-				</div><br>
-				<div align="center"><a href="#" style="text-decoration:none">Quên mật khẩu?</a></div>
-			</form>
-		</div>
+	<div id="main">
+		<form id="frm_login" action="trang_chu" method="post">
+			{!! csrf_field() !!}
+			<div class="content">
+				<h1>Đăng nhập</h1>
+			</div>
+			<div class="content">
+				<b>Tên đăng nhập</b>
+			</div>
+			<div class="content">
+				<input type="text" name="ten_dang_nhap" class="textbox">
+			</div>
+			<div class="content">
+				<b>Mật khẩu</b>
+			</div>
+			<div class="content">
+				<input type="password" name="mat_khau" class="textbox">
+			</div>
+			<div align="center">
+				<input type="submit" value="Đăng nhập" id="login_button">
+			</div><br>
+			<div align="center"><a href="#" style="text-decoration:none">Quên mật khẩu?</a></div>
+		</form>
 	</div>
 </body>
 </html>

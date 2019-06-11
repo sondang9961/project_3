@@ -28,6 +28,6 @@ class LopController extends Controller
 		$lop->insert();
 
 		//điều hướng
-		return redirect()->route('lop.view_all'); 
+		return redirect()->route("$this->folder.view_all"); 
 	}
 }

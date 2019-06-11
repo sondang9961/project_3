@@ -13,8 +13,12 @@
 				@foreach ($array_khoa_hoc as $khoa_hoc)
 				<tr>
 					<td>{{$khoa_hoc->ma_khoa_hoc}}</td>
-					<td>{{$khoa_hoc->ten_khoa_hoc}}</td>
-					<td><button>Cập nhật</button></td>
+					<td><input type="text" name="ten_khoa_hoc" value="{{$khoa_hoc->ten_khoa_hoc}}"></td>
+					<td>
+						<a href="{{route('khoa_hoc.process_update')}}">
+						<button style="width: 100%">Cập nhật</button>
+						</a>
+					</td>
 				</tr>
 				@endforeach
 			</table>
