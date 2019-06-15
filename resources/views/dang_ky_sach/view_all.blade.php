@@ -1,8 +1,6 @@
-@extends('view_trang_chu')
+@extends('layer.master')
 @section('content')
-<center>
-	<h1>Quản lý đăng ký sách</h1>
-</center>
+<center><h1>Quản lý đăng ký sách</h1></center>
 	<div id="main-content">
 		<div id="left_content">
 			<div><h2>Danh sách sinh viên đăng ký sách</h2></div>
@@ -45,12 +43,12 @@
 						</td>						
 					</tr>
 					<tr>
-						<td><input type="button" value="Xem"></td>
+						<td><input type="button" value="Xem" id="button"></td>
 					</tr>
 				</table>
 			</form>
 			 <br/>
-			<table border="1">
+			<table class="table table-striped">
 				<tr>
 					<th>Mã đăng ký</th>
 					<th>Tên sinh viên</th>

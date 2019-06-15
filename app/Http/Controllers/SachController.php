@@ -16,7 +16,14 @@ class SachController extends Controller
 
 		$mon_hoc = new MonHoc();
 		$array_mon_hoc = $mon_hoc->get_all();
-		return view ("$this->folder.view_all",['array_sach' => $array_sach],['array_mon_hoc' => $array_mon_hoc]);
+
+		$khoa_hoc = new KhoaHoc();
+		$array_khoa_hoc = $khoa_hoc->get_all();
+		return view ("$this->folder.view_all", [
+			'array_sach' => $array_sach,
+			'array_mon_hoc' => $array_mon_hoc,
+			'array_khoa_hoc' => $array_khoa_hoc
+		]);
 	}
 
 	public function process_insert()

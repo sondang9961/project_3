@@ -8,5 +8,8 @@ use Request;
 
 class Controller extends BaseController
 {
-    //use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+    public function layer()
+    {
+    	return view('layer.master');
+    }
 }

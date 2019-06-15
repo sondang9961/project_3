@@ -15,7 +15,10 @@ class SinhVienController extends Controller
 
 		$lop = new Lop();
 		$array_lop = $lop->get_all();
-		return view ("$this->folder.view_all",['array_sinh_vien' => $array_sinh_vien], ['array_lop' => $array_lop]);
+		return view ("$this->folder.view_all",[
+			'array_sinh_vien' => $array_sinh_vien, 
+			'array_lop' => $array_lop
+		]);
 	}
 
 	public function process_insert()

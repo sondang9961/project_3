@@ -1,11 +1,10 @@
-@extends('view_trang_chu')
+@extends('layer.master')
 @section('content')
-<link rel="stylesheet" type="text/css" href="css/style.css" />
 <center><h1>Quản lý sách</h1></center>
 	<div id="main_content">
 		<div id="left_content">
 			<div><h2>Danh sách các đầu sách</h2></div>
-			<table border="1">
+			<table class="table table-striped">
 				<tr>
 					<th>Mã</th>
 					<th>Tên sách</th>
@@ -26,7 +25,18 @@
 			<div><h2>Thêm sách</h2></div>
 				<div>
 					<form action="{{route('sach.process_insert')}}" method="post">
-						{{csrf_field()}}			
+						{{csrf_field()}}
+						<div>Tên khóa học</div>
+						<div>
+							<select name="ma_khoa_hoc">
+								<option>--Khóa học--</option>
+								@foreach ($array_khoa_hoc as $khoa_hoc)
+									<option value="{{$khoa_hoc->ma_khoa_hoc}}">
+										{{$khoa_hoc->ten_khoa_hoc}}
+									</option>
+								@endforeach
+							</select>
+						</div><br>
 						<div>Tên môn</div>
 						<div>
 							<select name="ma_mon_hoc">

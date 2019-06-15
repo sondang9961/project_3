@@ -16,7 +16,10 @@ class LopController extends Controller
 
 		$khoa_hoc = new KhoaHoc();
 		$array_khoa_hoc = $khoa_hoc->get_all();
-		return view ("$this->folder.view_all",['array_lop' => $array_lop],['array_khoa_hoc' => $array_khoa_hoc]);
+		return view ("$this->folder.view_all",[
+			'array_lop' => $array_lop,
+			'array_khoa_hoc' => $array_khoa_hoc
+		]);
 		
 	}
 

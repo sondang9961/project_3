@@ -1,6 +1,5 @@
-@extends('view_trang_chu')
+@extends('layer.master')
 @section('content')
-<link rel="stylesheet" type="text/css" href="{{asset('css/style.css')}}" />
 <center><h1>Quản lý lớp</h1></center>
 	<div id="main_content">
 		<div id="left_content" >
@@ -15,22 +14,31 @@
 						</option>
 					@endforeach
 				</select>
-				<input type="submit" value="Xem">
+				<input type="submit" value="Xem" id="button">
 			</form>
 			<br>
-			<table border="1">
+			<table class="table table-striped">
 				<tr>
 					<th>Mã</th>
 					<th>Tên lớp</th>
 					<th>Khóa học</th>
-					<th>Chức năng</th>
+					<th colspan="2">Chức năng</th>
 				</tr>
 				@foreach ($array_lop as $lop)
 				<tr>
 					<td>{{$lop->ma_lop}}</td>
-					<td><a href="#" >{{$lop->ten_lop}}</a></td>
-					<td>{{$lop->ten_khoa_hoc}}</td>
-					<td><button>Cập nhật</button></td>
+					<td><input type="text" name="ten_lop" value="{{$lop->ten_lop}}" size="10"></td>
+					<td >
+						<select>
+							@foreach($array_khoa_hoc as $khoa_hoc)
+								<option value="{{$khoa_hoc->ma_khoa_hoc}}" <?php if($lop->ma_khoa_hoc == $khoa_hoc->ma_khoa_hoc) echo "selected"; ?>>
+									{{$khoa_hoc->ten_khoa_hoc}}
+								</option>
+							@endforeach
+						</select>					
+					</td>
+					<td><button style="width:100%">Cập nhật</button></td>
+					<td><button style="width:100%">Danh sách sinh viên</button></td>
 				</tr>
 				@endforeach
 			</table>

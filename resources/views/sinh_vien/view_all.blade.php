@@ -1,5 +1,6 @@
-@extends('view_trang_chu')
+@extends('layer.master')
 @section('content')
+
 	<center><h1>Quản lý sinh viên</h1></center>
 	<div id="main_content">
 		<div id="left_content">
@@ -14,10 +15,10 @@
 						</option>
 					@endforeach
 				</select>
-				<input type="submit" value="Xem">
+				<input type="submit" value="Xem" id="button">
 			</form>
 			<br>
-			<table border="1">
+			<table class="table table-striped">
 				<tr>
 					<th>Mã</th>
 					<th>Tên sinh viên</th>
@@ -27,10 +28,18 @@
 				@foreach ($array_sinh_vien as $sinh_vien)
 				<tr>
 					<td>{{$sinh_vien->ma_sinh_vien}}</td>
-					<td>{{$sinh_vien->ten_sinh_vien}}</td>
-					<td>{{$sinh_vien->ten_lop}}</td>
-					<td><button>Cập nhật</button></td>
-					<td><button>Xóa</button></td>					
+					<td><input type="text" name="ten_sinh_vien" value="{{$sinh_vien->ten_sinh_vien}}" size="15"></td>
+					<td>
+						<select name="ma_lop">
+							@foreach($array_lop as $lop)
+								<option value="{{$lop->ma_lop}}" 
+									<?php if($sinh_vien->ma_lop == $lop->ma_lop) echo "selected"; ?>>
+									{{$lop->ten_lop}}
+								</option>
+							@endforeach
+						</select>
+					</td>
+					<td><button style="width:100%">Cập nhật</button></td>				
 				</tr>
 				@endforeach
 			</table>

@@ -1,4 +1,4 @@
-@extends('view_trang_chu')
+@extends('layer.master')
 @section('content')
 <center>
 	<h1>Thống kê</h1>
@@ -6,18 +6,17 @@
 		<div id="left_content">
 			<div><h2>Thống kê sách</h2></div>
 			<form>
-				Lớp
-					<select>
-						<option>--Tên lớp--</option>
-					</select>
+				Ngày nhập
+					<input type="date" name="ngay_nhap_sach">
 				<input type="button" value="Xem" id="button">
 			</form><br>
-			<table border="1">
+			<table class="table table-striped">
 				<tr>
 					<th>Tên sách</th>
 					<th>Số lượng nhập</th>
 					<th>Số lượng đã phát</th>
 					<th>Số lượng tồn kho</th>
+					<th>Ngày nhập</th>
 				</tr>
 			</table>
 		</div>
@@ -30,7 +29,7 @@
 					</select>
 				<input type="button" value="Xem" id="button">
 			</form><br>
-			<table border="1">
+			<table class="table table-striped">
 				<tr>
 					<th>Mã</th>
 					<th>Tên sinh viên</th>

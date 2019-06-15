@@ -1,9 +1,10 @@
 <?php
 
 Route::get('dang_nhap',"DangNhapController@get_dang_nhap");
-Route::get('trang_chu',"TrangChuController@trang_chu");
-Route::get('',"TrangChuController@trang_chu");
+Route::get('trang_chu',"Controller@layer");
+Route::get('',"Controller@layer");
 Route::get('thong_ke',"ThongKeController@view_thong_ke");
+
 
 
 Route::group(['prefix' => 'khoa_hoc'], function(){
@@ -11,8 +12,6 @@ Route::group(['prefix' => 'khoa_hoc'], function(){
 	->name('khoa_hoc.view_all');
 	Route::post('process_insert','KhoaHocController@process_insert')
 	->name('khoa_hoc.process_insert');
-	Route::get('view_update','KhoaHocController@view_update')
-	->name('khoa_hoc.view_update');
 	Route::post('process_update','KhoaHocController@process_update')
 	->name('khoa_hoc.process_update');
 });
@@ -22,8 +21,6 @@ Route::group(['prefix' => 'lop'], function(){
 	->name('lop.view_all');
 	Route::post('process_insert','LopController@process_insert')
 	->name('lop.process_insert');
-	Route::get('view_update','KhoaHocController@view_update')
-	->name('khoa_hoc.view_update');
 	Route::post('process_update','KhoaHocController@process_update')
 	->name('khoa_hoc.process_update');
 });
@@ -33,8 +30,6 @@ Route::group(['prefix' => 'mon_hoc'], function(){
 	->name('mon_hoc.view_all');
 	Route::post('process_insert','MonHocController@process_insert')
 	->name('mon_hoc.process_insert');
-	Route::get('view_update','MonHocController@view_update')
-	->name('mon_hoc.view_update');
 	Route::post('process_update','MonHocController@process_update')
 	->name('mon_hoc.process_update');
 });
@@ -44,8 +39,6 @@ Route::group(['prefix' => 'sinh_vien'], function(){
 	->name('sinh_vien.view_all');
 	Route::post('process_insert','SinhVienController@process_insert')
 	->name('sinh_vien.process_insert');
-	Route::get('view_update','SinhVienController@view_update')
-	->name('sinh_vien.view_update');
 	Route::post('process_update','SinhVienController@process_update')
 	->name('sinh_vien.process_update');
 });
@@ -55,8 +48,6 @@ Route::group(['prefix' => 'sach'], function(){
 	->name('sach.view_all');
 	Route::post('process_insert','SachController@process_insert')
 	->name('sach.process_insert');
-	Route::get('view_update','SachController@view_update')
-	->name('sach.view_update');
 	Route::post('process_update','SachController@process_update')
 	->name('sach.process_update');
 });
@@ -66,8 +57,6 @@ Route::group(['prefix' => 'dang_ky_sach'], function(){
 	->name('dang_ky_sach.view_all');
 	Route::post('process_insert','DangKySachController@process_insert')
 	->name('dang_ky_sach.process_insert');
-	Route::get('view_update','DangKySachController@view_update')
-	->name('dang_ky_sach.view_update');
 	Route::post('process_update','DangKySachController@process_update')
 	->name('dang_ky_sach.process_update');
 });
@@ -75,4 +64,8 @@ Route::group(['prefix' => 'dang_ky_sach'], function(){
 Route::group(['prefix' => 'thong_ke'], function(){
 	Route::get('view_all','ThongKeController@view_all')
 	->name('thong_ke.view_all');
+});
+
+Route::get('/login', function() {
+	return view('view_dang_nhap1');
 });
