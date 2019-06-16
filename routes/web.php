@@ -46,6 +46,8 @@ Route::group(['prefix' => 'sinh_vien'], function(){
 Route::group(['prefix' => 'sach'], function(){
 	Route::get('view_all','SachController@view_all')
 	->name('sach.view_all');
+	Route::get('get_mon_hoc_by_khoa_hoc','SachController@get_mon_hoc_by_khoa_hoc')
+	->name('get_mon_hoc_by_khoa_hoc');
 	Route::post('process_insert','SachController@process_insert')
 	->name('sach.process_insert');
 	Route::post('process_update','SachController@process_update')
@@ -66,6 +68,3 @@ Route::group(['prefix' => 'thong_ke'], function(){
 	->name('thong_ke.view_all');
 });
 
-Route::get('/login', function() {
-	return view('view_dang_nhap1');
-});

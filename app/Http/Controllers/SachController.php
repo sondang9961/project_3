@@ -26,6 +26,13 @@ class SachController extends Controller
 		]);
 	}
 
+	public function get_mon_hoc_by_khoa_hoc()
+	{
+		$mon_hoc = new MonHoc();
+		$mon_hoc->ma_khoa_hoc = Request::get('ma_khoa_hoc');
+		$array_mon_hoc = $mon_hoc->get_all_by_khoa_hoc();
+	}
+
 	public function process_insert()
 	{
 		$sach = new Sach();

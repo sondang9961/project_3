@@ -4,22 +4,24 @@
 	<div id="main_content">
 		<div id="left_content">
 			<div><h2>Danh sách khóa học</h2></div>
-			<table class="table table-striped">
-				<tr>
-					<th>Mã</th>
-					<th>Tên khóa học</th>
-					<th>Chức năng</th>
-				</tr>
-				@foreach ($array_khoa_hoc as $khoa_hoc)
-				<tr>
-					<td>{{$khoa_hoc->ma_khoa_hoc}}</td>
-					<td><input type="text" name="ten_khoa_hoc" value="{{$khoa_hoc->ten_khoa_hoc}}"></td>
-					<td>
-						<button style="width:100%">Cập nhật</button>
-					</td>
-				</tr>
+			<form action="{{route('khoa_hoc.process_update')}}">
+				<table class="table table-striped">
+					<tr>
+						<th>Mã</th>
+						<th>Tên khóa học</th>
+						<th>Chức năng</th>
+					</tr>
+					@foreach ($array_khoa_hoc as $khoa_hoc)
+					<tr>
+						<td>{{$khoa_hoc->ma_khoa_hoc}}</td>
+						<td><input type="text" name="ten_khoa_hoc" value="{{$khoa_hoc->ten_khoa_hoc}}"></td>
+						<td>
+							<button style="width:100%">Cập nhật</button>
+						</td>
+					</tr>
 				@endforeach
-			</table>
+				</table>
+			</form>			
 		</div>
 		<div id="right_content" >
 			<div><h2>Thêm khóa học</h2></div>
