@@ -7,7 +7,7 @@
     -->
 
     <div class="logo">
-        <img src="{{asset('img/logo_bkacad.png')}}" class="simple-text logo-mini" width="95%%">
+        <img src="{{asset('img/logo_bkacad.png')}}" class="simple-text logo-mini" width="94%">
     </div>
 
 	<div class="sidebar-wrapper">

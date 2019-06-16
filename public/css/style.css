@@ -66,20 +66,18 @@ body {margin: 0px}
 	#right_content {
 		background-color: rgba(255,255,255,0.9);
 		border-radius: 6px;
-		width: 30%;
+		width: 38%;
 		padding: 2%;
 		padding-top: 0%;
 		float: right;
-		margin-right: 2%;
 	}
 	#left_content {
 		background-color: rgba(255,255,255,0.9);
 		border-radius: 6px;
-		width: 60%;
+		width: 58%;
 		padding: 2%;
 		padding-top: 0%;
 		float: left;
-		margin-left: 2%;
 	}
 
 	.textbox {

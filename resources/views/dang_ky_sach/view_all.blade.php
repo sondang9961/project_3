@@ -5,42 +5,50 @@
 		<div id="left_content">
 			<div><h2>Danh sách sinh viên đăng ký sách</h2></div>
 			<form>
-				<table>
-					<tr>
-						<td>
-							Tên khóa học 
-						</td>
-						<td>
-							<select>
-								<option>--Tên khóa học--</option>
-						</select>
-						</td>
-						<td>
-							Tên môn
-						</td>
-						<td>
-							<select>
-								<option>--Tên môn--</option>
-						</select>
-						</td>						
+				<table width="70%">
+					<tr style="height: 4rem">
+						<div>
+							<td>
+								Tên khóa học 
+							</td>
+							<td>
+								<select>
+									<option>--Tên khóa học--</option>
+							</select>
+							</td>
+						</div>
+						<div>
+							<td>
+								Tên môn
+							</td>
+							<td>
+								<select>
+									<option>--Tên môn--</option>
+							</select>
+							</td>
+						</div>													
 					</tr>
 					<tr>
-						<td>
-							Tên lớp 
-						</td>
-						<td>
-							<select>
-								<option>--Tên lớp--</option>
-						</select>
-						</td>
-						<td>
-							Tên sách 
-						</td>
-						<td>
-							<select>
-								<option>--Tên sách--</option>
-						</select>
-						</td>						
+						<div>
+							<td>
+								Tên lớp 
+							</td>
+							<td>
+								<select>
+									<option>--Tên lớp--</option>
+								</select>
+							</td>
+						</div>
+						<div>
+							<td>
+								Tên sách 
+							</td>
+							<td>
+								<select>
+									<option>--Tên sách--</option>
+							</select>
+							</td>						
+						</div>
 					</tr>
 					<tr>
 						<td><input type="button" value="Xem" id="button"></td>
@@ -72,8 +80,8 @@
 			<div><h2>Đăng ký sách</h2></div>
 				<div>
 					<form>
-						<table width="80%">
-							<tr>
+						<table width="90%">
+							<tr style="height: 4rem">
 								<td>
 									<div>Khóa học</div>
 									<div>
@@ -91,7 +99,7 @@
 									</div>
 								</td>
 							</tr>
-							<tr>
+							<tr style="height: 7rem">
 								<td>
 									<div>Tên môn</div>
 									<div>
