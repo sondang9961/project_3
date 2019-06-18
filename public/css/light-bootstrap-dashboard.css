@@ -5938,14 +5938,16 @@ fieldset[disabled] .btn-info.active {
 
 .btn-warning {
     border-color: #9e9e9e;
+    background-color: #747474 !important;
+    border-color: #747474 !important;
     color: #747474;
 }
 
 .btn-warning:hover, .btn-warning:focus, .btn-warning:active, .btn-warning.active, .btn-warning:active:focus, .btn-warning:active:hover, .btn-warning.active:focus, .btn-warning.active:hover,
 .open > .btn-warning.dropdown-toggle {
-    background-color: transparent;
-    color: #ff9510;
-    border-color: #9e9e9e;
+    background-color: #484646 !important;
+    color: #484646;
+    border-color: #484646 !important;
 }
 
 .btn-warning.disabled, .btn-warning.disabled:hover, .btn-warning.disabled:focus, .btn-warning.disabled.focus, .btn-warning.disabled:active, .btn-warning.disabled.active, .btn-warning:disabled, .btn-warning:disabled:hover, .btn-warning:disabled:focus, .btn-warning:disabled.focus, .btn-warning:disabled:active, .btn-warning:disabled.active, .btn-warning[disabled], .btn-warning[disabled]:hover, .btn-warning[disabled]:focus, .btn-warning[disabled].focus, .btn-warning[disabled]:active, .btn-warning[disabled].active,
