@@ -125,9 +125,20 @@
 											<option>--tên sách--</option>
 										</select>
 									</div>
-									<br>
-							<div><input type="button" value="Thêm" id="button"></div>
-						</table>
+								</td>
+								<td>
+									<div>Tình trạng</div>	
+									<div>
+										<select name="tinh_trang">
+											<option>--Tình trạng--</option>
+											<option>Đã nhận</option>
+											<option>Chưa nhận</option>
+										</select>
+									</div>
+								</td>
+							</tr>
+						</table><br><br>
+						<div><input type="button" value="Thêm" id="button"></div>
 					</form>
 				</div>
 		</div>

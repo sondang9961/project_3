@@ -21,7 +21,7 @@
 			</table>
 		</div>
 		<div id="right_content" >
-			<div><h2>Thống kê sinh viên đăng ký sách</h2></div>
+			<div><h2>Thống kê sinh viên chưa đăng ký sách</h2></div>
 			<form>
 				Lớp
 					<select>

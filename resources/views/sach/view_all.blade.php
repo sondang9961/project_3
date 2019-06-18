@@ -45,7 +45,7 @@
 								@endforeach
 							</select>
 						</div><br>
-						<div class="div_hide" id="div_mon_hoc">
+						<div class="form-group div_hide" id="div_mon_hoc" style="display: none;">
 							<div>Tên môn</div>
 							<select name="ma_mon_hoc" class="form-control" style="width: 25rem" id="select_mon_hoc">
 								<option>--Môn học--</option>
@@ -84,7 +84,7 @@
 					ma_khoa_hoc: ma_khoa_hoc;
 				}
 			},
-			processResults: function (data){
+			processResults: function(data){
 				return {
 					results: $.map(data, function(item) {
 						return  {

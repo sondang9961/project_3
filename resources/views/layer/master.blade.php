@@ -109,22 +109,6 @@
 	<script src="{{asset('js/light-bootstrap-dashboard.js')}}"></script>
 
 
-	<script type="text/javascript">
-    	$(document).ready(function(){
-
-        	demo.initDashboardPageCharts();
-        	demo.initVectorMap();
-
-        	$.notify({
-            	icon: 'pe-7s-bell',
-            	message: "<b>Light Bootstrap Dashboard PRO</b> - forget about boring dashboards."
-
-            },{
-                type: 'warning',
-                timer: 4000
-            });
-
-    	});
-	</script>
+	
 
 </html>
