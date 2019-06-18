@@ -19,4 +19,23 @@ class SinhVien extends Model
 	{
 		DB::insert("insert into $this->table (ten_sinh_vien,ma_lop) values (?,?)",[$this->ten_sinh_vien,$this->ma_lop]);
 	}
+
+	public function updateSV()
+	{
+		DB::update("update $this->table 
+			set
+			ten_sinh_vien = ?,
+			ma_lop = ? 
+			where ma_sinh_vien = ?",[
+				$this->ten_sinh_vien,
+				$this->ma_lop,
+				$this->ma_sinh_vien
+			]);
+	}
+
+	public function danh_sach_sinh_vien_by_lop()
+	{
+		$array_sinh_vien= DB::select ("select * from $this->table join lop on $this->table.ma_lop = lop.ma_lop where sinh_vien.ma_lop = ?",[$this->ma_lop]);
+		return $array_sinh_vien;
+	}
 }

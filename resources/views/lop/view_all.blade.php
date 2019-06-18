@@ -25,20 +25,29 @@
 					<th colspan="2">Chức năng</th>
 				</tr>
 				@foreach ($array_lop as $lop)
-				<tr>
-					<td>{{$lop->ma_lop}}</td>
-					<td><input type="text" name="ten_lop" value="{{$lop->ten_lop}}" size="10"></td>
-					<td >
-						<select>
-							@foreach($array_khoa_hoc as $khoa_hoc)
-								<option value="{{$khoa_hoc->ma_khoa_hoc}}" <?php if($lop->ma_khoa_hoc == $khoa_hoc->ma_khoa_hoc) echo "selected"; ?>>
-									{{$khoa_hoc->ten_khoa_hoc}}
-								</option>
-							@endforeach
-						</select>					
-					</td>
-					<td><button style="width:100%">Cập nhật</button></td>
-					<td><button style="width:100%">Danh sách sinh viên</button></td>
+				<form action="{{route('lop.process_update', ['ma_lop' => $lop->ma_lop])}}" method="post">
+					{{csrf_field()}}
+					<tr>
+						<td>{{$lop->ma_lop}}</td>
+						<td><input type="text" name="ten_lop" value="{{$lop->ten_lop}}" size="10"></td>
+						<td >
+							<select name="ma_khoa_hoc">
+								@foreach($array_khoa_hoc as $khoa_hoc)
+									<option value="{{$khoa_hoc->ma_khoa_hoc}}" 
+										@if($lop->ma_khoa_hoc == $khoa_hoc->ma_khoa_hoc)
+											selected
+										@endif
+									>
+										{{$khoa_hoc->ten_khoa_hoc}}
+									</option>
+								@endforeach
+							</select>					
+						</td>
+						<td>
+							<input type="submit" value="Cập nhật">
+						</td>
+				</form>
+					<td><button style="width:100%" onclick="location.href='{{route('sinh_vien.danh_sach_sinh_vien_by_lop', ['ma_lop' => $lop->ma_lop])}}'">Danh sách sinh viên</button></td>
 				</tr>
 				@endforeach
 			</table>

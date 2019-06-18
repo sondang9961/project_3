@@ -6,27 +6,28 @@ Route::get('',"Controller@layer");
 Route::get('thong_ke',"ThongKeController@view_thong_ke");
 
 
-
+//KHÓA HỌC
 Route::group(['prefix' => 'khoa_hoc'], function(){
 	Route::get('view_all','KhoaHocController@view_all')
 	->name('khoa_hoc.view_all');
 	Route::post('process_insert','KhoaHocController@process_insert')
 	->name('khoa_hoc.process_insert');
-	Route::get('view_update/{ma_khoa_hoc}','KhoaHocController@view_update')
-	->name('khoa_hoc.view_update');
-	Route::post('process_update','KhoaHocController@process_update')
+	Route::post('process_update/{ma_khoa_hoc}','KhoaHocController@process_update')
 	->name('khoa_hoc.process_update');
 });
 
+//LỚP 
 Route::group(['prefix' => 'lop'], function(){
 	Route::get('view_all','LopController@view_all')
 	->name('lop.view_all');
 	Route::post('process_insert','LopController@process_insert')
 	->name('lop.process_insert');
-	Route::post('process_update','KhoaHocController@process_update')
-	->name('khoa_hoc.process_update');
+	Route::post('process_update/{ma_lop}','lopController@process_update')
+	->name('lop.process_update');
 });
 
+
+//MÔN HỌC
 Route::group(['prefix' => 'mon_hoc'], function(){
 	Route::get('view_all','MonHocController@view_all')
 	->name('mon_hoc.view_all');
@@ -36,15 +37,19 @@ Route::group(['prefix' => 'mon_hoc'], function(){
 	->name('mon_hoc.process_update');
 });
 
+//SINH VIÊN
 Route::group(['prefix' => 'sinh_vien'], function(){
 	Route::get('view_all','SinhVienController@view_all')
 	->name('sinh_vien.view_all');
 	Route::post('process_insert','SinhVienController@process_insert')
 	->name('sinh_vien.process_insert');
-	Route::post('process_update','SinhVienController@process_update')
+	Route::post('process_update/{ma_sinh_vien}','SinhVienController@process_update')
 	->name('sinh_vien.process_update');
+	Route::get('danh_sach_sinh_vien_by_lop/{ma_lop}','SinhVienController@danh_sach_sinh_vien_by_lop')
+	->name('sinh_vien.danh_sach_sinh_vien_by_lop');
 });
 
+//SÁCH
 Route::group(['prefix' => 'sach'], function(){
 	Route::get('view_all','SachController@view_all')
 	->name('sach.view_all');
@@ -56,6 +61,7 @@ Route::group(['prefix' => 'sach'], function(){
 	->name('sach.process_update');
 });
 
+//ĐĂNG KÝ SÁCH
 Route::group(['prefix' => 'dang_ky_sach'], function(){
 	Route::get('view_all','DangKySachController@view_all')
 	->name('dang_ky_sach.view_all');

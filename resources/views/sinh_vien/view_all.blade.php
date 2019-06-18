@@ -26,6 +26,8 @@
 					<th colspan="2">Chức năng</th>
 				</tr>
 				@foreach ($array_sinh_vien as $sinh_vien)
+				<form action="{{ route('sinh_vien.process_update',['ma_sinh_vien' => $sinh_vien->ma_sinh_vien])}}" method="post">
+				{{csrf_field()}}
 				<tr>
 					<td>{{$sinh_vien->ma_sinh_vien}}</td>
 					<td><input type="text" name="ten_sinh_vien" value="{{$sinh_vien->ten_sinh_vien}}" size="15"></td>
@@ -33,15 +35,22 @@
 						<select name="ma_lop">
 							@foreach($array_lop as $lop)
 								<option value="{{$lop->ma_lop}}" 
-									<?php if($sinh_vien->ma_lop == $lop->ma_lop) echo "selected"; ?>>
+									@if ($sinh_vien->ma_lop == $lop->ma_lop) 
+										selected
+									@endif
+								>
 									{{$lop->ten_lop}}
 								</option>
 							@endforeach
 						</select>
 					</td>
-					<td><button style="width:100%">Cập nhật</button></td>				
+					<td>
+						<input type="submit" name="Cập nhật">				
+					</td>				
 				</tr>
+				</form>
 				@endforeach
+
 			</table>
 		</div>
 		<div id="right_content" >

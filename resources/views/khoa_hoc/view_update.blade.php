@@ -1,31 +1,13 @@
 @extends('layer.master')
-@push('css')
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-@endpush
 @section('content')
-	<div class="modal fade" id="myModal" role="dialog">
-    	<div class="modal-dialog">
-    
-      <!-- Modal content-->
-	      	<div class="modal-content">
-		        <div class="modal-header">
-		        	<button type="button" class="close" data-dismiss="modal">&times;</button>
-		          	<h4 class="modal-title">Cập nhật khóa học</h4>
-		        </div>
-		        <div class="modal-body">
-			        <form>
-			          	Tên khóa học <input type="text" name="ten_khoa_hoc" value="" />
-			        	<button>Sửa</button>
-			        </form>
-		        </div>
-		        <div class="modal-footer">
-		          	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-		        </div>
-	      	</div>
-    	</div>
-  	</div>
+	<div><h2>Sửa khóa học</h2></div>
+		<div>
+			<form action="{{route('khoa_hoc.process_update', ['ma_khoa_hoc' => $array_khoa_hoc->ma_khoa_hoc])}}" method="post">
+				{{csrf_field()}}
+				<div>Tên khóa học</div>	
+				<input type="hidden" name="ma_khoa_hoc" value="{{$array_khoa_hoc->ma_khoa_hoc}}">
+				<div><input type="text" name="ten_khoa_hoc" id="textbox" value="{{$array_khoa_hoc->ten_khoa_hoc}}"></div><br>
+				<div><input type="submit" value="Sửa" id="button"></div>
+			</form>
+		</div>
 @endsection
-@push('js')
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-@endpush

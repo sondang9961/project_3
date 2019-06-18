@@ -33,4 +33,17 @@ class LopController extends Controller
 		//điều hướng
 		return redirect()->route("$this->folder.view_all"); 
 	}
+
+	public function process_update($ma_lop)
+	{
+		$lop = new Lop();
+		$lop->ma_lop = $ma_lop;
+		$lop->ten_lop = Request::get('ten_lop');
+		$lop->ma_khoa_hoc = Request::get('ma_khoa_hoc');
+		$lop->updateLop();
+
+		//điều hướng
+		return redirect()->route("$this->folder.view_all"); 
+	}
+
 }
