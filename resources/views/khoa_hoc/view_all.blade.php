@@ -3,6 +3,7 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 @endpush
 @section('content')
+<font face="Roboto,Helvetica Neue,Arial,sans-serif">
 <center><h1>Quản lý khóa học</h1></center>
 	<div id="main_content">
 		<div id="left_content">
@@ -61,6 +62,7 @@
 	      	</div>
     	</div>
   	</div>
+</font>
 @endsection
 @push('js')
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
