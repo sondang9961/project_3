@@ -31,6 +31,7 @@ class SachController extends Controller
 		$mon_hoc = new MonHoc();
 		$mon_hoc->ma_khoa_hoc = Request::get('ma_khoa_hoc');
 		$array_mon_hoc = $mon_hoc->get_all_by_khoa_hoc();
+		return $array_mon_hoc;
 	}
 
 	public function process_insert()
