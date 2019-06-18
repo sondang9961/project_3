@@ -1,13 +1,13 @@
 @extends('layer.master')
 @push('css')
-<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet" />
 <style type="text/css">
-	.div_hide {
+	.div_hide{
 		display: none;
 	}
 </style>
 @endpush
 @section('content')
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet" />
 <center><h1>Quản lý sách</h1></center>
 	<div id="main_content">
 		<div id="left_content">
@@ -45,7 +45,7 @@
 								@endforeach
 							</select>
 						</div><br>
-						<div class="form-group div_hide" id="div_mon_hoc" style="display: none;">
+						<div class="div_hide" id="div_mon_hoc">
 							<div>Tên môn</div>
 							<select name="ma_mon_hoc" class="form-control" style="width: 25rem" id="select_mon_hoc">
 								<option>--Môn học--</option>
@@ -70,33 +70,33 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
+		$("#select_khoa_hoc").select2();
 		$("#select_khoa_hoc").change(function(){
 			$("#div_mon_hoc").show();
 			$("#select_mon_hoc").val(null).trigger('change');
 		})
 		$("#select_mon_hoc").select2({
-		ajax: {
-			url: '{{route('get_mon_hoc_by_khoa_hoc')}}',
-			dataType: 'json', 
-			data: function() {
-				ma_khoa_hoc = $("#select_khoa_hoc").val();
-				return {
-					ma_khoa_hoc: ma_khoa_hoc;
+			ajax: {
+				url: '{{route('get_mon_hoc_by_khoa_hoc')}}',
+				dataType: 'json', 
+				data: function() {
+					ma_khoa_hoc = $("#select_khoa_hoc").val();
+					return {
+						ma_khoa_hoc: ma_khoa_hoc
+					}
+				},
+				processResults: function (data){
+					return {
+						results: $.map(data, function(item) {
+							return  {
+								text: item.ten_mon_hoc,
+								id: item.ma_mon_hoc 
+							}
+						})
+					};
 				}
-			},
-			processResults: function(data){
-				return {
-					results: $.map(data, function(item) {
-						return  {
-							text: item.ten_mon_hoc,
-							id: item.ma_mon_hoc 
-						}
-					})
-				};
 			}
-		}
-	});
+		});
 	});
 </script>
 @endpush
-
