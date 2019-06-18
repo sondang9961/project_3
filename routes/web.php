@@ -12,6 +12,8 @@ Route::group(['prefix' => 'khoa_hoc'], function(){
 	->name('khoa_hoc.view_all');
 	Route::post('process_insert','KhoaHocController@process_insert')
 	->name('khoa_hoc.process_insert');
+	Route::get('view_update/{ma_khoa_hoc}','KhoaHocController@view_update')
+	->name('khoa_hoc.view_update');
 	Route::post('process_update','KhoaHocController@process_update')
 	->name('khoa_hoc.process_update');
 });

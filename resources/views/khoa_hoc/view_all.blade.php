@@ -1,4 +1,7 @@
 @extends('layer.master')
+@push('css')
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+@endpush
 @section('content')
 <center><h1>Quản lý khóa học</h1></center>
 	<div id="main_content">
@@ -16,11 +19,13 @@
 						<td>{{$khoa_hoc->ma_khoa_hoc}}</td>
 						<td><input type="text" name="ten_khoa_hoc" value="{{$khoa_hoc->ten_khoa_hoc}}"></td>
 						<td>
-							<button style="width:100%">Cập nhật</button>
+							<a href="{{route('khoa_hoc.view_update',['ma_khoa_hoc' => $khoa_hoc->ma_khoa_hoc])}}">
+								<button class="btn btn-warning btn-simple btn-icon " data-toggle="modal" data-target="#myModal">	<i class="fa fa-edit"></i>
+								</button>
+							</a>
 						</td>
 					</tr>
 				@endforeach
-				</table>
 			</form>			
 		</div>
 		<div id="right_content" >
@@ -36,3 +41,7 @@
 		</div>
 	</div>
 @endsection
+@push('js')
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+@endpush

@@ -12,7 +12,9 @@ class KhoaHocController extends Controller
 		$khoa_hoc = new KhoaHoc();
 		$array_khoa_hoc = $khoa_hoc->get_all();
 
-		return view ("$this->folder.view_all",['array_khoa_hoc' => $array_khoa_hoc]);
+		return view ("$this->folder.view_all",[
+			'array_khoa_hoc' => $array_khoa_hoc
+		]);
 	}
 
 	public function process_insert()
@@ -23,5 +25,16 @@ class KhoaHocController extends Controller
 
 		//điều hướng
 		return redirect()->route('khoa_hoc.view_all');
+	}
+
+	public function view_update($ma_khoa_hoc)
+	{
+		$khoa_hoc = new KhoaHoc();
+		$khoa_hoc->ma_khoa_hoc = $ma_khoa_hoc;
+		$khoa_hoc = $khoa_hoc->get_one();
+
+		return view ("$this->folder.view_update",[
+			'array_khoa_hoc' => $array_khoa_hoc
+		]);
 	}
 }
