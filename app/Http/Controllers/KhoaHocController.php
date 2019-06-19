@@ -38,10 +38,10 @@ class KhoaHocController extends Controller
 		]);
 	}*/
 
-	public function process_update()
+	public function process_update($ma_khoa_hoc)
 	{
 		$khoa_hoc = new KhoaHoc();
-		$khoa_hoc->ma_khoa_hoc = Request::get('ma_khoa_hoc');
+		$khoa_hoc->ma_khoa_hoc = $ma_khoa_hoc;
 		$khoa_hoc->ten_khoa_hoc = Request::get('ten_khoa_hoc');
 		$khoa_hoc->updateKhoaHoc();
 

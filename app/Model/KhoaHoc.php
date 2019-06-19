@@ -25,9 +25,9 @@ class KhoaHoc extends Model
 		return $array_khoa_hoc[0];
 	}
 
-	public function updateKH()
+	public function updateKhoaHoc()
 	{
-		$update = DB::update("update $this->table set ten_khoa_hoc = ? where ma_khoa_hoc = ?",[$this->ten_khoa_hoc, $this->ma_khoa_hoc]);
+		DB::update("update $this->table set ten_khoa_hoc = ? where ma_khoa_hoc = ?",[$this->ten_khoa_hoc, $this->ma_khoa_hoc]);
 	}
 	
 }
