@@ -166,6 +166,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
+		$("#select_tinh_trang").select2();
 		$("#select_khoa_hoc").select2();
 		$("#select_khoa_hoc").change(function(){
 			$("#select_mon_hoc").val(null).trigger('change');
