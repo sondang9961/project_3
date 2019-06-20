@@ -12,7 +12,6 @@ class LopController extends Controller
 	{
 		$lop = new Lop();
 		$array_lop = $lop->get_all();
-		//dd($array_lop);
 
 		$khoa_hoc = new KhoaHoc();
 		$array_khoa_hoc = $khoa_hoc->get_all();
@@ -21,6 +20,14 @@ class LopController extends Controller
 			'array_khoa_hoc' => $array_khoa_hoc
 		]);
 		
+	}
+
+	public function get_lop_by_khoa_hoc()
+	{
+		$lop = new Lop();
+		$lop->ma_khoa_hoc = Request::get('ma_khoa_hoc');
+		$array_lop = $lop->get_all_by_khoa_hoc();
+		return $array_lop;
 	}
 
 	public function process_insert()

@@ -14,6 +14,12 @@ class Sach extends Model
 		return $array_sach;
 	}
 
+	public function get_all_by_mon_hoc($value='')
+	{
+		$array_sach = DB::select("select * from $this->table where ma_mon_hoc=?",[$this->ma_mon_hoc]);
+		return $array_sach;
+	}
+
 	public function insert()
 	{
 		DB::insert("insert into sach (ten_sach,so_luong_nhap) values (?,?)",[$this->ten_sach,$this->so_luong_nhap]);

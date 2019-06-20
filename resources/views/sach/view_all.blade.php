@@ -1,13 +1,8 @@
 @extends('layer.master')
 @push('css')
-<style type="text/css">
-	.div_hide{
-		display: none;
-	}
-</style>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet" />
 @endpush
 @section('content')
-<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet" />
 <center><h1>Quản lý sách</h1></center>
 	<div id="main_content">
 		<div id="left_content">
@@ -45,15 +40,10 @@
 								@endforeach
 							</select>
 						</div><br>
-						<div class="div_hide" id="div_mon_hoc">
+						<div id="div_mon_hoc">
 							<div>Tên môn</div>
 							<select name="ma_mon_hoc" class="form-control" style="width: 25rem" id="select_mon_hoc">
 								<option>--Môn học--</option>
-								@foreach ($array_mon_hoc as $mon_hoc)
-									<option value="{{$mon_hoc->ma_mon_hoc}}">
-										{{$mon_hoc->ten_mon_hoc}}
-									</option>
-								@endforeach
 							</select>
 						</div><br>
 						<div>Tên sách</div>	
@@ -72,13 +62,12 @@
 	$(document).ready(function() {
 		$("#select_khoa_hoc").select2();
 		$("#select_khoa_hoc").change(function(){
-			$("#div_mon_hoc").show();
 			$("#select_mon_hoc").val(null).trigger('change');
 		})
 		$("#select_mon_hoc").select2({
 			ajax: {
 				url: '{{route('get_mon_hoc_by_khoa_hoc')}}',
-				dataType: 'json', 
+				dataType: 'json',
 				data: function() {
 					ma_khoa_hoc = $("#select_khoa_hoc").val();
 					return {

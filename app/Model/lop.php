@@ -13,6 +13,12 @@ class Lop extends Model
 		return $array_lop;
 	}
 
+	public function get_all_by_khoa_hoc($value='')
+	{
+		$array_lop = DB::select("select * from $this->table where ma_khoa_hoc=?",[$this->ma_khoa_hoc]);
+		return $array_lop;
+	}
+
 	public function insert()
 	{
 		DB::insert("insert into $this->table (ten_lop,ma_khoa_hoc)

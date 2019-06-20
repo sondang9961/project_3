@@ -90,7 +90,7 @@
 									<td>
 										<div>Khóa học</div>
 										<div>
-											<select name="ma_khoa_hoc" class="form-control" style="width: 14rem" id="select_khoa_hoc">
+											<select class="form-control" style="width: 14rem" id="select_khoa_hoc">
 												<option disabled selected>--Chọn khóa học--</option>
 												@foreach ($array_khoa_hoc as $khoa_hoc)
 													<option value="{{$khoa_hoc->ma_khoa_hoc}}">
@@ -105,7 +105,7 @@
 									<td>
 										<div>Tên lớp</div>
 										<div>
-											<select name="ma_lop" class="form-control" style="width: 14rem" id="select_lop">
+											<select class="form-control" style="width: 14rem" id="select_khoa_hoc">
 												<option>--Lớp--</option>
 											</select>
 										</div>
@@ -117,7 +117,7 @@
 									<td>
 										<div>Tên môn</div>
 										<div>
-											<select name="ma_mon_hoc" class="form-control" style="width: 14rem" id="select_mon_hoc">
+											<select class="form-control" style="width: 14rem" id="select_mon_hoc">
 												<option>--Môn học--</option>
 											</select>
 										</div>
@@ -127,7 +127,7 @@
 									<td>
 										<div>Tên sinh viên</div>
 										<div>
-											<select name="ma_sinh_vien" class="form-control" style="width: 14rem" id="select_sinh_vien">
+											<select class="form-control" style="width: 14rem" id="select_sinh_vien">
 												<option>--tên sinh viên--</option>
 											</select>
 										</div>
@@ -139,7 +139,7 @@
 									<td>
 										<div>Tên sách</div>	
 										<div>
-											<select name="ma_sach" class="form-control" style="width: 14rem" id="select_sach">
+											<select class="form-control" name="ma_sach" style="width: 14rem" id="select_sach">
 												<option>--tên sách--</option>
 											</select>
 										</div>
@@ -149,7 +149,7 @@
 									<td>
 										<div>Tình trạng</div>	
 										<div>
-											<select name="tinh_trang" class="form-control" style="width: 14rem" id="select_tinh_trang">
+											<select class="form-control" name="tinh_trang" style="width: 14rem" id="select_tinh_trang">
 												<option>--Tình trạng--</option>
 												<option>Đã nhận</option>
 												<option>Chưa nhận</option>
@@ -173,13 +173,6 @@
 		$("#select_khoa_hoc").select2();
 		$("#select_khoa_hoc").change(function(){
 			$("#select_mon_hoc").val(null).trigger('change');
-			$("#select_lop").val(null).trigger('change');
-		})
-		$("#select_mon_hoc").change(function(){
-			$("#select_sach").val(null).trigger('change');
-		})
-		$("#select_lop").change(function(){
-			$("#select_sinh_vien").val(null).trigger('change');
 		})
 		$("#select_mon_hoc").select2({
 			ajax: {
@@ -197,72 +190,6 @@
 							return  {
 								text: item.ten_mon_hoc,
 								id: item.ma_mon_hoc 
-							}
-						})
-					};
-				}
-			}
-		});
-		$("#select_lop").select2({
-			ajax: {
-				url: '{{route('get_lop_by_khoa_hoc')}}',
-				dataType: 'json',
-				data: function() {
-					ma_khoa_hoc = $("#select_khoa_hoc").val();
-					return {
-						ma_khoa_hoc: ma_khoa_hoc
-					}
-				},
-				processResults: function (data){
-					return {
-						results: $.map(data, function(item) {
-							return  {
-								text: item.ten_lop,
-								id: item.ma_lop
-							}
-						})
-					};
-				}
-			}
-		});
-		$("#select_sach").select2({
-			ajax: {
-				url: '{{route('get_sach_by_mon_hoc')}}',
-				dataType: 'json',
-				data: function() {
-					ma_mon_hoc = $("#select_mon_hoc").val();
-					return {
-						ma_mon_hoc: ma_mon_hoc
-					}
-				},
-				processResults: function (data){
-					return {
-						results: $.map(data, function(item) {
-							return  {
-								text: item.ten_sach,
-								id: item.ma_sach
-							}
-						})
-					};
-				}
-			}
-		});
-		$("#select_sinh_vien").select2({
-			ajax: {
-				url: '{{route('get_sinh_vien_by_lop')}}',
-				dataType: 'json',
-				data: function() {
-					ma_lop = $("#select_lop").val();
-					return {
-						ma_lop: ma_lop
-					}
-				},
-				processResults: function (data){
-					return {
-						results: $.map(data, function(item) {
-							return  {
-								text: item.ten_sinh_vien,
-								id: item.ma_sinh_vien
 							}
 						})
 					};

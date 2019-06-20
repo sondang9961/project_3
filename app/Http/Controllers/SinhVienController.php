@@ -21,6 +21,14 @@ class SinhVienController extends Controller
 		]);
 	}
 
+	public function get_sinh_vien_by_lop()
+	{
+		$sinh_vien = new SinhVien();
+		$sinh_vien->ma_lop = Request::get('ma_lop');
+		$array_sinh_vien = $sinh_vien->get_all_by_lop();
+		return $array_sinh_vien;
+	}
+
 	public function process_insert()
 	{
 		$sinh_vien = new SinhVien();

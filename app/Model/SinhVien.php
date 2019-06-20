@@ -15,9 +15,10 @@ class SinhVien extends Model
 		return $array_sinh_vien;
 	}
 
-	public function insert()
+	public function get_all_by_lop($value='')
 	{
-		DB::insert("insert into $this->table (ten_sinh_vien,ma_lop) values (?,?)",[$this->ten_sinh_vien,$this->ma_lop]);
+		$array_sinh_vien = DB::select("select * from $this->table where ma_lop=?",[$this->ma_lop]);
+		return $array_sinh_vien;
 	}
 
 	public function updateSV()
