@@ -15,16 +15,16 @@
 					<th>Chức năng</th>
 				</tr>
 				@foreach ($array_khoa_hoc as $khoa_hoc)
-				<form action="{{route('khoa_hoc.process_update', ['ma_khoa_hoc' => $khoa_hoc->ma_khoa_hoc])}}" method="post">
+				<!--<form action="{{route('khoa_hoc.process_update', ['ma_khoa_hoc' => $khoa_hoc->ma_khoa_hoc])}}" method="post">-->
 					{{csrf_field()}}
 					<tr>
 						<td>{{$khoa_hoc->ma_khoa_hoc}}</td>
 						<td><input type="text" name="ten_khoa_hoc" value="{{$khoa_hoc->ten_khoa_hoc}}"></td>
 						<td>
-							<input type="submit" value="Cập nhật">
+							<input type="button" value="Cập nhật" data-toggle="modal" data-target="#myModal">
 						</td>
 					</tr>
-				</form>
+				<!--</form>-->
 				@endforeach
 			</table>			
 		</div>
@@ -52,7 +52,7 @@
 		        </div>
 		        <div class="modal-body">
 			        <form>
-			          	Tên khóa học <input type="text" name="ten_khoa_hoc" value="" />
+			          	Tên khóa học 	
 			        	<button>Sửa</button>
 			        </form>
 		        </div>

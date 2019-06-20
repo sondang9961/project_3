@@ -27,7 +27,7 @@ class KhoaHocController extends Controller
 		return redirect()->route('khoa_hoc.view_all');
 	}
 
-	/*public function view_update($ma_khoa_hoc)
+	public function view_update($ma_khoa_hoc)
 	{
 		$khoa_hoc = new KhoaHoc();
 		$khoa_hoc->ma_khoa_hoc = $ma_khoa_hoc;
@@ -36,7 +36,7 @@ class KhoaHocController extends Controller
 		return view("$this->folder.view_update",[
 			'array_khoa_hoc' => $array_khoa_hoc
 		]);
-	}*/
+	}
 
 	public function process_update($ma_khoa_hoc)
 	{
