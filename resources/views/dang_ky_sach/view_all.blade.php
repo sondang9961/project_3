@@ -8,54 +8,50 @@
 		<div id="left_content">
 			<div><h2>Danh sách sinh viên đăng ký sách</h2></div>
 			<form>
-				<table width="70%">
+				<table style="width: 100%">
 					<tr style="height: 4rem">
-						<div>
-							<td>
-								Tên khóa học 
-							</td>
-							<td>
-								<select>
-									<option>--Tên khóa học--</option>
+						<td>
+							Tên khóa học
+						</td>
+						<td>
+							<select name="ma_khoa_hoc" class="form-control" style="width: 14rem" id="search_khoa_hoc">
+								<option disabled selected>--Chọn khóa học--</option>
+								@foreach ($array_khoa_hoc as $khoa_hoc)
+									<option value="{{$khoa_hoc->ma_khoa_hoc}}">
+										{{$khoa_hoc->ten_khoa_hoc}}
+									</option>
+								@endforeach
 							</select>
-							</td>
-						</div>
-						<div>
-							<td>
-								Tên môn
-							</td>
-							<td>
-								<select>
-									<option>--Tên môn--</option>
+						</td>
+						<td>
+							Tên lớp
+						</td>
+						<td>
+							<select name="ma_lop" class="form-control" style="width: 14rem" id="search_lop">
+								<option>--Lớp--</option>
 							</select>
-							</td>
-						</div>													
+						</td>
+						<td></td>
 					</tr>
 					<tr>
-						<div>
-							<td>
-								Tên lớp 
-							</td>
-							<td>
-								<select>
-									<option>--Tên lớp--</option>
-								</select>
-							</td>
-						</div>
-						<div>
-							<td>
-								Tên sách 
-							</td>
-							<td>
-								<select>
-									<option>--Tên sách--</option>
+						<td>
+							Tên môn
+						</td>
+						<td>
+							<select name="ma_mon_hoc" class="form-control" style="width: 14rem" id="search_mon_hoc">
+								<option>--Môn học--</option>
 							</select>
-							</td>						
-						</div>
-					</tr>
-					<tr>
+						</td>
+						<td>
+							Tên sách
+						</td>
+						<td>
+							<select name="ma_sach" class="form-control" style="width: 14rem" id="search_sach">
+								<option>--Tên sách--</option>
+							</select>
+						</td>
 						<td><input type="button" value="Xem" id="button"></td>
-					</tr>
+				</tr>
 				</table>
 			</form>
 			 <br/>
@@ -128,7 +124,7 @@
 										<div>Tên sinh viên</div>
 										<div>
 											<select name="ma_sinh_vien" class="form-control" style="width: 14rem" id="select_sinh_vien">
-												<option>--tên sinh viên--</option>
+												<option>--Tên sinh viên--</option>
 											</select>
 										</div>
 									</td>
@@ -140,7 +136,7 @@
 										<div>Tên sách</div>	
 										<div>
 											<select name="ma_sach" class="form-control" style="width: 14rem" id="select_sach">
-												<option>--tên sách--</option>
+												<option>--Tên sách--</option>
 											</select>
 										</div>
 									</td>
@@ -263,6 +259,84 @@
 							return  {
 								text: item.ten_sinh_vien,
 								id: item.ma_sinh_vien
+							}
+						})
+					};
+				}
+			}
+		});
+
+		$("#search_khoa_hoc").select2();
+		$("#search_khoa_hoc").change(function(){
+			$("#search_mon_hoc").val(null).trigger('change');
+			$("#search_lop").val(null).trigger('change');
+		})
+		$("#search_mon_hoc").change(function(){
+			$("#search_sach").val(null).trigger('change');
+		})
+		$("#search_lop").change(function(){
+			$("#search_sinh_vien").val(null).trigger('change');
+		})
+		$("#search_mon_hoc").select2({
+			ajax: {
+				url: '{{route('get_mon_hoc_by_khoa_hoc')}}',
+				dataType: 'json',
+				data: function() {
+					ma_khoa_hoc = $("#search_khoa_hoc").val();
+					return {
+						ma_khoa_hoc: ma_khoa_hoc
+					}
+				},
+				processResults: function (data){
+					return {
+						results: $.map(data, function(item) {
+							return  {
+								text: item.ten_mon_hoc,
+								id: item.ma_mon_hoc 
+							}
+						})
+					};
+				}
+			}
+		});
+		$("#search_lop").select2({
+			ajax: {
+				url: '{{route('get_lop_by_khoa_hoc')}}',
+				dataType: 'json',
+				data: function() {
+					ma_khoa_hoc = $("#search_khoa_hoc").val();
+					return {
+						ma_khoa_hoc: ma_khoa_hoc
+					}
+				},
+				processResults: function (data){
+					return {
+						results: $.map(data, function(item) {
+							return  {
+								text: item.ten_lop,
+								id: item.ma_lop
+							}
+						})
+					};
+				}
+			}
+		});
+		$("#search_sach").select2({
+			ajax: {
+				url: '{{route('get_sach_by_mon_hoc')}}',
+				dataType: 'json',
+				data: function() {
+					ma_mon_hoc = $("#search_mon_hoc").val();
+					return {
+						ma_mon_hoc: ma_mon_hoc
+					}
+				},
+				processResults: function (data){
+					return {
+						results: $.map(data, function(item) {
+							return  {
+								text: item.ten_sach,
+								id: item.ma_sach
 							}
 						})
 					};
