@@ -36,19 +36,19 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-4 col-sm-6 col-md-offset-4 col-sm-offset-3">
-                        <form method="#" action="#">
-
+                        <form method="post" action="{{ route('process_login')}}">
+                        {{csrf_field()}}
                         <!--   if you want to have the card without animation please remove the ".card-hidden" class   -->
                             <div class="card card-hidden">
                                 <div class="header text-center">Login</div>
                                 <div class="content">
                                     <div class="form-group">
                                         <label>USERNAME</label>
-                                        <input type="email" placeholder="Enter username" class="form-control">
+                                        <input type="email" name="email" placeholder="Enter username" class="form-control">
                                     </div>
                                     <div class="form-group">
                                         <label>PASSWORD</label>
-                                        <input type="password" placeholder="Password" class="form-control">
+                                        <input type="password" name="password" placeholder="Password" class="form-control">
                                     </div>
                                     <div class="form-group">
                                         <center><a href="">Forgot password?</a></center>
@@ -79,45 +79,6 @@
 	<script src="js/bootstrap.min.js" type="text/javascript"></script>
 	<script src="js/perfect-scrollbar.jquery.min.js" type="text/javascript"></script>
 
-
-	<!--  Forms Validations Plugin -->
-	<script src="js/jquery.validate.min.js"></script>
-
-	<!--  Plugin for Date Time Picker and Full Calendar Plugin-->
-	<script src="js/moment.min.js"></script>
-
-    <!--  Date Time Picker Plugin is included in this js file -->
-    <script src="js/bootstrap-datetimepicker.min.js"></script>
-
-    <!--  Select Picker Plugin -->
-    <script src="js/bootstrap-selectpicker.js"></script>
-
-	<!--  Checkbox, Radio, Switch and Tags Input Plugins -->
-		<script src="js/bootstrap-switch-tags.min.js"></script>
-
-	<!--  Charts Plugin -->
-	<script src="js/chartist.min.js"></script>
-
-    <!--  Notifications Plugin    -->
-    <script src="js/bootstrap-notify.js"></script>
-
-    <!-- Sweet Alert 2 plugin -->
-	<script src="js/sweetalert2.js"></script>
-
-    <!-- Vector Map plugin -->
-	<script src="js/jquery-jvectormap.js"></script>
-
-    <!--  Google Maps Plugin    -->
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
-
-	<!-- Wizard Plugin    -->
-    <script src="js/jquery.bootstrap.wizard.min.js"></script>
-
-    <!--  Datatable Plugin    -->
-    <script src="js/bootstrap-table.js"></script>
-
-    <!--  Full Calendar Plugin    -->
-    <script src="js/fullcalendar.min.js"></script>
 
     <!-- Light Bootstrap Dashboard Core javascript and methods -->
 	<script src="js/light-bootstrap-dashboard.js?v=1.4.1"></script>

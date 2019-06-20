@@ -7,11 +7,10 @@ use DB;
 
 class DangKySach extends Model
 {
-	static function get_all()
+	public $table = 'dang_ky_sach';
+	public function get_all()
 	{
-		$array_dang_ky_sach= DB::select ("
-			select * from dang_ky_sach 
-			");
+		$array_dang_ky_sach= DB::select ("select * from $this->table join sinh_vien on $this->table.ma_sinh_vien = sinh_vien.ma_sinh_vien JOIN sach on $this->table.ma_sach = sach.ma_sach");
 		return $array_dang_ky_sach;
 	}
 }

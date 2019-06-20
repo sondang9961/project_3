@@ -16,7 +16,7 @@
 
 				<a data-toggle="collapse" href="#collapseExample" class="collapsed">
 					<span>
-						Tania Andrew
+						Welcome: {{Session::get('ten_giao_vu')}}
                         <b class="caret"></b>
 					</span>
                 </a>

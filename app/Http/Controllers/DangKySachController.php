@@ -10,7 +10,8 @@ class DangKySachController extends Controller
 	private $folder = 'dang_ky_sach';
 	public function view_all()
 	{
-		$array_dang_ky_sach = DangKySach::get_all();
+		$dang_ky_sach = new DangKySach();
+		$array_dang_ky_sach = $dang_ky_sach->get_all();
 
 		$khoa_hoc = new KhoaHoc();
 		$array_khoa_hoc = $khoa_hoc->get_all();
