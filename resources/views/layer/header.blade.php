@@ -77,11 +77,6 @@
 						</li>
 						<li class="divider"></li>
 						<li>
-							<a href="#">
-								<i class="pe-7s-lock"></i> Lock Screen
-							</a>
-						</li>
-						<li>
 							<a href="{{ route('logout')}}" class="text-danger">
 								<i class="pe-7s-close-circle"></i>
 								Log out

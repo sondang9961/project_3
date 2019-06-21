@@ -12,10 +12,11 @@
 
 
     <!-- Bootstrap core CSS     -->
-    <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <link href="{{asset('css/bootstrap.min.css')}}" rel="stylesheet" />
+   
 
     <!--  Light Bootstrap Dashboard core CSS    -->
-    <link href="css/light-bootstrap-dashboard.css?v=1.4.1" rel="stylesheet"/>
+    <link href="{{asset('css/light-bootstrap-dashboard.css')}}" rel="stylesheet" />
 
 
 
@@ -39,7 +40,7 @@
                         <form method="post" action="{{ route('process_login')}}">
                         {{csrf_field()}}
                         <!--   if you want to have the card without animation please remove the ".card-hidden" class   -->
-                            <div class="card card-hidden">
+                            <div class="card ">
                                 <div class="header text-center">Login</div>
                                 <div class="content">
                                     <div class="form-group">
@@ -70,28 +71,17 @@
     </div>
 
 </div>
-
-
 </body>
-
+</html>
+@push('js')
     <!--   Core JS Files  -->
-    <script src="js/jquery.min.js" type="text/javascript"></script>
-	<script src="js/bootstrap.min.js" type="text/javascript"></script>
-	<script src="js/perfect-scrollbar.jquery.min.js" type="text/javascript"></script>
+    <script src="{{asset('js/jquery.min.js')}}" type="text/javascript"></script>
+    <script src="{{asset('js/bootstrap.min.js')}}" type="text/javascript"></script>
+    <script src="{{asset('js/perfect-scrollbar.jquery.min.js')}}" type="text/javascript"></script>
 
 
     <!-- Light Bootstrap Dashboard Core javascript and methods -->
-	<script src="js/light-bootstrap-dashboard.js?v=1.4.1"></script>
+	<script src="{{asset('js/light-bootstrap-dashboard.js')}}"></script>
 
-    <script type="text/javascript">
-        $().ready(function(){
-            lbd.checkFullPageBackgroundImage();
-
-            setTimeout(function(){
-                // after 1000 ms we add the class animated to the login/register card
-                $('.card').removeClass('card-hidden');
-            }, 700)
-        });
-    </script>
-
-</html>
+    
+@endpush

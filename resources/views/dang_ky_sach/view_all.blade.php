@@ -59,6 +59,7 @@
 				<tr>
 					<th>Mã đăng ký</th>
 					<th>Tên sinh viên</th>
+					<th>Tên sách</th>
 					<th>Tình trạng</th>
 					<th>Ngày đăng ký sách</th>
 					<th>Ngày nhận sách</th>						
@@ -146,7 +147,7 @@
 										<div>Tình trạng</div>	
 										<div>
 											<select name="tinh_trang" class="form-control" style="width: 14rem" id="select_tinh_trang">
-												<option>--Tình trạng--</option>
+												<option disabled selected>--Tình trạng--</option>
 												<option>Đã nhận</option>
 												<option>Chưa nhận</option>
 											</select>
@@ -267,6 +268,7 @@
 			}
 		});
 
+		//Search
 		$("#search_khoa_hoc").select2();
 		$("#search_khoa_hoc").change(function(){
 			$("#search_mon_hoc").val(null).trigger('change');
