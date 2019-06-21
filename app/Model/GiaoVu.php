@@ -19,7 +19,7 @@ class GiaoVu extends Model
 	public function get_one()
 	{
 		$array_giao_vu = DB::select("select * from $this->table where ma_giao_vu = ?",[$this->ma_giao_vu]);
-		return $array_giao_vu;
+		return $array_giao_vu[0];
 	}
 
 	public function update_profile()
