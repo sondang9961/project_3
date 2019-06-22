@@ -103,6 +103,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'CheckAdmin'], function(){
 		->name("dang_ky_sach.process_insert");
 		Route::post("process_update","DangKySachController@process_update")
 		->name("dang_ky_sach.process_update");
+		Route::get("change_tinh_trang_dang_ky_sach","DangKySachController@change_tinh_trang_dang_ky_sach")
+		->name("dang_ky_sach.change_tinh_trang_dang_ky_sach");
 	});
 });
 

@@ -27,6 +27,10 @@
 					<select>
 						<option>--Tên lớp--</option>
 					</select>
+				Sách
+					<select>
+						<option>--Tên sách--</option>
+					</select>
 				<input type="button" value="Xem" id="button">
 			</form><br>
 			<table class="table table-striped">
