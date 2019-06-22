@@ -30,7 +30,7 @@
 					<tr>
 						<td>{{$lop->ma_lop}}</td>
 						<td><input type="text" name="ten_lop" value="{{$lop->ten_lop}}" size="10"></td>
-						<td >
+						<td>
 							<select name="ma_khoa_hoc">
 								@foreach($array_khoa_hoc as $khoa_hoc)
 									<option value="{{$khoa_hoc->ma_khoa_hoc}}" 
@@ -47,8 +47,8 @@
 							<input type="submit" value="Cập nhật">
 						</td>
 				</form>
-					<td><button style="width:100%" onclick="location.href='{{route('sinh_vien.danh_sach_sinh_vien_by_lop', ['ma_lop' => $lop->ma_lop])}}'">Danh sách sinh viên</button></td>
-				</tr>
+					<td><button style="width:100%" onclick="location.href='{{route('sinh_vien.danh_sach_sinh_vien_by_lop', ['ma_lop' => $lop->ma_lop])}}'">Danh sách SV</button></td>
+					</tr>
 				@endforeach
 			</table>
 		</div>

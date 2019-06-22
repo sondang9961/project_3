@@ -50,7 +50,7 @@
 								<option>--Tên sách--</option>
 							</select>
 						</td>
-						<td><input type="button" value="Xem" id="button" disabled></td>
+						<td><input type="button" value="Xem" id="button"></td>
 				</tr>
 				</table>
 			</form>
