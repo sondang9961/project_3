@@ -16,9 +16,12 @@ class DangKySach
 	public function updateTinhTrang()
 	{
 		DB::update("update $this->table
-			set tinh_trang_nhan_sach = ?
+			set 
+			tinh_trang_nhan_sach = ?,
+			ngay_nhan_sach = ?
 			where ma_dang_ky = ?",[
 				$this->tinh_trang_nhan_sach,
+				$this->ngay_nhan_sach,
 				$this->ma_dang_ky
 			]);
 	}
@@ -32,10 +35,11 @@ class DangKySach
 
 	public function insert()
 	{
-		DB::insert("insert into $this->table (ma_sinh_vien, ma_sach, tinh_trang_nhan_sach, ngay_nhan_sach) values (?, ?, ?, ?)",[
+		DB::insert("insert into $this->table (ma_sinh_vien, ma_sach, tinh_trang_nhan_sach, ngay_dang_ky, ngay_nhan_sach) values (?, ?, ?, ?, ?)",[
 				$this->ma_sinh_vien,
 				$this->ma_sach,
 				$this->tinh_trang_nhan_sach,
+				$this->ngay_dang_ky,		
 				$this->ngay_nhan_sach
 		]);
 	}

@@ -22,9 +22,10 @@ class Sach extends Model
 
 	public function insert()
 	{
-		DB::insert("insert into sach (ten_sach,so_luong_nhap,ngay_het_han,ma_mon_hoc) values (?,?,?,?)",[
+		DB::insert("insert into sach (ten_sach,so_luong_nhap,ngay_nhap_sach,ngay_het_han,ma_mon_hoc) values (?,?,?,?,?)",[
 			$this->ten_sach,
 			$this->so_luong_nhap,
+			$this->ngay_nhap_sach,
 			$this->ngay_het_han,
 			$this->ma_mon_hoc
 			

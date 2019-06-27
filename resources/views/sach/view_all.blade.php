@@ -62,8 +62,10 @@
 					<td>{{$sach->ten_sach}}</td>
 					<td>{{$sach->ten_mon_hoc}}</td>
 					<td>{{$sach->so_luong_nhap}}</td>
-					<td>{{$sach->ngay_nhap_sach}}</td>
-					<td>{{$sach->ngay_het_han}}</td>
+					<td>
+						{{date_format(date_create($sach->ngay_nhap_sach),'d/m/Y')}}
+					</td>
+					<td>{{date_format(date_create($sach->ngay_het_han),'d/m/Y')}}</td>
 					<td>
 						<input type="submit" value="Cập nhật">
 					</td>
@@ -130,8 +132,9 @@
 			$("#so_luong").attr("disabled", true);
 			$(".add_button").attr("disabled", true);
 		})
-		$("#ten_sach").change(function(){		
+		$("#ten_sach").change(function(){	
 			$("#so_luong").val(null).trigger('change');
+			if($("#so_luong"))
 			$("#so_luong").attr("disabled", false);
 			$(".add_button").attr("disabled", true);
 

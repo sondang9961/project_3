@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 
 use Request;
+use Response;
 use App\Model\Lop;
 use App\Model\KhoaHoc;
 
@@ -56,7 +57,7 @@ class LopController extends Controller
 	public function process_update($ma_lop)
 	{
 		$lop = new Lop();
-		$lop->ma_lop = $ma_lop;
+		$lop->ma_lop = Request::get('ma_lop');
 		$lop->ten_lop = Request::get('ten_lop');
 		$lop->ma_khoa_hoc = Request::get('ma_khoa_hoc');
 		$lop->updateLop();

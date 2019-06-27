@@ -94,7 +94,7 @@
 			        	{{csrf_field()}}
 			          	<input type="hidden" name="ma_lop" id="ma_lop">
 			          	Tên lớp<br>
-			          	<input type="text" name="ten_lop" id="ten_lop" class="form-control" value="{{$lop->ten_lop}}"><br>
+			          	<input type="text" name="ten_lop" id="ten_lop" class="form-control"><br>
 			          	Khóa học<br>
 			          	<select name="ma_khoa_hoc">
 			          		@foreach($array_khoa_hoc as $khoa_hoc)
@@ -118,11 +118,10 @@
   	</div>
 @endsection
 @push('js')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>
+<script type="text/javascript">
 	$("#search_khoa_hoc").select2();
 	$("#select_khoa_hoc").select2();
-</script>
-<script type="text/javascript">	
 	$(document).ready(function() {
 		$(".button_update").click(function(event) {
 			var ma_lop = $(this).data('ma_lop');

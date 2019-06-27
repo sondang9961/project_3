@@ -27,6 +27,7 @@ class DangKySachController extends Controller
 		$dang_ky_sach = new DangKySach();
 		$dang_ky_sach->ma_sinh_vien = Request::get('ma_sinh_vien');
 		$dang_ky_sach->ma_sach = Request::get('ma_sach');
+		$dang_ky_sach->ngay_dang_ky = date("Y-m-d");	
 		$dang_ky_sach->tinh_trang_nhan_sach = Request::get('tinh_trang_nhan_sach');
 		if (Request::get('tinh_trang_nhan_sach') == 1) {
 			$dang_ky_sach->ngay_nhan_sach = date("Y-m-d");
@@ -40,13 +41,23 @@ class DangKySachController extends Controller
 		$ma_dang_ky = Request::get('ma_dang_ky');
 		$tinh_trang_nhan_sach = Request::get('tinh_trang_nhan_sach');
 
-		$dang_ky_sach = new DangKySach();
-		$dang_ky_sach->ma_dang_ky = $ma_dang_ky;
-		$dang_ky_sach->tinh_trang_nhan_sach = $tinh_trang_nhan_sach;
-		$dang_ky_sach->updateTinhTrang();
-
-		$dang_ky_sach = $dang_ky_sach->getTenTinhTrangFromMaDangKy();
-		return Helper::getTenTinhTrang($dang_ky_sach->tinh_trang_nhan_sach);
+		switch ($tinh_trang_nhan_sach) {
+			case 0:
+				$dang_ky_sach = new DangKySach();
+				$dang_ky_sach->ma_dang_ky = $ma_dang_ky;
+				$dang_ky_sach->tinh_trang_nhan_sach = $tinh_trang_nhan_sach;
+				$dang_ky_sach->ngay_nhan_sach = null;
+				$dang_ky_sach->updateTinhTrang();
+				break;
+			case 1:
+				$dang_ky_sach = new DangKySach();
+				$dang_ky_sach->ma_dang_ky = $ma_dang_ky;
+				$dang_ky_sach->tinh_trang_nhan_sach = $tinh_trang_nhan_sach;
+				$dang_ky_sach->ngay_nhan_sach = date('Y-m-d');
+				$dang_ky_sach->updateTinhTrang();
+				break;
+		}
+		
 	}
 }
 ?>

@@ -1,4 +1,7 @@
 @extends('layer.master')
+@push('css')
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet" />
+@endpush
 @section('content')
 
 	<center><h1>Quản lý sinh viên</h1></center>
@@ -7,7 +10,7 @@
 			<div><h2>Danh sách sinh viên</h2></div>
 			<form>
 				Lớp
-				<select name="ma_lop">
+				<select name="ma_lop" id="search_lop" style="width: 10rem">
 					<option>--Tên lớp--</option>
 					@foreach($array_lop as $lop)
 						<option value="{{$lop->ma_lop}}">
@@ -28,26 +31,14 @@
 					</tr>
 				</thead>				
 				@foreach ($array_sinh_vien as $sinh_vien)
-				<form action="{{ route('sinh_vien.process_update',['ma_sinh_vien' => $sinh_vien->ma_sinh_vien])}}" method="post">
+				<form action="" method="post">
 				{{csrf_field()}}
 				<tr>
 					<td>{{$sinh_vien->ma_sinh_vien}}</td>
-					<td><input type="text" name="ten_sinh_vien" value="{{$sinh_vien->ten_sinh_vien}}" size="15"></td>
+					<td>{{$sinh_vien->ten_sinh_vien}}</td>
+					<td>{{$sinh_vien->ten_lop}}</td>
 					<td>
-						<select name="ma_lop">
-							@foreach($array_lop as $lop)
-								<option value="{{$lop->ma_lop}}" 
-									@if ($sinh_vien->ma_lop == $lop->ma_lop) 
-										selected
-									@endif
-								>
-									{{$lop->ten_lop}}
-								</option>
-							@endforeach
-						</select>
-					</td>
-					<td>
-						<input type="submit" value="Cập nhật">				
+						<input type="button" class='button_update' value="Cập nhật" data-toggle="modal" data-target="#myModal" data-ma_sinh_vien='{{$sinh_vien->ma_sinh_vien}}'>		
 					</td>				
 				</tr>
 				</form>
@@ -64,7 +55,7 @@
 						<div><input type="text" name="ten_sinh_vien" id="textbox" ></div><br>
 						<div>Tên lớp</div>
 						<div>
-							<select name="ma_lop">
+							<select name="ma_lop" style="width: 16.5rem" id="select_lop">
 								<option>--Tên lớp--</option>
 								@foreach($array_lop as $lop)
 									<option value="{{$lop->ma_lop}}">
@@ -78,4 +69,48 @@
 				</div>
 		</div>
 	</div>
+
+	<div class="modal fade" id="myModal" role="dialog">
+    	<div class="modal-dialog">
+    
+      <!-- Modal content-->
+	      	<div class="modal-content">
+		        <div class="modal-header">
+		        	<button type="button" class="close" data-dismiss="modal">&times;</button>
+		          	<h4 class="modal-title">Cập nhật sinh viên</h4>
+		        </div>
+		        <div class="modal-body">
+			        <form action="{{route('sinh_vien.process_update', ['ma_sinh_vien' => $sinh_vien->ma_sinh_vien])}}" method="post">
+			        	{{csrf_field()}}
+			          	<input type="hidden" name="ma_sinh_vien" id="ma_sinh_vien">
+			          	Tên sinh viên<br>
+			          	<input type="text" name="ten_sinh_vien" id="ten_sinh_vien" class="form-control"><br>
+			          	Lớp<br>
+				          	<select name="ma_lop">
+				          		@foreach($array_lop as $lop)
+									<option value="{{$lop->ma_lop}}" 
+										@if ($sinh_vien->ma_lop == $lop->ma_lop) 
+											selected
+										@endif
+									>
+										{{$lop->ten_lop}}
+									</option>
+								@endforeach
+				          	</select>						
+			        	<input type="submit" value="Sửa" class="btn-sm">
+			        </form>
+		        </div>
+		        <div class="modal-footer">
+		          	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		        </div>
+	      	</div>
+    	</div>
+  	</div>
 @endsection
+@push('js')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>
+<script type="text/javascript">
+	$("#search_lop").select2();
+	$("#select_lop").select2();
+</script>
+@endpush

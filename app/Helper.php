@@ -15,23 +15,28 @@ class Helper
 				break;
 		}
 	}
-	static function getButtonTinhTrang($ma_tinh_trang,$ma_dang_ky)
+	static function getRadioTinhTrang($ma_tinh_trang,$ma_dang_ky)
 	{
+		$check_tinh_trang_chua_nhan = '';
+		$check_tinh_trang_da_nhan = '';
 		switch ($ma_tinh_trang) {
-			case '1':
-				$button = "
-				<button class='button_tinh_trang' data-tinh_trang_nhan_sach='0' data-ma_dang_ky='$ma_dang_ky'>
-						Chưa nhận
-				</button>";
-				return $button;
-				break;
 			case '0':
-				$button = "
-				<button class='button_tinh_trang' data-tinh_trang_nhan_sach='1' data-ma_dang_ky='$ma_dang_ky'>
-						Đã nhận
-				</button>";
-				return $button;
+				$check_tinh_trang_chua_nhan = "checked";
+				break;
+			case '1':
+				$check_tinh_trang_da_nhan = "checked";
 				break;
 		}
+		// dd($check_tinh_trang_chua_nhan);
+		$tinh_trang = "
+				<label>
+				<input type='radio' name='radio_tinh_trang[$ma_dang_ky]' class='radio_tinh_trang' data-tinh_trang_nhan_sach='0' $check_tinh_trang_chua_nhan data-ma_dang_ky='$ma_dang_ky'>
+						Chưa nhận
+				</label>
+				<label>
+				<input type='radio' name='radio_tinh_trang[$ma_dang_ky]' class='radio_tinh_trang' data-tinh_trang_nhan_sach='1' $check_tinh_trang_da_nhan data-ma_dang_ky='$ma_dang_ky'>
+						Đã nhận
+				</label>";
+		return $tinh_trang;
 	}
 }

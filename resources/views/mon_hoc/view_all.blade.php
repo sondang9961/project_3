@@ -1,4 +1,7 @@
 @extends('layer.master')
+@push('css')
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet" />
+@endpush
 @section('content')
 	<center><h1>Quản lý môn học</h1></center>
 	<div id="main_content">
@@ -6,7 +9,7 @@
 			<div><h2>Danh sách môn học</h2></div>
 			<form>
 				Khóa học
-				<select name="ma_khoa_hoc">
+				<select name="ma_khoa_hoc" id="search_khoa_hoc" style="width:16rem">
 					<option>--Tên khóa học--</option>
 					@foreach($array_khoa_hoc as $khoa_hoc)
 						<option value="{{$khoa_hoc->ma_khoa_hoc}}">
@@ -58,7 +61,7 @@
 						<div><input type="text" name="ten_mon_hoc" id="textbox"></div><br>
 						<div>Khóa học</div>
 						<div>
-							<select name="ma_khoa_hoc">
+							<select name="ma_khoa_hoc" id="select_khoa_hoc" style="width: 16.5rem">
 								<option>--Tên khóa học--</option>
 								@foreach ($array_khoa_hoc as $khoa_hoc)
 									<option value="{{$khoa_hoc->ma_khoa_hoc}}">
@@ -73,3 +76,10 @@
 		</div>
 	</div>
 @endsection
+@push('js')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>
+<script type="text/javascript">
+	$("#search_khoa_hoc").select2();
+	$("#select_khoa_hoc").select2();
+</script>
+@endpush

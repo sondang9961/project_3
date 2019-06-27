@@ -40,6 +40,7 @@ class SachController extends Controller
 		$sach->ma_mon_hoc = Request::get('ma_mon_hoc');
 		$sach->ten_sach = Request::get('ten_sach');
 		$sach->so_luong_nhap = Request::get('so_luong_nhap');
+		$sach->ngay_nhap_sach= date("Y-m-d");
 		$sach->ngay_het_han = date("Y-m-d",strtotime("+ 14 day"));
 		
 		$sach->insert();

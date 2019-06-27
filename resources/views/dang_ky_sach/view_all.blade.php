@@ -69,14 +69,17 @@
 				<tr>
 					<td>{{$dang_ky_sach->ten_sinh_vien}}</td>
 					<td>
-						<span id="tinh_trang_{{$dang_ky_sach->ma_dang_ky}}">
-							{{Helper::getTenTinhTrang($dang_ky_sach->tinh_trang_nhan_sach)}}
-						</span>
-						{!!Helper::getButtonTinhTrang($dang_ky_sach->tinh_trang_nhan_sach,$dang_ky_sach->ma_dang_ky)!!}
+						{!!Helper::getRadioTinhTrang($dang_ky_sach->tinh_trang_nhan_sach,$dang_ky_sach->ma_dang_ky)!!}
 					</td>
 					<td>{{$dang_ky_sach->ten_sach}}</td>
-					<td>{{$dang_ky_sach->ngay_dang_ky}}</td>
-					<td>{{$dang_ky_sach->ngay_nhan_sach}}</td>
+					<td>
+						{{date_format(date_create($dang_ky_sach->ngay_dang_ky),'d/m/Y')}}
+					</td>
+					<td id="ngay_nhan_sach_{{$dang_ky_sach->ma_dang_ky}}">
+						@isset ($dang_ky_sach->ngay_nhan_sach)
+						    {{date_format(date_create($dang_ky_sach->ngay_nhan_sach),'d/m/Y')}}
+						@endisset
+					</td>
 				</tr>
 				@endforeach
 			</table>		
@@ -283,7 +286,7 @@
 				}
 			}
 		});
-		$(".button_tinh_trang").click(function(){
+		$(".radio_tinh_trang").change(function(){
 			var ma_dang_ky = $(this).data('ma_dang_ky');
 			var tinh_trang_nhan_sach = $(this).data('tinh_trang_nhan_sach');
 			$.ajax({
@@ -294,8 +297,17 @@
 					ma_dang_ky: ma_dang_ky
 				},
 			})
-			.done(function(response) {
-				$(`#tinh_trang_${ma_dang_ky}`).html(response);
+			.done(function() {
+				switch(tinh_trang_nhan_sach){
+					case 0:
+						$("#ngay_nhan_sach_"+ma_dang_ky).html('');
+						break;
+					case 1:
+						var d = new Date();
+						var date = `${d.getDate()}/${d.getMonth()+1}/${d.getFullYear()}`;
+						$("#ngay_nhan_sach_"+ma_dang_ky).html(date);
+						break;
+				}
 			});
 			
 		});
