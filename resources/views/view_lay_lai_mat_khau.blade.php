@@ -37,38 +37,19 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-4 col-sm-6 col-md-offset-4 col-sm-offset-3">
-                        <form method="post" action="{{ route('process_login')}}">
+                        <form method="post" action="{{route('process_cap_nhat_mat_khau',['ma_giao_vu' => Session::get('ma_giao_vu')])}}">
                         {{csrf_field()}}
                         <!--   if you want to have the card without animation please remove the ".card-hidden" class   -->
                             <div class="card ">
-                                <div class="header text-center">Login</div>
+                                <div class="header text-center">Đổi mật khẩu</div>
                                 <div class="content">
-                                    @if (Session::has('error'))
-                                        <span style="color: red">
-                                            {{Session::get('error')}}
-                                        </span>
-                                    @endif
-                                    @if (Session::has('success'))
-                                        <span style="color: green">
-                                            {{Session::get('success')}}
-                                        </span>
-                                    @endif
                                     <div class="form-group">
-                                        <label>USERNAME</label>
-                                        <input type="username" name="username" placeholder="Enter username" class="form-control">
-                                    </div>
-                                    <div class="form-group">
-                                        <label>PASSWORD</label>
-                                        <input type="password" name="password" placeholder="Password" class="form-control">
-                                    </div>
-                                    <div class="form-group">
-                                        <center>
-                                            <a href="quen_mat_khau">Quên mật khẩu?</a> <br>
-                                        </center>
+                                        <label>Mật khẩu mới</label>
+                                        <input type="password" name="password" class="form-control">
                                     </div>
                                 </div>
                                 <div class="footer text-center">
-                                    <button type="submit" class="btn btn-fill btn-warning btn-wd">Login</button>
+                                    <button type="submit" class="btn btn-fill btn-warning btn-wd">Cập nhật</button>
                                 </div>    
                             </div>
                         </form> 

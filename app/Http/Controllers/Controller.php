@@ -26,10 +26,25 @@ class Controller extends BaseController
         return view('view_dang_nhap');
     }
 
+    public function view_doi_mat_khau()
+    {
+        return view('view_doi_mat_khau');
+    }
+
+    public function view_quen_mat_khau()
+    {
+        return view('view_quen_mat_khau');
+    }
+
+    public function view_lay_lai_mat_khau()
+    {
+        return view('view_lay_lai_mat_khau');
+    }
+
     public function process_login()
     {
         $giao_vu = new GiaoVu();
-        $giao_vu->email = Request::get('email');
+        $giao_vu->username = Request::get('username');
         $giao_vu->password = Request::get('password');
         $giao_vu = $giao_vu->check_login();
 
@@ -76,5 +91,41 @@ class Controller extends BaseController
         $giao_vu = $giao_vu->update_profile();
 
         return redirect()->route('profile');
+    }
+
+    public function process_update_mat_khau()
+    {
+        $giao_vu             = new GiaoVu();
+        $giao_vu->ma_giao_vu = Request::get('ma_giao_vu');
+        $giao_vu->password   = Request::get('password');
+        $giao_vu = $giao_vu->update_mat_khau();
+
+        return redirect()->route('view_lay_lai_mat_khau');
+    }
+
+    public function process_lay_lai_mat_khau()
+    {
+        $giao_vu = new GiaoVu();
+        $giao_vu->email = Request::get('email');
+        $giao_vu->sdt = Request::get('sdt');
+        $giao_vu = $giao_vu->check_mat_khau();
+
+        if(count($giao_vu) == 1){
+            Session::put('ma_giao_vu',$giao_vu[0]->ma_giao_vu);
+            Session::put('ten_giao_vu',$giao_vu[0]->ten_giao_vu);
+
+            return redirect()->route('view_lay_lai_mat_khau');
+        }
+        return redirect()->route('view_quen_mat_khau')->with('error', 'Sai email hoặc số điện thoại');
+    }
+
+    public function process_cap_nhat_mat_khau()
+    {
+        $giao_vu             = new GiaoVu();
+        $giao_vu->ma_giao_vu = Request::get('ma_giao_vu');
+        $giao_vu->password   = Request::get('password');
+        $giao_vu = $giao_vu->update_mat_khau();
+
+        return redirect()->route('view_dang_nhap')->with('success', 'Đổi mật khẩu thành công');
     }
 }

@@ -11,11 +11,11 @@ class SinhVien extends Model
 	public $table = 'sinh_vien';
 	public function get_all()
 	{
-		$array_sinh_vien= DB::select ("select * from $this->table join lop on $this->table.ma_lop = lop.ma_lop");
+		$array_sinh_vien= DB::select ("select * from $this->table join lop on $this->table.ma_lop = lop.ma_lop order by ma_sinh_vien desc");
 		return $array_sinh_vien;
 	}
 
-	public function get_all_by_lop($value='')
+	public function get_all_by_lop()
 	{
 		$array_sinh_vien = DB::select("select * from $this->table where ma_lop=?",[$this->ma_lop]);
 		return $array_sinh_vien;

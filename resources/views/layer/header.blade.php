@@ -13,7 +13,7 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="#">PROJECT 2</a>
+			<a class="navbar-brand" href="{{ route('trang_chu') }}">PROJECT 2</a>
 		</div>
 		<div class="collapse navbar-collapse">
 
@@ -61,18 +61,13 @@
 					</a>
 					<ul class="dropdown-menu dropdown-with-icons">
 						<li>
-							<a href="#">
-								<i class="pe-7s-mail"></i> Messages
+							<a href="{{route('profile',['ma_giao_vu' => Session::get('ma_giao_vu')])}}">
+								<i class="pe-7s-mail"></i>Thông tin cá nhân
 							</a>
 						</li>
 						<li>
-							<a href="#">
-								<i class="pe-7s-help1"></i> Help Center
-							</a>
-						</li>
-						<li>
-							<a href="#">
-								<i class="pe-7s-tools"></i> Settings
+							<a href="doi_mat_khau">
+								<i class="pe-7s-help1"></i>Đổi mật khẩu
 							</a>
 						</li>
 						<li class="divider"></li>

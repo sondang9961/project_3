@@ -19,12 +19,14 @@
 			</form>
 			<br>
 			<table class="table table-striped">
-				<tr>
-					<th>Mã</th>
-					<th>Tên sinh viên</th>
-					<th>Tên lớp</th>
-					<th colspan="2">Chức năng</th>
-				</tr>
+				<thead>
+					<tr>
+						<th>Mã</th>
+						<th>Tên sinh viên</th>
+						<th>Tên lớp</th>
+						<th colspan="2">Chức năng</th>
+					</tr>
+				</thead>				
 				@foreach ($array_sinh_vien as $sinh_vien)
 				<form action="{{ route('sinh_vien.process_update',['ma_sinh_vien' => $sinh_vien->ma_sinh_vien])}}" method="post">
 				{{csrf_field()}}
@@ -45,7 +47,7 @@
 						</select>
 					</td>
 					<td>
-						<input type="submit" name="Cập nhật">				
+						<input type="submit" value="Cập nhật">				
 					</td>				
 				</tr>
 				</form>
@@ -59,7 +61,7 @@
 					<form action="{{ route('sinh_vien.process_insert')}}" method="post">
 						{{csrf_field()}}
 						<div>Tên sinh viên</div>	
-						<div><input type="text" name="ten_sinh_vien" id="textbox"></div><br>
+						<div><input type="text" name="ten_sinh_vien" id="textbox" ></div><br>
 						<div>Tên lớp</div>
 						<div>
 							<select name="ma_lop">

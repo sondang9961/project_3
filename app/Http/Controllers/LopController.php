@@ -10,14 +10,26 @@ class LopController extends Controller
 	private $folder = 'lop';
 	public function view_all()
 	{
+		$trang = Request::get('trang');
+
+		if(empty($trang)){
+			$trang = 1;
+		}
+		$limit = 5;
 		$lop = new Lop();
+		$lop->offset = ($trang - 1)*$limit;
+		$lop->limit = $limit;
 		$array_lop = $lop->get_all();
+
+		$count_trang = ceil($lop->count());
 
 		$khoa_hoc = new KhoaHoc();
 		$array_khoa_hoc = $khoa_hoc->get_all();
 		return view ("$this->folder.view_all",[
 			'array_lop' => $array_lop,
-			'array_khoa_hoc' => $array_khoa_hoc
+			'array_khoa_hoc' => $array_khoa_hoc,
+			'count_trang' => $count_trang,
+			'lop' => $lop
 		]);
 		
 	}
@@ -53,4 +65,12 @@ class LopController extends Controller
 		return redirect()->route("$this->folder.view_all"); 
 	}
 
+	public function get_one()
+	{
+		$lop = new Lop();
+		$lop->ma_lop = Request::get('ma_lop');
+		$lop = $lop->get_one();
+		
+		return Response::json($lop);
+	}
 }

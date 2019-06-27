@@ -10,7 +10,7 @@ class KhoaHoc extends Model
 	public $table = 'khoa_hoc';
 	public function get_all()
 	{
-		$array_khoa_hoc= DB::select ("select * from $this->table");
+		$array_khoa_hoc= DB::select ("select * from $this->table order by ma_khoa_hoc desc");
 		return $array_khoa_hoc;
 	}
 

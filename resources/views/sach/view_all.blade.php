@@ -13,51 +13,60 @@
 		<div id="left_content">
 			<div><h2>Danh sách các đầu sách</h2></div>
 			<form>
-				<div style="height: 12rem" id="select">
-			
-					<div>
+				<table style="width: 100%">
+					<tr style="height: 4rem">
 						<div>
-							Tên môn
+							<td>
+								Tên môn
+							</td>
+							<td>
+								<select name="ma_mon_hoc" class="form-control" style="width: 14rem" id="search_mon_hoc">
+									<option disabled selected>--Môn học--</option>
+									@foreach ($array_mon_hoc as $mon_hoc)
+										<option value="{{$mon_hoc->ma_mon_hoc}}">
+											{{$mon_hoc->ten_mon_hoc}}
+										</option>
+									@endforeach
+								</select>
+							</td>
 						</div>
 						<div>
-							<select name="ma_mon_hoc" class="form-control" style="width: 14rem" id="search_mon_hoc">
-								<option disabled selected>--Môn học--</option>
-								@foreach ($array_mon_hoc as $mon_hoc)
-									<option value="{{$mon_hoc->ma_mon_hoc}}">
-										{{$mon_hoc->ten_mon_hoc}}
-									</option>
-								@endforeach
-							</select>
+							<td>
+								Tên sách
+							</td>
+							<td>
+								<select name="ma_sach" class="form-control" style="width: 14rem" id="search_sach" disabled>
+									<option>--Sách--</option>
+								</select>
+							</td>
 						</div>				
-					</div>
-					<div class="form-group">
-						<div>
-							Tên sách
-						</div>
-						<div>
-							<select name="ma_sach" class="form-control" style="width: 14rem" id="search_sach" disabled>
-								<option>--Tên sách--</option>
-							</select>
-						</div>
-						<div><input type="button" value="Xem" id="button"></div>
-					</div>					
-
-				</div>
+						<td><input type="submit" value="Xem" id="button" class="search_button" disabled></td>
+					</tr>
 			</form>
 			<br>
 			<table class="table table-striped">
-				<tr>
-					<th>Mã</th>
-					<th>Tên sách</th>
-					<th>Tên môn</th>
-					<th>Số lượng nhập</th>
-					<th>Ngày nhập sách</th>
-					<th>Ngày hết hạn đăng ký</th>
-					<th>Chức năng</th>
-				</tr>
+				<thead>
+					<tr>
+						<th>Mã</th>
+						<th>Tên sách</th>
+						<th>Môn</th>
+						<th>Số lượng</th>
+						<th>Ngày nhập</th>
+						<th>Ngày hết hạn đăng ký</th>
+						<th>Chức năng</th>
+					</tr>
+				</thead>				
 				@foreach ($array_sach as $sach)
 				<tr>
-					<td></td>
+					<td>{{$sach->ma_sach}}</td>
+					<td>{{$sach->ten_sach}}</td>
+					<td>{{$sach->ten_mon_hoc}}</td>
+					<td>{{$sach->so_luong_nhap}}</td>
+					<td>{{$sach->ngay_nhap_sach}}</td>
+					<td>{{$sach->ngay_het_han}}</td>
+					<td>
+						<input type="submit" value="Cập nhật">
+					</td>
 				</tr>
 				@endforeach
 			</table>
@@ -78,17 +87,24 @@
 							@endforeach
 						</select>
 					</div><br>
-					<div id="div_mon_hoc" class="form-group div_hide">
+					<div class="form-group">
 						<div>Tên môn</div>
-						<select name="ma_mon_hoc" class="form-control" style="width: 25rem" id="select_mon_hoc">
+						<select name="ma_mon_hoc" class="form-control" style="width: 25rem" id="select_mon_hoc" disabled>
 							<option>--Môn học--</option>
 						</select>
 					</div><br>
-					<div>Tên sách</div>	
-					<div><input type="text" name="ten_sach" id="textbox" class="form-control" style="width: 25rem"></div><br>	
-					<div>Số lượng</div>	
-					<div><input type="number" name="so_luong_nhap" id="textbox" class="form-control" style="width: 25rem"></div><br>	
-					<div><input type="button" value="Thêm" id="button"></div>
+					<div class="form-group" >
+						<div>Tên sách</div>	
+						<div><input type="text" name="ten_sach" id="ten_sach" class="form-control" style="width: 25rem"  disabled></div>
+					</div>
+					<div class="form-group ">
+						<div>Số lượng</div>	
+						<div>
+							<input type="number" name="so_luong_nhap" id="so_luong" class="form-control" style="width: 25rem" disabled>
+						</div>
+					</div>	
+					<br>	
+					<div><input type="submit" value="Thêm" id="button" class="add_button" disabled></div>
 				</form>
 			</div>
 		</div>
@@ -96,12 +112,48 @@
 @endsection
 @push('js')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js" type="text/javascript"></script>
+
 <script type="text/javascript">
 	$(document).ready(function() {
 		$("#select_khoa_hoc").select2();
 		$("#select_khoa_hoc").change(function(){
-			$("#div_mon_hoc").show();
 			$("#select_mon_hoc").val(null).trigger('change');
+			$("#select_mon_hoc").attr("disabled", false);
+			$("#ten_sach").attr("disabled", true);
+			$("#so_luong").attr("disabled", true);
+			$(".add_button").attr("disabled", true);
+		});
+		$("#select_mon_hoc").change(function(){
+			$("#ten_sach").val(null).trigger('change');
+			$("#ten_sach").attr("disabled", false);
+			$("#so_luong").attr("disabled", true);
+			$(".add_button").attr("disabled", true);
+		})
+		$("#ten_sach").change(function(){		
+			$("#so_luong").val(null).trigger('change');
+			$("#so_luong").attr("disabled", false);
+			$(".add_button").attr("disabled", true);
+
+		})
+		$("#so_luong").change(function(){
+			if($("#so_luong").val()==null)
+			{
+				$(".add_button").attr("disabled", true);
+			}
+			else{
+				$(".add_button").attr("disabled", false);
+			}	
+		})
+		
+		$("#demoForm").validate({
+			ignore: [], 
+			rules: {
+				"so_luong_nhap": {
+					required: true,
+					range: [0,500]
+				}
+			}
 		})
 		$("#select_mon_hoc").select2({
 			ajax: {
@@ -129,8 +181,13 @@
 		//Search
 		$("#search_mon_hoc").select2();
 		$("#search_mon_hoc").change(function(){
-			$("#search_sach").prop("disabled", false);
-			$("#search_sach").val(null).trigger('change');
+			$("#search_sach").attr("disabled", false);
+			$("#search_sach").val(null).trigger('change');	
+			$(".search_button").attr("disabled", true);	
+		})
+
+		$("#search_sach").change(function(){
+			$(".search_button").attr("disabled", false);	
 		})
 		$("#search_sach").select2({
 			ajax: {

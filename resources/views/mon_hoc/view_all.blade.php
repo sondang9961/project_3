@@ -18,27 +18,34 @@
 			</form>
 			<br>
 			<table class="table table-striped">
-				<tr>
-					<th>Mã</th>
-					<th>Tên môn</th>
-					<th>Khóa học</th>
-					<th colspan="2">Chức năng</th>
-				</tr>
+				<thead>
+					<tr>
+						<th>Mã</th>
+						<th>Tên môn</th>
+						<th>Khóa học</th>
+						<th colspan="2">Chức năng</th>
+					</tr>
+				</thead>				
 				@foreach ($array_mon_hoc as $mon_hoc)
-				<tr>
-					<td>{{$mon_hoc->ma_mon_hoc}}</td>
-					<td><input type="text" name="ten_mon_hoc" value="{{$mon_hoc->ten_mon_hoc}}" size="10"></td>
-					<td>
-						<select name="ma_khoa_hoc">
-							@foreach($array_khoa_hoc as $khoa_hoc)
-								<option value="{{$khoa_hoc->ma_khoa_hoc}}"  <?php if($mon_hoc->ma_khoa_hoc == $khoa_hoc->ma_khoa_hoc) echo "selected"; ?>>
-									{{$khoa_hoc->ten_khoa_hoc}}
-								</option>
-							@endforeach
-						</select>
-					</td>
-					<td><button style="width:100%">Cập nhật</button></td>
-				</tr>
+				<form action="{{route('mon_hoc.process_update', ['ma_mon_hoc' => $mon_hoc->ma_mon_hoc])}}" method="post">
+					{{csrf_field()}}
+					<tr>
+						<td>{{$mon_hoc->ma_mon_hoc}}</td>
+						<td><input type="text" name="ten_mon_hoc" value="{{$mon_hoc->ten_mon_hoc}}" size="10"></td>
+						<td>
+							<select name="ma_khoa_hoc">
+								@foreach($array_khoa_hoc as $khoa_hoc)
+									<option value="{{$khoa_hoc->ma_khoa_hoc}}"  <?php if($mon_hoc->ma_khoa_hoc == $khoa_hoc->ma_khoa_hoc) echo "selected"; ?>>
+										{{$khoa_hoc->ten_khoa_hoc}}
+									</option>
+								@endforeach
+							</select>
+						</td>
+						<td>
+							<input type="submit" value="Cập nhật">
+						</td>
+					</tr>
+				</form>
 				@endforeach
 			</table>
 		</div>

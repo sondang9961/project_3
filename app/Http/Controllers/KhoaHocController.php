@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 
 use Request;
+use Response;
 use App\Model\KhoaHoc;
 
 class KhoaHocController extends Controller
@@ -24,29 +25,27 @@ class KhoaHocController extends Controller
 		$khoa_hoc->insert();
 
 		//điều hướng
-		return redirect()->route('khoa_hoc.view_all');
+		return redirect()->route("$this->folder.view_all");
 	}
 
-	public function view_update($ma_khoa_hoc)
-	{
-		$khoa_hoc = new KhoaHoc();
-		$khoa_hoc->ma_khoa_hoc = $ma_khoa_hoc;
-		$array_khoa_hoc = $khoa_hoc->get_one();
-
-		return view("$this->folder.view_update",[
-			'array_khoa_hoc' => $array_khoa_hoc
-		]);
-	}
-
+	
 	public function process_update($ma_khoa_hoc)
 	{
 		$khoa_hoc = new KhoaHoc();
-		$khoa_hoc->ma_khoa_hoc = $ma_khoa_hoc;
+		$khoa_hoc->ma_khoa_hoc = Request::get('ma_khoa_hoc');
 		$khoa_hoc->ten_khoa_hoc = Request::get('ten_khoa_hoc');
 		$khoa_hoc->updateKhoaHoc();
 
 		//điều hướng
-		return redirect()->route('khoa_hoc.view_all');
+		return redirect()->route("$this->folder.view_all");
 
+	}
+	public function get_one()
+	{
+		$khoa_hoc = new KhoaHoc();
+		$khoa_hoc->ma_khoa_hoc = Request::get('ma_khoa_hoc');
+		$khoa_hoc = $khoa_hoc->get_one();
+		
+		return Response::json($khoa_hoc);
 	}
 }

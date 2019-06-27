@@ -10,7 +10,7 @@ class MonHoc extends Model
 	public $table = 'mon_hoc';
 	public function get_all()
 	{
-		$array_mon_hoc= DB::select ("select * from $this->table join khoa_hoc on $this->table.ma_khoa_hoc = khoa_hoc.ma_khoa_hoc");
+		$array_mon_hoc= DB::select ("select * from $this->table join khoa_hoc on $this->table.ma_khoa_hoc = khoa_hoc.ma_khoa_hoc order by ma_mon_hoc desc");
 		return $array_mon_hoc;
 	}
 
@@ -23,5 +23,18 @@ class MonHoc extends Model
 	public function insert()
 	{
 		DB::insert("insert into $this->table (ten_mon_hoc,ma_khoa_hoc) values (?,?)",[$this->ten_mon_hoc,$this->ma_khoa_hoc]);
+	}
+
+	public function updateMonHoc()
+	{
+		DB::update("update $this->table 
+			set 
+			ten_mon_hoc = ?, 
+			ma_khoa_hoc = ? 
+			where ma_mon_hoc = ?",[
+				$this->ten_mon_hoc,
+				$this->ma_khoa_hoc,
+				$this->ma_mon_hoc
+			]);
 	}
 }

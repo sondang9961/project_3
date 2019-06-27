@@ -50,18 +50,21 @@
 								<option>--Tên sách--</option>
 							</select>
 						</td>
-						<td><input type="button" value="Xem" id="button"></td>
+						<td><input type="button" value="Xem" id="button" disabled></td>
 				</tr>
 				</table>
 			</form>
 			 <br/>
-			<table class="table table-striped">
-				<tr>
-					<th>Tên sinh viên</th>
-					<th>Tình trạng</th>
-					<th>Ngày đăng ký sách</th>
-					<th>Ngày nhận sách</th>						
-				</tr>
+			<table class="table table-striped table-no-bordered table-hover dataTable dtr-inline">
+				<thead>
+					<tr>
+						<th>Tên sinh viên</th>
+						<th>Tình trạng</th>
+						<th>Tên sách</th>
+						<th>Ngày đăng ký</th>
+						<th>Ngày nhận sách</th>						
+					</tr>
+				</thead>
 				@foreach ($array_dang_ky_sach as $dang_ky_sach)
 				<tr>
 					<td>{{$dang_ky_sach->ten_sinh_vien}}</td>
@@ -71,6 +74,7 @@
 						</span>
 						{!!Helper::getButtonTinhTrang($dang_ky_sach->tinh_trang_nhan_sach,$dang_ky_sach->ma_dang_ky)!!}
 					</td>
+					<td>{{$dang_ky_sach->ten_sach}}</td>
 					<td>{{$dang_ky_sach->ngay_dang_ky}}</td>
 					<td>{{$dang_ky_sach->ngay_nhan_sach}}</td>
 				</tr>
@@ -80,7 +84,7 @@
 		<div id="right_content" >
 			<div><h2>Đăng ký sách</h2></div>
 				<div>
-					<form>
+					<form action="{{ route('dang_ky_sach.process_insert') }}" method="post">
 						{{csrf_field()}}
 						<table width="90%">
 							<tr style="height: 4rem">
@@ -143,7 +147,7 @@
 									<td>
 										<div>Tình trạng</div>	
 										<div>
-											<select name="tinh_trang" class="form-control" style="width: 14rem" id="select_tinh_trang" disabled>
+											<select name="tinh_trang_nhan_sach" class="form-control" style="width: 14rem" id="select_tinh_trang" disabled>
 												<option disabled selected>--Tình trạng--</option>
 												<option value="1">Đã nhận</option>
 												<option value="0">Chưa nhận</option>
@@ -153,7 +157,7 @@
 								</div>										
 							</tr>
 						</table><br><br>
-						<div><input type="button" value="Thêm" id="button" class="add_button" disabled></div>
+						<div><input type="submit" value="Thêm" id="button" class="add_button" disabled></div>
 					</form>
 				</div>
 		</div>
@@ -322,14 +326,25 @@
 		$("#search_khoa_hoc").select2();
 		$("#search_khoa_hoc").change(function(){
 			$("#search_mon_hoc").val(null).trigger('change');
-			$("#search_lop").val(null).trigger('change');
+			$("#search_mon_hoc").attr("disabled", false);		
+			$("#search_lop").val(null).trigger('change');		
+			$("#search_lop").attr("disabled", false);
+			$("#search_sach").attr("disabled", true);
+			$("#button").attr("disabled", true);
 		})
 		$("#search_mon_hoc").change(function(){
 			$("#search_sach").val(null).trigger('change');
+			$("#search_sach").attr("disabled", false);
+			$("#button").attr("disabled", true);
 		})
 		$("#search_lop").change(function(){
 			$("#search_sinh_vien").val(null).trigger('change');
 		})
+		$("#search_sach").change(function(){
+			$("#button").attr("disabled", false);
+		})
+	
+
 		$("#search_mon_hoc").select2({
 			ajax: {
 				url: '{{route('get_mon_hoc_by_khoa_hoc')}}',

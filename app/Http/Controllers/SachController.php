@@ -37,9 +37,12 @@ class SachController extends Controller
 	public function process_insert()
 	{
 		$sach = new Sach();
-		$sach->ma_khoa_hoc = Request::get('ma_khoa_hoc');
 		$sach->ma_mon_hoc = Request::get('ma_mon_hoc');
 		$sach->ten_sach = Request::get('ten_sach');
+		$sach->so_luong_nhap = Request::get('so_luong_nhap');
+		$sach->ngay_het_han = date("Y-m-d",strtotime("+ 14 day"));
+		
 		$sach->insert();
+		return redirect()->route("$this->folder.view_all");
 	}
 }
