@@ -33,7 +33,7 @@ class SinhVien extends Model
 		return $array_sinh_vien[0];
 	}
 
-	public function updateSV()
+	public function updateSinhVien()
 	{
 		DB::update("update $this->table 
 			set

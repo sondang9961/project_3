@@ -66,6 +66,16 @@ class LopController extends Controller
 		return redirect()->route("$this->folder.view_all"); 
 	}
 
+	public function process_search()
+	{
+		$lop = new Lop();
+		$lop->ma_khoa_hoc = Request::get('ma_khoa_hoc');
+		$array_search_lop = $lop->process_search();
+
+		//điều hướng
+		return redirect()->route("$this->folder.view_all"); 
+	}
+
 	public function get_one()
 	{
 		$lop = new Lop();

@@ -43,7 +43,6 @@
 				</tr>
 				</form>
 				@endforeach
-
 			</table>
 		</div>
 		<div id="right_content" >
@@ -86,19 +85,16 @@
 			          	Tên sinh viên<br>
 			          	<input type="text" name="ten_sinh_vien" id="ten_sinh_vien" class="form-control"><br>
 			          	Lớp
-			          	<input type="text" name="ten_lop" id="ten_lop" class="form-control">
-			          	<select name="ma_lop"  id="ten_lop">
+			          	<select name="ma_lop" id="ma_lop">
 			          		@foreach($array_lop as $lop)
-								<option value="{{$lop->ma_lop}}"
-									@if ($sinh_vien->ma_lop == $lop->ma_lop) 
-										selected="selected"
-									@endif
-									>
+								<option value="{{$lop->ma_lop}}">
 									{{$lop->ten_lop}}
 								</option>
 							@endforeach
 			          	</select>						
-			        	<input type="submit" value="Sửa" class="btn-sm">
+			        	<div style="margin-top: 2rem">
+			          		<input type="submit" value="Sửa" class="btn-sm">
+			          	</div>	
 			        </form>
 		        </div>
 		        <div class="modal-footer">
@@ -127,10 +123,8 @@
 				$("#ma_sinh_vien").val(response.ma_sinh_vien);
 				$("#ten_sinh_vien").val(response.ten_sinh_vien);
 				$("#ten_lop").val(response.ten_lop);
+				$("#ma_lop").val(response.ma_lop);
 			})
-			.fail(function() {
-				console.log("error");
-			});
 			
 		});
 	});

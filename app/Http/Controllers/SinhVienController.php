@@ -16,10 +16,15 @@ class SinhVienController extends Controller
 
 		$lop = new Lop();
 		$array_lop = $lop->get_all_lop();
+
+		//dd($array_lop);
+		// dd($array_sinh_vien);
+		
 		return view ("$this->folder.view_all",[
 			'array_sinh_vien' => $array_sinh_vien, 
 			'array_lop' => $array_lop
 		]);
+		
 	}
 
 	public function get_sinh_vien_by_lop()
@@ -43,7 +48,7 @@ class SinhVienController extends Controller
 	public function process_update($ma_sinh_vien)
 	{
 		$sinh_vien = new SinhVien();
-		$sinh_vien->ma_sinh_vien = $ma_sinh_vien;
+		$sinh_vien->ma_sinh_vien = Request::get('ma_sinh_vien');
 		$sinh_vien->ten_sinh_vien = Request::get('ten_sinh_vien');
 		$sinh_vien->ma_lop = Request::get('ma_lop');
 		$sinh_vien->updateSinhVien();

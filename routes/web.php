@@ -49,6 +49,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'CheckAdmin'], function(){
 		->name("$group.process_insert");
 		Route::post("process_update/{ma_lop}","$controller@process_update")
 		->name("$group.process_update");
+		Route::post("process_search","$controller@process_search")
+		->name("$group.process_search");
 		Route::get("get_lop_by_khoa_hoc","$controller@get_lop_by_khoa_hoc")
 		->name("get_lop_by_khoa_hoc");
 		Route::get("get_one","$controller@get_one")
@@ -67,6 +69,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'CheckAdmin'], function(){
 		->name("$group.process_update");
 		Route::get("get_mon_hoc_by_khoa_hoc","$controller@get_mon_hoc_by_khoa_hoc")
 		->name("get_mon_hoc_by_khoa_hoc");
+		Route::get("get_one","$controller@get_one")
+		->name("$group.get_one");
 	});
 
 	//SINH VIÊN
@@ -95,27 +99,32 @@ Route::group(['prefix' => 'admin', 'middleware' => 'CheckAdmin'], function(){
 		->name("$group.view_all");
 		Route::post("process_insert","$controller@process_insert")
 		->name("$group.process_insert");
-		Route::post("process_update","$controller@process_update")
+		Route::post("process_update/{ma_sach}","$controller@process_update")
 		->name("$group.process_update");
 		Route::get("get_sach_by_mon_hoc","$controller@get_sach_by_mon_hoc")
 		->name("get_sach_by_mon_hoc");
+		Route::get("get_one","$controller@get_one")
+		->name("$group.get_one");
 	});
 
 	//ĐĂNG KÝ SÁCH
 	Route::group(["prefix" => "dang_ky_sach"], function(){
-		Route::get("view_all","DangKySachController@view_all")
-		->name("dang_ky_sach.view_all");
-		Route::post("process_insert","DangKySachController@process_insert")
-		->name("dang_ky_sach.process_insert");
-		Route::post("process_update","DangKySachController@process_update")
-		->name("dang_ky_sach.process_update");
-		Route::get("change_tinh_trang_dang_ky_sach","DangKySachController@change_tinh_trang_dang_ky_sach")
-		->name("dang_ky_sach.change_tinh_trang_dang_ky_sach");
+		$group = "dang_ky_sach";
+		$controller = "DangKySachController";
+		Route::get("view_all","$controller@view_all")
+		->name("$group.view_all");
+		Route::post("process_insert","$controller@process_insert")
+		->name("$group.process_insert");
+		Route::post("process_update","$controller@process_update")
+		->name("$group.process_update");
+		Route::get("change_tinh_trang_dang_ky_sach","$controller@change_tinh_trang_dang_ky_sach")
+		->name("$group.change_tinh_trang_dang_ky_sach");
 	});
+
+	//THỐNG KÊ
+	Route::group(["prefix" => "thong_ke"], function(){
+		Route::get("view_all","ThongKeController@view_all")
+		->name("thong_ke.view_all");
 });
 
-Route::group(["prefix" => "thong_ke"], function(){
-	Route::get("view_all","ThongKeController@view_all")
-	->name("thong_ke.view_all");
 });
-

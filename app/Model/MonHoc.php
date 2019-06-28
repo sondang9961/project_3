@@ -25,6 +25,12 @@ class MonHoc extends Model
 		DB::insert("insert into $this->table (ten_mon_hoc,ma_khoa_hoc) values (?,?)",[$this->ten_mon_hoc,$this->ma_khoa_hoc]);
 	}
 
+	public function get_one()
+	{
+		$array_mon_hoc= DB::select ("select * from $this->table where ma_mon_hoc = ? limit 1", [$this->ma_mon_hoc]);
+		return $array_mon_hoc[0];
+	}
+
 	public function updateMonHoc()
 	{
 		DB::update("update $this->table 

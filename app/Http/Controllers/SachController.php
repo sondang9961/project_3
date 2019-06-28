@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 
 use Request;
+use Response;
 use App\Model\Sach;
 use App\Model\KhoaHoc;
 use App\Model\MonHoc;
@@ -45,5 +46,28 @@ class SachController extends Controller
 		
 		$sach->insert();
 		return redirect()->route("$this->folder.view_all");
+	}
+
+	public function process_update()
+	{
+		$sach = new Sach();
+		$sach->ma_sach = Request::get('ma_sach');
+		$sach->ma_mon_hoc = Request::get('ma_mon_hoc');
+		$sach->ten_sach = Request::get('ten_sach');
+		$sach->so_luong_nhap = Request::get('so_luong_nhap');
+		$sach->ngay_nhap_sach= Request::get('ngay_nhap_sach');
+		$sach->ngay_het_han = Request::get('ngay_het_han');
+		
+		$sach->updateSach();
+		return redirect()->route("$this->folder.view_all");
+	}
+
+	public function get_one()
+	{
+		$sach = new Sach();
+		$sach->ma_sach = Request::get('ma_sach');
+		$sach = $sach->get_one();
+		
+		return Response::json($sach);
 	}
 }

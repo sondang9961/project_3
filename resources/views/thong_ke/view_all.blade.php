@@ -11,7 +11,14 @@
 					<tr>
 						<td >
 							<div style="margin-right: 3rem ">Tên sách
-								<input type="text" name="ten_sach" class="form-control">
+								<select name="ma_sach" class="form-control" style="width: 14rem" id="search_sach">
+									<option selected disabled="">--Tên sách--</option>
+									@foreach ($array_sach as $sach)
+										<option value="{{$sach->ma_sach}}">
+											{{$sach->ten_sach}}
+										</option>
+									@endforeach
+								</select>
 							</div>
 						</td>
 						<td>
@@ -24,8 +31,7 @@
 							<input type="button" value="Xem" id="button">
 						</td>
 					</tr>
-				</table>	
-				
+				</table>				
 			</form><br>
 			<table class="table table-striped">
 				<tr>
@@ -40,15 +46,37 @@
 		<div id="thong_ke_sinh_vien" >
 			<div><h2>Thống kê sinh viên chưa đăng ký sách</h2></div>
 			<form>
-				Lớp
-					<select>
-						<option>--Tên lớp--</option>
-					</select>
-				Sách
-					<select>
-						<option>--Tên sách--</option>
-					</select>
-				<input type="button" value="Xem" id="button">
+				<table>
+					<tr>
+						<td>
+							<div style="margin-right: 3rem ">Tên lớp
+								<select name="ma_sach" class="form-control" style="width: 14rem" id="search_lop">
+									<option selected disabled="">--Tên lớp--</option>
+									@foreach ($array_lop as $lop)
+										<option value="{{$lop->ma_lop}}">
+											{{$lop->ten_lop}}
+										</option>
+									@endforeach
+								</select>
+							</div>
+						</td>
+						<td>
+							<div style="margin-right: 3rem ">Tên sách
+								<select name="ma_sach" class="form-control" style="width: 14rem" id="search_sach">
+									<option selected disabled="">--Tên sách--</option>
+									@foreach ($array_sach as $sach)
+										<option value="{{$sach->ma_sach}}">
+											{{$sach->ten_sach}}
+										</option>
+									@endforeach
+								</select>
+							</div>
+						</td>
+						<td valign="bottom">
+							<input type="button" value="Xem" id="button">
+						</td>
+					</tr>
+				</table>
 			</form><br>
 			<table class="table table-striped">
 				<tr>

@@ -7,7 +7,8 @@
 	<div id="main_content">
 		<div id="left_content" >
 			<div><h2>Danh sách lớp</h2></div>
-			<form>
+			<form action="{{ route('lop.process_search') }}" method="post">
+				{{csrf_field()}}
 				Khóa học
 				<select name="ma_khoa_hoc" style="width: 16.5rem" id="search_khoa_hoc">
 					<option>--Tên khóa học--</option>
@@ -96,18 +97,16 @@
 			          	Tên lớp<br>
 			          	<input type="text" name="ten_lop" id="ten_lop" class="form-control"><br>
 			          	Khóa học<br>
-			          	<select name="ma_khoa_hoc">
+			          	<select name="ma_khoa_hoc" id="ma_khoa_hoc">
 			          		@foreach($array_khoa_hoc as $khoa_hoc)
-								<option value="{{$khoa_hoc->ma_khoa_hoc}}" 
-									@if ($lop->ma_khoa_hoc == $khoa_hoc->ma_khoa_hoc) 
-										selected
-									@endif
-								>
+								<option value="{{$khoa_hoc->ma_khoa_hoc}}">
 									{{$khoa_hoc->ten_khoa_hoc}}
 								</option>
 							@endforeach
-			          	</select>						
-			        	<input type="submit" value="Sửa" class="btn-sm">
+			          	</select><br>					
+			        	<div style="margin-top: 2rem">
+			          		<input type="submit" value="Sửa" class="btn-sm">
+			          	</div>	
 			        </form>
 		        </div>
 		        <div class="modal-footer">
@@ -135,10 +134,8 @@
 			.done(function(response) {
 				$("#ma_lop").val(response.ma_lop);
 				$("#ten_lop").val(response.ten_lop);
+				$("#ma_khoa_hoc").val(response.ma_khoa_hoc);
 			})
-			.fail(function() {
-				console.log("error");
-			});
 			
 		});
 	});

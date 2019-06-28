@@ -67,7 +67,7 @@
 					</td>
 					<td>{{date_format(date_create($sach->ngay_het_han),'d/m/Y')}}</td>
 					<td>
-						<input type="submit" value="Cập nhật">
+						<input type="button" class='button_update' value="Cập nhật" data-toggle="modal" data-target="#myModal" data-ma_sach='{{$sach->ma_sach}}'>
 					</td>
 				</tr>
 				@endforeach
@@ -111,6 +111,57 @@
 			</div>
 		</div>
 	</div>
+
+	<div class="modal fade" id="myModal" role="dialog">
+    	<div class="modal-dialog">
+    
+      <!-- Modal content-->
+	      	<div class="modal-content">
+		        <div class="modal-header">
+		        	<button type="button" class="close" data-dismiss="modal">&times;</button>
+		          	<h4 class="modal-title">Cập nhật sách</h4>
+		        </div>
+		        <div class="modal-body">
+			        <form action="{{route('sach.process_update', ['ma_sach' => $sach->ma_sach])}}" method="post">
+			        	{{csrf_field()}}
+			          	<input type="hidden" name="ma_sach" id="ma_sach">
+			          	<div class="form-group">
+			          		Tên sách<br>
+			          		<input type="text" name="ten_sach" id="tenSach" class="form-control">
+			          	</div>
+			          	<div class="form-group">
+			          		Môn học
+				          	<select name="ma_mon_hoc" id="ma_mon_hoc" class="form-control">
+				          		@foreach($array_mon_hoc as $mon_hoc)
+									<option value="{{$mon_hoc->ma_mon_hoc}}">
+										{{$mon_hoc->ten_mon_hoc}}
+									</option>
+								@endforeach
+				          	</select>
+			          	</div>
+						<div class="form-group">
+							Số lượng<br>
+				          	<input type="number" name="so_luong_nhap" id="so_luong_nhap" class="form-control">
+						</div>
+			          	<div class="form-group">
+			          		Ngày nhập sách<br>
+			          		<input type="date" name="ngay_nhap_sach" id="ngay_nhap_sach" class="form-control">
+			          	</div>
+			          	<div class="form-group">
+			          		Ngày hết hạn<br>
+			          		<input type="date" name="ngay_het_han" id="ngay_het_han" class="form-control">
+			          	</div>		
+			        	<div style="margin-top: 2rem ">
+			          		<input type="submit" value="Sửa" class="btn-sm">
+			          	</div>	
+			        </form>
+		        </div>
+		        <div class="modal-footer">
+		          	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		        </div>
+	      	</div>
+    	</div>
+  	</div>
 @endsection
 @push('js')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>
@@ -214,6 +265,30 @@
 				}
 			}
 		});	
+
+		//CẬP NHẬT
+		$(".button_update").click(function(event) {
+			var ma_sach = $(this).data('ma_sach');
+			$.ajax({
+				url: '{{ route('sach.get_one') }}',
+				dataType: 'json',
+				data: {
+					ma_sach: ma_sach
+				},
+			})
+			.done(function(response) {
+				$("#ma_sach").val(response.ma_sach);
+				$("#tenSach").val(response.ten_sach);
+				$("#ma_mon_hoc").val(response.ma_mon_hoc);
+				$("#so_luong_nhap").val(response.so_luong_nhap);
+				$("#ngay_nhap_sach").val(response.ngay_nhap_sach);
+				$("#ngay_het_han").val(response.ngay_het_han);
+			})
+			.fail(function() {
+				console.log("error");
+			});
+			
+		});
 	});
 </script>
 @endpush
