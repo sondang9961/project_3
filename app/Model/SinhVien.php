@@ -21,6 +21,18 @@ class SinhVien extends Model
 		return $array_sinh_vien;
 	}
 
+	public function insert()
+	{
+		DB::insert("insert into $this->table (ten_sinh_vien,ma_lop)
+    		values (?,?)",[$this->ten_sinh_vien,$this->ma_lop]);
+	}
+
+	public function get_one()
+	{
+		$array_sinh_vien= DB::select ("select * from $this->table join lop on $this->table.ma_lop = lop.ma_lop where ma_sinh_vien = ? limit 1", [$this->ma_sinh_vien]);
+		return $array_sinh_vien[0];
+	}
+
 	public function updateSV()
 	{
 		DB::update("update $this->table 

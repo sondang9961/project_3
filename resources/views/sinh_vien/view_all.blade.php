@@ -85,18 +85,19 @@
 			          	<input type="hidden" name="ma_sinh_vien" id="ma_sinh_vien">
 			          	Tên sinh viên<br>
 			          	<input type="text" name="ten_sinh_vien" id="ten_sinh_vien" class="form-control"><br>
-			          	Lớp<br>
-				          	<select name="ma_lop">
-				          		@foreach($array_lop as $lop)
-									<option value="{{$lop->ma_lop}}" 
-										@if ($sinh_vien->ma_lop == $lop->ma_lop) 
-											selected
-										@endif
+			          	Lớp
+			          	<input type="text" name="ten_lop" id="ten_lop" class="form-control">
+			          	<select name="ma_lop"  id="ten_lop">
+			          		@foreach($array_lop as $lop)
+								<option value="{{$lop->ma_lop}}"
+									@if ($sinh_vien->ma_lop == $lop->ma_lop) 
+										selected="selected"
+									@endif
 									>
-										{{$lop->ten_lop}}
-									</option>
-								@endforeach
-				          	</select>						
+									{{$lop->ten_lop}}
+								</option>
+							@endforeach
+			          	</select>						
 			        	<input type="submit" value="Sửa" class="btn-sm">
 			        </form>
 		        </div>
@@ -112,5 +113,26 @@
 <script type="text/javascript">
 	$("#search_lop").select2();
 	$("#select_lop").select2();
+	$(document).ready(function() {
+		$(".button_update").click(function(event) {
+			var ma_sinh_vien = $(this).data('ma_sinh_vien');
+			$.ajax({
+				url: '{{ route('sinh_vien.get_one') }}',
+				dataType: 'json',
+				data: {
+					ma_sinh_vien: ma_sinh_vien
+				},
+			})
+			.done(function(response) {
+				$("#ma_sinh_vien").val(response.ma_sinh_vien);
+				$("#ten_sinh_vien").val(response.ten_sinh_vien);
+				$("#ten_lop").val(response.ten_lop);
+			})
+			.fail(function() {
+				console.log("error");
+			});
+			
+		});
+	});
 </script>
 @endpush

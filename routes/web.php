@@ -55,6 +55,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'CheckAdmin'], function(){
 		->name("$group.get_one");
 	});
 
+	//MÔN HỌC
 	Route::group(["prefix" => "mon_hoc"], function(){
 		$group = "mon_hoc";
 		$controller = "MonHocController";
@@ -68,6 +69,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'CheckAdmin'], function(){
 		->name("get_mon_hoc_by_khoa_hoc");
 	});
 
+	//SINH VIÊN
 	Route::group(["prefix" => "sinh_vien"], function(){
 		$group = "sinh_vien";
 		$controller = "SinhVienController";
@@ -81,8 +83,11 @@ Route::group(['prefix' => 'admin', 'middleware' => 'CheckAdmin'], function(){
 		->name("$group.danh_sach_sinh_vien_by_lop");
 		Route::get("get_sinh_vien_by_lop","$controller@get_sinh_vien_by_lop")
 		->name("get_sinh_vien_by_lop");
+		Route::get("get_one","$controller@get_one")
+		->name("$group.get_one");
 	});
 
+	//SÁCH
 	Route::group(["prefix" => "sach"], function(){
 		$group = "sach";
 		$controller = "SachController";
@@ -96,6 +101,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'CheckAdmin'], function(){
 		->name("get_sach_by_mon_hoc");
 	});
 
+	//ĐĂNG KÝ SÁCH
 	Route::group(["prefix" => "dang_ky_sach"], function(){
 		Route::get("view_all","DangKySachController@view_all")
 		->name("dang_ky_sach.view_all");

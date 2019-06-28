@@ -9,6 +9,12 @@ class Lop extends Model
 	public $table = 'lop';
 	public $limit = 5;
 	public $offset = 0;
+	public function get_all_lop()
+	{
+		$array_lop= DB::select ("select * from $this->table join khoa_hoc on $this->table.ma_khoa_hoc = khoa_hoc.ma_khoa_hoc");
+		return $array_lop;
+	}
+
 	public function get_all()
 	{
 		$array_lop= DB::select ("select * from $this->table join khoa_hoc on $this->table.ma_khoa_hoc = khoa_hoc.ma_khoa_hoc order by ma_lop desc limit $this->limit offset $this->offset");

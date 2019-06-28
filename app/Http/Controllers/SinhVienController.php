@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 
 use Request;
+use Response;
 use App\Model\SinhVien;
 use App\Model\Lop;
 
@@ -14,7 +15,7 @@ class SinhVienController extends Controller
 		$array_sinh_vien = $sinh_vien->get_all();
 
 		$lop = new Lop();
-		$array_lop = $lop->get_all();
+		$array_lop = $lop->get_all_lop();
 		return view ("$this->folder.view_all",[
 			'array_sinh_vien' => $array_sinh_vien, 
 			'array_lop' => $array_lop
@@ -64,5 +65,14 @@ class SinhVienController extends Controller
 			'array_sinh_vien' => $array_sinh_vien,
 			'array_lop' => $array_lop
 		]);
+	}
+
+	public function get_one()
+	{
+		$sinh_vien = new SinhVien();
+		$sinh_vien->ma_sinh_vien = Request::get('ma_sinh_vien');
+		$sinh_vien = $sinh_vien->get_one();
+		
+		return Response::json($sinh_vien);
 	}
 }
