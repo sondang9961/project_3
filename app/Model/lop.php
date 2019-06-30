@@ -26,6 +26,16 @@ class Lop extends Model
 		return $array_lop;
 	}
 
+	public function count()
+	{
+		$count = DB::select("select count(*)/$this->limit as count from $this->table
+			where (? is null or $this->table.ma_khoa_hoc = ?)",[
+				$this->ma_khoa_hoc,
+				$this->ma_khoa_hoc
+			]);
+		return $count[0]->count;
+	}
+
 	public function get_all_by_khoa_hoc()
 	{
 		$array_lop = DB::select("select * from $this->table where ma_khoa_hoc=?",[$this->ma_khoa_hoc]);
@@ -77,13 +87,5 @@ class Lop extends Model
 		$array_lop = DB::select("select * from $this->table where ma_lop = ?",[$this->ma_lop]);
 		return $array_lop;
 	}
-	public function count()
-	{
-		$count = DB::select("select count(*)/$this->limit as count from $this->table
-			where (? is null or $this->table.ma_khoa_hoc = ?)",[
-				$this->ma_khoa_hoc,
-				$this->ma_khoa_hoc
-			]);
-		return $count[0]->count;
-	}
+	
 }

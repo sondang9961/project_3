@@ -1,7 +1,7 @@
 @extends('layer.master')
 @section('content')
 <font face="Roboto,Helvetica Neue,Arial,sans-serif">
-<center><h1>Quản lý khóa học</h1></center>
+<center><h1 id="header">Quản lý khóa học</h1></center>
 	<div id="main_content">
 		<div id="left_content">
 			<div><h2>Danh sách khóa học</h2></div>	

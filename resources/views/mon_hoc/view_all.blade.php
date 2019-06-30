@@ -3,16 +3,20 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet" />
 @endpush
 @section('content')
-	<center><h1>Quản lý môn học</h1></center>
+	<center><h1 id="header">Quản lý môn học</h1></center>
 	<div id="main_content">
 		<div id="left_content">
 			<div><h2>Danh sách môn học</h2></div>
 			<form>
 				Khóa học
 				<select name="ma_khoa_hoc" id="search_khoa_hoc" style="width:16rem">
-					<option>--Tên khóa học--</option>
+					<option value="">Xem tất cả</option>
 					@foreach($array_khoa_hoc as $khoa_hoc)
-						<option value="{{$khoa_hoc->ma_khoa_hoc}}">
+						<option value="{{$khoa_hoc->ma_khoa_hoc}}"
+						@if ($khoa_hoc->ma_khoa_hoc == $ma_khoa_hoc)
+							selected 
+						@endif
+						>
 							{{$khoa_hoc->ten_khoa_hoc}}
 						</option>
 					@endforeach
@@ -42,6 +46,22 @@
 					</tr>
 				</form>
 				@endforeach
+				<tfoot>
+					<tr>
+						<td colspan="100%">
+							Trang: 
+							@for ($i = 1; $i <= $count_trang; $i++)
+								<a href="{{ route('mon_hoc.view_all',['trang' => $i, 'ma_khoa_hoc' => $ma_khoa_hoc]) }}"
+									@if ($trang==$i)
+										style='font-weight: bolder; font-size: 17px'
+									@endif
+									>
+									{{$i}}
+								</a>
+							@endfor
+						</td>
+					</tr>
+				</tfoot>
 			</table>
 		</div>
 		<div id="right_content">

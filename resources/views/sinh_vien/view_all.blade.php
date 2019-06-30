@@ -3,17 +3,20 @@
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet" />
 @endpush
 @section('content')
-
-	<center><h1>Quản lý sinh viên</h1></center>
 	<div id="main_content">
+		<center><h1 id="header">Quản lý sinh viên</h1></center>
 		<div id="left_content">
 			<div><h2>Danh sách sinh viên</h2></div>
 			<form>
 				Lớp
 				<select name="ma_lop" id="search_lop" style="width: 10rem">
-					<option disabled selected>--Tên lớp--</option>
+					<option value="">Xem tất cả</option>
 					@foreach($array_lop as $lop)
-						<option value="{{$lop->ma_lop}}">
+						<option value="{{$lop->ma_lop}}"
+						@if ($lop->ma_lop == $ma_lop)
+							selected 
+						@endif
+						>
 							{{$lop->ten_lop}}
 						</option>
 					@endforeach
@@ -43,6 +46,22 @@
 				</tr>
 				</form>
 				@endforeach
+				<tfoot>
+					<tr>
+						<td colspan="100%">
+							Trang: 
+							@for ($i = 1; $i <= $count_trang; $i++)
+								<a href="{{ route('sinh_vien.view_all',['trang' => $i, 'ma_lop' => $ma_lop]) }}"
+									@if ($trang==$i)
+										style='font-weight: bolder; font-size: 17px'
+									@endif
+									>
+									{{$i}}
+								</a>
+							@endfor
+						</td>
+					</tr>
+				</tfoot>
 			</table>
 		</div>
 		<div id="right_content" >

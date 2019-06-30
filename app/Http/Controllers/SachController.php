@@ -12,18 +12,39 @@ class SachController extends Controller
 	private $folder = 'sach';
 	public function view_all()
 	{
+		$trang = Request::get('trang');
+
+		if(empty($trang)){
+			$trang = 1;
+		}
+		
+		$limit = 5;
 		$sach = new Sach();
+		$sach->offset = ($trang - 1)*$limit;
+		$sach->limit = $limit;
+		$ma_mon_hoc = Request::get('ma_mon_hoc');
+		$ma_sach = Request::get('ma_sach');
+		$sach->ma_mon_hoc = $ma_mon_hoc;
+		$sach->ma_sach = $ma_sach;
 		$array_sach = $sach->get_all();
+
+		$count_trang = ceil($sach->count());
 
 		$mon_hoc = new MonHoc();
 		$array_mon_hoc = $mon_hoc->get_all();
 
 		$khoa_hoc = new KhoaHoc();
 		$array_khoa_hoc = $khoa_hoc->get_all();
+
 		return view ("$this->folder.view_all", [
 			'array_sach' => $array_sach,
 			'array_mon_hoc' => $array_mon_hoc,
-			'array_khoa_hoc' => $array_khoa_hoc
+			'array_khoa_hoc' => $array_khoa_hoc,
+			'count_trang' => $count_trang,
+			'ma_mon_hoc' => $ma_mon_hoc,
+			'ma_sach' => $ma_sach,
+			'trang' => $trang,
+			'sach' => $sach
 		]);
 	}
 

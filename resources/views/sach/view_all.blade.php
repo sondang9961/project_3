@@ -8,46 +8,46 @@
 </style>
 @endpush
 @section('content')
-<center><h1>Quản lý sách</h1></center>
+<center><h1 id="header">Quản lý sách</h1></center>
 	<div id="main_content">
 		<div id="left_content">
 			<div><h2>Danh sách các đầu sách</h2></div>
 			<form>
 				<table style="width: 100%">
 					<tr style="height: 4rem">
-						<div>
-							<td>
-								Tên môn
-							</td>
-							<td>
-								<select name="ma_mon_hoc" class="form-control" style="width: 14rem" id="search_mon_hoc">
-									<option disabled selected>--Môn học--</option>
-									@foreach ($array_mon_hoc as $mon_hoc)
-										<option value="{{$mon_hoc->ma_mon_hoc}}">
-											{{$mon_hoc->ten_mon_hoc}}
-										</option>
-									@endforeach
-								</select>
-							</td>
-						</div>
-						<div>
-							<td>
-								Tên sách
-							</td>
-							<td>
-								<select name="ma_sach" class="form-control" style="width: 14rem" id="search_sach" disabled>
-									<option>--Sách--</option>
-								</select>
-							</td>
-						</div>				
+						<td>
+							Tên môn
+						</td>
+						<td>
+							<select name="ma_mon_hoc" class="form-control" style="width: 14rem" id="search_mon_hoc">
+								<option disabled selected>--Môn học--</option>
+								@foreach ($array_mon_hoc as $mon_hoc)
+									<option value="{{$mon_hoc->ma_mon_hoc}}">
+										{{$mon_hoc->ten_mon_hoc}}
+									</option>
+								@endforeach
+							</select>
+						</td>
+						<td>
+							Tên sách
+						</td>
+						<td>
+							<select name="ma_sach" class="form-control" style="width: 14rem" id="search_sach" disabled>
+								<option>--Sách--</option>
+							</select>
+						</td>			
 						<td><input type="submit" value="Xem" id="button" class="search_button" disabled></td>
+					</tr>
+					<tr>
+						<td>
+							<a href="{{ route('sach.view_all') }}">Hiển thị tất cả</a>
+						</td>
 					</tr>
 			</form>
 			<br>
 			<table class="table table-striped">
 				<thead>
 					<tr>
-						<th>Mã</th>
 						<th>Tên sách</th>
 						<th>Môn</th>
 						<th>Số lượng</th>
@@ -58,7 +58,6 @@
 				</thead>				
 				@foreach ($array_sach as $sach)
 				<tr>
-					<td>{{$sach->ma_sach}}</td>
 					<td>{{$sach->ten_sach}}</td>
 					<td>{{$sach->ten_mon_hoc}}</td>
 					<td>{{$sach->so_luong_nhap}}</td>
@@ -71,6 +70,26 @@
 					</td>
 				</tr>
 				@endforeach
+				<tfoot>
+					<tr>
+						<td colspan="100%">
+							Trang: 
+							@for ($i = 1; $i <= $count_trang; $i++)
+								<a href="{{ route('sach.view_all',[
+									'trang' => $i, 
+									'ma_mon_hoc' => $ma_mon_hoc,
+									'ma_sach' => $ma_sach,
+									]) }}"
+									@if ($trang==$i)
+										style='font-weight: bolder; font-size: 17px'
+									@endif
+									>
+									{{$i}}
+								</a>
+							@endfor
+						</td>
+					</tr>
+				</tfoot>
 			</table>
 		</div>
 		<div id="right_content" >

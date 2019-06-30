@@ -3,8 +3,8 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet" />
 @endpush
 @section('content')
-<center><h1>Quản lý đăng ký sách</h1></center>
-	<div id="main-content">
+<center><h1 id="header">Quản lý đăng ký sách</h1></center>
+	<div id="main_content">
 		<div id="left_content">
 			<div><h2>Danh sách sinh viên đăng ký sách</h2></div>
 			<form>
@@ -31,7 +31,9 @@
 								<option>--Lớp--</option>
 							</select>
 						</td>
-						<td></td>
+						<td>
+							<input type="submit" value="Xem" id="button" disabled>
+						</td>
 					</tr>
 					<tr>
 						<td>
@@ -50,7 +52,11 @@
 								<option>--Tên sách--</option>
 							</select>
 						</td>
-						<td><input type="button" value="Xem" id="button" disabled></td>
+						<td>
+							<a href="{{ route('dang_ky_sach.view_all') }}">
+								<input type="submit" value="Tất cả" id="button">
+							</a>
+						</td>
 				</tr>
 				</table>
 			</form>
@@ -82,6 +88,28 @@
 					</td>
 				</tr>
 				@endforeach
+				<tfoot>
+					<tr>
+						<td colspan="100%">
+							Trang: 
+							@for ($i = 1; $i <= $count_trang; $i++)
+								<a href="{{ route('dang_ky_sach.view_all',[
+										'trang' => $i,
+										'ma_khoa_hoc' => $ma_khoa_hoc,
+										'ma_lop' => $ma_lop,
+										'ma_mon_hoc' => $ma_mon_hoc,
+										'ma_sach' => $ma_sach,
+									]) }}"
+									@if ($trang==$i)
+										style='font-weight: bolder; font-size: 17px'
+									@endif
+									>
+									{{$i}}
+								</a>
+							@endfor
+						</td>
+					</tr>
+				</tfoot>
 			</table>		
 		</div>
 		<div id="right_content" >

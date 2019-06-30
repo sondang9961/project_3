@@ -16,14 +16,33 @@ class DangKySachController extends Controller
 	private $folder = 'dang_ky_sach';
 	public function view_all()
 	{
+		$trang = Request::get('trang');
+
+		if(empty($trang)){
+			$trang=1;
+		}
+
+		$limit = 5;
 		$dang_ky_sach = new DangKySach();
+		$dang_ky_sach->offset = ($trang - 1)*$limit;
+		$dang_ky_sach->limit = $limit;
+		$dang_ky_sach->ma_khoa_hoc = Request::get('ma_khoa_hoc');
+		$dang_ky_sach->ma_lop = Request::get('ma_lop');
+		$dang_ky_sach->ma_mon_hoc = Request::get('ma_mon_hoc');
+		$dang_ky_sach->ma_sach = Request::get('ma_sach');
 		$array_dang_ky_sach = $dang_ky_sach->get_all();
+
+		$count_trang = ceil($dang_ky_sach->count());
 
 		$khoa_hoc = new KhoaHoc();
 		$array_khoa_hoc = $khoa_hoc->get_all();
 		return view ("$this->folder.view_all", [
 			'array_dang_ky_sach' => $array_dang_ky_sach,
 			'array_khoa_hoc' => $array_khoa_hoc,
+			'count_trang' => $count_trang,
+			'ma_khoa_hoc' => $ma_khoa_hoc,
+			'trang' => $trang,
+			'dang_ky_sach' => $dang_ky_sach
 		]);
 	}
 

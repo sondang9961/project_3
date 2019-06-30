@@ -10,12 +10,16 @@
 				<table>
 					<tr>
 						<td >
-							<div style="margin-right: 3rem ">Tên sách
-								<select name="ma_sach" class="form-control" style="width: 14rem" id="search_sach">
-									<option selected disabled="">--Tên sách--</option>
-									@foreach ($array_sach as $sach)
-										<option value="{{$sach->ma_sach}}">
-											{{$sach->ten_sach}}
+							<div style="margin-right: 3rem ">Tên môn
+								<select name="ma_mon_hoc" class="form-control" style="width: 14rem" id="search_sach">
+									<option selected disabled="">--Tên môn--</option>
+									@foreach ($array_mon_hoc as $mon_hoc)
+										<option value="{{$mon_hoc->ma_mon_hoc}}"
+											@if ($mon_hoc->ma_mon_hoc == $ma_mon_hoc)
+												selected 
+											@endif
+											>
+											{{$mon_hoc->ten_mon_hoc}}
 										</option>
 									@endforeach
 								</select>
@@ -24,7 +28,11 @@
 						<td>
 							<div style="margin-right: 3rem ">
 								Ngày nhập
-								<input type="date" name="ngay_nhap_sach" class="form-control">
+								<input type="date" name="ngay_nhap_sach" class="form-control"
+									@if (isset($ngay_nhap_sach))
+									value="{{$ngay_nhap_sach}}" 	
+									@endif
+								>
 							</div>
 						</td>
 						<td valign="bottom">
@@ -51,6 +59,26 @@
 							<td>{{$thong_ke->ngay_nhap_sach}}</td>
 						</tr>
 					@endforeach
+					<tfoot>
+						<tr>
+							<td colspan="100%">
+								Trang: 
+								@for ($i = 1; $i <= $count_trang; $i++)
+									<a href="{{ route('thong_ke.view_thong_ke_sach',[
+										'trang' => $i, 
+										'ngay_nhap_sach' => $ngay_nhap_sach,
+										'ma_mon_hoc' => $ma_mon_hoc,
+										]) }}"
+										@if ($trang==$i)
+											style='font-weight: bolder; font-size: 17px'
+										@endif
+										>
+										{{$i}}
+									</a>
+								@endfor
+							</td>
+						</tr>
+					</tfoot>
 				@endif
 			</table>
 		</div>

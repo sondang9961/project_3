@@ -11,14 +11,31 @@ class MonHocController extends Controller
 	private $folder = 'mon_hoc';
 	public function view_all()
 	{
+		$trang = Request::get('trang');
+
+		if(empty($trang)){
+			$trang = 1;
+		}
+		
+		$limit = 5;
 		$mon_hoc = new MonHoc();
+		$mon_hoc->offset = ($trang - 1)*$limit;
+		$mon_hoc->limit = $limit;
+		$ma_khoa_hoc = Request::get('ma_khoa_hoc');
+		$mon_hoc->ma_khoa_hoc = $ma_khoa_hoc;
 		$array_mon_hoc = $mon_hoc->get_all();
+
+		$count_trang = ceil($mon_hoc->count());
 
 		$khoa_hoc = new KhoaHoc();
 		$array_khoa_hoc = $khoa_hoc->get_all();
 		return view ("$this->folder.view_all",[
 			'array_mon_hoc' => $array_mon_hoc,
-			'array_khoa_hoc' => $array_khoa_hoc
+			'array_khoa_hoc' => $array_khoa_hoc,
+			'count_trang' => $count_trang,
+			'ma_khoa_hoc' => $ma_khoa_hoc,
+			'trang' => $trang,
+			'mon_hoc' => $mon_hoc
 		]);
 	}
 

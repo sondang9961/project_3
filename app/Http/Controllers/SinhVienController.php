@@ -6,25 +6,42 @@ use Response;
 use App\Model\SinhVien;
 use App\Model\Lop;
 
+if (version_compare(PHP_VERSION, '7.2.0', '>=')) {
+// Ignores notices and reports all other kinds... and warnings
+error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING);
+// error_reporting(E_ALL ^ E_WARNING); // Maybe this is enough
+}
 class SinhVienController extends Controller
 {
 	private $folder='sinh_vien';
 	public function view_all()
 	{
+		$trang = Request::get('trang');
+		
+		if(empty($trang)){
+			$trang = 1;
+		}
+		$ma_lop =  Request::get('ma_lop');
+
+		$limit = 5;
 		$sinh_vien = new SinhVien();
+		$sinh_vien->offset = ($trang - 1)*$limit;
+		$sinh_vien->limit = $limit;
+		$sinh_vien->ma_lop = $ma_lop;
 		$array_sinh_vien = $sinh_vien->get_all();
+		$count_trang = ceil($sinh_vien->count());
 
 		$lop = new Lop();
 		$array_lop = $lop->get_all_lop();
-
-		//dd($array_lop);
-		// dd($array_sinh_vien);
 		
 		return view ("$this->folder.view_all",[
 			'array_sinh_vien' => $array_sinh_vien, 
-			'array_lop' => $array_lop
-		]);
-		
+			'array_lop' => $array_lop,
+			'count_trang' => $count_trang,
+			'ma_lop' => $ma_lop,
+			'trang' => $trang,
+			'sinh_vien' => $sinh_vien
+		]);	
 	}
 
 	public function get_sinh_vien_by_lop()
@@ -58,17 +75,30 @@ class SinhVienController extends Controller
 
 	public function danh_sach_sinh_vien_by_lop($ma_lop)
 	{
+		$trang = Request::get('trang');
+		
+		if(empty($trang)){
+			$trang = 1;
+		}
+
+		$limit = 5;
 		$sinh_vien = new SinhVien();
 		$sinh_vien->ma_lop = $ma_lop;
-		$array_sinh_vien = $sinh_vien->danh_sach_sinh_vien_by_lop();
+		$sinh_vien->offset = ($trang - 1)*$limit;
+		$array_sinh_vien_by_lop = $sinh_vien->danh_sach_sinh_vien_by_lop();
+		$count_trang = ceil($sinh_vien->count_sinh_vien_by_lop());
 
 		$lop = new Lop();
 		$lop->ma_lop = $ma_lop;
 		$array_lop = $lop->danh_sach_lop();
 
 		return view("$this->folder.danh_sach_sinh_vien_by_lop",[
-			'array_sinh_vien' => $array_sinh_vien,
-			'array_lop' => $array_lop
+			'array_sinh_vien_by_lop' => $array_sinh_vien_by_lop,
+			'array_lop' => $array_lop,
+			'count_trang' => $count_trang,
+			'ma_lop' => $ma_lop,
+			'trang' => $trang,
+			'sinh_vien' => $sinh_vien
 		]);
 	}
 

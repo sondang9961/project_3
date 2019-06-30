@@ -21,12 +21,12 @@ class LopController extends Controller
 		if(empty($trang)){
 			$trang = 1;
 		}
-		$ma_khoa_hoc = Request::get('ma_khoa_hoc');
 		
 		$limit = 5;
 		$lop = new Lop();
 		$lop->offset = ($trang - 1)*$limit;
 		$lop->limit = $limit;
+		$ma_khoa_hoc = Request::get('ma_khoa_hoc');
 		$lop->ma_khoa_hoc = $ma_khoa_hoc;
 		$array_lop = $lop->get_all();
 

@@ -3,7 +3,7 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet" />
 @endpush
 @section('content')
-<center><h1>Quản lý lớp</h1></center>
+<center><h1 id="header">Quản lý lớp</h1></center>
 	<div id="main_content">
 		<div id="left_content" >
 			<div><h2>Danh sách lớp</h2></div>
@@ -53,7 +53,7 @@
 							@for ($i = 1; $i <= $count_trang; $i++)
 								<a href="{{ route('lop.view_all',['trang' => $i, 'ma_khoa_hoc' => $ma_khoa_hoc]) }}"
 									@if ($trang==$i)
-										style='color:red'
+										style='font-weight: bolder; font-size: 17px'
 									@endif
 									>
 									{{$i}}
