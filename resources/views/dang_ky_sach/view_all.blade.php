@@ -15,7 +15,7 @@
 						</td>
 						<td>
 							<select name="ma_khoa_hoc" class="form-control" style="width: 14rem" id="search_khoa_hoc">
-								<option disabled selected>--Chọn khóa học--</option>
+								<option disabled selected value="">--Chọn khóa học--</option>
 								@foreach ($array_khoa_hoc as $khoa_hoc)
 									<option value="{{$khoa_hoc->ma_khoa_hoc}}">
 										{{$khoa_hoc->ten_khoa_hoc}}
@@ -158,6 +158,20 @@
 										</div>
 									</td>
 								</div>										
+							</tr>
+							<tr>
+								<td>
+									@if (Session::has('error'))
+                                        <span style="color: red">
+                                            {{Session::get('error')}}
+                                        </span>
+                                    @endif
+                                    @if (Session::has('success'))
+                                        <span style="color: green">
+                                            {{Session::get('success')}}
+                                        </span>
+                                    @endif
+								</td>
 							</tr>
 						</table><br><br>
 						<div><input type="submit" value="Thêm" id="button" class="add_button" disabled></div>

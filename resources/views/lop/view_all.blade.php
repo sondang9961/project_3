@@ -7,13 +7,16 @@
 	<div id="main_content">
 		<div id="left_content" >
 			<div><h2>Danh sách lớp</h2></div>
-			<form action="{{ route('lop.process_search') }}" method="post">
-				{{csrf_field()}}
+			<form>
 				Khóa học
 				<select name="ma_khoa_hoc" style="width: 16.5rem" id="search_khoa_hoc">
-					<option>--Tên khóa học--</option>
+					<option value="">Xem Tất Cả</option>
 					@foreach($array_khoa_hoc as $khoa_hoc)
-						<option value="{{$khoa_hoc->ma_khoa_hoc}}">
+						<option value="{{$khoa_hoc->ma_khoa_hoc}}"
+						@if ($khoa_hoc->ma_khoa_hoc == $ma_khoa_hoc)
+							selected 
+						@endif
+						>
 							{{$khoa_hoc->ten_khoa_hoc}}
 						</option>
 					@endforeach
@@ -48,7 +51,11 @@
 						<td colspan="100%">
 							Trang: 
 							@for ($i = 1; $i <= $count_trang; $i++)
-								<a href="{{ route('lop.view_all',['trang' => $i]) }}">
+								<a href="{{ route('lop.view_all',['trang' => $i, 'ma_khoa_hoc' => $ma_khoa_hoc]) }}"
+									@if ($trang==$i)
+										style='color:red'
+									@endif
+									>
 									{{$i}}
 								</a>
 							@endfor
@@ -63,19 +70,37 @@
 					<form action="{{ route('lop.process_insert')}}" method="post" id="form_insert">
 						{{csrf_field()}}
 						<div>Tên lớp</div>	
-						<div><input type="text" name="ten_lop" id="textbox" placeholder="Tên lớp + K(1,2,3...)"></div><br>
+						<div>
+							<input type="text" name="ten_lop" id="ten_lop" placeholder="bkc + (01,...) + k(1,...)">
+							<span id="errLop" style="color: red"></span>
+						</div>
+						<br>
 						<div>Khóa học</div>
 						<div>
 							<select name="ma_khoa_hoc" id="select_khoa_hoc" style="width: 16.5rem">
-								<option value="-1">--Tên khóa học--</option>
+								<option value="-1" disabled selected>--Tên khóa học--</option>
 								@foreach ($array_khoa_hoc as $khoa_hoc) 
 									<option value="{{$khoa_hoc->ma_khoa_hoc}}">
 										{{$khoa_hoc->ten_khoa_hoc}}
 									</option>
 								@endforeach 								
 							</select>
+							<span id="errKhoaHoc" style="color: red"></span>
+						</div>
+						<br>
+						<div>
+							@if (Session::has('error'))
+								<span style="color: red">
+	                                {{Session::get('error')}}
+	                            </span>
+							@endif
+							@if (Session::has('success'))
+                                <span style="color: green">
+                                    {{Session::get('success')}}
+                                </span>
+                            @endif
 						</div><br>
-						<div><input type="submit" value="Thêm" id="button"></div>
+						<div><input type="button" value="Thêm" id="button" onclick="validate()"></div>
 					</form>
 				</div>
 		</div>
@@ -95,7 +120,8 @@
 			        	{{csrf_field()}}
 			          	<input type="hidden" name="ma_lop" id="ma_lop">
 			          	Tên lớp<br>
-			          	<input type="text" name="ten_lop" id="ten_lop" class="form-control"><br>
+			          	<input type="text" name="ten_lop" id="ten_lop" class="form-control">
+			          	<br>
 			          	Khóa học<br>
 			          	<select name="ma_khoa_hoc" id="ma_khoa_hoc">
 			          		@foreach($array_khoa_hoc as $khoa_hoc)
@@ -103,7 +129,8 @@
 									{{$khoa_hoc->ten_khoa_hoc}}
 								</option>
 							@endforeach
-			          	</select><br>					
+			          	</select>
+			          	<br>					
 			        	<div style="margin-top: 2rem">
 			          		<input type="submit" value="Sửa" class="btn-sm">
 			          	</div>	
@@ -139,5 +166,28 @@
 			
 		});
 	});
+	function validate() {
+		var dem = 0;
+		var ten_lop = document.getElementById('ten_lop').value;
+		var ma_khoa_hoc = document.getElementById('select_khoa_hoc').value;
+		var errLop = document.getElementById('errLop');
+		var errKhoaHoc = document.getElementById('errKhoaHoc');
+
+		if(ten_lop.length == 0){
+			errLop.innerHTML="Không được trống!";
+		}else {
+			errLop.innerHTML="";
+			dem++;
+		}
+		if(ma_khoa_hoc == -1){
+			errKhoaHoc.innerHTML="Chưa chọn khóa học!";
+		}else {
+			errKhoaHoc.innerHTML="";
+			dem++;
+		}
+		if(dem == 2){
+			document.getElementById('form_insert').submit();
+		}
+	}
 </script>
 @endpush

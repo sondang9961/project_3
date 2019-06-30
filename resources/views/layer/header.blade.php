@@ -33,23 +33,6 @@
 					</ul>
 				</li>
 
-				<li class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-						<i class="fa fa-bell-o"></i>
-						<span class="notification">5</span>
-						<p class="hidden-md hidden-lg">
-							Notifications
-							<b class="caret"></b>
-						</p>
-					</a>
-					<ul class="dropdown-menu">
-						<li><a href="#">Notification 1</a></li>
-						<li><a href="#">Notification 2</a></li>
-						<li><a href="#">Notification 3</a></li>
-						<li><a href="#">Notification 4</a></li>
-						<li><a href="#">Another notification</a></li>
-					</ul>
-				</li>
 
 				<li class="dropdown dropdown-with-icons">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown">

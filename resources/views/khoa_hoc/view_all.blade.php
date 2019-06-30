@@ -32,11 +32,14 @@
 		<div id="right_content" >
 			<div><h2>Thêm khóa học</h2></div>
 				<div>
-					<form action="{{route('khoa_hoc.process_insert')}}" method="post">
+					<form action="{{route('khoa_hoc.process_insert')}}" method="post" id="form_insert">
 						{{csrf_field()}}
 						<div>Tên khóa học</div>	
-						<div><input type="text" name="ten_khoa_hoc" id="textbox"></div><br>
-						<div><input type="submit" value="Thêm" id="button"></div>
+						<div>
+							<input type="text" name="ten_khoa_hoc" id="ten_khoa_hoc">
+							<span id="errKhoaHoc" style="color: red"></span>
+						</div><br>
+						<div><input type="button" value="Thêm" id="button" onclick="validate()"></div>
 					</form>
 				</div>
 		</div>
@@ -69,7 +72,7 @@
 </font>
 @endsection
 @push('js')
-  	<script>
+  	<script type="text/javascript">
   		$(document).ready(function() {
   			$(".button_update").click(function(event) {
   				var ma_khoa_hoc = $(this).data('ma_khoa_hoc');
@@ -86,9 +89,23 @@
   				})
   				.fail(function() {
   					console.log("error");
-  				});
-  				
+  				});		
   			});
   		});
+  		function validate() {
+  			var dem = 0;
+  			var ten_khoa_hoc = document.getElementById('ten_khoa_hoc').value;
+  			var errKhoaHoc = document.getElementById('errKhoaHoc');
+
+  			if(ten_khoa_hoc.length == 0){
+  				errKhoaHoc.innerHTML="Không được trống!";
+  			}else{
+  				errKhoaHoc.innerHTML="";
+  				dem++;
+  			}
+  			if(dem == 1){
+  				document.getElementById('form_insert').submit();
+  			}
+  		}
   	</script>
 @endpush

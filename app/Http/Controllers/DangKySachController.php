@@ -6,6 +6,11 @@ use App\Helper;
 use App\Model\DangKySach;
 use App\Model\KhoaHoc;
 
+if (version_compare(PHP_VERSION, '7.2.0', '>=')) {
+// Ignores notices and reports all other kinds... and warnings
+error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING);
+// error_reporting(E_ALL ^ E_WARNING); // Maybe this is enough
+}
 class DangKySachController extends Controller
 {
 	private $folder = 'dang_ky_sach';
@@ -32,8 +37,15 @@ class DangKySachController extends Controller
 		if (Request::get('tinh_trang_nhan_sach') == 1) {
 			$dang_ky_sach->ngay_nhan_sach = date("Y-m-d");
 		}
-		$dang_ky_sach->insert();
-		return redirect()->route("$this->folder.view_all");
+		$array_dang_ky_sach = $dang_ky_sach->check_insert();
+		if(count($array_dang_ky_sach) == 0){
+			$dang_ky_sach->insert();
+			return redirect()->route("$this->folder.view_all")->with('success', 'Đã thêm');
+		}
+		if(count($array_dang_ky_sach) == 1){
+			return redirect()->route("$this->folder.view_all")->with('error', 'Sinh viên đã đăng ký rồi!');
+		}
+			
 	}
 
 	public function change_tinh_trang_dang_ky_sach()

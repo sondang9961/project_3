@@ -35,6 +35,14 @@ class SachController extends Controller
 		return $array_sach;
 	}
 
+	public function get_sach_by_lop()
+	{
+		$sach = new Sach();
+		$sach->ma_lop = Request::get('ma_lop');
+		$array_sach = $sach->get_all_by_lop();
+		return $array_sach;
+	}
+
 	public function process_insert()
 	{
 		$sach = new Sach();

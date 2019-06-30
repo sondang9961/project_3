@@ -47,22 +47,38 @@
 		<div id="right_content">
 			<div><h2>Thêm môn học</h2></div>
 				<div>
-					<form action="{{route('mon_hoc.process_insert')}}" method="post">
+					<form action="{{route('mon_hoc.process_insert')}}" method="post" id="form_insert">
 						{{csrf_field()}}
 						<div>Tên môn</div>	
-						<div><input type="text" name="ten_mon_hoc" id="textbox"></div><br>
+						<div>
+							<input type="text" name="ten_mon_hoc" id="ten_mon_hoc">
+							<span id="errMonHoc" style="color: red"></span>
+						</div><br>
 						<div>Khóa học</div>
 						<div>
 							<select name="ma_khoa_hoc" id="select_khoa_hoc" style="width: 16.5rem">
-								<option>--Tên khóa học--</option>
+								<option value="-1">--Tên khóa học--</option>
 								@foreach ($array_khoa_hoc as $khoa_hoc)
 									<option value="{{$khoa_hoc->ma_khoa_hoc}}">
 										{{$khoa_hoc->ten_khoa_hoc}}
 									</option>			
 								@endforeach
 							</select>
+							<span id="errKhoaHoc" style="color: red"></span>
+						</div>
+						<div>
+							@if (Session::has('error'))
+								<span style="color: red">
+	                                {{Session::get('error')}}
+	                            </span>
+							@endif
+							@if (Session::has('success'))
+                                <span style="color: green">
+                                    {{Session::get('success')}}
+                                </span>
+                            @endif
 						</div><br>
-						<div><input type="submit" value="Thêm" id="button"></div>
+						<div><input type="button" value="Thêm" id="button" onclick="validate()"></div>
 					</form>
 				</div>
 		</div>
@@ -129,5 +145,28 @@
 			
 		});
 	});
+	function validate() {
+		var dem = 0;
+		var ten_mon_hoc = document.getElementById('ten_mon_hoc').value;
+		var ma_khoa_hoc = document.getElementById('select_khoa_hoc').value;
+		var errMonHoc= document.getElementById('errMonHoc');
+		var errKhoaHoc = document.getElementById('errKhoaHoc');
+
+		if(ten_mon_hoc.length == 0){
+			errMonHoc.innerHTML="Không được trống!";
+		}else {
+			errMonHoc.innerHTML="";
+			dem++;
+		}
+		if(ma_khoa_hoc == -1){
+			errKhoaHoc.innerHTML="Chưa chọn khóa học!";
+		}else {
+			errKhoaHoc.innerHTML="";
+			dem++;
+		}
+		if(dem == 2){
+			document.getElementById('form_insert').submit();
+		}
+	}
 </script>
 @endpush

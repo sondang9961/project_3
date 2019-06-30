@@ -11,7 +11,7 @@
 			<form>
 				Lớp
 				<select name="ma_lop" id="search_lop" style="width: 10rem">
-					<option>--Tên lớp--</option>
+					<option disabled selected>--Tên lớp--</option>
 					@foreach($array_lop as $lop)
 						<option value="{{$lop->ma_lop}}">
 							{{$lop->ten_lop}}
@@ -48,22 +48,26 @@
 		<div id="right_content" >
 			<div><h2>Thêm sinh viên</h2></div>
 				<div>
-					<form action="{{ route('sinh_vien.process_insert')}}" method="post">
+					<form action="{{ route('sinh_vien.process_insert')}}" method="post" id="form_insert">
 						{{csrf_field()}}
 						<div>Tên sinh viên</div>	
-						<div><input type="text" name="ten_sinh_vien" id="textbox" ></div><br>
+						<div>
+							<input type="text" name="ten_sinh_vien" id="ten_sinh_vien" >
+							<span id="errSinhVien" style="color: red"></span>
+						</div><br>
 						<div>Tên lớp</div>
 						<div>
 							<select name="ma_lop" style="width: 16.5rem" id="select_lop">
-								<option>--Tên lớp--</option>
+								<option value="-1">--Tên lớp--</option>
 								@foreach($array_lop as $lop)
 									<option value="{{$lop->ma_lop}}">
 										{{$lop->ten_lop}}
 									</option>
 								@endforeach
 							</select>
+							<span id="errLop" style="color: red"></span>
 						</div><br>
-						<div><input type="submit" value="Thêm" id="button"></div>
+						<div><input type="button" value="Thêm" id="button" onclick="validate()"></div>
 					</form>
 				</div>
 		</div>
@@ -128,5 +132,28 @@
 			
 		});
 	});
+	function validate() {
+		var dem = 0;
+		var ten_sinh_vien = document.getElementById('ten_sinh_vien').value;
+		var ma_lop = document.getElementById('select_lop').value;
+		var errSinhVien = document.getElementById('errSinhVien');
+		var errLop = document.getElementById('errLop');
+
+		if(ten_sinh_vien.length == 0){
+			errSinhVien.innerHTML="Không được trống!";
+		}else {
+			errSinhVien.innerHTML="";
+			dem++;
+		}
+		if(ma_lop == -1){
+			errLop.innerHTML="Chưa chọn lớp!";
+		}else {
+			errLop.innerHTML="";
+			dem++;
+		}
+		if(dem == 2){
+			document.getElementById('form_insert').submit();
+		}
+	}
 </script>
 @endpush

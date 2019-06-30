@@ -33,6 +33,15 @@ class DangKySach
 		return $array[0];
 	}
 
+	public function check_insert()
+	{
+		$array_dang_ky_sach = DB::select("select * from $this->table where ma_sinh_vien = ? and ma_sach = ? limit 1",[
+			$this->ma_sinh_vien,
+			$this->ma_sach
+		]);
+		return $array_dang_ky_sach;
+	}
+
 	public function insert()
 	{
 		DB::insert("insert into $this->table (ma_sinh_vien, ma_sach, tinh_trang_nhan_sach, ngay_dang_ky, ngay_nhan_sach) values (?, ?, ?, ?, ?)",[

@@ -76,9 +76,15 @@
 				</a>
 			</li>
 			<li class="active">
-				<a href="{{route('thong_ke.view_all')}}">
+				<a href="{{route('thong_ke.view_thong_ke_sach')}}">
 					<i class="pe-7s-graph"></i>
-					<p>Thống kê</p>
+					<p>Thống kê sách</p>
+				</a>
+			</li>
+			<li class="active">
+				<a href="{{route('thong_ke.view_thong_ke_sinh_vien')}}">
+					<i class="pe-7s-graph"></i>
+					<p>Thống kê sinh viên</p>
 				</a>
 			</li>
 		</ul>

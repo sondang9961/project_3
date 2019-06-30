@@ -103,6 +103,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'CheckAdmin'], function(){
 		->name("$group.process_update");
 		Route::get("get_sach_by_mon_hoc","$controller@get_sach_by_mon_hoc")
 		->name("get_sach_by_mon_hoc");
+		Route::get("get_sach_by_lop","$controller@get_sach_by_lop")
+		->name("get_sach_by_lop");
 		Route::get("get_one","$controller@get_one")
 		->name("$group.get_one");
 	});
@@ -123,8 +125,12 @@ Route::group(['prefix' => 'admin', 'middleware' => 'CheckAdmin'], function(){
 
 	//THỐNG KÊ
 	Route::group(["prefix" => "thong_ke"], function(){
-		Route::get("view_all","ThongKeController@view_all")
-		->name("thong_ke.view_all");
+		Route::get("view_thong_ke_sinh_vien","ThongKeController@view_thong_ke_sinh_vien")
+		->name("thong_ke.view_thong_ke_sinh_vien");
+		Route::get("view_thong_ke_sach","ThongKeController@view_thong_ke_sach")
+		->name("thong_ke.view_thong_ke_sach");
+		Route::post("process_thong_ke_sinh_vien","ThongKeController@process_thong_ke_sinh_vien")
+		->name("thong_ke.process_thong_ke_sinh_vien");
 });
 
 });

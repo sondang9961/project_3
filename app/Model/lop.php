@@ -17,13 +17,27 @@ class Lop extends Model
 
 	public function get_all()
 	{
-		$array_lop= DB::select ("select * from $this->table join khoa_hoc on $this->table.ma_khoa_hoc = khoa_hoc.ma_khoa_hoc order by ma_lop desc limit $this->limit offset $this->offset");
+		$array_lop= DB::select ("select * from $this->table join khoa_hoc on $this->table.ma_khoa_hoc = khoa_hoc.ma_khoa_hoc 
+			where (? is null or $this->table.ma_khoa_hoc = ?)
+			order by ma_lop desc limit $this->limit offset $this->offset",[
+				$this->ma_khoa_hoc,
+				$this->ma_khoa_hoc
+			]);
 		return $array_lop;
 	}
 
 	public function get_all_by_khoa_hoc()
 	{
 		$array_lop = DB::select("select * from $this->table where ma_khoa_hoc=?",[$this->ma_khoa_hoc]);
+		return $array_lop;
+	}
+
+	public function check_insert()
+	{
+		$array_lop = DB::select("select * from $this->table where ten_lop = ? and ma_khoa_hoc = ?",[
+			$this->ten_lop, 
+			$this->ma_khoa_hoc
+		]);
 		return $array_lop;
 	}
 
@@ -65,7 +79,11 @@ class Lop extends Model
 	}
 	public function count()
 	{
-		$count = DB::select("select count(*)/$this->limit as count from $this->table");
+		$count = DB::select("select count(*)/$this->limit as count from $this->table
+			where (? is null or $this->table.ma_khoa_hoc = ?)",[
+				$this->ma_khoa_hoc,
+				$this->ma_khoa_hoc
+			]);
 		return $count[0]->count;
 	}
 }

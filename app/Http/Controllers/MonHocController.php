@@ -35,9 +35,13 @@ class MonHocController extends Controller
 		$mon_hoc = new MonHoc();
 		$mon_hoc->ten_mon_hoc = Request::get('ten_mon_hoc');
 		$mon_hoc->ma_khoa_hoc = Request::get('ma_khoa_hoc');
-		$mon_hoc->insert();
-
-		return redirect()->route("$this->folder.view_all");
+		$array_mon_hoc = $mon_hoc->check_insert();
+		if(count($array_mon_hoc) == 0) {
+			$mon_hoc->insert();
+			return redirect()->route("$this->folder.view_all")->with('success','Đã thêm');
+		}
+		return redirect()->route("$this->folder.view_all")->with('error','Môn học đã tồn tại!');
+		
 	}
 
 	public function process_update($ma_mon_hoc)

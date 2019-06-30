@@ -20,6 +20,15 @@ class MonHoc extends Model
 		return $array_mon_hoc;
 	}
 
+	public function check_insert()
+	{
+		$array_mon_hoc = DB::select("select * from $this->table where ten_mon_hoc = ? and ma_khoa_hoc = ?",[
+			$this->ten_mon_hoc, 
+			$this->ma_khoa_hoc
+		]);
+		return $array_mon_hoc;
+	}
+
 	public function insert()
 	{
 		DB::insert("insert into $this->table (ten_mon_hoc,ma_khoa_hoc) values (?,?)",[$this->ten_mon_hoc,$this->ma_khoa_hoc]);
