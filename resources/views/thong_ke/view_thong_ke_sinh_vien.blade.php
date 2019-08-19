@@ -14,7 +14,11 @@
 								<select name="ma_lop" class="form-control" style="width: 14rem" id="search_lop">
 									<option selected disabled>--Tên lớp--</option>
 									@foreach ($array_lop as $lop)
-										<option value="{{$lop->ma_lop}}">
+										<option value="{{$lop->ma_lop}}"
+											@if ($lop->ma_lop == $ma_lop)
+												selected 
+											@endif		
+											>
 											{{$lop->ten_lop}}
 										</option>
 									@endforeach
@@ -23,8 +27,17 @@
 						</td>
 						<td>
 							<div style="margin-right: 3rem ">Tên sách
-								<select name="ma_sach" class="form-control" style="width: 14rem" id="searchSach" disabled>
-									<option selected disabled="">--Tên sách--</option>
+								<select name="ma_sach" class="form-control" style="width: 14rem" id="searchSach">
+									<option selected disabled>--Tên sách--</option> 
+									@foreach ($array_sach as $sach)
+										<option value="{{$sach->ma_sach}}"
+											@if ($sach->ma_sach == $ma_sach)
+												selected 
+											@endif		
+											>
+											{{$sach->ten_sach}}
+										</option>
+									@endforeach
 								</select>
 							</div>
 						</td>
@@ -48,6 +61,26 @@
 							<td>{{$thong_ke->ten_lop}}</td>
 						</tr>
 					@endforeach
+					<tfoot>
+					<tr>
+						<td colspan="100%">
+							Trang: 
+							@for ($i = 1; $i <= $count_trang; $i++)
+								<a href="{{ route('thong_ke.view_thong_ke_sinh_vien',[
+									'trang' => $i, 
+									'ma_lop' => $ma_lop, 
+									'ma_sach' => $ma_sach
+								]) }}"
+									@if ($trang==$i)
+										style='font-weight: bolder; font-size: 17px'
+									@endif
+									>
+									{{$i}}
+								</a>
+							@endfor
+						</td>
+					</tr>
+				</tfoot>
 				@endif
 			</table>
 		</div>
@@ -59,10 +92,6 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		$("#search_lop").select2();
-		$("#search_lop").change(function(){
-			$("#searchSach").val(null).trigger('change');
-			$("#searchSach").attr("disabled", false);
-		})
 		$("#searchSach").select2({
 			ajax: {
 				url: '{{route('get_sach_by_lop')}}',

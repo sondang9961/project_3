@@ -84,7 +84,7 @@ class SachController extends Controller
 		$sach->ma_mon_hoc = Request::get('ma_mon_hoc');
 		$sach->ten_sach = Request::get('ten_sach');
 		$sach->so_luong_nhap = Request::get('so_luong_nhap');
-		$sach->ngay_nhap_sach= Request::get('ngay_nhap_sach');
+		$sach->ngay_nhap_sach = Request::get('ngay_nhap_sach');
 		$sach->ngay_het_han = Request::get('ngay_het_han');
 		
 		$sach->updateSach();

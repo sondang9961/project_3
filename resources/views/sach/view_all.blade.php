@@ -95,7 +95,7 @@
 		<div id="right_content" >
 			<div><h2>Thêm sách</h2></div>
 			<div>
-				<form action="{{route('sach.process_insert')}}" method="post" > 
+				<form action="{{route('sach.process_insert')}}" method="post" id="form"> 
 					{{csrf_field()}}
 					<div class="form-group">
 						<div>Tên khóa học</div>
@@ -117,15 +117,17 @@
 					<div class="form-group" >
 						<div>Tên sách</div>	
 						<div><input type="text" name="ten_sach" id="ten_sach" class="form-control" style="width: 25rem"  disabled></div>
+						<span id="errSach" style="color: red"></span>
 					</div>
 					<div class="form-group ">
 						<div>Số lượng</div>	
 						<div>
 							<input type="number" name="so_luong_nhap" id="so_luong" class="form-control" style="width: 25rem" disabled>
 						</div>
+						<span id="errSoLuong" style="color: red"></span>
 					</div>	
 					<br>	
-					<div><input type="submit" value="Thêm" id="button" class="add_button" disabled></div>
+					<div><input type="button" value="Thêm" id="button" onclick="validate()" class="add_button" disabled></div>
 				</form>
 			</div>
 		</div>
@@ -309,5 +311,33 @@
 			
 		});
 	});
+	
+</script>
+<script type="text/javascript">
+	function validate() {
+		var dem=0;
+		var ten_sach = document.getElementById('ten_sach').value;
+		var so_luong = document.getElementById('so_luong').value;
+		var errSach = document.getElementById('errSach');
+		var errSoLuong = document.getElementById('errSoLuong');
+
+		if(ten_sach.length == 0){
+			errSach.innerHTML="Chưa nhập tên sách";
+		}else{
+			errSach.innerHTML="";
+			dem++;
+		}
+
+		if (so_luong < 0){
+			errSoLuong.innerHTML="Số lượng không được âm";
+		}
+		else{
+			errSoLuong.innerHTML="";
+			dem++;
+		}
+		if(dem==2){
+			document.getElementById("form").submit();
+		}
+	}
 </script>
 @endpush

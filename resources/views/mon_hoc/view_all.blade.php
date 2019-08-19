@@ -71,7 +71,7 @@
 						{{csrf_field()}}
 						<div>Tên môn</div>	
 						<div>
-							<input type="text" name="ten_mon_hoc" id="ten_mon_hoc">
+							<input type="text" name="ten_mon_hoc" id="mon_hoc">
 							<span id="errMonHoc" style="color: red"></span>
 						</div><br>
 						<div>Khóa học</div>
@@ -167,12 +167,12 @@
 	});
 	function validate() {
 		var dem = 0;
-		var ten_mon_hoc = document.getElementById('ten_mon_hoc').value;
+		var mon_hoc = document.getElementById('mon_hoc').value;
 		var ma_khoa_hoc = document.getElementById('select_khoa_hoc').value;
 		var errMonHoc= document.getElementById('errMonHoc');
 		var errKhoaHoc = document.getElementById('errKhoaHoc');
 
-		if(ten_mon_hoc.length == 0){
+		if(mon_hoc.length == 0){
 			errMonHoc.innerHTML="Không được trống!";
 		}else {
 			errMonHoc.innerHTML="";

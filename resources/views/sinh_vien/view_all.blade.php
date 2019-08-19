@@ -71,7 +71,7 @@
 						{{csrf_field()}}
 						<div>Tên sinh viên</div>	
 						<div>
-							<input type="text" name="ten_sinh_vien" id="ten_sinh_vien" >
+							<input type="text" name="ten_sinh_vien" id="sinh_vien" >
 							<span id="errSinhVien" style="color: red"></span>
 						</div><br>
 						<div>Tên lớp</div>
@@ -153,12 +153,12 @@
 	});
 	function validate() {
 		var dem = 0;
-		var ten_sinh_vien = document.getElementById('ten_sinh_vien').value;
+		var sinh_vien = document.getElementById('sinh_vien').value;
 		var ma_lop = document.getElementById('select_lop').value;
 		var errSinhVien = document.getElementById('errSinhVien');
 		var errLop = document.getElementById('errLop');
 
-		if(ten_sinh_vien.length == 0){
+		if(sinh_vien.length == 0){
 			errSinhVien.innerHTML="Không được trống!";
 		}else {
 			errSinhVien.innerHTML="";

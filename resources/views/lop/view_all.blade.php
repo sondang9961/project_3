@@ -30,6 +30,7 @@
 						<th>Mã</th>
 						<th>Tên lớp</th>
 						<th>Khóa học</th>
+						<th>Sỹ số</th>
 						<th colspan="2">Chức năng</th>
 					</tr>
 				</thead>
@@ -38,6 +39,7 @@
 						<td>{{$lop->ma_lop}}</td>
 						<td>{{$lop->ten_lop}}</td>
 						<td>{{$lop->ten_khoa_hoc}}</td>
+						<td>{{$lop->sy_so}}</td>
 						<td>
 							<input type="button" class='button_update' value="Cập nhật" data-toggle="modal" data-target="#myModal" data-ma_lop='{{$lop->ma_lop}}'>
 						</td>
@@ -71,7 +73,7 @@
 						{{csrf_field()}}
 						<div>Tên lớp</div>	
 						<div>
-							<input type="text" name="ten_lop" id="ten_lop" placeholder="bkc + (01,...) + k(1,...)">
+							<input type="text" name="ten_lop" id="lop" placeholder="bkc + (01,...) + k(1,...)">
 							<span id="errLop" style="color: red"></span>
 						</div>
 						<br>
@@ -168,12 +170,12 @@
 	});
 	function validate() {
 		var dem = 0;
-		var ten_lop = document.getElementById('ten_lop').value;
+		var lop = document.getElementById('lop').value;
 		var ma_khoa_hoc = document.getElementById('select_khoa_hoc').value;
 		var errLop = document.getElementById('errLop');
 		var errKhoaHoc = document.getElementById('errKhoaHoc');
 
-		if(ten_lop.length == 0){
+		if(lop.length == 0){
 			errLop.innerHTML="Không được trống!";
 		}else {
 			errLop.innerHTML="";

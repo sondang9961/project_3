@@ -20,7 +20,7 @@ class ThongKe extends Model
 					(so_luong_nhap-(select count(*) as so_luong_da_phat from dang_ky_sach join sach on dang_ky_sach.ma_sach = sach.ma_sach join mon_hoc on sach.ma_mon_hoc = mon_hoc.ma_mon_hoc where tinh_trang_nhan_sach = 1 and mon_hoc.ma_mon_hoc = ?)) as
 					so_luong_ton_kho, 
 				 	ngay_nhap_sach
-				from sach join mon_hoc on sach.ma_mon_hoc = mon_hoc.ma_mon_hoc where mon_hoc.ma_mon_hoc = ? or ngay_nhap_sach = ? or ngay_nhap_sach = ''
+				from sach join mon_hoc on sach.ma_mon_hoc = mon_hoc.ma_mon_hoc where mon_hoc.ma_mon_hoc = ? and ngay_nhap_sach = ? 
 				limit $this->limit offset $this->offset",[
 					$this->ma_mon_hoc,
 					$this->ma_mon_hoc,
@@ -62,7 +62,7 @@ class ThongKe extends Model
 				    join dang_ky_sach on dang_ky_sach.ma_sinh_vien = sinh_vien.ma_sinh_vien 
 				    and ma_lop = ? and ma_sach = ? 
 				) 
-				and sinh_vien.ma_lop = ?",[
+				and sinh_vien.ma_lop = ? order by ma_sinh_vien desc limit $this->limit offset $this->offset",[
 					$this->ma_lop,
 					$this->ma_sach,
 					$this->ma_lop
@@ -70,5 +70,24 @@ class ThongKe extends Model
 		return $array_thong_ke_sinh_vien;
 	}
 
-	
+	public function count_sinh_vien()
+	{
+		$count_sinh_vien= DB::select ("
+			select count(*)/$this->limit as count_sinh_vien from 
+			(
+				select ma_sinh_vien,ten_sinh_vien,lop.ma_lop,ten_lop FROM sinh_vien 
+					join lop on sinh_vien.ma_lop = lop.ma_lop 
+					where ma_sinh_vien not in(
+					    select sinh_vien.ma_sinh_vien from sinh_vien 
+					    join dang_ky_sach on dang_ky_sach.ma_sinh_vien = sinh_vien.ma_sinh_vien 
+					    and ma_lop = ? and ma_sach = ? 
+					) 
+					and sinh_vien.ma_lop = ? 
+			)a",[
+					$this->ma_lop,
+					$this->ma_sach,
+					$this->ma_lop
+				]);
+		return $count_sinh_vien[0]->count_sinh_vien;
+	}
 }

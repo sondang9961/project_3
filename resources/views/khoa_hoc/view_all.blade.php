@@ -14,8 +14,6 @@
 					</tr>
 				</thead>	
 				@foreach ($array_khoa_hoc as $khoa_hoc)
-				<!--<form action="{{route('khoa_hoc.process_update', ['ma_khoa_hoc' => $khoa_hoc->ma_khoa_hoc])}}" method="post">-->
-					{{csrf_field()}}
 					<tr>
 						<td>{{$khoa_hoc->ma_khoa_hoc}}</td>
 						<td>
@@ -25,7 +23,6 @@
 							<input type="button" class='button_update' value="Cập nhật" data-toggle="modal" data-target="#myModal" data-ma_khoa_hoc='{{$khoa_hoc->ma_khoa_hoc}}'>
 						</td>
 					</tr>
-				<!--</form>-->
 				@endforeach
 			</table>			
 		</div>
@@ -36,7 +33,7 @@
 						{{csrf_field()}}
 						<div>Tên khóa học</div>	
 						<div>
-							<input type="text" name="ten_khoa_hoc" id="ten_khoa_hoc">
+							<input type="text" name="ten_khoa_hoc" id="khoa_hoc">
 							<span id="errKhoaHoc" style="color: red"></span>
 						</div><br>
 						<div><input type="button" value="Thêm" id="button" onclick="validate()"></div>
@@ -92,12 +89,15 @@
   				});		
   			});
   		});
+  	</script>
+@endpush
+  	<script type="text/javascript">
   		function validate() {
   			var dem = 0;
-  			var ten_khoa_hoc = document.getElementById('ten_khoa_hoc').value;
+  			var khoa_hoc = document.getElementById('khoa_hoc').value;
   			var errKhoaHoc = document.getElementById('errKhoaHoc');
 
-  			if(ten_khoa_hoc.length == 0){
+  			if(khoa_hoc.length == 0){
   				errKhoaHoc.innerHTML="Không được trống!";
   			}else{
   				errKhoaHoc.innerHTML="";
@@ -108,4 +108,3 @@
   			}
   		}
   	</script>
-@endpush

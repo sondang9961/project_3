@@ -29,7 +29,7 @@
 							</a>
 						</li>
 						<li>
-							<a href="doi_mat_khau">
+							<a href="{{url('admin/doi_mat_khau')}}">
 								<span class="sidebar-normal">Đổi mật khẩu</span>
 							</a>
 						</li>

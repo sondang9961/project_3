@@ -5,6 +5,7 @@ use Request;
 use Response;
 use App\Model\Lop;
 use App\Model\KhoaHoc;
+use App\Model\SinhVien;
 
 if (version_compare(PHP_VERSION, '7.2.0', '>=')) {
 // Ignores notices and reports all other kinds... and warnings
@@ -43,6 +44,12 @@ class LopController extends Controller
 			'lop' => $lop
 		]);
 		
+	}
+
+	public function count_sinh_vien()
+	{
+		$sinh_vien = new SinhVien();
+		$sinh_vien->sy_so=
 	}
 
 	public function get_lop_by_khoa_hoc()
