@@ -38,7 +38,7 @@ class Sach extends Model
 
 	public function get_all_by_mon_hoc()
 	{
-		$array_sach = DB::select("select * from $this->table where ma_mon_hoc=?",[$this->ma_mon_hoc]);
+		$array_sach = DB::select("select ten_sach from $this->table where ma_mon_hoc = ? group by ten_sach",[$this->ma_mon_hoc]);
 		return $array_sach;
 	}
 

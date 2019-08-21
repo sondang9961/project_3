@@ -13,7 +13,7 @@ class DangKySach
 	public function get_all()
 	{
 		$array_dang_ky_sach= DB::select ("
-			select ma_dang_ky, ten_sinh_vien, tinh_trang_nhan_sach, ten_sach, ngay_dang_ky, ngay_nhan_sach from dang_ky_sach 
+			select ma_dang_ky, ten_sinh_vien,ten_lop, tinh_trang_nhan_sach, ten_sach, ngay_dang_ky, ngay_nhan_sach from dang_ky_sach 
 				join sinh_vien on dang_ky_sach.ma_sinh_vien = sinh_vien.ma_sinh_vien 
 				JOIN sach on dang_ky_sach.ma_sach = sach.ma_sach
 				join lop on sinh_vien.ma_lop = lop.ma_lop

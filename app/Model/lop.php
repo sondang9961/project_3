@@ -44,9 +44,8 @@ class Lop extends Model
 
 	public function check_insert()
 	{
-		$array_lop = DB::select("select * from $this->table where ten_lop = ? and ma_khoa_hoc = ?",[
-			$this->ten_lop, 
-			$this->ma_khoa_hoc
+		$array_lop = DB::select("select * from $this->table where ten_lop = ? ",[
+			$this->ten_lop
 		]);
 		return $array_lop;
 	}

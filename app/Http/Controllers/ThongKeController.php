@@ -73,7 +73,7 @@ class ThongKeController extends Controller
 		$thong_ke->ma_mon_hoc = $ma_mon_hoc;
 		$thong_ke->ngay_nhap_sach = $ngay_nhap_sach;
 		$array_thong_ke_sach = $thong_ke->thong_ke_sach();
-		$sach = new Sach;
+		$sach = new Sach();
 		
 		$array_thong_ke_sach = $sach->newQuery();
 			if(!empty(Request::get('ma_mon_hoc'))){
@@ -86,7 +86,6 @@ class ThongKeController extends Controller
 
 		$count_trang = ceil($thong_ke->count_sach());
 
-		
 		// return $array_thong_ke;
 		return view("$this->folder.view_thong_ke_sach",[
 			'array_thong_ke_sach' => $array_thong_ke_sach,

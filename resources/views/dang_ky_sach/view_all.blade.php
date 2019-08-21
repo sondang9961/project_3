@@ -69,6 +69,7 @@
 				<thead>
 					<tr>
 						<th>Tên sinh viên</th>
+						<th>Lớp</th>
 						<th>Tình trạng</th>
 						<th>Tên sách</th>
 						<th>Ngày đăng ký</th>
@@ -78,6 +79,7 @@
 				@foreach ($array_dang_ky_sach as $dang_ky_sach)
 				<tr>
 					<td>{{$dang_ky_sach->ten_sinh_vien}}</td>
+					<td>{{$dang_ky_sach->ten_lop}}</td>
 					<td>
 						{!!Helper::getRadioTinhTrang($dang_ky_sach->tinh_trang_nhan_sach,$dang_ky_sach->ma_dang_ky)!!}
 					</td>
