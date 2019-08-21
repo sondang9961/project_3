@@ -51,7 +51,7 @@ class ThongKeController extends Controller
 
 	public function view_thong_ke_sach()
 	{
-		$trang = Request::get('trang');
+		$trang = Request::get('trang');// k hieu? dang o cho~ nao`?
 
 		if(empty($trang)){
 			$trang = 1;
@@ -63,7 +63,7 @@ class ThongKeController extends Controller
 		$array_sach = $sach->get_all();
 
 		$mon_hoc = new MonHoc();
-		$array_mon_hoc= $mon_hoc->get_all();
+		$array_mon_hoc= $mon_hoc->select_all();
 
 		$thong_ke = new ThongKe();
 		$thong_ke->offset = ($trang - 1)*$limit;
@@ -73,6 +73,16 @@ class ThongKeController extends Controller
 		$thong_ke->ma_mon_hoc = $ma_mon_hoc;
 		$thong_ke->ngay_nhap_sach = $ngay_nhap_sach;
 		$array_thong_ke_sach = $thong_ke->thong_ke_sach();
+		$sach = new Sach;
+		
+		$array_thong_ke_sach = $sach->newQuery();
+			if(!empty(Request::get('ma_mon_hoc'))){
+				$array_thong_ke_sach->where('ma_mon_hoc',Request::get('ma_mon_hoc'));
+			}
+			if(!empty(Request::get('ngay_nhap_sach'))){
+				$array_thong_ke_sach->where('ngay_nhap_sach',Request::get('ngay_nhap_sach'));
+			}
+		$array_thong_ke_sach = $array_thong_ke_sach->get();
 
 		$count_trang = ceil($thong_ke->count_sach());
 

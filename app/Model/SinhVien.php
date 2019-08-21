@@ -72,7 +72,8 @@ class SinhVien extends Model
 
 	public function danh_sach_sinh_vien_by_lop()
 	{
-		$array_sinh_vien_by_lop= DB::select ("select * from $this->table join lop on $this->table.ma_lop = lop.ma_lop where $this->table.ma_lop = ? ORDER by ma_sinh_vien desc limit $this->limit offset $this->offset",[
+		$array_sinh_vien_by_lop= DB::select ("select ma_sinh_vien, ten_sinh_vien, ten_lop, (select count(*) from $this->table where ma_lop = ?) as sy_so from $this->table join lop on $this->table.ma_lop = lop.ma_lop where $this->table.ma_lop = ? ORDER by ma_sinh_vien desc limit $this->limit offset $this->offset",[
+				$this->ma_lop,
 				$this->ma_lop
 			]);
 		return $array_sinh_vien_by_lop;

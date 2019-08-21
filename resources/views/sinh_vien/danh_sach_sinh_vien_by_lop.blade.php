@@ -5,6 +5,9 @@
 			@foreach ($array_lop as $lop)
 			@endforeach
 			<center><h2>Danh sách sinh viên lớp {{$lop->ten_lop}}</h2></center>
+			@foreach ($array_sinh_vien_by_lop as $sinh_vien)
+			@endforeach
+			<h6>Sỹ số: {{$sinh_vien->sy_so}}</h6>	
 			<table class="table table-striped">
 				<tr>
 					<th>Mã</th>
@@ -17,6 +20,7 @@
 					<td>{{$sinh_vien->ten_sinh_vien}}</td>
 					<td>{{$sinh_vien->ten_lop}}</td>			
 				</tr>
+				<tr>			
 				@endforeach
 				<tfoot>
 					<tr>

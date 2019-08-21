@@ -49,7 +49,7 @@
 					<th>Số lượng tồn kho</th>
 					<th>Ngày nhập</th>
 				</tr>
-				@if (isset($array_thong_ke_sach))
+				
 					@foreach ($array_thong_ke_sach as $thong_ke)
 						<tr>
 							<td>{{$thong_ke->ten_sach}}</td>
@@ -79,7 +79,6 @@
 							</td>
 						</tr>
 					</tfoot>
-				@endif
 			</table>
 		</div>
 		

@@ -3,6 +3,7 @@
 namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Model\ThongKe;
 use DB;
 
 class ThongKe extends Model
@@ -20,8 +21,8 @@ class ThongKe extends Model
 					(so_luong_nhap-(select count(*) as so_luong_da_phat from dang_ky_sach join sach on dang_ky_sach.ma_sach = sach.ma_sach join mon_hoc on sach.ma_mon_hoc = mon_hoc.ma_mon_hoc where tinh_trang_nhan_sach = 1 and mon_hoc.ma_mon_hoc = ?)) as
 					so_luong_ton_kho, 
 				 	ngay_nhap_sach
-				from sach join mon_hoc on sach.ma_mon_hoc = mon_hoc.ma_mon_hoc where mon_hoc.ma_mon_hoc = ? and ngay_nhap_sach = ? 
-				limit $this->limit offset $this->offset",[
+				from sach join mon_hoc on sach.ma_mon_hoc = mon_hoc.ma_mon_hoc where mon_hoc.ma_mon_hoc = ? or ngay_nhap_sach = ? 
+				",[
 					$this->ma_mon_hoc,
 					$this->ma_mon_hoc,
 					$this->ma_mon_hoc,
@@ -29,7 +30,6 @@ class ThongKe extends Model
 				]);
 			return $array_thong_ke_sach;
 		}
-
 	public function count_sach()
 	{
 		$count_sach=DB::select(

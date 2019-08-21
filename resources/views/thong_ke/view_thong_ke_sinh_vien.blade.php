@@ -53,7 +53,7 @@
 					<th>Tên sinh viên</th>
 					<th>Lớp</th>
 				</tr>
-				@if (isset($array_thong_ke_sinh_vien))
+				
 					@foreach ($array_thong_ke_sinh_vien as $thong_ke)
 						<tr>
 							<td>{{$thong_ke->ma_sinh_vien}}</td>
@@ -81,7 +81,7 @@
 						</td>
 					</tr>
 				</tfoot>
-				@endif
+
 			</table>
 		</div>
 	</div>

@@ -34,6 +34,18 @@ class MonHoc extends Model
 		return $count[0]->count;
 	}
 
+	public function select_all()
+	{
+		$array_mon_hoc= DB::select ("
+			select * from $this->table join khoa_hoc on $this->table.ma_khoa_hoc = khoa_hoc.ma_khoa_hoc
+			where (? is null or $this->table.ma_khoa_hoc = ?)
+			order by ma_mon_hoc desc",[
+				$this->ma_khoa_hoc,
+				$this->ma_khoa_hoc
+			]);
+		return $array_mon_hoc;
+	}
+
 	public function get_all_by_khoa_hoc()
 	{
 		$array_mon_hoc = DB::select("select * from $this->table where ma_khoa_hoc=?",[$this->ma_khoa_hoc]);

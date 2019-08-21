@@ -45,13 +45,7 @@ class LopController extends Controller
 		]);
 		
 	}
-
-	public function count_sinh_vien()
-	{
-		$sinh_vien = new SinhVien();
-		$sinh_vien->sy_so=
-	}
-
+	
 	public function get_lop_by_khoa_hoc()
 	{
 		$lop = new Lop();
