@@ -50,15 +50,35 @@
 					<tr>
 						<td colspan="100%">
 							Trang: 
-							@for ($i = 1; $i <= $count_trang; $i++)
-								<a href="{{ route('sinh_vien.view_all',['trang' => $i, 'ma_lop' => $ma_lop]) }}"
-									@if ($trang==$i)
-										style='font-weight: bolder; font-size: 17px'
-									@endif
-									>
-									{{$i}}
-								</a>
-							@endfor
+							@if ($trang > 1)
+								<button type="button" onClick="location.href='{{ route('sinh_vien.view_all',['trang' => 1, 'ma_lop' => $ma_lop]) }}'">
+									Đầu
+								</button>
+								<button type="button" onClick="location.href='{{ route('sinh_vien.view_all',['trang' => $prev, 'ma_lop' => $ma_lop]) }}'">
+									Trước
+								</button>
+							@endif
+							@if ($count_trang > 7)
+								@for ($i = $startpage; $i <= $endpage; $i++)
+									<button type="button" onClick="location.href='{{ route('sinh_vien.view_all',['trang' => $i, 'ma_lop' => $ma_lop]) }}'">
+										{{$i}}
+									</button>
+								@endfor
+							@else
+								@for ($i = 1; $i <= $count_trang; $i++)
+									<button type="button" onClick="location.href='{{ route('sinh_vien.view_all',['trang' => $i, 'ma_lop' => $ma_lop]) }}'">
+										{{$i}}
+									</button>
+								@endfor
+							@endif
+							@if ($trang < $count_trang)
+								<button type="button" onClick="location.href='{{ route('sinh_vien.view_all',['trang' => $next, 'ma_lop' => $ma_lop]) }}'">
+									Sau
+								</button>
+								<button type="button" onClick="location.href='{{ route('sinh_vien.view_all',['trang' => $count_trang, 'ma_lop' => $ma_lop]) }}'">
+									Cuối
+								</button>
+							@endif
 						</td>
 					</tr>
 				</tfoot>

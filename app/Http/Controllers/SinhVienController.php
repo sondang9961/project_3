@@ -21,6 +21,7 @@ class SinhVienController extends Controller
 		if(empty($trang)){
 			$trang = 1;
 		}
+
 		$ma_lop =  Request::get('ma_lop');
 
 		$limit = 5;
@@ -33,6 +34,15 @@ class SinhVienController extends Controller
 
 		$lop = new Lop();
 		$array_lop = $lop->get_all_lop();
+
+		if ($trang > 1) $prev = $trang - 1;
+		if ($trang < $count_trang) $next = $trang + 1;
+		if ($trang <= 3) $startpage = 1;
+		else if ($trang == $count_trang) $startpage = $trang - 6;
+		else if ($trang == $count_trang - 2) $startpage = $trang - 5;
+		else if ($trang == $count_trang - 1) $startpage = $trang - 4;
+		else $startpage = $trang - 3;
+		$endpage = $startpage + 6;
 		
 		return view ("$this->folder.view_all",[
 			'array_sinh_vien' => $array_sinh_vien, 
@@ -40,7 +50,11 @@ class SinhVienController extends Controller
 			'count_trang' => $count_trang,
 			'ma_lop' => $ma_lop,
 			'trang' => $trang,
-			'sinh_vien' => $sinh_vien
+			'sinh_vien' => $sinh_vien,
+			'prev' => $prev,
+			'next' => $next,
+			'startpage' => $startpage,
+			'endpage' => $endpage
 		]);	
 	}
 
