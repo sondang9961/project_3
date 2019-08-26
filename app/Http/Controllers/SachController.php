@@ -86,11 +86,11 @@ class SachController extends Controller
 		]);
 	}
 
-	public function get_sach_by_mon_hoc_and_han_dang_ky()
+	public function get_sach_by_mon_hoc()
 	{
 		$sach = new Sach();
 		$sach->ma_mon_hoc = Request::get('ma_mon_hoc');
-		$sach->tinh_trang = Request::get('tinh_trang');
+		//$sach->tinh_trang = Request::get('tinh_trang');
 
 		// if($sach->tinh_trang == 0)//hết hạn
 		// {

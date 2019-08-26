@@ -94,9 +94,10 @@ class DangKySachController extends Controller
 
 	public function get_sach_by_mon_hoc_1()
 	{
-		$sach = new Sach();
-		$sach->ma_mon_hoc = Request::get('ma_mon_hoc');
-
-		$array_sach = $sach->get_all_by_mon_hoc_1();
+		$dang_ky_sach = new DangKySach();
+		$dang_ky_sach->ma_mon_hoc = Request::get('ma_mon_hoc');
+		$array_dang_ky_sach = $dang_ky_sach->get_all_by_mon_hoc_1();
+		
+		return $array_dang_ky_sach;
 	}
 }

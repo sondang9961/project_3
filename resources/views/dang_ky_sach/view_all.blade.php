@@ -464,7 +464,7 @@
 					return {
 						results: $.map(data, function(item) {
 							return  {
-								text: item.ten_sach,
+								text: `${item.ten_sach} (${formatDate(item.ngay_nhap_sach)})`,
 								id: item.ma_sach
 							}
 						})

@@ -101,8 +101,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'CheckAdmin'], function(){
 		->name("$group.process_insert");
 		Route::post("process_update/{ma_sach}","$controller@process_update")
 		->name("$group.process_update");
-		Route::get("get_sach_by_mon_hoc_and_han_dang_ky","$controller@get_sach_by_mon_hoc_and_han_dang_ky")
-		->name("get_sach_by_mon_hoc_and_han_dang_ky");
+		Route::get("get_sach_by_mon_hoc","$controller@get_sach_by_mon_hoc")
+		->name("get_sach_by_mon_hoc");
 		Route::get("get_sach_by_lop","$controller@get_sach_by_lop")
 		->name("get_sach_by_lop");
 		Route::get("get_one","$controller@get_one")

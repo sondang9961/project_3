@@ -68,6 +68,6 @@
 
 	<!-- Light Bootstrap Dashboard Core javascript and methods -->
 	<script src="{{asset('js/light-bootstrap-dashboard.js')}}"></script>
-
+	@include('layer.script')
 	@stack('js')
 </html>

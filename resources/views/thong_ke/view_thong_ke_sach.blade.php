@@ -49,7 +49,7 @@
 					<th>Số lượng tồn kho</th>
 					<th>Ngày nhập</th>
 				</tr>
-				
+				 @if(!is_null(Request::get('ma_mon_hoc')) && !is_null(Request::get('ngay_nhap_sach'))) 
 					@foreach ($array_thong_ke_sach as $thong_ke)
 						<tr>
 							<td>{{$thong_ke->ten_sach}}</td>
@@ -59,6 +59,7 @@
 							<td>{{$thong_ke->ngay_nhap_sach}}</td>
 						</tr>
 					@endforeach
+				 @endif 
 					<tfoot>
 						<tr>
 							<td colspan="100%">

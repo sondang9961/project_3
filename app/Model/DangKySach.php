@@ -82,9 +82,9 @@ class DangKySach
 		]);
 	}
 
-	public function get_all_by_mon_hoc_1()
+	public function get_all_by_mon_hoc_1()//còn hạn
 	{
-		$array_sach = DB::select("select * from $this->table where ma_mon_hoc = ? and CURRENT_DATE - ngay_het_han <= 0",[$this->ma_mon_hoc]);
+		$array_sach = DB::select("select * from sach where ma_mon_hoc = ? and CURRENT_DATE - ngay_het_han <= 0 ",[$this->ma_mon_hoc]);
 		return $array_sach;
 	}
 }

@@ -36,17 +36,18 @@ class Sach extends Model
 		return $count[0]->count;
 	}
 
-	public function get_all_by_mon_hoc()//còn hạn
+	public function get_all_by_mon_hoc()
 	{
-		$array_sach = DB::select("select distinct ten_sach from $this->table where ma_mon_hoc = ? ",[$this->ma_mon_hoc]);
+		
+		$array_sach = DB::select("select * from $this->table where ma_mon_hoc = ? order by ma_sach desc",[$this->ma_mon_hoc]);
 		return $array_sach;
 	}
 
-	public function get_all_by_mon_hoc_and_han_dang_ky()//hết hạn
-	{
-		$array_sach = DB::select("select * from $this->table where ma_mon_hoc = ? and CURRENT_DATE - ngay_het_han > 0",[$this->ma_mon_hoc]);
-		return $array_sach;
-	}
+	// public function get_all_by_mon_hoc_and_han_dang_ky()//hết hạn
+	// {
+	// 	$array_sach = DB::select("select * from $this->table where ma_mon_hoc = ? and CURRENT_DATE - ngay_het_han > 0",[$this->ma_mon_hoc]);
+	// 	return $array_sach;
+	// }
 
 	public function get_all_by_lop()
 	{

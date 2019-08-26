@@ -38,7 +38,7 @@
 						</td>			
 						<td><input type="submit" value="Xem" id="button" class="search_button" disabled></td>
 					</tr>
-					<tr>
+					{{-- <tr>
 						<td>
 							Tình trạng : 
 						</td>
@@ -46,7 +46,7 @@
 							<input type="radio" name="tinh_trang" value="0">Hết hạn
 							<input type="radio" name="tinh_trang" value="1" checked="checked">Chưa hết hạn
 						</td>
-					</tr>
+					</tr> --}}
 					<tr>
 						<td>
 							<a href="{{ route('sach.view_all') }}">Hiển thị tất cả</a>
@@ -287,7 +287,7 @@
 					return {
 						results: $.map(data, function(item) {
 							return  {
-								text: item.ten_sach,
+								text: `${item.ten_sach} (${formatDate(item.ngay_nhap_sach)})`,
 								id: item.ma_sach
 							}
 						})

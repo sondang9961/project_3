@@ -13,6 +13,7 @@ class ThongKe extends Model
 
 	public function thong_ke_sach()
 		{
+			// dd($this->ma_mon_hoc);
 			$query = Sach::selectRaw(
 				"	ten_sach,
 					so_luong_nhap,
@@ -22,7 +23,7 @@ class ThongKe extends Model
 						join sach table1
 						on table1.ma_sach = dang_ky_sach.ma_sach
 						where tinh_trang_nhan_sach = 1 
-						and if($this->ma_mon_hoc = 'ma_mon_hoc',1,table1.ma_mon_hoc = sach.$this->ma_mon_hoc)
+						and if($this->ma_mon_hoc = 'ma_mon_hoc',1,table1.ma_mon_hoc = $this->ma_mon_hoc)
 					) as so_luong_da_phat,
 					(
 						so_luong_nhap - (
@@ -31,7 +32,7 @@ class ThongKe extends Model
 							join sach table1
 							on table1.ma_sach = dang_ky_sach.ma_sach
 							where tinh_trang_nhan_sach = 1 
-							and if($this->ma_mon_hoc = 'ma_mon_hoc',1,table1.ma_mon_hoc = sach.$this->ma_mon_hoc)
+							and if($this->ma_mon_hoc = 'ma_mon_hoc',1,table1.ma_mon_hoc = $this->ma_mon_hoc)
 						)
 					) as
 					so_luong_ton_kho, 
@@ -39,6 +40,7 @@ class ThongKe extends Model
 				")
 				->leftjoin('dang_ky_sach','dang_ky_sach.ma_sach','sach.ma_sach')
 				->groupBy('sach.ma_sach');
+				
 				if($this->ma_mon_hoc!='ma_mon_hoc'){
 					$query = $query->where('ma_mon_hoc',$this->ma_mon_hoc);
 				}
