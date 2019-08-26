@@ -15,7 +15,7 @@ class Sach extends Model
 		$array_sach= DB::select ("
 			select * from $this->table join mon_hoc on $this->table.ma_mon_hoc = mon_hoc.ma_mon_hoc 
 			where (? is null or ? is null or $this->table.ma_mon_hoc = ? and ma_sach = ?)
-			order by ma_sach desc limit $this->limit offset $this->offset",[
+			order by ngay_nhap_sach desc limit $this->limit offset $this->offset",[
 				$this->ma_mon_hoc,
 				$this->ma_sach,
 				$this->ma_mon_hoc,
@@ -36,9 +36,15 @@ class Sach extends Model
 		return $count[0]->count;
 	}
 
-	public function get_all_by_mon_hoc()
+	public function get_all_by_mon_hoc()//còn hạn
 	{
-		$array_sach = DB::select("select ten_sach from $this->table where ma_mon_hoc = ? group by ten_sach",[$this->ma_mon_hoc]);
+		$array_sach = DB::select("select distinct ten_sach from $this->table where ma_mon_hoc = ? ",[$this->ma_mon_hoc]);
+		return $array_sach;
+	}
+
+	public function get_all_by_mon_hoc_and_han_dang_ky()//hết hạn
+	{
+		$array_sach = DB::select("select * from $this->table where ma_mon_hoc = ? and CURRENT_DATE - ngay_het_han > 0",[$this->ma_mon_hoc]);
 		return $array_sach;
 	}
 
@@ -55,6 +61,14 @@ class Sach extends Model
 		return $array_sach;
 	}
 
+	public function check_insert()
+	{
+		$array_sach = DB::select("select * from $this->table where ten_sach = ? ",[
+			$this->ten_sach
+		]);
+		return $array_sach;
+	}
+
 	public function insert()
 	{
 		DB::insert("insert into $this->table (ten_sach,so_luong_nhap,ngay_nhap_sach,ngay_het_han,ma_mon_hoc) values (?,?,?,?,?)",[
@@ -62,8 +76,17 @@ class Sach extends Model
 			$this->so_luong_nhap,
 			$this->ngay_nhap_sach,
 			$this->ngay_het_han,
-			$this->ma_mon_hoc
-			
+			$this->ma_mon_hoc		
+		]);
+	}
+
+	public function updateInsert()
+	{
+		DB::update("update $this->table set so_luong_nhap = so_luong_nhap + ?, ngay_nhap_sach = ?, ngay_het_han = ? where ten_sach = ?",[
+				$this->so_luong_nhap,
+				$this->ngay_nhap_sach,
+				$this->ngay_het_han,
+				$this->ten_sach,
 		]);
 	}
 

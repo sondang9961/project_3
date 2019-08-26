@@ -51,33 +51,42 @@
 						<td colspan="100%">
 							Trang: 
 							@if ($trang > 1)
-								<button type="button" onClick="location.href='{{ route('sinh_vien.view_all',['trang' => 1, 'ma_lop' => $ma_lop]) }}'">
+								<a href="{{ route('sinh_vien.view_all',['trang' => 1, 'ma_lop' => $ma_lop]) }}" style="font-weight:bold " 				
+								>
 									Đầu
-								</button>
-								<button type="button" onClick="location.href='{{ route('sinh_vien.view_all',['trang' => $prev, 'ma_lop' => $ma_lop]) }}'">
-									Trước
-								</button>
+								</a>
+								<a href="{{ route('sinh_vien.view_all',['trang' => $prev, 'ma_lop' => $ma_lop]) }}" style="font-weight:bold " >
+									<<
+								</a>
 							@endif
 							@if ($count_trang > 7)
 								@for ($i = $startpage; $i <= $endpage; $i++)
-									<button type="button" onClick="location.href='{{ route('sinh_vien.view_all',['trang' => $i, 'ma_lop' => $ma_lop]) }}'">
+									<a href="{{ route('sinh_vien.view_all',['trang' => $i, 'ma_lop' => $ma_lop]) }}" 
+										@if ($trang==$i)
+											style='font-weight: bolder; font-size: 17px'
+										@endif
+									>
 										{{$i}}
-									</button>
+									</a>
 								@endfor
 							@else
 								@for ($i = 1; $i <= $count_trang; $i++)
-									<button type="button" onClick="location.href='{{ route('sinh_vien.view_all',['trang' => $i, 'ma_lop' => $ma_lop]) }}'">
+									<a href="{{ route('sinh_vien.view_all',['trang' => $i, 'ma_lop' => $ma_lop]) }}"
+										@if ($trang==$i)
+											style='font-weight: bolder; font-size: 17px'
+										@endif											
+									>
 										{{$i}}
-									</button>
+									</a>
 								@endfor
 							@endif
 							@if ($trang < $count_trang)
-								<button type="button" onClick="location.href='{{ route('sinh_vien.view_all',['trang' => $next, 'ma_lop' => $ma_lop]) }}'">
-									Sau
-								</button>
-								<button type="button" onClick="location.href='{{ route('sinh_vien.view_all',['trang' => $count_trang, 'ma_lop' => $ma_lop]) }}'">
+								<a href="{{ route('sinh_vien.view_all',['trang' => $next, 'ma_lop' => $ma_lop]) }}" style="font-weight:bold " >
+									>>
+								</a>
+								<a href="{{ route('sinh_vien.view_all',['trang' => $count_trang, 'ma_lop' => $ma_lop]) }}" style="font-weight:bold " >
 									Cuối
-								</button>
+								</a>
 							@endif
 						</td>
 					</tr>

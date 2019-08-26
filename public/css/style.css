@@ -86,6 +86,15 @@ body {margin: 0px}
 	    float: left;
 	}
 
+	#view_history {
+		background-color: rgba(255,255,255,0.9);
+	    border-radius: 6px;
+	    width: 100%;
+	    padding: 2%;
+	    padding-top: 0%;
+	    float: left;
+	}
+	
 	.textbox {
 		border-radius: 6px;
 		height: 25px; 

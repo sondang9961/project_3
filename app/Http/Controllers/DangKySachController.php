@@ -5,6 +5,7 @@ use Request;
 use App\Helper;
 use App\Model\DangKySach;
 use App\Model\KhoaHoc;
+use App\Model\Sach;
 
 if (version_compare(PHP_VERSION, '7.2.0', '>=')) {
 // Ignores notices and reports all other kinds... and warnings
@@ -90,5 +91,12 @@ class DangKySachController extends Controller
 		}
 		
 	}
+
+	public function get_sach_by_mon_hoc_1()
+	{
+		$sach = new Sach();
+		$sach->ma_mon_hoc = Request::get('ma_mon_hoc');
+
+		$array_sach = $sach->get_all_by_mon_hoc_1();
+	}
 }
-?>

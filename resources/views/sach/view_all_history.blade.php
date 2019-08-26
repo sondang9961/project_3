@@ -8,138 +8,84 @@
 </style>
 @endpush
 @section('content')
-<center><h1 id="header">Quản lý sách</h1></center>
-	<div id="main_content">
-		<div id="left_content">
-			<div><h2>Danh sách các đầu sách</h2></div>
-			<form>
-				<table style="width: 100%">
-					<tr style="height: 4rem">
-						<td>
-							Tên môn
-						</td>
-						<td>
-							<select name="ma_mon_hoc" class="form-control" style="width: 14rem" id="search_mon_hoc">
-								<option disabled selected>--Môn học--</option>
-								@foreach ($array_mon_hoc as $mon_hoc)
-									<option value="{{$mon_hoc->ma_mon_hoc}}">
-										{{$mon_hoc->ten_mon_hoc}}
-									</option>
-								@endforeach
-							</select>
-						</td>
-						<td>
-							Tên sách
-						</td>
-						<td>
-							<select name="ma_sach" class="form-control" style="width: 14rem" id="search_sach" disabled>
-								<option>--Sách--</option>
-							</select>
-						</td>			
-						<td><input type="submit" value="Xem" id="button" class="search_button" disabled></td>
-					</tr>
-					<tr>
-						<td>
-							Tình trạng : 
-						</td>
-						<td>
-							<input type="radio" name="tinh_trang" value="0">Hết hạn
-							<input type="radio" name="tinh_trang" value="1" checked="checked">Chưa hết hạn
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<a href="{{ route('sach.view_all') }}">Hiển thị tất cả</a>
-						</td>
-					</tr>
-			</form>
-			<br>
-			<table class="table table-striped">
-				<thead>
-					<tr>
-						<th>Tên sách</th>
-						<th>Môn</th>
-						<th>Số lượng</th>
-						<th>Ngày nhập</th>
-						<th>Ngày hết hạn đăng ký</th>
-						<th>Chức năng</th>
-					</tr>
-				</thead>				
-				@foreach ($array_sach as $sach)
-				<tr>
-					<td>{{$sach->ten_sach}}</td>
-					<td>{{$sach->ten_mon_hoc}}</td>
-					<td>{{$sach->so_luong_nhap}}</td>
+<center><h1 id="header">Lịch sử nhập sách</h1></center>
+	<div id="view_history">
+		<div><h2>Danh sách các đầu sách</h2></div>
+		<form>
+			<table style="width: 100%">
+				<tr style="height: 4rem">
 					<td>
-						{{date_format(date_create($sach->ngay_nhap_sach),'d/m/Y')}}
+						Tên môn
 					</td>
-					<td>{{date_format(date_create($sach->ngay_het_han),'d/m/Y')}}</td>
 					<td>
-						<input type="button" class='button_update' value="Cập nhật" data-toggle="modal" data-target="#myModal" data-ma_sach='{{$sach->ma_sach}}'>
-					</td>
-				</tr>
-				@endforeach
-				<tfoot>
-					<tr>
-						<td colspan="100%">
-							Trang: 
-							@for ($i = 1; $i <= $count_trang; $i++)
-								<a href="{{ route('sach.view_all',[
-									'trang' => $i, 
-									'ma_mon_hoc' => $ma_mon_hoc,
-									'ma_sach' => $ma_sach,
-									]) }}"
-									@if ($trang==$i)
-										style='font-weight: bolder; font-size: 17px'
-									@endif
-									>
-									{{$i}}
-								</a>
-							@endfor
-						</td>
-					</tr>
-				</tfoot>
-			</table>
-		</div>
-		<div id="right_content" >
-			<div><h2>Thêm sách</h2></div>
-			<div>
-				<form action="{{route('sach.process_insert')}}" method="post" id="form"> 
-					{{csrf_field()}}
-					<div class="form-group">
-						<div>Tên khóa học</div>
-						<select name="ma_khoa_hoc" class="form-control" style="width: 25rem" id="select_khoa_hoc">
-							<option disabled selected>--Chọn khóa học--</option>
-							@foreach ($array_khoa_hoc as $khoa_hoc)
-								<option value="{{$khoa_hoc->ma_khoa_hoc}}">
-									{{$khoa_hoc->ten_khoa_hoc}}
+						<select name="ma_mon_hoc" class="form-control" style="width: 14rem" id="search_mon_hoc">
+							<option disabled selected>--Môn học--</option>
+							@foreach ($array_mon_hoc as $mon_hoc)
+								<option value="{{$mon_hoc->ma_mon_hoc}}">
+									{{$mon_hoc->ten_mon_hoc}}
 								</option>
 							@endforeach
 						</select>
-					</div><br>
-					<div class="form-group">
-						<div>Tên môn</div>
-						<select name="ma_mon_hoc" class="form-control" style="width: 25rem" id="select_mon_hoc" disabled>
-							<option>--Môn học--</option>
+					</td>
+					<td>
+						Tên sách
+					</td>
+					<td>
+						<select name="ma_sach" class="form-control" style="width: 14rem" id="search_sach" disabled>
+							<option>--Sách--</option>
 						</select>
-					</div><br>
-					<div class="form-group" >
-						<div>Tên sách</div>	
-						<div><input type="text" name="ten_sach" id="ten_sach" class="form-control" style="width: 25rem"  disabled></div>
-						<span id="errSach" style="color: red"></span>
-					</div>
-					<div class="form-group ">
-						<div>Số lượng</div>	
-						<div>
-							<input type="number" name="so_luong_nhap" id="so_luong" class="form-control" style="width: 25rem" disabled>
-						</div>
-						<span id="errSoLuong" style="color: red"></span>
-					</div>	
-					<br>	
-					<div><input type="button" value="Thêm" id="button" onclick="validate()" class="add_button" disabled></div>
-				</form>
-			</div>
-		</div>
+					</td>			
+					<td><input type="submit" value="Xem" id="button" class="search_button" disabled></td>
+				</tr>
+		</form>
+		<br>
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Tên sách</th>
+					<th>Môn</th>
+					<th>Số lượng</th>
+					<th>Ngày nhập</th>
+					<th>Ngày hết hạn đăng ký</th>
+					<th>Chức năng</th>
+				</tr>
+			</thead>				
+			@foreach ($array_sach as $sach)
+			<tr>
+				<td>{{$sach->ten_sach}}</td>
+				<td>{{$sach->ten_mon_hoc}}</td>
+				<td>{{$sach->so_luong_nhap}}</td>
+				<td>
+					{{date_format(date_create($sach->ngay_nhap_sach),'d/m/Y')}}
+				</td>
+				<td>{{date_format(date_create($sach->ngay_het_han),'d/m/Y')}}</td>
+				<td>
+					<input type="button" class='button_update' value="Cập nhật" data-toggle="modal" data-target="#myModal" data-ma_sach='{{$sach->ma_sach}}'>
+				</td>
+			</tr>
+			@endforeach
+			<tfoot>
+				<tr>
+					<td colspan="100%">
+						Trang: 
+						@for ($i = 1; $i <= $count_trang; $i++)
+							<a href="{{ route('sach.view_all',[
+								'trang' => $i, 
+								'ma_mon_hoc' => $ma_mon_hoc,
+								'ma_sach' => $ma_sach,
+								]) }}"
+								@if ($trang==$i)
+									style='font-weight: bolder; font-size: 17px'
+								@endif
+								>
+								{{$i}}
+							</a>
+						@endfor
+					</td>
+				</tr>
+			</tfoot>
+		</table>
+
 	</div>
 
 	<div class="modal fade" id="myModal" role="dialog">

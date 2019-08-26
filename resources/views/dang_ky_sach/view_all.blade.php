@@ -237,6 +237,7 @@
 	$(document).ready(function() {
 		$("#select_tinh_trang").select2();
 		$("#select_khoa_hoc").select2();
+
 		$("#select_khoa_hoc").change(function(){
 			$("#select_mon_hoc").val(null).trigger('change');
 			$("#select_mon_hoc").attr("disabled", false);
@@ -314,7 +315,7 @@
 		});
 		$("#select_sach").select2({
 			ajax: {
-				url: '{{route('get_sach_by_mon_hoc')}}',
+				url: '{{route('get_sach_by_mon_hoc_1')}}',
 				dataType: 'json',
 				data: function() {
 					ma_mon_hoc = $("#select_mon_hoc").val();
@@ -451,7 +452,7 @@
 		});
 		$("#search_sach").select2({
 			ajax: {
-				url: '{{route('get_sach_by_mon_hoc')}}',
+				url: '{{route('get_sach_by_mon_hoc_1')}}',
 				dataType: 'json',
 				data: function() {
 					ma_mon_hoc = $("#search_mon_hoc").val();
@@ -471,6 +472,8 @@
 				}
 			}
 		});
+
+
 	});
 </script>
 @endpush
