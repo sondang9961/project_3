@@ -83,7 +83,7 @@
 					<td>
 						{!!Helper::getRadioTinhTrang($dang_ky_sach->tinh_trang_nhan_sach,$dang_ky_sach->ma_dang_ky)!!}
 					</td>
-					<td>{{$dang_ky_sach->ten_sach}}</td>
+					<td>{{$dang_ky_sach->ten_sach}} ({{date_format(date_create($dang_ky_sach->ngay_nhap_sach),'d/m/Y')}})</td>
 					<td>
 						{{date_format(date_create($dang_ky_sach->ngay_dang_ky),'d/m/Y')}}
 					</td>
@@ -97,22 +97,82 @@
 				<tfoot>
 					<tr>
 						<td colspan="100%">
-							Trang: 
-							@for ($i = 1; $i <= $count_trang; $i++)
+							Trang:
+							@if ($trang > 1)
 								<a href="{{ route('dang_ky_sach.view_all',[
-										'trang' => $i,
+										'trang' => 1,
 										'ma_khoa_hoc' => $ma_khoa_hoc,
 										'ma_lop' => $ma_lop,
 										'ma_mon_hoc' => $ma_mon_hoc,
 										'ma_sach' => $ma_sach,
-									]) }}"
-									@if ($trang==$i)
-										style='font-weight: bolder; font-size: 17px'
-									@endif
-									>
-									{{$i}}
+									]) }}" style="font-weight:bold " 				
+								>
+									Đầu
 								</a>
-							@endfor
+								<a href="{{ route('dang_ky_sach.view_all',[
+										'trang' => $prev, 
+										'ma_khoa_hoc' => $ma_khoa_hoc,
+										'ma_lop' => $ma_lop,
+										'ma_mon_hoc' => $ma_mon_hoc,
+										'ma_sach' => $ma_sach,
+									]) }}" style="font-weight:bold " >
+									<<
+								</a>
+							@endif
+							@if ($count_trang > 7)
+								@for ($i = $startpage; $i <= $endpage; $i++)
+									<a href="{{ route('dang_ky_sach.view_all',[
+											'trang' => $i,
+											'ma_khoa_hoc' => $ma_khoa_hoc,
+											'ma_lop' => $ma_lop,
+											'ma_mon_hoc' => $ma_mon_hoc,
+											'ma_sach' => $ma_sach,
+										]) }}" 
+										@if ($trang==$i)
+											style='font-weight: bolder; font-size: 17px'
+										@endif
+									>
+										{{$i}}
+									</a>
+								@endfor
+							@else
+								@for ($i = 1; $i <= $count_trang; $i++)
+									<a href="{{ route('dang_ky_sach.view_all',[
+											'trang' => $i,
+											'ma_khoa_hoc' => $ma_khoa_hoc,
+											'ma_lop' => $ma_lop,
+											'ma_mon_hoc' => $ma_mon_hoc,
+											'ma_sach' => $ma_sach,
+										]) }}"
+										@if ($trang==$i)
+											style='font-weight: bolder; font-size: 17px'
+										@endif
+										>
+										{{$i}}
+									</a>
+								@endfor
+							@endif
+							@if ($trang < $count_trang)
+								<a href="{{ route('dang_ky_sach.view_all',[
+										'trang' => $next, 
+										'ma_khoa_hoc' => $ma_khoa_hoc,
+										'ma_lop' => $ma_lop,
+										'ma_mon_hoc' => $ma_mon_hoc,
+										'ma_sach' => $ma_sach,
+										]) }}" style="font-weight:bold " >
+									>>
+								</a>
+								<a href="{{ route('dang_ky_sach.view_all',[
+										'trang' => $count_trang, 
+										'ma_khoa_hoc' => $ma_khoa_hoc,
+										'ma_lop' => $ma_lop,
+										'ma_mon_hoc' => $ma_mon_hoc,
+										'ma_sach' => $ma_sach,
+										]) }}" style="font-weight:bold " >
+									Cuối
+								</a>
+							@endif
+							
 						</td>
 					</tr>
 				</tfoot>
@@ -198,6 +258,11 @@
 									@if (Session::has('error'))
                                         <span style="color: red">
                                             {{Session::get('error')}}
+                                        </span>
+                                    @endif
+                                    @if (Session::has('error_1'))
+                                        <span style="color: red">
+                                            {{Session::get('error_1')}}
                                         </span>
                                     @endif
                                     @if (Session::has('success'))
@@ -327,7 +392,7 @@
 					return {
 						results: $.map(data, function(item) {
 							return  {
-								text: item.ten_sach,
+								text: `${item.ten_sach} (${formatDate(item.ngay_nhap_sach)})`,
 								id: item.ma_sach
 							}
 						})
@@ -452,7 +517,7 @@
 		});
 		$("#search_sach").select2({
 			ajax: {
-				url: '{{route('get_sach_by_mon_hoc_1')}}',
+				url: '{{route('get_sach_by_mon_hoc')}}',
 				dataType: 'json',
 				data: function() {
 					ma_mon_hoc = $("#search_mon_hoc").val();

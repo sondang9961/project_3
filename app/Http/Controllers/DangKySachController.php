@@ -37,13 +37,27 @@ class DangKySachController extends Controller
 
 		$khoa_hoc = new KhoaHoc();
 		$array_khoa_hoc = $khoa_hoc->get_all();
+
+		if ($trang > 1) $prev = $trang - 1;
+		if ($trang < $count_trang) $next = $trang + 1;
+		if ($trang <= 3) $startpage = 1;
+		else if ($trang == $count_trang) $startpage = $trang - 6;
+		else if ($trang == $count_trang - 2) $startpage = $trang - 5;
+		else if ($trang == $count_trang - 1) $startpage = $trang - 4;
+		else $startpage = $trang - 3;
+		$endpage = $startpage + 6;
+		
 		return view ("$this->folder.view_all", [
 			'array_dang_ky_sach' => $array_dang_ky_sach,
 			'array_khoa_hoc' => $array_khoa_hoc,
 			'count_trang' => $count_trang,
 			'ma_khoa_hoc' => $ma_khoa_hoc,
 			'trang' => $trang,
-			'dang_ky_sach' => $dang_ky_sach
+			'dang_ky_sach' => $dang_ky_sach,
+			'prev' => $prev,
+			'next' => $next,
+			'startpage' => $startpage,
+			'endpage' => $endpage
 		]);
 	}
 
@@ -57,13 +71,21 @@ class DangKySachController extends Controller
 		if (Request::get('tinh_trang_nhan_sach') == 1) {
 			$dang_ky_sach->ngay_nhan_sach = date("Y-m-d");
 		}
-		$array_dang_ky_sach = $dang_ky_sach->check_insert();
-		if(count($array_dang_ky_sach) == 0){
-			$dang_ky_sach->insert();
-			return redirect()->route("$this->folder.view_all")->with('success', 'Đã thêm');
-		}
-		if(count($array_dang_ky_sach) == 1){
-			return redirect()->route("$this->folder.view_all")->with('error', 'Sinh viên đã đăng ký rồi!');
+		$array_check_so_luong = $dang_ky_sach->check_so_luong();
+		//Nếu số lượng tồn kho > 0
+		foreach ($array_check_so_luong as $check_so_luong) {
+			if($check_so_luong->so_luong_ton_kho > 0)
+			{
+				$array_dang_ky_sach = $dang_ky_sach->check_insert();
+				if(count($array_dang_ky_sach) == 0){
+					$dang_ky_sach->insert();
+					return redirect()->route("$this->folder.view_all")->with('success', 'Đã thêm');
+				}
+				if(count($array_dang_ky_sach) == 1){
+					return redirect()->route("$this->folder.view_all")->with('error', 'Sinh viên đã đăng ký rồi!');
+				}
+			}
+			else return redirect()->route("$this->folder.view_all")->with('error_1', 'Hết sách để đăng ký!');
 		}
 			
 	}

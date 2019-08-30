@@ -13,7 +13,7 @@ class DangKySach
 	public function get_all()
 	{
 		$array_dang_ky_sach= DB::select ("
-			select ma_dang_ky, ten_sinh_vien,ten_lop, tinh_trang_nhan_sach, ten_sach, ngay_dang_ky, ngay_nhan_sach from dang_ky_sach 
+			select ma_dang_ky, ten_sinh_vien,ten_lop, tinh_trang_nhan_sach, ten_sach,ngay_nhap_sach, ngay_dang_ky, ngay_nhan_sach from dang_ky_sach 
 				join sinh_vien on dang_ky_sach.ma_sinh_vien = sinh_vien.ma_sinh_vien 
 				JOIN sach on dang_ky_sach.ma_sach = sach.ma_sach
 				join lop on sinh_vien.ma_lop = lop.ma_lop
@@ -62,6 +62,15 @@ class DangKySach
 		return $array[0];
 	}
 
+	public function check_so_luong()
+	{
+		$array_check_so_luong = DB::select("select so_luong_nhap - (SELECT COUNT(*) FROM sach join $this->table on sach.ma_sach = $this->table.ma_sach WHERE tinh_trang_nhan_sach = 1 and sach.ma_sach = ?) as so_luong_ton_kho from sach where ma_sach = ?",[
+			$this->ma_sach,
+			$this->ma_sach
+		]);
+		return $array_check_so_luong;
+	}
+
 	public function check_insert()
 	{
 		$array_dang_ky_sach = DB::select("select * from $this->table where ma_sinh_vien = ? and ma_sach = ? limit 1",[
@@ -84,7 +93,7 @@ class DangKySach
 
 	public function get_all_by_mon_hoc_1()//còn hạn
 	{
-		$array_sach = DB::select("select * from sach where ma_mon_hoc = ? and CURRENT_DATE - ngay_het_han <= 0 ",[$this->ma_mon_hoc]);
+		$array_sach = DB::select("select * from sach where ma_mon_hoc = ? and CURRENT_DATE - ngay_het_han <= 0 order by ngay_nhap_sach desc",[$this->ma_mon_hoc]);
 		return $array_sach;
 	}
 }

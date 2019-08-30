@@ -82,20 +82,70 @@
 				<tfoot>
 					<tr>
 						<td colspan="100%">
-							Trang: 
-							@for ($i = 1; $i <= $count_trang; $i++)
+							Trang:
+							@if ($trang > 1)
 								<a href="{{ route('sach.view_all',[
-									'trang' => $i, 
-									'ma_mon_hoc' => $ma_mon_hoc,
-									'ma_sach' => $ma_sach,
-									]) }}"
-									@if ($trang==$i)
-										style='font-weight: bolder; font-size: 17px'
-									@endif
-									>
-									{{$i}}
+										'trang' => 1, 
+										'ma_mon_hoc' => $ma_mon_hoc,
+										'ma_sach' => $ma_sach,
+										]) }}" style="font-weight:bold " 				
+								>
+									Đầu
 								</a>
-							@endfor
+								<a href="{{ route('sach.view_all',[
+										'trang' => $prev, 
+										'ma_mon_hoc' => $ma_mon_hoc,
+										'ma_sach' => $ma_sach,
+										]) }}" style="font-weight:bold " >
+									<<
+								</a>
+							@endif
+							@if ($count_trang > 7)
+								@for ($i = $startpage; $i <= $endpage; $i++)
+									<a href="{{ route('sach.view_all',[
+											'trang' => $i, 
+											'ma_mon_hoc' => $ma_mon_hoc,
+											'ma_sach' => $ma_sach,
+											]) }}" 
+										@if ($trang==$i)
+											style='font-weight: bolder; font-size: 17px'
+										@endif
+									>
+										{{$i}}
+									</a>
+								@endfor
+							@else
+								@for ($i = 1; $i <= $count_trang; $i++)
+									<a href="{{ route('sach.view_all',[
+										'trang' => $i, 
+										'ma_mon_hoc' => $ma_mon_hoc,
+										'ma_sach' => $ma_sach,
+										]) }}"
+										@if ($trang==$i)
+											style='font-weight: bolder; font-size: 17px'
+										@endif
+										>
+										{{$i}}
+									</a>
+								@endfor
+							@endif
+							@if ($trang < $count_trang)
+								<a href="{{ route('sach.view_all',[
+										'trang' => $next, 
+										'ma_mon_hoc' => $ma_mon_hoc,
+										'ma_sach' => $ma_sach,
+										]) }}" style="font-weight:bold " >
+									>>
+								</a>
+								<a href="{{ route('sach.view_all',[
+										'trang' => $count_trang, 
+										'ma_mon_hoc' => $ma_mon_hoc,
+										'ma_sach' => $ma_sach,
+										]) }}" style="font-weight:bold " >
+									Cuối
+								</a>
+							@endif 
+							
 						</td>
 					</tr>
 				</tfoot>
@@ -135,6 +185,18 @@
 						</div>
 						<span id="errSoLuong" style="color: red"></span>
 					</div>	
+					<div>
+						@if(Session::has('error'))
+							<span style="color: red">
+                                {{Session::get('error')}}
+                            </span>
+						@endif
+						@if (Session::has('success'))
+                            <span style="color: green">
+                                {{Session::get('success')}}
+                            </span>
+                        @endif
+					</div>					
 					<br>	
 					<div><input type="button" value="Thêm" id="button" onclick="validate()" class="add_button" disabled></div>
 				</form>
@@ -152,7 +214,7 @@
 		          	<h4 class="modal-title">Cập nhật sách</h4>
 		        </div>
 		        <div class="modal-body">
-			        <form action="{{route('sach.process_update', ['ma_sach' => $sach->ma_sach])}}" method="post">
+			        <form action="{{route('sach.process_update', ['ma_sach' => $sach->ma_sach])}}" method="post" id="form1">
 			        	{{csrf_field()}}
 			          	<input type="hidden" name="ma_sach" id="ma_sach">
 			          	<div class="form-group">
@@ -173,6 +235,7 @@
 							Số lượng<br>
 				          	<input type="number" name="so_luong_nhap" id="so_luong_nhap" class="form-control">
 						</div>
+						<span id="errSoLuongNhap" style="color: red"></span>
 			          	<div class="form-group">
 			          		Ngày nhập sách<br>
 			          		<input type="date" name="ngay_nhap_sach" id="ngay_nhap_sach" class="form-control">
@@ -182,7 +245,7 @@
 			          		<input type="date" name="ngay_het_han" id="ngay_het_han" class="form-control">
 			          	</div>		
 			        	<div style="margin-top: 2rem ">
-			          		<input type="submit" value="Sửa" class="btn-sm">
+			          		<input type="button" value="Sửa" onclick="validate_update()" class="btn-sm">
 			          	</div>	
 			        </form>
 		        </div>
@@ -327,6 +390,7 @@
 		var dem=0;
 		var ten_sach = document.getElementById('ten_sach').value;
 		var so_luong = document.getElementById('so_luong').value;
+		var so_luong_nhap = document.getElementById('so_luong_nhap').value;
 		var errSach = document.getElementById('errSach');
 		var errSoLuong = document.getElementById('errSoLuong');
 
@@ -346,6 +410,17 @@
 		}
 		if(dem==2){
 			document.getElementById("form").submit();
+		}
+	}
+
+	function validate_update() {
+		var so_luong_nhap = document.getElementById('so_luong_nhap').value;
+		var errSoLuongNhap = document.getElementById('errSoLuongNhap');
+
+		if (so_luong_nhap < 0){
+			errSoLuongNhap.innerHTML="Số lượng không được âm";
+		}else{
+			document.getElementById("form1").submit();
 		}
 	}
 </script>

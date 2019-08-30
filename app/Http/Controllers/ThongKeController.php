@@ -73,9 +73,9 @@ class ThongKeController extends Controller
 		$thong_ke->ma_mon_hoc = isset($ma_mon_hoc) ? $ma_mon_hoc: 'ma_mon_hoc';
 		$thong_ke->ngay_nhap_sach = isset($ngay_nhap_sach) ? $ngay_nhap_sach: 'ngay_nhap_sach';
 		$array_thong_ke_sach = $thong_ke->thong_ke_sach();
-
+		// dd($array_thong_ke_sach->toArray());
 		$count_trang = ceil($thong_ke->count_sach());
-
+		// dd($count_trang);
 		// return $array_thong_ke;
 		return view("$this->folder.view_thong_ke_sach",[
 			'array_thong_ke_sach' => $array_thong_ke_sach,

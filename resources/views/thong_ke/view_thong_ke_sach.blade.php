@@ -11,8 +11,8 @@
 					<tr>
 						<td >
 							<div style="margin-right: 3rem ">Tên môn
-								<select name="ma_mon_hoc" class="form-control" style="width: 14rem" id="search_sach">
-									<option selected disabled="">--Tên môn--</option>
+								<select name="ma_mon_hoc" class="form-control" style="width: 14rem" id="search_mon_hoc">
+									<option selected disabled>--Tên môn--</option>
 									@foreach ($array_mon_hoc as $mon_hoc)
 										<option value="{{$mon_hoc->ma_mon_hoc}}"
 											@if ($mon_hoc->ma_mon_hoc == $ma_mon_hoc)
@@ -39,6 +39,9 @@
 							<input type="submit" value="Xem" id="button">
 						</td>
 					</tr>
+					<tr>
+						<td><a href="{{ route('thong_ke.view_thong_ke_sach') }}">Hiển thị tất cả</a></td>
+					</tr>
 				</table>				
 			</form><br>
 			<table class="table table-striped">
@@ -49,43 +52,41 @@
 					<th>Số lượng tồn kho</th>
 					<th>Ngày nhập</th>
 				</tr>
-				 @if(!is_null(Request::get('ma_mon_hoc')) && !is_null(Request::get('ngay_nhap_sach'))) 
-					@foreach ($array_thong_ke_sach as $thong_ke)
-						<tr>
-							<td>{{$thong_ke->ten_sach}}</td>
-							<td>{{$thong_ke->so_luong_nhap}}</td>
-							<td>{{$thong_ke->so_luong_da_phat}}</td>
-							<td>{{$thong_ke->so_luong_ton_kho}}</td>
-							<td>{{$thong_ke->ngay_nhap_sach}}</td>
-						</tr>
-					@endforeach
-				 @endif 
-					<tfoot>
-						<tr>
-							<td colspan="100%">
-								Trang: 
-								@for ($i = 1; $i <= $count_trang; $i++)
-									<a href="{{ route('thong_ke.view_thong_ke_sach',[
-										'trang' => $i, 
-										'ngay_nhap_sach' => $ngay_nhap_sach,
-										'ma_mon_hoc' => $ma_mon_hoc,
-										]) }}"
-										@if ($trang==$i)
-											style='font-weight: bolder; font-size: 17px'
-										@endif
-										>
-										{{$i}}
-									</a>
-								@endfor
-							</td>
-						</tr>
-					</tfoot>
+				@foreach ($array_thong_ke_sach as $thong_ke)
+					<tr>
+						<td>{{$thong_ke->ten_sach}}</td>
+						<td>{{$thong_ke->so_luong_nhap}}</td>
+						<td>{{$thong_ke->so_luong_da_phat}}</td>
+						<td>{{$thong_ke->so_luong_ton_kho}}</td>
+						<td>{{$thong_ke->ngay_nhap_sach}}</td>
+					</tr>
+				@endforeach
+				<tfoot>
+					<tr>
+						<td colspan="100%">
+							Trang: 
+							@for ($i = 1; $i <= $count_trang; $i++)
+								<a href="{{ route('thong_ke.view_thong_ke_sach',[
+									'trang' => $i, 
+									'ngay_nhap_sach' => $ngay_nhap_sach,
+									'ma_mon_hoc' => $ma_mon_hoc,
+									]) }}"
+									@if ($trang==$i)
+										style='font-weight: bolder; font-size: 17px'
+									@endif
+									>
+									{{$i}}
+								</a>
+							@endfor
+						</td>
+					</tr>
+				</tfoot>
 			</table>
 		</div>
 		
 
 @endsection
-@push('js')
+{{-- @push('js')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
@@ -118,4 +119,4 @@
 		});		
 	});
 </script>
-@endpush
+@endpush --}}

@@ -14,20 +14,35 @@ class ThongKe extends Model
 	public function thong_ke_sach()
 		{
 			// dd($this->ma_mon_hoc);
-			$query = DB::select(
+			$query = Sach::selectRaw(
 				"	
-					select 
-				    sach.ma_sach,
-					ten_sach, 
+					sach.ma_sach,
+					ten_sach,
 					so_luong_nhap,
-					if(a.so_luong_da_phat is null,0,a.so_luong_da_phat) as so_luong_da_phat,
-					if(so_luong_nhap-so_luong_da_phat is null,so_luong_nhap,so_luong_nhap-so_luong_da_phat) as so_luong_ton_kho,
-					ngay_nhap_sach 
-					from sach 
-					left join 
-					(select ma_sach,count(*) as so_luong_da_phat from dang_ky_sach where tinh_trang_nhan_sach = 1  group by ma_sach)a
-					on a.ma_sach=sach.ma_sach where ma_mon_hoc = ?
-				");
+					(
+						select count(*) as so_luong_da_phat 
+						from dang_ky_sach
+						join sach
+						on sach.ma_sach = dang_ky_sach.ma_sach
+						where tinh_trang_nhan_sach = 1 
+						and if('$this->ma_mon_hoc' = 'ma_mon_hoc',1,sach.ma_mon_hoc = '$this->ma_mon_hoc') 
+					) as so_luong_da_phat,
+					(
+						so_luong_nhap - 
+						(
+							select count(*) as so_luong_da_phat 
+							from dang_ky_sach
+							join sach sach
+							on sach.ma_sach = dang_ky_sach.ma_sach
+							where tinh_trang_nhan_sach = 1 
+							and if('$this->ma_mon_hoc' = 'ma_mon_hoc',1,sach.ma_mon_hoc = '$this->ma_mon_hoc')
+						)
+					) as
+					so_luong_ton_kho, 
+				 	ngay_nhap_sach
+				")
+				->leftjoin('dang_ky_sach','dang_ky_sach.ma_sach','sach.ma_sach')
+				->groupBy('sach.ma_sach');
 				
 				if($this->ma_mon_hoc!='ma_mon_hoc'){
 					$query = $query->where('ma_mon_hoc',$this->ma_mon_hoc);
@@ -35,7 +50,7 @@ class ThongKe extends Model
 				if($this->ngay_nhap_sach!='ngay_nhap_sach'){
 					$query = $query->where('ngay_nhap_sach',$this->ngay_nhap_sach);
 				}
-				$array_thong_ke_sach = $query;
+				$array_thong_ke_sach = $query->get();
 			return $array_thong_ke_sach;
 		}
 	public function count_sach()

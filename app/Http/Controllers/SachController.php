@@ -36,6 +36,15 @@ class SachController extends Controller
 		$khoa_hoc = new KhoaHoc();
 		$array_khoa_hoc = $khoa_hoc->get_all();
 
+		if ($trang > 1) $prev = $trang - 1;
+		if ($trang < $count_trang) $next = $trang + 1;
+		if ($trang <= 3) $startpage = 1;
+		else if ($trang == $count_trang) $startpage = $trang - 6;
+		else if ($trang == $count_trang - 2) $startpage = $trang - 5;
+		else if ($trang == $count_trang - 1) $startpage = $trang - 4;
+		else $startpage = $trang - 3;
+		$endpage = $startpage + 6;
+
 		return view ("$this->folder.view_all", [
 			'array_sach' => $array_sach,
 			'array_mon_hoc' => $array_mon_hoc,
@@ -44,7 +53,11 @@ class SachController extends Controller
 			'ma_mon_hoc' => $ma_mon_hoc,
 			'ma_sach' => $ma_sach,
 			'trang' => $trang,
-			'sach' => $sach
+			'sach' => $sach,
+			'prev' => $prev,
+			'next' => $next,
+			'startpage' => $startpage,
+			'endpage' => $endpage
 		]);
 	}
 
@@ -119,14 +132,13 @@ class SachController extends Controller
 		$sach->so_luong_nhap = Request::get('so_luong_nhap');
 		$sach->ngay_nhap_sach = date("Y-m-d");
 		$sach->ngay_het_han = date("Y-m-d",strtotime("+ 14 day"));
-		//$array_sach = $sach->check_insert();
-		// if(count($array_sach) == 0)
-		// {
-		 $sach->insert();
-		// }
-		// $sach->updateInsert();
-		
-		return redirect()->route("$this->folder.view_all");
+		$array_sach = $sach->check_insert();
+		if(count($array_sach) == 0)
+		{
+			$sach->insert();
+			return redirect()->route("$this->folder.view_all")->with('success', 'Đã thêm');
+		}
+		return redirect()->route("$this->folder.view_all")->with('error','Hôm nay bạn đã thêm sách này rồi vui lòng cập nhật số lượng!');
 	}
 
 	public function process_update()
