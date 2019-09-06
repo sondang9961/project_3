@@ -27,10 +27,15 @@ class DangKySachController extends Controller
 		$dang_ky_sach = new DangKySach();
 		$dang_ky_sach->offset = ($trang - 1)*$limit;
 		$dang_ky_sach->limit = $limit;
-		$dang_ky_sach->ma_khoa_hoc = Request::get('ma_khoa_hoc');
-		$dang_ky_sach->ma_lop = Request::get('ma_lop');
-		$dang_ky_sach->ma_mon_hoc = Request::get('ma_mon_hoc');
-		$dang_ky_sach->ma_sach = Request::get('ma_sach');
+		$ma_khoa_hoc = Request::get('ma_khoa_hoc');
+		$ma_lop = Request::get('ma_lop');
+		$ma_mon_hoc = Request::get('ma_mon_hoc');
+		$ma_sach = Request::get('ma_sach');
+
+		$dang_ky_sach->ma_khoa_hoc = isset($ma_khoa_hoc) ? $ma_khoa_hoc: 'ma_khoa_hoc';
+		$dang_ky_sach->ma_lop = isset($ma_lop) ? $ma_lop: 'ma_lop';
+		$dang_ky_sach->ma_mon_hoc = isset($ma_mon_hoc) ? $ma_mon_hoc: 'ma_mon_hoc';
+		$dang_ky_sach->ma_sach = isset($ma_sach) ? $ma_sach: 'ma_sach';
 		$array_dang_ky_sach = $dang_ky_sach->get_all();
 
 		$count_trang = ceil($dang_ky_sach->count());
@@ -38,20 +43,23 @@ class DangKySachController extends Controller
 		$khoa_hoc = new KhoaHoc();
 		$array_khoa_hoc = $khoa_hoc->get_all();
 
-		if ($trang > 1) $prev = $trang - 1;
-		if ($trang < $count_trang) $next = $trang + 1;
+		if ($trang > 1) $prev = $trang - 1; else $prev = 0;
+		if ($trang < $count_trang) $next = $trang + 1; else $next = 0;
 		if ($trang <= 3) $startpage = 1;
 		else if ($trang == $count_trang) $startpage = $trang - 6;
 		else if ($trang == $count_trang - 2) $startpage = $trang - 5;
 		else if ($trang == $count_trang - 1) $startpage = $trang - 4;
 		else $startpage = $trang - 3;
 		$endpage = $startpage + 6;
-		
+	
 		return view ("$this->folder.view_all", [
 			'array_dang_ky_sach' => $array_dang_ky_sach,
 			'array_khoa_hoc' => $array_khoa_hoc,
 			'count_trang' => $count_trang,
 			'ma_khoa_hoc' => $ma_khoa_hoc,
+			'ma_lop' => $ma_lop,
+			'ma_mon_hoc' => $ma_mon_hoc,
+			'ma_sach' => $ma_sach,
 			'trang' => $trang,
 			'dang_ky_sach' => $dang_ky_sach,
 			'prev' => $prev,

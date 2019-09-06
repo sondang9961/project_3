@@ -114,11 +114,12 @@
 		          	<h4 class="modal-title">Cập nhật môn học</h4>
 		        </div>
 		        <div class="modal-body">
-			        <form action="{{route('mon_hoc.process_update', ['ma_mon_hoc' => $mon_hoc->ma_mon_hoc])}}" method="post">
+			        <form action="{{route('mon_hoc.process_update', ['ma_mon_hoc' => $mon_hoc->ma_mon_hoc])}}" method="post" id="form_update">
 			        	{{csrf_field()}}
 			          	<input type="hidden" name="ma_mon_hoc" id="ma_mon_hoc">
 			          	Tên môn học<br>
-			          	<input type="text" name="ten_mon_hoc" id="ten_mon_hoc" class="form-control"><br>
+			          	<input type="text" name="ten_mon_hoc" id="ten" class="form-control"><br>
+			          	<span id="errTen" style="color: red"></span><br>
 			          	Khóa học<br>
 			          	<select name="ma_khoa_hoc" id="ma_khoa_hoc">
 			          		@foreach($array_khoa_hoc as $khoa_hoc)
@@ -128,7 +129,7 @@
 							@endforeach
 			          	</select>
 			          	<div style="margin-top: 2rem">
-			          		<input type="submit" value="Sửa" class="btn-sm">
+			          		<input type="button" value="Sửa" onclick="validate_update()" class="btn-sm">
 			          	</div>						        	
 			        </form>
 		        </div>
@@ -156,7 +157,7 @@
 			})
 			.done(function(response) {
 				$("#ma_mon_hoc").val(response.ma_mon_hoc);
-				$("#ten_mon_hoc").val(response.ten_mon_hoc);
+				$("#ten").val(response.ten_mon_hoc);
 				$("#ma_khoa_hoc").val(response.ma_khoa_hoc);
 			})
 			.fail(function() {
@@ -186,6 +187,17 @@
 		}
 		if(dem == 2){
 			document.getElementById('form_insert').submit();
+		}
+	}
+
+	function validate_update() {
+		var ten = document.getElementById('ten').value;
+		var errTen= document.getElementById('errTen');
+
+		if(ten.length == 0){
+			errTen.innerHTML="Không được trống!";
+		}else {
+			document.getElementById('form_update').submit();
 		}
 	}
 </script>

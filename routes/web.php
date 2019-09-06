@@ -22,9 +22,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'CheckAdmin'], function(){
 	Route::get('view_lay_lai_mat_khau','Controller@view_lay_lai_mat_khau')->name('view_lay_lai_mat_khau');
 	Route::post('process_cap_nhat_mat_khau','Controller@process_cap_nhat_mat_khau')->name('process_cap_nhat_mat_khau');
 
-	//THỐNG KÊ
-	Route::get("thong_ke","ThongKeController@view_thong_ke");
-
 	//KHÓA HỌC
 	Route::group(["prefix" => "khoa_hoc"], function(){
 		$group = "khoa_hoc";
@@ -133,8 +130,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'CheckAdmin'], function(){
 		->name("thong_ke.view_thong_ke_sinh_vien");
 		Route::get("view_thong_ke_sach","ThongKeController@view_thong_ke_sach")
 		->name("thong_ke.view_thong_ke_sach");
-		Route::post("process_thong_ke_sinh_vien","ThongKeController@process_thong_ke_sinh_vien")
-		->name("thong_ke.process_thong_ke_sinh_vien");
+		Route::get("view_all","ThongKeController@view_all")
+		->name("thong_ke.view_all");
 });
 
 });

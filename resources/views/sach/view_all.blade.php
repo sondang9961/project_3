@@ -38,15 +38,6 @@
 						</td>			
 						<td><input type="submit" value="Xem" id="button" class="search_button" disabled></td>
 					</tr>
-					{{-- <tr>
-						<td>
-							Tình trạng : 
-						</td>
-						<td>
-							<input type="radio" name="tinh_trang" value="0">Hết hạn
-							<input type="radio" name="tinh_trang" value="1" checked="checked">Chưa hết hạn
-						</td>
-					</tr> --}}
 					<tr>
 						<td>
 							<a href="{{ route('sach.view_all') }}">Hiển thị tất cả</a>
@@ -181,9 +172,9 @@
 					<div class="form-group ">
 						<div>Số lượng</div>	
 						<div>
-							<input type="number" name="so_luong_nhap" id="so_luong" class="form-control" style="width: 25rem" disabled>
+							<input type="number" name="so_luong_nhap" id="so_luong_nhap" class="form-control" style="width: 25rem" disabled>
 						</div>
-						<span id="errSoLuong" style="color: red"></span>
+						<span id="errSoLuongNhap" style="color: red"></span>
 					</div>	
 					<div>
 						@if(Session::has('error'))
@@ -214,16 +205,17 @@
 		          	<h4 class="modal-title">Cập nhật sách</h4>
 		        </div>
 		        <div class="modal-body">
-			        <form action="{{route('sach.process_update', ['ma_sach' => $sach->ma_sach])}}" method="post" id="form1">
+			        <form action="{{route('sach.process_update', ['ma_sach' => $sach->ma_sach])}}" method="post" id="form_update">
 			        	{{csrf_field()}}
 			          	<input type="hidden" name="ma_sach" id="ma_sach">
 			          	<div class="form-group">
 			          		Tên sách<br>
-			          		<input type="text" name="ten_sach" id="tenSach" class="form-control">
+			          		<input type="text" name="ten_sach" id="ten" class="form-control"><br>
+			          		<span id="errTen" style="color: red"></span>
 			          	</div>
 			          	<div class="form-group">
 			          		Môn học
-				          	<select name="ma_mon_hoc" id="ma_mon_hoc" class="form-control">
+				          	<select name="ma_mon_hoc" id="mon_hoc" class="form-control">
 				          		@foreach($array_mon_hoc as $mon_hoc)
 									<option value="{{$mon_hoc->ma_mon_hoc}}">
 										{{$mon_hoc->ten_mon_hoc}}
@@ -233,20 +225,20 @@
 			          	</div>
 						<div class="form-group">
 							Số lượng<br>
-				          	<input type="number" name="so_luong_nhap" id="so_luong_nhap" class="form-control">
+				          	<input type="number" name="so_luong_nhap" id="so_luong" class="form-control">
 						</div>
-						<span id="errSoLuongNhap" style="color: red"></span>
-			          	<div class="form-group">
+						<span id="errSoLuong" style="color: red"></span>
+			          	{{-- <div class="form-group">
 			          		Ngày nhập sách<br>
 			          		<input type="date" name="ngay_nhap_sach" id="ngay_nhap_sach" class="form-control">
 			          	</div>
 			          	<div class="form-group">
 			          		Ngày hết hạn<br>
 			          		<input type="date" name="ngay_het_han" id="ngay_het_han" class="form-control">
-			          	</div>		
+			          	</div>--}}
 			        	<div style="margin-top: 2rem ">
 			          		<input type="button" value="Sửa" onclick="validate_update()" class="btn-sm">
-			          	</div>	
+			          	</div>	 
 			        </form>
 		        </div>
 		        <div class="modal-footer">
@@ -267,24 +259,24 @@
 			$("#select_mon_hoc").val(null).trigger('change');
 			$("#select_mon_hoc").attr("disabled", false);
 			$("#ten_sach").attr("disabled", true);
-			$("#so_luong").attr("disabled", true);
+			$("#so_luong_nhap").attr("disabled", true);
 			$(".add_button").attr("disabled", true);
 		});
 		$("#select_mon_hoc").change(function(){
 			$("#ten_sach").val(null).trigger('change');
 			$("#ten_sach").attr("disabled", false);
-			$("#so_luong").attr("disabled", true);
+			$("#so_luong_nhap").attr("disabled", true);
 			$(".add_button").attr("disabled", true);
 		})
 		$("#ten_sach").change(function(){	
-			$("#so_luong").val(null).trigger('change');
-			if($("#so_luong"))
-			$("#so_luong").attr("disabled", false);
+			$("#so_luong_nhap").val(null).trigger('change');
+			if($("#so_luong_nhap"))
+			$("#so_luong_nhap").attr("disabled", false);
 			$(".add_button").attr("disabled", true);
 
 		})
-		$("#so_luong").change(function(){
-			if($("#so_luong").val()==null)
+		$("#so_luong_nhap").change(function(){
+			if($("#so_luong_nhap").val()==null)
 			{
 				$(".add_button").attr("disabled", true);
 			}
@@ -371,11 +363,11 @@
 			})
 			.done(function(response) {
 				$("#ma_sach").val(response.ma_sach);
-				$("#tenSach").val(response.ten_sach);
-				$("#ma_mon_hoc").val(response.ma_mon_hoc);
-				$("#so_luong_nhap").val(response.so_luong_nhap);
-				$("#ngay_nhap_sach").val(response.ngay_nhap_sach);
-				$("#ngay_het_han").val(response.ngay_het_han);
+				$("#ten").val(response.ten_sach);
+				$("#mon_hoc").val(response.ma_mon_hoc);
+				$("#so_luong").val(response.so_luong_nhap);
+				// $("#ngay_nhap_sach").val(response.ngay_nhap_sach);
+				// $("#ngay_het_han").val(response.ngay_het_han);
 			})
 			.fail(function() {
 				console.log("error");
@@ -389,10 +381,9 @@
 	function validate() {
 		var dem=0;
 		var ten_sach = document.getElementById('ten_sach').value;
-		var so_luong = document.getElementById('so_luong').value;
 		var so_luong_nhap = document.getElementById('so_luong_nhap').value;
 		var errSach = document.getElementById('errSach');
-		var errSoLuong = document.getElementById('errSoLuong');
+		var errSoLuongNhap = document.getElementById('errSoLuongNhap');
 
 		if(ten_sach.length == 0){
 			errSach.innerHTML="Chưa nhập tên sách";
@@ -401,11 +392,14 @@
 			dem++;
 		}
 
-		if (so_luong < 0){
-			errSoLuong.innerHTML="Số lượng không được âm";
+		if (so_luong_nhap.length == 0){
+			errSoLuongNhap.innerHTML="Chưa nhập số lượng";
+		}
+		else if (so_luong_nhap < 0){
+			errSoLuongNhap.innerHTML="Số lượng không được âm";
 		}
 		else{
-			errSoLuong.innerHTML="";
+			errSoLuongNhap.innerHTML="";
 			dem++;
 		}
 		if(dem==2){
@@ -414,13 +408,32 @@
 	}
 
 	function validate_update() {
-		var so_luong_nhap = document.getElementById('so_luong_nhap').value;
-		var errSoLuongNhap = document.getElementById('errSoLuongNhap');
+		var dem = 0;
+		var ten = document.getElementById('ten').value;
+		var errTen = document.getElementById('errTen');
+		var so_luong = document.getElementById('so_luong').value;
+		var errSoLuong = document.getElementById('errSoLuong');
 
-		if (so_luong_nhap < 0){
-			errSoLuongNhap.innerHTML="Số lượng không được âm";
+		if(ten.length == 0){
+			errTen.innerHTML="Chưa nhập tên sách";
 		}else{
-			document.getElementById("form1").submit();
+			errTen.innerHTML="";
+			dem++;
+		}
+
+		if (so_luong < 0){
+			errSoLuong.innerHTML="Số lượng không được âm";
+		}
+		else if (so_luong.length == 0){
+			errSoLuong.innerHTML="Chưa nhập số lượng";
+		}
+		else{
+			errSoLuong.innerHTML="";
+			dem++;
+		}
+
+		if(dem == 2){
+			document.getElementById("form_update").submit();
 		}
 	}
 </script>

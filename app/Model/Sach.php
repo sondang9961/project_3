@@ -97,14 +97,12 @@ class Sach extends Model
 		DB::update("update $this->table set
 			ten_sach = ?,
 			so_luong_nhap = ?,
-			ngay_nhap_sach = ?,
-			ngay_het_han = ?,
 			ma_mon_hoc = ?
 			where ma_sach = ?",[
 				$this->ten_sach,
 				$this->so_luong_nhap,
-				$this->ngay_nhap_sach,
-				$this->ngay_het_han,
+				// $this->ngay_nhap_sach,
+				// $this->ngay_het_han,
 				$this->ma_mon_hoc,
 				$this->ma_sach	
 		]);

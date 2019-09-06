@@ -47,25 +47,56 @@
 			<table class="table table-striped">
 				<tr>
 					<th>Tên sách</th>
+					<th>Ngày nhập</th>
 					<th>Số lượng nhập</th>
 					<th>Số lượng đã phát</th>
 					<th>Số lượng tồn kho</th>
-					<th>Ngày nhập</th>
-				</tr>
 				@foreach ($array_thong_ke_sach as $thong_ke)
 					<tr>
 						<td>{{$thong_ke->ten_sach}}</td>
+						<td>{{date_format(date_create($thong_ke->ngay_nhap_sach),'d/m/Y')}}</td>
 						<td>{{$thong_ke->so_luong_nhap}}</td>
 						<td>{{$thong_ke->so_luong_da_phat}}</td>
 						<td>{{$thong_ke->so_luong_ton_kho}}</td>
-						<td>{{$thong_ke->ngay_nhap_sach}}</td>
 					</tr>
 				@endforeach
 				<tfoot>
 					<tr>
 						<td colspan="100%">
-							Trang: 
-							@for ($i = 1; $i <= $count_trang; $i++)
+							Trang:
+							@if ($trang > 1)
+								<a href="{{ route('thong_ke.view_all',[
+										'trang' => 1, 
+										'ngay_nhap_sach' => $ngay_nhap_sach,
+										'ma_mon_hoc' => $ma_mon_hoc,
+										]) }}" style="font-weight:bold " 				
+								>
+									Đầu
+								</a>
+								<a href="{{ route('thong_ke.view_all',[
+										'trang' => $prev, 
+										'ngay_nhap_sach' => $ngay_nhap_sach,
+										'ma_mon_hoc' => $ma_mon_hoc,
+										]) }}" style="font-weight:bold " >
+									<<
+								</a>
+							@endif
+							@if ($count_trang > 7)
+								@for ($i = $startpage; $i <= $endpage; $i++)
+									<a href="{{ route('thong_ke.view_all',[
+											'trang' => $i, 
+											'ngay_nhap_sach' => $ngay_nhap_sach,
+											'ma_mon_hoc' => $ma_mon_hoc,
+											]) }}" 
+										@if ($trang==$i)
+											style='font-weight: bolder; font-size: 17px'
+										@endif
+									>
+										{{$i}}
+									</a>
+								@endfor
+							@else
+								@for ($i = 1; $i <= $count_trang; $i++)
 								<a href="{{ route('thong_ke.view_thong_ke_sach',[
 									'trang' => $i, 
 									'ngay_nhap_sach' => $ngay_nhap_sach,
@@ -78,6 +109,24 @@
 									{{$i}}
 								</a>
 							@endfor
+							@endif
+							@if ($trang < $count_trang)
+								<a href="{{ route('thong_ke.view_all',[
+										'trang' => $next, 
+										'ngay_nhap_sach' => $ngay_nhap_sach,
+										'ma_mon_hoc' => $ma_mon_hoc,
+										]) }}" style="font-weight:bold " >
+									>>
+								</a>
+								<a href="{{ route('thong_ke.view_all',[
+										'trang' => $count_trang, 
+										'ngay_nhap_sach' => $ngay_nhap_sach,
+										'ma_mon_hoc' => $ma_mon_hoc,
+										]) }}" style="font-weight:bold " >
+									Cuối
+								</a>
+							@endif  
+							
 						</td>
 					</tr>
 				</tfoot>

@@ -18,9 +18,9 @@
 								<option disabled selected value="">--Chọn khóa học--</option>
 								@foreach ($array_khoa_hoc as $khoa_hoc)
 									<option value="{{$khoa_hoc->ma_khoa_hoc}}"
-										@if ($khoa_hoc->ma_khoa_hoc == $ma_khoa_hoc)
+									{{-- 	@if ($khoa_hoc->ma_khoa_hoc == $ma_khoa_hoc)
 											selected 
-										@endif
+										@endif --}}
 										>
 										{{$khoa_hoc->ten_khoa_hoc}}
 									</option>
@@ -58,7 +58,7 @@
 						</td>
 						<td>
 							<a href="{{ route('dang_ky_sach.view_all') }}">
-								<input type="submit" value="Tất cả" id="button">
+								<input type="button" value="Tất cả" id="button">
 							</a>
 						</td>
 				</tr>
@@ -456,17 +456,15 @@
 			$("#search_lop").val(null).trigger('change');		
 			$("#search_lop").attr("disabled", false);
 			$("#search_sach").attr("disabled", true);
-			$("#button").attr("disabled", true);
 		})
 		$("#search_mon_hoc").change(function(){
 			$("#search_sach").val(null).trigger('change');
 			$("#search_sach").attr("disabled", false);
-			$("#button").attr("disabled", true);
 		})
 		$("#search_lop").change(function(){
 			$("#search_sinh_vien").val(null).trigger('change');
 		})
-		$("#search_sach").change(function(){
+		$("#search_khoa_hoc").change(function(){
 			$("#button").attr("disabled", false);
 		})
 	

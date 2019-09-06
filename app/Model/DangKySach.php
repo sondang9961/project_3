@@ -12,33 +12,53 @@ class DangKySach
 	public $ngay_nhan_sach = null;
 	public function get_all()
 	{
+		$dieu_kien = "where 1 = 1 ";
+			if($this->ma_khoa_hoc!='ma_khoa_hoc'){
+					$dieu_kien = $dieu_kien." and ma_khoa_hoc = $this->ma_khoa_hoc";
+				}
+			if($this->ma_lop!='ma_lop'){
+					$dieu_kien = $dieu_kien." and lop.ma_lop = $this->ma_lop";
+				}
+			if($this->ma_mon_hoc!='ma_mon_hoc'){
+					$dieu_kien = $dieu_kien." and ma_mon_hoc = $this->ma_mon_hoc";
+				}
+			if($this->ma_sach!='ma_sach'){
+					$dieu_kien = $dieu_kien." and sach.ma_sach = $this->ma_sach";
+				}
 		$array_dang_ky_sach= DB::select ("
-			select ma_dang_ky, ten_sinh_vien,ten_lop, tinh_trang_nhan_sach, ten_sach,ngay_nhap_sach, ngay_dang_ky, ngay_nhan_sach from dang_ky_sach 
+			select ma_dang_ky, ten_sinh_vien,ten_lop, tinh_trang_nhan_sach, ten_sach,ngay_nhap_sach, ngay_dang_ky, ngay_nhan_sach from $this->table 
 				join sinh_vien on dang_ky_sach.ma_sinh_vien = sinh_vien.ma_sinh_vien 
 				JOIN sach on dang_ky_sach.ma_sach = sach.ma_sach
 				join lop on sinh_vien.ma_lop = lop.ma_lop
-			where (? is null and ? is null or sach.ma_sach = ? and lop.ma_lop = ?)
-			order by ma_dang_ky desc limit $this->limit offset $this->offset",[
-				$this->ma_sach,
-				$this->ma_lop,
-				$this->ma_sach,
-				$this->ma_lop
-			]);
+			$dieu_kien
+			order by ma_dang_ky desc limit $this->limit offset $this->offset");
 		return $array_dang_ky_sach;
 	}
 
 	public function count()
 	{
+		$dieu_kien = "where 1 = 1 ";
+			if($this->ma_khoa_hoc!='ma_khoa_hoc'){
+					$dieu_kien = $dieu_kien." and ma_khoa_hoc = $this->ma_khoa_hoc";
+				}
+			if($this->ma_lop!='ma_lop'){
+					$dieu_kien = $dieu_kien." and lop.ma_lop = $this->ma_lop";
+				}
+			if($this->ma_mon_hoc!='ma_mon_hoc'){
+					$dieu_kien = $dieu_kien." and ma_mon_hoc = $this->ma_mon_hoc";
+				}
+			if($this->ma_sach!='ma_sach'){
+					$dieu_kien = $dieu_kien." and sach.ma_sach = $this->ma_sach";
+				}
 		$count = DB::select("
-			select count(*)/$this->limit as count from $this->table
-				join sinh_vien on dang_ky_sach.ma_sinh_vien = sinh_vien.ma_sinh_vien 
-				JOIN sach on dang_ky_sach.ma_sach = sach.ma_sach
-			where (? is null and ? is null or sach.ma_sach = ? and ma_lop = ?)",[
-				$this->ma_sach,
-				$this->ma_lop,
-				$this->ma_sach,
-				$this->ma_lop
-			]);
+			select count(*)/$this->limit as count from (
+				select ma_dang_ky, ten_sinh_vien,ten_lop, tinh_trang_nhan_sach, ten_sach,ngay_nhap_sach, ngay_dang_ky, ngay_nhan_sach from $this->table 
+					join sinh_vien on dang_ky_sach.ma_sinh_vien = sinh_vien.ma_sinh_vien 
+					JOIN sach on dang_ky_sach.ma_sach = sach.ma_sach
+					join lop on sinh_vien.ma_lop = lop.ma_lop
+				$dieu_kien
+				order by ma_dang_ky desc
+			)a");
 		return $count[0]->count;
 	}
 

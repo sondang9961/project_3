@@ -57,7 +57,7 @@ class ThongKeController extends Controller
 			$trang = 1;
 		}
 		
-		$limit = 5;
+		$limit = 7;
 
 		$sach = new Sach();
 		$array_sach = $sach->get_all();
@@ -73,10 +73,17 @@ class ThongKeController extends Controller
 		$thong_ke->ma_mon_hoc = isset($ma_mon_hoc) ? $ma_mon_hoc: 'ma_mon_hoc';
 		$thong_ke->ngay_nhap_sach = isset($ngay_nhap_sach) ? $ngay_nhap_sach: 'ngay_nhap_sach';
 		$array_thong_ke_sach = $thong_ke->thong_ke_sach();
-		// dd($array_thong_ke_sach->toArray());
 		$count_trang = ceil($thong_ke->count_sach());
-		// dd($count_trang);
-		// return $array_thong_ke;
+
+		if ($trang > 1) $prev = $trang - 1; else $prev = 0;
+		if ($trang < $count_trang) $next = $trang + 1; else $next = 0;
+		if ($trang <= 3) $startpage = 1;
+		else if ($trang == $count_trang) $startpage = $trang - 6;
+		else if ($trang == $count_trang - 2) $startpage = $trang - 5;
+		else if ($trang == $count_trang - 1) $startpage = $trang - 4;
+		else $startpage = $trang - 3;
+		$endpage = $startpage + 6;
+
 		return view("$this->folder.view_thong_ke_sach",[
 			'array_thong_ke_sach' => $array_thong_ke_sach,
 			'array_sach' => $array_sach,
@@ -85,7 +92,11 @@ class ThongKeController extends Controller
 			'ngay_nhap_sach' => $ngay_nhap_sach,
 			'ma_mon_hoc' => $ma_mon_hoc,
 			'trang' => $trang,
-			'thong_ke' => $thong_ke
+			'thong_ke' => $thong_ke,
+			'prev' => $prev,
+			'next' => $next,
+			'startpage' => $startpage,
+			'endpage' => $endpage
 		]);
 	}
 

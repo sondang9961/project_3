@@ -118,11 +118,12 @@
 		          	<h4 class="modal-title">Cập nhật lớp</h4>
 		        </div>
 		        <div class="modal-body">
-			        <form action="{{route('lop.process_update', ['ma_lop' => $lop->ma_lop])}}" method="post">
+			        <form action="{{route('lop.process_update', ['ma_lop' => $lop->ma_lop])}}" method="post" id="form_update">
 			        	{{csrf_field()}}
 			          	<input type="hidden" name="ma_lop" id="ma_lop">
 			          	Tên lớp<br>
-			          	<input type="text" name="ten_lop" id="ten_lop" class="form-control">
+			          	<input type="text" name="ten_lop" id="ten" class="form-control"><br>
+			          	<span id="errTen" style="color: red"></span>
 			          	<br>
 			          	Khóa học<br>
 			          	<select name="ma_khoa_hoc" id="ma_khoa_hoc">
@@ -134,7 +135,7 @@
 			          	</select>
 			          	<br>					
 			        	<div style="margin-top: 2rem">
-			          		<input type="submit" value="Sửa" class="btn-sm">
+			          		<input type="button" value="Sửa" onclick="validate_update()" class="btn-sm">
 			          	</div>	
 			        </form>
 		        </div>
@@ -162,7 +163,7 @@
 			})
 			.done(function(response) {
 				$("#ma_lop").val(response.ma_lop);
-				$("#ten_lop").val(response.ten_lop);
+				$("#ten").val(response.ten_lop);
 				$("#ma_khoa_hoc").val(response.ma_khoa_hoc);
 			})
 			
@@ -189,6 +190,17 @@
 		}
 		if(dem == 2){
 			document.getElementById('form_insert').submit();
+		}
+	}
+
+	function validate_update() {
+		var ten = document.getElementById('ten').value;
+		var errTen = document.getElementById('errTen');
+
+		if(ten.length == 0){
+			errTen.innerHTML="Không được trống!";
+		}else {
+			document.getElementById('form_update').submit();
 		}
 	}
 </script>

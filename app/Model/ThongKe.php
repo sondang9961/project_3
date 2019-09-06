@@ -8,12 +8,20 @@ use App\Model\Sach;
 
 class ThongKe extends Model
 {
-	public $limit = 5;
+	public $limit = 7;
 	public $offset = 0;
 
 	public function thong_ke_sach()
 		{
 			// dd($this->ma_mon_hoc);
+			$dieu_kien = "where 1 = 1 ";
+			if($this->ma_mon_hoc!='ma_mon_hoc'){
+					$dieu_kien = $dieu_kien." and ma_mon_hoc = $this->ma_mon_hoc";
+				}
+			if($this->ngay_nhap_sach!='ngay_nhap_sach'){
+					$dieu_kien = $dieu_kien." and ngay_nhap_sach = '$this->ngay_nhap_sach'";
+				}
+
 			$query = DB::select(
 				"	
 					select 
@@ -26,37 +34,37 @@ class ThongKe extends Model
 					from sach 
 					left join 
 					(select ma_sach,count(*) as so_luong_da_phat from dang_ky_sach where tinh_trang_nhan_sach = 1  group by ma_sach)a
-					on a.ma_sach=sach.ma_sach where ma_mon_hoc = ?
+					on a.ma_sach=sach.ma_sach $dieu_kien order by ma_sach desc limit $this->limit offset $this->offset
 				");
-				
-				if($this->ma_mon_hoc!='ma_mon_hoc'){
-					$query = $query->where('ma_mon_hoc',$this->ma_mon_hoc);
-				}
-				if($this->ngay_nhap_sach!='ngay_nhap_sach'){
-					$query = $query->where('ngay_nhap_sach',$this->ngay_nhap_sach);
-				}
+						
 				$array_thong_ke_sach = $query;
 			return $array_thong_ke_sach;
 		}
 	public function count_sach()
 	{
+		$dieu_kien = "where 1 = 1 ";
+			if($this->ma_mon_hoc!='ma_mon_hoc'){
+					$dieu_kien = $dieu_kien." and ma_mon_hoc = $this->ma_mon_hoc";
+				}
+			if($this->ngay_nhap_sach!='ngay_nhap_sach'){
+					$dieu_kien = $dieu_kien." and ngay_nhap_sach = '$this->ngay_nhap_sach'";
+				}
+
 		$count_sach=DB::select(
-				"select COUNT(*)/$this->limit as count_sach FROM
-					(
-						select 
-							ten_sach,
-							so_luong_nhap,
-							(select count(*) as so_luong_da_phat from dang_ky_sach join sach on dang_ky_sach.ma_sach = sach.ma_sach join mon_hoc on sach.ma_mon_hoc = mon_hoc.ma_mon_hoc where tinh_trang_nhan_sach = 1 and mon_hoc.ma_mon_hoc = ?) as so_luong_da_phat,
-							(so_luong_nhap-(select count(*) as so_luong_da_phat from dang_ky_sach join sach on dang_ky_sach.ma_sach = sach.ma_sach join mon_hoc on sach.ma_mon_hoc = mon_hoc.ma_mon_hoc where tinh_trang_nhan_sach = 1 and mon_hoc.ma_mon_hoc = ?)) as
-							so_luong_ton_kho, 
-						 	ngay_nhap_sach
-						from sach join mon_hoc on sach.ma_mon_hoc = mon_hoc.ma_mon_hoc where mon_hoc.ma_mon_hoc = ? or ngay_nhap_sach = ? or ngay_nhap_sach = ''
-					)a",[
-						$this->ma_mon_hoc,
-						$this->ma_mon_hoc,
-						$this->ma_mon_hoc,
-						$this->ngay_nhap_sach
-					]);
+			"select COUNT(*)/$this->limit as count_sach FROM
+				(
+					select 
+				    sach.ma_sach,
+					ten_sach, 
+					so_luong_nhap,
+					if(a.so_luong_da_phat is null,0,a.so_luong_da_phat) as so_luong_da_phat,
+					if(so_luong_nhap-so_luong_da_phat is null,so_luong_nhap,so_luong_nhap-so_luong_da_phat) as so_luong_ton_kho,
+					ngay_nhap_sach 
+					from sach 
+					left join 
+					(select ma_sach,count(*) as so_luong_da_phat from dang_ky_sach where tinh_trang_nhan_sach = 1  group by ma_sach)a
+					on a.ma_sach=sach.ma_sach $dieu_kien order by ma_sach desc
+				)b");
 			return $count_sach[0]->count_sach;
 	}
 

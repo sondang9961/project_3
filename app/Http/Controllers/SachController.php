@@ -17,7 +17,7 @@ class SachController extends Controller
 		if(empty($trang)){
 			$trang = 1;
 		}
-		
+		//dd($trang);
 		$limit = 5;
 		$sach = new Sach();
 		$sach->offset = ($trang - 1)*$limit;
@@ -36,15 +36,15 @@ class SachController extends Controller
 		$khoa_hoc = new KhoaHoc();
 		$array_khoa_hoc = $khoa_hoc->get_all();
 
-		if ($trang > 1) $prev = $trang - 1;
-		if ($trang < $count_trang) $next = $trang + 1;
+		if ($trang > 1) $prev = $trang - 1; else $prev = 0;
+		if ($trang < $count_trang) $next = $trang + 1; else $next = 0;
 		if ($trang <= 3) $startpage = 1;
 		else if ($trang == $count_trang) $startpage = $trang - 6;
 		else if ($trang == $count_trang - 2) $startpage = $trang - 5;
 		else if ($trang == $count_trang - 1) $startpage = $trang - 4;
 		else $startpage = $trang - 3;
 		$endpage = $startpage + 6;
-
+	// dd($trang);
 		return view ("$this->folder.view_all", [
 			'array_sach' => $array_sach,
 			'array_mon_hoc' => $array_mon_hoc,
@@ -148,8 +148,8 @@ class SachController extends Controller
 		$sach->ma_mon_hoc = Request::get('ma_mon_hoc');
 		$sach->ten_sach = Request::get('ten_sach');
 		$sach->so_luong_nhap = Request::get('so_luong_nhap');
-		$sach->ngay_nhap_sach = Request::get('ngay_nhap_sach');
-		$sach->ngay_het_han = Request::get('ngay_het_han');
+		// $sach->ngay_nhap_sach = Request::get('ngay_nhap_sach');
+		// $sach->ngay_het_han = Request::get('ngay_het_han');
 		
 		$sach->updateSach();
 		return redirect()->route("$this->folder.view_all");

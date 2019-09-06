@@ -52,12 +52,13 @@
 		          	<h4 class="modal-title">Cập nhật khóa học</h4>
 		        </div>
 		        <div class="modal-body">
-			        <form action="{{route('khoa_hoc.process_update', ['ma_khoa_hoc' => $khoa_hoc->ma_khoa_hoc])}}" method="post">
+			        <form action="{{route('khoa_hoc.process_update', ['ma_khoa_hoc' => $khoa_hoc->ma_khoa_hoc])}}" method="post" id="form_update">
 			        	{{csrf_field()}}
 			          	<input type="hidden" name="ma_khoa_hoc" id="ma_khoa_hoc">
 			          	Tên khóa học 	
-			          	<input type="text" name="ten_khoa_hoc" id="ten_khoa_hoc">
-			        	<input type="submit" value="Sửa">
+			          	<input type="text" name="ten_khoa_hoc" id="ten">	
+			          	<span id="errTen" style="color: red"></span><br>
+			        	<input type="button" value="Sửa" onclick="validate_update()">
 			        </form>
 		        </div>
 		        <div class="modal-footer">
@@ -82,7 +83,7 @@
   				})
   				.done(function(response) {
   					$("#ma_khoa_hoc").val(response.ma_khoa_hoc);
-  					$("#ten_khoa_hoc").val(response.ten_khoa_hoc);
+  					$("#ten").val(response.ten_khoa_hoc);
   				})
   				.fail(function() {
   					console.log("error");
@@ -105,6 +106,17 @@
   			}
   			if(dem == 1){
   				document.getElementById('form_insert').submit();
+  			}
+  		}
+
+  		function validate_update() {
+  			var ten = document.getElementById('ten').value;
+  			var errTen = document.getElementById('errTen');
+
+  			if(ten.length == 0){
+  				errTen.innerHTML="Không được trống!";
+  			}else{
+  				document.getElementById('form_update').submit();
   			}
   		}
   	</script>
