@@ -64,20 +64,69 @@
 					<tfoot>
 					<tr>
 						<td colspan="100%">
-							Trang: 
-							@for ($i = 1; $i <= $count_trang; $i++)
+							Trang:
+							@if ($trang > 1)
+								<button type="button" onclick="location.href='{{ route('thong_ke.view_thong_ke_sinh_vien',[
+										'trang' => 1,
+										'ma_lop' => $ma_lop, 
+										'ma_sach' => $ma_sach
+									]) }}'" style="background-color: white" 				
+								>
+									Đầu
+								</button>
 								<a href="{{ route('thong_ke.view_thong_ke_sinh_vien',[
-									'trang' => $i, 
-									'ma_lop' => $ma_lop, 
-									'ma_sach' => $ma_sach
-								]) }}"
-									@if ($trang==$i)
-										style='font-weight: bolder; font-size: 17px'
-									@endif
-									>
-									{{$i}}
+										'trang' => $prev, 
+										'ma_lop' => $ma_lop, 
+										'ma_sach' => $ma_sach
+									]) }}" style="font-weight:bold; color: black" >
+									<<
 								</a>
-							@endfor
+							@endif
+							@if ($count_trang > 7)
+								@for ($i = $startpage; $i <= $endpage; $i++)
+									<button type="button" onclick="location.href='{{ route('thong_ke.view_thong_ke_sinh_vien',[
+											'trang' => $i,
+											'ma_lop' => $ma_lop, 
+											'ma_sach' => $ma_sach
+										]) }}'" 
+										@if ($trang==$i)
+											style="background-color: grey; color: white"
+										@endif
+									>
+										{{$i}}
+									</button>
+								@endfor
+							@else
+								@for ($i = 1; $i <= $count_trang; $i++)
+									<button type="button" onclick="location.href='{{ route('thong_ke.view_thong_ke_sinh_vien',[
+										'trang' => $i, 
+										'ma_lop' => $ma_lop, 
+										'ma_sach' => $ma_sach
+									]) }}'"
+										@if ($trang==$i)
+											style="background-color: grey; color: white"
+										@endif
+										>
+										{{$i}}
+									</button>
+								@endfor
+							@endif
+							@if ($trang < $count_trang)
+								<a href="{{ route('thong_ke.view_thong_ke_sinh_vien',[
+										'trang' => $next, 
+										'ma_lop' => $ma_lop, 
+										'ma_sach' => $ma_sach
+										]) }}" style="font-weight:bold; color: black " >
+									>>
+								</a>
+								<button type="button" onclick="location.href='{{ route('thong_ke.view_thong_ke_sinh_vien',[
+										'trang' => $count_trang, 
+										'ma_lop' => $ma_lop, 
+										'ma_sach' => $ma_sach
+										]) }}'" style="background-color: white" >
+									Cuối
+								</button>
+							@endif 
 						</td>
 					</tr>
 				</tfoot>

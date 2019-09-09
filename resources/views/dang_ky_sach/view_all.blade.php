@@ -99,57 +99,57 @@
 						<td colspan="100%">
 							Trang:
 							@if ($trang > 1)
-								<a href="{{ route('dang_ky_sach.view_all',[
+								<button type="button" onclick="location.href='{{ route('dang_ky_sach.view_all',[
 										'trang' => 1,
 										'ma_khoa_hoc' => $ma_khoa_hoc,
 										'ma_lop' => $ma_lop,
 										'ma_mon_hoc' => $ma_mon_hoc,
 										'ma_sach' => $ma_sach,
-									]) }}" style="font-weight:bold " 				
+									]) }}'"				
 								>
 									Đầu
-								</a>
+								</button>
 								<a href="{{ route('dang_ky_sach.view_all',[
 										'trang' => $prev, 
 										'ma_khoa_hoc' => $ma_khoa_hoc,
 										'ma_lop' => $ma_lop,
 										'ma_mon_hoc' => $ma_mon_hoc,
 										'ma_sach' => $ma_sach,
-									]) }}" style="font-weight:bold " >
+									]) }}" style="font-weight:bold; color: black" >
 									<<
 								</a>
 							@endif
 							@if ($count_trang > 7)
 								@for ($i = $startpage; $i <= $endpage; $i++)
-									<a href="{{ route('dang_ky_sach.view_all',[
+									<button type="button" onclick="location.href='{{ route('dang_ky_sach.view_all',[
 											'trang' => $i,
 											'ma_khoa_hoc' => $ma_khoa_hoc,
 											'ma_lop' => $ma_lop,
 											'ma_mon_hoc' => $ma_mon_hoc,
 											'ma_sach' => $ma_sach,
-										]) }}" 
+										]) }}'" 
 										@if ($trang==$i)
-											style='font-weight: bolder; font-size: 17px'
+											style="background-color: grey; color: white"
 										@endif
 									>
 										{{$i}}
-									</a>
+									</button>
 								@endfor
 							@else
 								@for ($i = 1; $i <= $count_trang; $i++)
-									<a href="{{ route('dang_ky_sach.view_all',[
+									<button type="button" onclick="location.href='{{ route('dang_ky_sach.view_all',[
 											'trang' => $i,
 											'ma_khoa_hoc' => $ma_khoa_hoc,
 											'ma_lop' => $ma_lop,
 											'ma_mon_hoc' => $ma_mon_hoc,
 											'ma_sach' => $ma_sach,
-										]) }}"
+										]) }}'"
 										@if ($trang==$i)
-											style='font-weight: bolder; font-size: 17px'
+											style="background-color: grey; color: white"
 										@endif
 										>
 										{{$i}}
-									</a>
+									</button>
 								@endfor
 							@endif
 							@if ($trang < $count_trang)
@@ -159,18 +159,18 @@
 										'ma_lop' => $ma_lop,
 										'ma_mon_hoc' => $ma_mon_hoc,
 										'ma_sach' => $ma_sach,
-										]) }}" style="font-weight:bold " >
+										]) }}" style="font-weight:bold; color: black " >
 									>>
 								</a>
-								<a href="{{ route('dang_ky_sach.view_all',[
+								<button type="button" onclick="location.href='{{ route('dang_ky_sach.view_all',[
 										'trang' => $count_trang, 
 										'ma_khoa_hoc' => $ma_khoa_hoc,
 										'ma_lop' => $ma_lop,
 										'ma_mon_hoc' => $ma_mon_hoc,
 										'ma_sach' => $ma_sach,
-										]) }}" style="font-weight:bold " >
+										]) }}'">
 									Cuối
-								</a>
+								</button>
 							@endif
 							
 						</td>

@@ -94,7 +94,7 @@ class SinhVienController extends Controller
 			$trang = 1;
 		}
 
-		$limit = 5;
+		$limit = 4;
 		$sinh_vien = new SinhVien();
 		$sinh_vien->ma_lop = $ma_lop;
 		$sinh_vien->offset = ($trang - 1)*$limit;

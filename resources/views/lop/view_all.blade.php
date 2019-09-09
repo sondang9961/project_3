@@ -51,16 +51,63 @@
 				<tfoot>
 					<tr>
 						<td colspan="100%">
-							Trang: 
-							@for ($i = 1; $i <= $count_trang; $i++)
-								<a href="{{ route('lop.view_all',['trang' => $i, 'ma_khoa_hoc' => $ma_khoa_hoc]) }}"
-									@if ($trang==$i)
-										style='font-weight: bolder; font-size: 17px'
-									@endif
-									>
-									{{$i}}
+							Trang:
+							@if ($trang > 1)
+								<button type="button" onclick="location.href='{{ route('lop.view_all',[
+										'trang' => 1,
+										'ma_khoa_hoc' => $ma_khoa_hoc
+									]) }}'" 				
+								>
+									Đầu
+								</button>
+								<a href="{{ route('lop.view_all',[
+										'trang' => $prev, 
+										'ma_khoa_hoc' => $ma_khoa_hoc
+									]) }}" style="font-weight:bold; color: black" >
+									<<
 								</a>
-							@endfor
+							@endif
+							@if ($count_trang > 7)
+								@for ($i = $startpage; $i <= $endpage; $i++)
+									<button type="button" onclick="location.href='{{ route('lop.view_all',[
+											'trang' => $i,
+											'ma_khoa_hoc' => $ma_khoa_hoc
+										]) }}'" 
+										@if ($trang==$i)
+											style="background-color: grey; color: white"
+										@endif
+									>
+										{{$i}}
+									</button>
+								@endfor
+							@else
+								@for ($i = 1; $i <= $count_trang; $i++)
+									<button type="button" onclick="location.href='{{ route('lop.view_all',[
+											'trang' => $i, 
+											'ma_khoa_hoc' => $ma_khoa_hoc
+										]) }}'"
+										@if ($trang==$i)
+											style="background-color: grey; color: white"
+										@endif
+										>
+										{{$i}}
+									</button>
+								@endfor
+							@endif
+							@if ($trang < $count_trang)
+								<a href="{{ route('lop.view_all',[
+										'trang' => $next, 
+										'ma_khoa_hoc' => $ma_khoa_hoc
+										]) }}" style="font-weight:bold; color: black " >
+									>>
+								</a>
+								<button type="button" onclick="location.href='{{ route('lop.view_all',[
+										'trang' => $count_trang, 
+										'ma_khoa_hoc' => $ma_khoa_hoc
+										]) }}'" >
+									Cuối
+								</button>
+							@endif 
 						</td>
 					</tr>
 				</tfoot>

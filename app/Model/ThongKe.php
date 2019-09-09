@@ -63,7 +63,7 @@ class ThongKe extends Model
 					from sach 
 					left join 
 					(select ma_sach,count(*) as so_luong_da_phat from dang_ky_sach where tinh_trang_nhan_sach = 1  group by ma_sach)a
-					on a.ma_sach=sach.ma_sach $dieu_kien order by ma_sach desc
+					on a.ma_sach=sach.ma_sach $dieu_kien order by ma_sach desc 
 				)b");
 			return $count_sach[0]->count_sach;
 	}

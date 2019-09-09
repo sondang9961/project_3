@@ -37,6 +37,15 @@ class ThongKeController extends Controller
 		$array_thong_ke_sinh_vien = $thong_ke->thong_ke_sinh_vien();
 		$count_trang = ceil($thong_ke->count_sinh_vien());
 
+		if ($trang > 1) $prev = $trang - 1; else $prev = 0;
+		if ($trang < $count_trang) $next = $trang + 1; else $next = 0;
+		if ($trang <= 3) $startpage = 1;
+		else if ($trang == $count_trang) $startpage = $trang - 6;
+		else if ($trang == $count_trang - 2) $startpage = $trang - 5;
+		else if ($trang == $count_trang - 1) $startpage = $trang - 4;
+		else $startpage = $trang - 3;
+		$endpage = $startpage + 6;
+
 		return view("$this->folder.view_thong_ke_sinh_vien",[
 			'array_thong_ke_sinh_vien' => $array_thong_ke_sinh_vien,
 			'array_lop' => $array_lop,
@@ -45,7 +54,11 @@ class ThongKeController extends Controller
 			'ma_lop' => $ma_lop,
 			'ma_sach' => $ma_sach,
 			'trang' => $trang,
-			'thong_ke' => $thong_ke
+			'thong_ke' => $thong_ke,
+			'prev' => $prev,
+			'next' => $next,
+			'startpage' => $startpage,
+			'endpage' => $endpage
 		]);
 	}
 

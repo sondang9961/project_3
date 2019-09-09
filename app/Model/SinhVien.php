@@ -9,7 +9,7 @@ use DB;
 class SinhVien extends Model
 {
 	public $table = 'sinh_vien';
-	public $limit = 5;
+	public $limit = 4;
 	public $offset = 0;
 	public function get_all_sinh_vien()
 		{

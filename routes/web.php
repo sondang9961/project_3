@@ -130,8 +130,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'CheckAdmin'], function(){
 		->name("thong_ke.view_thong_ke_sinh_vien");
 		Route::get("view_thong_ke_sach","ThongKeController@view_thong_ke_sach")
 		->name("thong_ke.view_thong_ke_sach");
-		Route::get("view_all","ThongKeController@view_all")
-		->name("thong_ke.view_all");
+		// Route::get("view_all","ThongKeController@view_all")
+		// ->name("thong_ke.view_all");
 });
 
 });

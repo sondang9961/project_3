@@ -113,7 +113,7 @@ class DangKySach
 
 	public function get_all_by_mon_hoc_1()//còn hạn
 	{
-		$array_sach = DB::select("select * from sach where ma_mon_hoc = ? and CURRENT_DATE - ngay_het_han <= 0 order by ngay_nhap_sach desc",[$this->ma_mon_hoc]);
-		return $array_sach;
+		$array_dang_ky_sach = DB::select("select * from sach where ma_mon_hoc = ? and CURRENT_DATE - ngay_het_han <= 0 order by ngay_nhap_sach desc",[$this->ma_mon_hoc]);
+		return $array_dang_ky_sach;
 	}
 }
