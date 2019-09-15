@@ -17,7 +17,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'CheckAdmin'], function(){
 	//THÔNG TIN CÁ NHÂN, ĐỔI MẬT KHẨU
 	Route::get("profile","Controller@profile")->name('profile');
 	Route::post("process_update_profile","Controller@process_update_profile")->name('process_update_profile');
-	Route::get("doi_mat_khau","Controller@view_doi_mat_khau")->name('view_doi_mat_khau');
+	Route::get("view_doi_mat_khau","Controller@view_doi_mat_khau")->name('view_doi_mat_khau');
 	Route::post('process_update_mat_khau','Controller@process_update_mat_khau')->name('process_update_mat_khau');
 	Route::get('view_lay_lai_mat_khau','Controller@view_lay_lai_mat_khau')->name('view_lay_lai_mat_khau');
 	Route::post('process_cap_nhat_mat_khau','Controller@process_cap_nhat_mat_khau')->name('process_cap_nhat_mat_khau');

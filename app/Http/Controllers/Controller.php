@@ -95,12 +95,16 @@ class Controller extends BaseController
 
     public function process_update_mat_khau()
     {
-        $giao_vu             = new GiaoVu();
-        $giao_vu->ma_giao_vu = Request::get('ma_giao_vu');
-        $giao_vu->password   = Request::get('password');
+        $giao_vu                 = new GiaoVu();
+        $giao_vu->ma_giao_vu     = Request::get('ma_giao_vu');
+        $giao_vu->old_password   = Request::get('old_password');
+        $giao_vu->new_password   = Request::get('new_password');
+        $array_giao_vu = $giao_vu->checkUpdate();
+        if(count($array_giao_vu) == 0){
+            return redirect()->route("view_doi_mat_khau")->with('error','Mật khẩu cũ không đúng!');
+        }
         $giao_vu = $giao_vu->update_mat_khau();
-
-        return redirect()->route('view_lay_lai_mat_khau');
+        return redirect()->route('view_doi_mat_khau')->with('success','Cập nhật thành công!');
     }
 
     public function process_lay_lai_mat_khau()

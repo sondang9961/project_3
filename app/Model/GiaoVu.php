@@ -39,13 +39,18 @@ class GiaoVu extends Model
 		]);
 	}
 
+	public function checkUpdate(){
+		$array_giao_vu = DB::select("select * from $this->table where ma_giao_vu = ? and password = ?",[$this->ma_giao_vu, $this->old_password]);
+		return $array_giao_vu;
+	}
+
 	public function update_mat_khau()
 	{
 		DB::update("update $this->table 
 			set
 				password = ?
 				where ma_giao_vu = ?",[
-					$this->password,
+					$this->new_password,
 					$this->ma_giao_vu
 		]);
 	}

@@ -8,10 +8,40 @@ use DB;
 class KhoaHoc extends Model
 {
 	public $table = 'khoa_hoc';
+	public $limit = 5;
+	public $offset = 0;
+
+	public function get_all_khoa_hoc(){
+		$array_all_khoa_hoc= DB::select ("select * from $this->table order by ma_khoa_hoc desc");
+		return $array_all_khoa_hoc;
+	}
+
 	public function get_all()
 	{
-		$array_khoa_hoc= DB::select ("select * from $this->table order by ma_khoa_hoc desc");
+		$array_khoa_hoc= DB::select ("select * from $this->table where (? is null or $this->table.ma_khoa_hoc = ?) order by ma_khoa_hoc desc limit $this->limit offset $this->offset",[
+				$this->ma_khoa_hoc,
+				$this->ma_khoa_hoc
+			]);
 		return $array_khoa_hoc;
+	}
+
+	public function count()
+	{
+		$count = DB::select("select count(*)/$this->limit as count from $this->table
+			where (? is null or $this->table.ma_khoa_hoc = ?)",[
+				$this->ma_khoa_hoc,
+				$this->ma_khoa_hoc
+			]);
+		return $count[0]->count;
+	}
+
+
+	public function check_insert()
+	{
+		$array_lop = DB::select("select * from $this->table where ten_khoa_hoc = ? ",[
+			$this->ten_khoa_hoc
+		]);
+		return $array_lop;
 	}
 
 	public function insert()

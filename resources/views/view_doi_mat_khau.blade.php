@@ -9,17 +9,35 @@
 			                <h4 class="title">Đổi mật khẩu</h4>
 			            </div>
 			            <div class="content">
-			                <form method="post" action="{{route('process_update_mat_khau',['ma_giao_vu' => Session::get('ma_giao_vu')])}}">
+			                <form method="post" action="{{route('process_update_mat_khau',['ma_giao_vu' => Session::get('ma_giao_vu')])}}" id="form">
 			                	{{csrf_field()}}
 			                    <div class="row">
 			                        <div class="col-md-5">
+			                        	<div class="form-group">
+			                                <label>Mật khẩu cũ</label>
+			                                <input type="password" name="old_password" class="form-control">
+			                                @if(Session::has('error'))
+												<span style="color: red">
+					                                {{Session::get('error')}}
+					                            </span>
+											@endif
+											<span id=""></span>
+			                            </div>	
 			                            <div class="form-group">
 			                                <label>Mật khẩu mới</label>
-			                                <input type="password" name="password" class="form-control">
+			                                <input type="password" name="new_password" class="form-control" id="new_password">
+			                                <span id="errPass" style="color: red"></span>
 			                            </div>
 			                        </div>
 			                    </div>
-			                    <button type="submit" class="btn btn-info btn-fill pull-right">Cập nhật</button>
+			                    <div>
+			                    	@if (Session::has('success'))
+			                            <span style="color: green">
+			                                {{Session::get('success')}}
+			                            </span>
+			                        @endif
+			                    </div>
+			                    <button type="button" class="btn btn-info btn-fill pull-right" onclick="validate()">Cập nhật</button>
 			                    <div class="clearfix"></div>
 			                </form>
 			            </div>
@@ -30,3 +48,18 @@
 	</div>
 
 @endsection
+@push('js')
+<script type="text/javascript">
+	function validate(){
+		var new_password = document.getElementById('new_password').value;
+		var errPass = document.getElementById('errPass');
+
+		if(new_password.length == 0){
+			errPass.innerHTML="Chưa nhập mật khẩu mới";
+		}
+		else{
+			document.getElementById('form').submit();
+		}
+	}
+</script>
+@endpush

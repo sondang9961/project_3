@@ -82,13 +82,13 @@
 										]) }}'">				
 									Đầu
 								</button> 
-								<a href="{{ route('sach.view_all',[
+								<button type="button" onclick="location.href='{{ route('sach.view_all',[
 										'trang' => $prev, 
 										'ma_mon_hoc' => $ma_mon_hoc,
 										'ma_sach' => $ma_sach,
-										]) }}" style="font-weight:bold; color: black " >
-									<<
-								</a>
+										]) }}'" style="font-weight:bold; color: black " >
+									<
+								</button>
 							@endif
 							@if ($count_trang > 7)
 								@for ($i = $startpage; $i <= $endpage; $i++)
@@ -120,13 +120,13 @@
 								@endfor
 							@endif
 							@if ($trang < $count_trang)
-								<a href="{{ route('sach.view_all',[
+								<button type="button" onclick="location.href='{{ route('sach.view_all',[
 										'trang' => $next, 
 										'ma_mon_hoc' => $ma_mon_hoc,
 										'ma_sach' => $ma_sach,
-										]) }}" style="font-weight:bold; color: black " >
-									>>
-								</a>
+										]) }}'" style="font-weight:bold; color: black " >
+									>
+								</button>
 								<button type="button" onclick="location.href='{{ route('sach.view_all',[
 										'trang' => $count_trang, 
 										'ma_mon_hoc' => $ma_mon_hoc,

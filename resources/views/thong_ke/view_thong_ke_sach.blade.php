@@ -10,7 +10,7 @@
 				<table>
 					<tr>
 						<td >
-							<div style="margin-right: 3rem ">Tên môn
+							<div style="margin-right: 3rem ">Tên môn<br>
 								<select name="ma_mon_hoc" class="form-control" style="width: 14rem" id="search_mon_hoc">
 									<option selected disabled>--Tên môn--</option>
 									@foreach ($array_mon_hoc as $mon_hoc)
@@ -28,7 +28,7 @@
 						<td>
 							<div style="margin-right: 3rem ">
 								Ngày nhập
-								<input type="date" name="ngay_nhap_sach" class="form-control"
+								<input type="date" name="ngay_nhap_sach" class="form-control" id="search_ngay" 
 									@if (isset($ngay_nhap_sach))
 									value="{{$ngay_nhap_sach}}" 	
 									@endif
@@ -69,17 +69,17 @@
 										'trang' => 1, 
 										'ngay_nhap_sach' => $ngay_nhap_sach,
 										'ma_mon_hoc' => $ma_mon_hoc,
-										]) }}'" style="background-color: white" 				
+										]) }}'" 				
 								>
 									Đầu
 								</button>
-								<a href="{{ route('thong_ke.view_thong_ke_sach',[
+								<button type="button" onclick="location.href='{{ route('thong_ke.view_thong_ke_sach',[
 										'trang' => $prev, 
 										'ngay_nhap_sach' => $ngay_nhap_sach,
 										'ma_mon_hoc' => $ma_mon_hoc,
-										]) }}" style="font-weight:bold; color: black " >
-									<<
-								</a>
+										]) }}'" style="font-weight:bold; color: black " >
+									<
+								</button>
 							@endif
 							@if ($count_trang > 7)
 								@for ($i = $startpage; $i <= $endpage; $i++)
@@ -111,18 +111,18 @@
 							@endfor
 							@endif
 							@if ($trang < $count_trang)
-								<a href="{{ route('thong_ke.view_thong_ke_sach',[
+								<button type="button" onclick="location.href='{{ route('thong_ke.view_thong_ke_sach',[
 										'trang' => $next, 
 										'ngay_nhap_sach' => $ngay_nhap_sach,
 										'ma_mon_hoc' => $ma_mon_hoc,
-										]) }}" style="font-weight:bold; color: black " >
-									>>
-								</a>
+										]) }}'" style="font-weight:bold; color: black " >
+									>
+								</button>
 								<button type="button" onclick="location.href='{{ route('thong_ke.view_thong_ke_sach',[
 										'trang' => $count_trang, 
 										'ngay_nhap_sach' => $ngay_nhap_sach,
 										'ma_mon_hoc' => $ma_mon_hoc,
-										]) }}'" style="background-color: white" >
+										]) }}'">
 									Cuối
 								</button>
 							@endif  
@@ -135,10 +135,10 @@
 		
 
 @endsection
-{{-- @push('js')
+@push('js')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>
 <script type="text/javascript">
-	$(document).ready(function() {
+	$(document).ready(function(){
 		$("#search_lop").select2();
 		$("#search_lop").change(function(){
 			$("#searchSach").val(null).trigger('change');
@@ -168,4 +168,4 @@
 		});		
 	});
 </script>
-@endpush --}}
+@endpush

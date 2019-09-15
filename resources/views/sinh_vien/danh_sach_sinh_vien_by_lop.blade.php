@@ -25,18 +25,63 @@
 				<tfoot>
 					<tr>
 						<td colspan="100%">
-							Trang: 
-							@for ($i = 1; $i <= $count_trang; $i++)
-								<a href="{{ route('sinh_vien.danh_sach_sinh_vien_by_lop',[
-								'ma_lop' => $lop->ma_lop,
-								'trang' => $i]) }}"
-									@if ($trang==$i)
-										style='font-weight: bolder; font-size: 17px'
-									@endif
+							Trang:
+							@if ($trang > 1)
+								<button type="button" onclick="location.href='{{ route('sinh_vien.danh_sach_sinh_vien_by_lop',[
+										'trang' => 1,
+										'ma_lop' => $ma_lop
+									]) }}'" 				
+								>
+									Đầu
+								</button>
+								<button type="button" onclick="location.href='{{ route('sinh_vien.danh_sach_sinh_vien_by_lop',[
+										'trang' => $prev, 
+										'ma_lop' => $ma_lop
+									]) }}'" style="font-weight:bold; color: black" >
+									<
+								</button>
+							@endif
+							@if ($count_trang > 7)
+								@for ($i = $startpage; $i <= $endpage; $i++)
+									<button type="button" onclick="location.href='{{ route('sinh_vien.danh_sach_sinh_vien_by_lop',[
+											'trang' => $i,
+											'ma_lop' => $ma_lop
+										]) }}'" 
+										@if ($trang==$i)
+											style="background-color: grey; color: white"
+										@endif
 									>
-									{{$i}}
-								</a>
-							@endfor
+										{{$i}}
+									</button>
+								@endfor
+							@else
+								@for ($i = 1; $i <= $count_trang; $i++)
+									<button type="button" onclick="location.href='{{ route('sinh_vien.danh_sach_sinh_vien_by_lop',[
+										'ma_lop' => $lop->ma_lop,
+										'trang' => $i]) }}'"
+										@if ($trang==$i)
+											style="background-color: grey; color: white"
+										@endif
+										>
+										{{$i}}
+									</button>
+								@endfor
+							@endif
+							@if ($trang < $count_trang)
+								<button type="button" onclick="location.href='{{ route('sinh_vien.danh_sach_sinh_vien_by_lop',[
+										'trang' => $next, 
+										'ma_lop' => $ma_lop
+										]) }}'" style="font-weight:bold; color: black" >
+									>
+								</button>
+								<button type="button" onclick="location.href='{{ route('sinh_vien.danh_sach_sinh_vien_by_lop',[
+										'trang' => $count_trang, 
+										'ma_lop' => $ma_lop
+										]) }}'">
+									Cuối
+								</button>
+							@endif 
+							
 						</td>
 					</tr>
 				</tfoot>

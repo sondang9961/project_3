@@ -54,9 +54,9 @@
 								<button type="button" onclick="location.href='{{ route('sinh_vien.view_all',['trang' => 1, 'ma_lop' => $ma_lop]) }}'">
 									Đầu
 								</button>
-								<a href="{{ route('sinh_vien.view_all',['trang' => $prev, 'ma_lop' => $ma_lop]) }}" style="font-weight:bold; color: black " >
-									<<
-								</a>
+								<button type="button" onclick="location.href='{{ route('sinh_vien.view_all',['trang' => $prev, 'ma_lop' => $ma_lop]) }}'" style="font-weight:bold; color: black " >
+									<
+								</button>
 							@endif
 							@if ($count_trang > 7)
 								@for ($i = $startpage; $i <= $endpage; $i++)
@@ -80,9 +80,9 @@
 								@endfor
 							@endif
 							@if ($trang < $count_trang)
-								<a href="{{ route('sinh_vien.view_all',['trang' => $next, 'ma_lop' => $ma_lop]) }}" style="font-weight:bold; color: black " >
-									>>
-								</a>
+								<button type="button" onclick="location.href='{{ route('sinh_vien.view_all',['trang' => $next, 'ma_lop' => $ma_lop]) }}'" style="font-weight:bold; color: black " >
+									>
+								</button>
 								<button type="button" onclick="location.href='{{ route('sinh_vien.view_all',['trang' => $count_trang, 'ma_lop' => $ma_lop]) }}'">
 									Cuối
 								</button>

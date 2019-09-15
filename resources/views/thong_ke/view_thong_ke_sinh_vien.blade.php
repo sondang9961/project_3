@@ -70,17 +70,17 @@
 										'trang' => 1,
 										'ma_lop' => $ma_lop, 
 										'ma_sach' => $ma_sach
-									]) }}'" style="background-color: white" 				
+									]) }}'"				
 								>
 									Đầu
 								</button>
-								<a href="{{ route('thong_ke.view_thong_ke_sinh_vien',[
+								<button type="button" onclick="location.href='{{ route('thong_ke.view_thong_ke_sinh_vien',[
 										'trang' => $prev, 
 										'ma_lop' => $ma_lop, 
 										'ma_sach' => $ma_sach
-									]) }}" style="font-weight:bold; color: black" >
-									<<
-								</a>
+									]) }}'" style="font-weight:bold; color: black" >
+									<
+								</button>
 							@endif
 							@if ($count_trang > 7)
 								@for ($i = $startpage; $i <= $endpage; $i++)
@@ -112,18 +112,18 @@
 								@endfor
 							@endif
 							@if ($trang < $count_trang)
-								<a href="{{ route('thong_ke.view_thong_ke_sinh_vien',[
+								<button type="button" onclick="location.href='{{ route('thong_ke.view_thong_ke_sinh_vien',[
 										'trang' => $next, 
 										'ma_lop' => $ma_lop, 
 										'ma_sach' => $ma_sach
-										]) }}" style="font-weight:bold; color: black " >
-									>>
-								</a>
+										]) }}'" style="font-weight:bold; color: black " >
+									>
+								</button>
 								<button type="button" onclick="location.href='{{ route('thong_ke.view_thong_ke_sinh_vien',[
 										'trang' => $count_trang, 
 										'ma_lop' => $ma_lop, 
 										'ma_sach' => $ma_sach
-										]) }}'" style="background-color: white" >
+										]) }}'">
 									Cuối
 								</button>
 							@endif 

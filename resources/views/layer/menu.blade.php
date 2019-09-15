@@ -29,7 +29,7 @@
 							</a>
 						</li>
 						<li>
-							<a href="{{url('admin/doi_mat_khau')}}">
+							<a href="{{route('view_doi_mat_khau',['ma_giao_vu' => Session::get('ma_giao_vu')])}}">
 								<span class="sidebar-normal">Đổi mật khẩu</span>
 							</a>
 						</li>
@@ -39,16 +39,23 @@
         </div>
 
 		<ul class="nav">
-			<li class="active">
-				<a href="{{route('dang_ky_sach.view_all')}}">
-					<i class="pe-7s-graph"></i>
-					<p>Quản lý đăng ký sách</p>
-				</a>
-			</li>
+			
 			<li class="active">
 				<a href="{{route('khoa_hoc.view_all')}}">
 					<i class="pe-7s-graph"></i>
 					<p>Quản lý khóa học</p>
+				</a>
+			</li>
+			<li class="active">
+				<a href="{{route('mon_hoc.view_all')}}">
+					<i class="pe-7s-graph"></i>
+					<p>Quản lý môn học</p>
+				</a>
+			</li>
+			<li class="active">
+				<a href="{{route('sach.view_all')}}">
+					<i class="pe-7s-graph"></i>
+					<p>Quản lý sách</p>
 				</a>
 			</li>
 			<li class="active">
@@ -64,15 +71,9 @@
 				</a>
 			</li>
 			<li class="active">
-				<a href="{{route('mon_hoc.view_all')}}">
+				<a href="{{route('dang_ky_sach.view_all')}}">
 					<i class="pe-7s-graph"></i>
-					<p>Quản lý môn học</p>
-				</a>
-			</li>
-			<li class="active">
-				<a href="{{route('sach.view_all')}}">
-					<i class="pe-7s-graph"></i>
-					<p>Quản lý sách</p>
+					<p>Quản lý đăng ký sách</p>
 				</a>
 			</li>
 			<li class="active">
