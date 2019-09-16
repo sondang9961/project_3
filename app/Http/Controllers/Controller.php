@@ -127,7 +127,7 @@ class Controller extends BaseController
     {
         $giao_vu             = new GiaoVu();
         $giao_vu->ma_giao_vu = Request::get('ma_giao_vu');
-        $giao_vu->password   = Request::get('password');
+        $giao_vu->new_password   = Request::get('password');
         $giao_vu = $giao_vu->update_mat_khau();
 
         return redirect()->route('view_dang_nhap')->with('success', 'Đổi mật khẩu thành công');
