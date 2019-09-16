@@ -37,7 +37,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-4 col-sm-6 col-md-offset-4 col-sm-offset-3">
-                        <form method="post" action="{{route('process_cap_nhat_mat_khau',['ma_giao_vu' => Session::get('ma_giao_vu')])}}">
+                        <form method="post" action="{{route('process_cap_nhat_mat_khau',['ma_giao_vu' => Session::get('ma_giao_vu')])}}" id="form">
                         {{csrf_field()}}
                         <!--   if you want to have the card without animation please remove the ".card-hidden" class   -->
                             <div class="card ">
@@ -45,11 +45,12 @@
                                 <div class="content">
                                     <div class="form-group">
                                         <label>Mật khẩu mới</label>
-                                        <input type="password" name="password" class="form-control">
+                                        <input type="password" name="password" class="form-control" id="password">
                                     </div>
+                                    <span id="errPass" style="color: red"></span>
                                 </div>
                                 <div class="footer text-center">
-                                    <button type="submit" class="btn btn-fill btn-warning btn-wd">Cập nhật</button>
+                                    <input type="button" class="btn btn-fill btn-warning btn-wd" onclick="validate()" value="Cập nhật"/>
                                 </div>    
                             </div>
                         </form> 
@@ -74,5 +75,19 @@
     <!-- Light Bootstrap Dashboard Core javascript and methods -->
 	<script src="{{asset('js/light-bootstrap-dashboard.js')}}"></script>
 
-    
+
 @endpush
+<script type="text/javascript">
+	function validate() {
+		var pass = document.getElementById('password').value;
+		var errPass = document.getElementById('errPass');
+
+		if(pass.length == 0){
+			errPass.innerHTML="Chưa nhập mật khẩu mới!";
+		}
+		else{
+			document.getElementById("form").submit();
+		}
+	}
+
+</script>
