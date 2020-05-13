@@ -4,27 +4,27 @@
 @endpush
 @section('content')
 <font face="Roboto,Helvetica Neue,Arial,sans-serif">
-<center><h1 id="header">Quản lý khóa học</h1></center>
-	<div id="main_content">
-		<div id="left_content">
-			<div><h2>Danh sách khóa học</h2></div>	
-			<form>
-				Khóa học
-				<select name="ma_khoa_hoc" style="width: 16.5rem" id="search_khoa_hoc">
-					<option value="">Xem Tất Cả</option>
-					@foreach($array_all_khoa_hoc as $khoa_hoc)
-						<option value="{{$khoa_hoc->ma_khoa_hoc}}"
-						@if ($khoa_hoc->ma_khoa_hoc == $ma_khoa_hoc)
-							selected 
-						@endif
-						>
-							{{$khoa_hoc->ten_khoa_hoc}}
-						</option>
-					@endforeach
-				</select>
-				<input type="submit" value="Xem" id="button">
-			</form>
-			<br>
+	<div class="card">
+		<h2 style="padding: 1%">Danh sách khóa học</h2>
+		<div class="content">
+			<div class="toolbar">
+	            <form>
+					Khóa học
+					<select name="ma_khoa_hoc" style="width: 16.5rem" id="search_khoa_hoc">
+						<option value="">Xem Tất Cả</option>
+						@foreach($array_all_khoa_hoc as $khoa_hoc)
+							<option value="{{$khoa_hoc->ma_khoa_hoc}}"
+							@if ($khoa_hoc->ma_khoa_hoc == $ma_khoa_hoc)
+								selected 
+							@endif
+							>
+								{{$khoa_hoc->ten_khoa_hoc}}
+							</option>
+						@endforeach
+					</select>
+					<input type="submit" class="btn btn-round btn-sm btn-fill" value="Xem">
+				</form>
+	        </div>
 			<table class="table table-striped table-no-bordered table-hover dataTable dtr-inline">
 				<thead>
 					<tr>
@@ -40,7 +40,9 @@
 							{{$khoa_hoc->ten_khoa_hoc}}
 						</td>
 						<td>
-							<input type="button" class='button_update' value="Cập nhật" data-toggle="modal" data-target="#myModal" data-ma_khoa_hoc='{{$khoa_hoc->ma_khoa_hoc}}'>
+							<a class="btn btn-simple btn-warning btn-icon table-action edit" href="javascript:void(0)">
+								<i class="fa fa-edit" data-toggle="modal" data-target="#myModal" data-ma_khoa_hoc='{{$khoa_hoc->ma_khoa_hoc}}'></i>
+							</a>
 						</td>
 					</tr>
 				@endforeach
@@ -109,7 +111,7 @@
 				</tfoot>
 			</table>			
 		</div>
-		<div id="right_content" >
+		{{-- <div id="right_content" >
 			<div><h2>Thêm khóa học</h2></div>
 				<div>
 					<form action="{{route('khoa_hoc.process_insert')}}" method="post" id="form_insert">
@@ -134,7 +136,7 @@
 						<div><input type="button" value="Thêm" id="button" onclick="validate()"></div>
 					</form>
 				</div>
-		</div>
+		</div> --}}
 	</div>
 
 	<div class="modal fade" id="myModal" role="dialog">

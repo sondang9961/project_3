@@ -3,7 +3,7 @@
 	<div class="main-content">
         <div class="container-fluid">
             <div class="row">
-				<div class="col-md-8">
+				<div class="col-md-6">
 			        <div class="card">
 			            <div class="header">
 			                <h4 class="title">Đổi mật khẩu</h4>
@@ -11,25 +11,21 @@
 			            <div class="content">
 			                <form method="post" action="{{route('process_update_mat_khau',['ma_giao_vu' => Session::get('ma_giao_vu')])}}" id="form">
 			                	{{csrf_field()}}
-			                    <div class="row">
-			                        <div class="col-md-5">
-			                        	<div class="form-group">
-			                                <label>Mật khẩu cũ</label>
-			                                <input type="password" name="old_password" class="form-control">
-			                                @if(Session::has('error'))
-												<span style="color: red">
-					                                {{Session::get('error')}}
-					                            </span>
-											@endif
-											<span id=""></span>
-			                            </div>	
-			                            <div class="form-group">
-			                                <label>Mật khẩu mới</label>
-			                                <input type="password" name="new_password" class="form-control" id="new_password">
-			                                <span id="errPass" style="color: red"></span>
-			                            </div>
-			                        </div>
-			                    </div>
+	                        	<div class="form-group">
+	                                <label>Mật khẩu cũ</label>
+	                                <input type="password" name="old_password" class="form-control">
+	                                @if(Session::has('error'))
+										<span style="color: red">
+			                                {{Session::get('error')}}
+			                            </span>
+									@endif
+									<span id=""></span>
+	                            </div>	
+	                            <div class="form-group">
+	                                <label>Mật khẩu mới</label>
+	                                <input type="password" name="new_password" class="form-control" id="new_password">
+	                                <span id="errPass" style="color: red"></span>
+	                            </div>
 			                    <div>
 			                    	@if (Session::has('success'))
 			                            <span style="color: green">
@@ -37,7 +33,7 @@
 			                            </span>
 			                        @endif
 			                    </div>
-			                    <button type="button" class="btn btn-info btn-fill pull-right" onclick="validate()">Cập nhật</button>
+			                    <button type="button" class="btn btn-info btn-fill center-block" onclick="validate()">Cập nhật</button>
 			                    <div class="clearfix"></div>
 			                </form>
 			            </div>

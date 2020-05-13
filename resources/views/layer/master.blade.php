@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="utf-8" />
@@ -10,19 +10,16 @@
 	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
 	<meta name="viewport" content="width=device-width" />
 
-	<link rel="stylesheet" type="text/css" href="{{asset('css/style.css')}}" />
-
 	<!-- Bootstrap core CSS     -->
-	<link href="{{asset('css/bootstrap.min.css')}}" rel="stylesheet" />
+	<link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet" />
    
-
 	<!--  Light Bootstrap Dashboard core CSS    -->
 	<link href="{{asset('css/light-bootstrap-dashboard.css')}}" rel="stylesheet" />
 
-
 	<!--     Fonts and icons     -->
 	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
-	<link href='https://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
+    <link href="{{ asset('css/pe-icon-7-stroke.css') }}" rel="stylesheet" />
 	
 	@stack('css')
 </head>
@@ -44,9 +41,6 @@
 					<div class="col-md-12">
 						<!-- content -->
 						@yield('content')
-						<div class="col-md-6 col-md-offset-1">
-							<div id="worldMap" style="height: 300px;"></div>
-						</div>
 					</div>
 				</div>
 			</div>

@@ -1,7 +1,7 @@
 <nav class="navbar navbar-default">
 	<div class="container-fluid">
 		<div class="navbar-minimize">
-			<button id="minimizeSidebar" class="btn btn-warning btn-fill btn-round btn-icon">
+			<button id="minimizeSidebar" class="btn btn-fill btn-round btn-icon">
 				<i class="fa fa-ellipsis-v visible-on-sidebar-regular"></i>
 				<i class="fa fa-navicon visible-on-sidebar-mini"></i>
 			</button>
@@ -45,12 +45,12 @@
 					<ul class="dropdown-menu dropdown-with-icons">
 						<li>
 							<a href="{{route('profile',['ma_giao_vu' => Session::get('ma_giao_vu')])}}">
-								<i class="pe-7s-mail"></i>Thông tin cá nhân
+								<i class="pe-7s-user"></i>Thông tin cá nhân
 							</a>
 						</li>
 						<li>
-							<a href="doi_mat_khau">
-								<i class="pe-7s-help1"></i>Đổi mật khẩu
+							<a href="{{route('view_doi_mat_khau',['ma_giao_vu' => Session::get('ma_giao_vu')])}}">
+								<i class="pe-7s-config"></i>Đổi mật khẩu
 							</a>
 						</li>
 						<li class="divider"></li>

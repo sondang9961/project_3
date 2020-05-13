@@ -17,8 +17,5 @@ class DangNhapConTroller extends Controller
 		return view('view_dang_nhap');
 	}
 
-	function post_dang_nhap()
-	{
-		
-	}
+
 }
