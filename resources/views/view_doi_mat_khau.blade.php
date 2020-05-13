@@ -1,4 +1,5 @@
 @extends('layer.master')
+@section('pageTitle', 'Đổi mật khẩu')
 @section('content')
 	<div class="main-content">
         <div class="container-fluid">

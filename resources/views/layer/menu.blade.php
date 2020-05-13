@@ -12,37 +12,34 @@
 
 	<div class="sidebar-wrapper ps-container ps-theme-default ps-active-y">
         <div class="user">
-		
-				<a data-toggle="collapse" href="#collapseExample" class="collapsed">
-					<ul class="nav">
-						<li>
-							<span class="sidebar-mini">Admin</span>
-							<span class="sidebar-normal">
-								{{Session::get('ten_giao_vu')}} Welcome ! 
-		                    	
-		                    </span>
-		                    <b class="caret"></b>
-		                </li>
-		            </ul> 
-                </a>			
+        	<div class="photo">
+                <img src="{{ asset('img/faces/face-0.jpg') }}" />
+            </div>
+            <div class="info ">
+                <a data-toggle="collapse" href="#collapseExample" class="collapsed">
+                    <span>Welcome {{Session::get('ten_giao_vu')}} !
+                        <b class="caret"></b>
+                    </span>
+                </a>
+			
 				<div class="collapse" id="collapseExample">
 					<ul class="nav">
 						<li>
-							<a href="{{route('profile',['ma_giao_vu' => Session::get('ma_giao_vu')])}}">
+							<a class="profile-dropdown" href="{{route('profile',['ma_giao_vu' => Session::get('ma_giao_vu')])}}">
 								<span class="sidebar-mini"><i class="pe-7s-user"></i></span>
-								<span class="sidebar-normal"><p>Thông tin cá nhân</p></span>
+                                <span class="sidebar-normal">Thông tin cá nhân</span>
 							</a>
 						</li>
 						<li>
-							<a href="{{route('view_doi_mat_khau',['ma_giao_vu' => Session::get('ma_giao_vu')])}}">
+							<a class="profile-dropdown" href="{{route('view_doi_mat_khau',['ma_giao_vu' => Session::get('ma_giao_vu')])}}">
 								<span class="sidebar-mini"><i class="pe-7s-config"></i></span>
-								<span class="sidebar-normal"><p>Đổi mật khẩu</p></span>
+                                <span class="sidebar-normal">Đổi mật khẩu</span>
 							</a>
 						</li>
 					</ul>
                 </div>
-			
-        </div>
+			</div>
+		</div>
 
 		<ul class="nav">
 			<li

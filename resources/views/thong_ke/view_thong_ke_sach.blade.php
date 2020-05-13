@@ -1,4 +1,5 @@
-	@extends('layer.master')
+@extends('layer.master')
+@section('pageTitle', 'Thống kê sách')
 @push('css')
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet" />
 @endpush
