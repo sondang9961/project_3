@@ -30,7 +30,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'CheckAdmin'], function(){
 		->name("$group.view_all");
 		Route::post("process_insert","$controller@process_insert")
 		->name("$group.process_insert");
-		Route::post("process_update/{ma_khoa_hoc}","$controller@process_update")
+		Route::post("process_update","$controller@process_update")
 		->name("$group.process_update");
 		Route::get("get_one","$controller@get_one")
 		->name("$group.get_one");
