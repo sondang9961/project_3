@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Input;
 use Request;
 use Response;
 use App\Model\Sach;
@@ -12,53 +13,31 @@ class SachController extends Controller
 	private $folder = 'sach';
 	public function view_all()
 	{
-		$trang = Request::get('trang');
+		$array_khoa_hoc = KhoaHoc::all();
 
-		if(empty($trang)){
-			$trang = 1;
-		}
-		//dd($trang);
-		$limit = 5;
-		$sach = new Sach();
-		$sach->offset = ($trang - 1)*$limit;
-		$sach->limit = $limit;
-		$ma_mon_hoc = Request::get('ma_mon_hoc');
-		$ma_sach = Request::get('ma_sach');
-		$sach->ma_mon_hoc = $ma_mon_hoc;
-		$sach->ma_sach = $ma_sach;
-		$array_sach = $sach->get_all();
+		$array_mon_hoc = MonHoc::all();
 
-		$count_trang = ceil($sach->count());
+		$array_sach = Sach::query()
+				->join('mon_hoc','sach.ma_mon_hoc','=','mon_hoc.ma_mon_hoc')
+				->orderBy('ma_sach','desc')->paginate(5);
 
-		$mon_hoc = new MonHoc();
-		$array_mon_hoc = $mon_hoc->get_all();
+		$search = Request::get('search');
+		if($search != ''){
+			$array_sach = Sach::query()
+				->join('mon_hoc','sach.ma_mon_hoc','=','mon_hoc.ma_mon_hoc')
+                ->where('ten_mon_hoc','LIKE','%'.$search.'%')
+				->orWhere('ten_sach','LIKE','%'.$search.'%')
+                ->orderBy('ma_sach','desc')->paginate(3);
 
-		$khoa_hoc = new KhoaHoc();
-		$array_khoa_hoc = $khoa_hoc->get_all();
+            $array_sach->appends(array('search' => Input::get('search')));
+			if(count($array_sach) > 0){
+				return view("$this->folder.view_all",compact('array_sach','array_mon_hoc','array_khoa_hoc'));
+				}
+				$message = "Không tìm thấy môn, sách!";
+				return view("$this->folder.view_all",compact('message','array_sach','array_mon_hoc','array_khoa_hoc'));
+			}
 
-		if ($trang > 1) $prev = $trang - 1; else $prev = 0;
-		if ($trang < $count_trang) $next = $trang + 1; else $next = 0;
-		if ($trang <= 3) $startpage = 1;
-		else if ($trang == $count_trang) $startpage = $trang - 6;
-		else if ($trang == $count_trang - 2) $startpage = $trang - 5;
-		else if ($trang == $count_trang - 1) $startpage = $trang - 4;
-		else $startpage = $trang - 3;
-		$endpage = $startpage + 6;
-	// dd($trang);
-		return view ("$this->folder.view_all", [
-			'array_sach' => $array_sach,
-			'array_mon_hoc' => $array_mon_hoc,
-			'array_khoa_hoc' => $array_khoa_hoc,
-			'count_trang' => $count_trang,
-			'ma_mon_hoc' => $ma_mon_hoc,
-			'ma_sach' => $ma_sach,
-			'trang' => $trang,
-			'sach' => $sach,
-			'prev' => $prev,
-			'next' => $next,
-			'startpage' => $startpage,
-			'endpage' => $endpage
-		]);
+		return view ("$this->folder.view_all",compact('array_sach','array_mon_hoc','array_khoa_hoc'));
 	}
 
 	public function view_all_history()

@@ -55,7 +55,7 @@
 								{{$khoa_hoc->ten_khoa_hoc}}
 							</td>
 							<td>
-								<i class="btn btn-simple btn-warning btn-icon table-action edit fa fa-edit button_update" data-toggle="modal" data-target="#updateModal" data-ma_khoa_hoc='{{$khoa_hoc->ma_khoa_hoc}}'></i>
+								<input type="button" class='button_update btn btn-warning btn-fill btn-sm' value="Cập nhật" data-toggle="modal" data-target="#updateModal" data-ma_khoa_hoc='{{$khoa_hoc->ma_khoa_hoc}}'>
 							</td>
 						</tr>
 					@endforeach
@@ -72,35 +72,36 @@
 				{{ $message }}	
 			@endif	
 		</div>
-		<div class="modal fade" id="addModal" role="dialog">
-	    	<div class="modal-dialog">
-		      	<div class="modal-content">
-			        <div class="modal-header">
-			        	<button type="button" class="close" data-dismiss="modal">&times;</button>
-			          	<h4 class="card-title">Thêm khóa học</h4>
-			        </div>
-			        <div class="modal-body">
-				        <form action="{{route('khoa_hoc.process_insert')}}" method="post" id="form_insert">
-				        	{{csrf_field()}}
-			                <div class="row">
-                                <label class="col-sm-3 col-form-label" style="margin-top: 1%;font-size: 1.75rem; font-weight: normal">Tên khóa học</label>
-                                <div class="col-sm-8">
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" name="ten_khoa_hoc" id="khoa_hoc">
-										<span id="errKhoaHoc" style="color: red"></span>
-                                    </div>
+	</div>
+
+	<div class="modal fade" id="addModal" role="dialog">
+    	<div class="modal-dialog">
+	      	<div class="modal-content">
+		        <div class="modal-header">
+		        	<button type="button" class="close" data-dismiss="modal">&times;</button>
+		          	<h4 class="modal-title">Thêm khóa học</h4>
+		        </div>
+		        <div class="modal-body">
+			        <form action="{{route('khoa_hoc.process_insert')}}" method="post" id="form_insert">
+			        	{{csrf_field()}}
+		                <div class="row">
+                            <label class="col-sm-3" style="margin-top: 1%;font-size: 1.75rem; font-weight:lighter">Tên khóa học</label>
+                            <div class="col-sm-8">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" name="ten_khoa_hoc" id="khoa_hoc">
+									<span id="errKhoaHoc" style="color: red"></span>
                                 </div>
                             </div>
-				        </form>
-			        </div>
-			        <div class="modal-footer">
-			        	<input type="button" class="btn btn-fill btn-info btn-sm btn-round" value="Thêm" id="button" onclick="validate()">
-			          	<button type="button" class="btn btn-default btn-sm btn-round" data-dismiss="modal">Close</button>
-			        </div>
-		      	</div>
-	    	</div>
-	  	</div>
-	</div>
+                        </div>
+			        </form>
+		        </div>
+		        <div class="modal-footer">
+		        	<input type="button" class="btn btn-fill btn-info btn-sm btn-round" value="Thêm" id="button" onclick="validate()">
+		          	<button type="button" class="btn btn-fill btn-default btn-sm btn-round" data-dismiss="modal">Close</button>
+		        </div>
+	      	</div>
+    	</div>
+  	</div>
 
 	<div class="modal fade" id="updateModal" role="dialog">
     	<div class="modal-dialog">
@@ -125,8 +126,8 @@
 			        </form>
 		        </div>
 		        <div class="modal-footer">
-		        	<input type="button" class="btn btn-fill btn-info btn-sm btn-round" value="Sửa" onclick="validate_update()">
-		          	<button type="button" class="btn btn-default btn-sm btn-round" data-dismiss="modal">Close</button>
+		        	<input type="button" class="btn btn-fill btn-info btn-sm btn-round" value="Cập nhật" onclick="validate_update()">
+		          	<button type="button" class="btn btn-fill btn-default btn-sm btn-round" data-dismiss="modal">Close</button>
 		        </div>
 	      	</div>
     	</div>

@@ -27,7 +27,6 @@ class KhoaHocController extends Controller
 			return view("$this->folder.view_all",compact('message'));
 		}
 		else {
-			// ten_khoa_hoc == '' chua handle
 			return view("$this->folder.view_all",compact('array_khoa_hoc'));
 		}
 	}
@@ -47,17 +46,16 @@ class KhoaHocController extends Controller
 		return redirect()->route("$this->folder.view_all")->with('error', 'Khóa học đã tồn tại');
 	}
 
-	
 	public function process_update()
 	{
-		$khoa_hoc = new KhoaHoc();
 		$ma_khoa_hoc = Request::get('ma_khoa_hoc');
 		$ten_khoa_hoc = Request::get('ten_khoa_hoc');
 
 		$count = KhoaHoc::where('ten_khoa_hoc','=',$ten_khoa_hoc)->count();
 
 		if($count == 0){
-			$khoa_hoc->save();
+			KhoaHoc::where('ma_khoa_hoc','=',$ma_khoa_hoc)
+					->update(['ten_khoa_hoc' => $ten_khoa_hoc]);
 			return redirect()->route("$this->folder.view_all")->with('upd_success', 'Cập nhật thành công');
 		}
 		//điều hướng
@@ -67,8 +65,8 @@ class KhoaHocController extends Controller
 	public function get_one()
 	{
 		$khoa_hoc = new KhoaHoc();
-		$khoa_hoc->ma_khoa_hoc = Request::get('ma_khoa_hoc');
-		$khoa_hoc = $khoa_hoc->get_one();
+		$ma_khoa_hoc = Request::get('ma_khoa_hoc');
+		$khoa_hoc = KhoaHoc::where('ma_khoa_hoc','=',$ma_khoa_hoc)->first();
 		
 		return Response::json($khoa_hoc);
 	}

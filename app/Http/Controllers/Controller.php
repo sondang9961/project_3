@@ -18,7 +18,7 @@ class Controller extends BaseController
 
     public function trang_chu()
     {
-        return view('layer.master');
+        return view('view_trang_chu');
     }
 
     public function view_dang_nhap()

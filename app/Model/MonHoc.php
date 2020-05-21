@@ -46,10 +46,9 @@ class MonHoc extends Model
 		return $array_mon_hoc;
 	}
 
-	public function get_all_by_khoa_hoc()
+	public static function get_all_by_khoa_hoc($ma_khoa_hoc)
 	{
-		$array_mon_hoc = DB::select("select * from $this->table where ma_khoa_hoc=?",[$this->ma_khoa_hoc]);
-		return $array_mon_hoc;
+		return self::query()->where('ma_khoa_hoc','=',$ma_khoa_hoc)->get();
 	}
 
 	public function check_insert()

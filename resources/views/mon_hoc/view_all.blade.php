@@ -4,28 +4,41 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet" />
 @endpush
 @section('content')
-	<center><h1 id="header">Quản lý môn học</h1></center>
-	<div id="main_content">
-		<div id="left_content">
-			<div><h2>Danh sách môn học</h2></div>
-			<form>
-				Khóa học
-				<select name="ma_khoa_hoc" id="search_khoa_hoc" style="width:16rem">
-					<option value="">Xem tất cả</option>
-					@foreach($array_khoa_hoc as $khoa_hoc)
-						<option value="{{$khoa_hoc->ma_khoa_hoc}}"
-						@if ($khoa_hoc->ma_khoa_hoc == $ma_khoa_hoc)
-							selected 
-						@endif
-						>
-							{{$khoa_hoc->ten_khoa_hoc}}
-						</option>
-					@endforeach
-				</select>
-				<input type="submit" value="Xem" id="button">
-			</form>
-			<br>
-			<table class="table table-striped">
+	<div class="card">
+		<h2 style="padding: 1%">Danh sách môn học</h2>
+		<div class="content">
+			<div class="toolbar">
+				<form>
+					Tìm kiếm
+					<input type="text" name="search" placeholder="môn, khóa học" value="{{ Request::get('search') }}">
+					<input type="submit" class="btn btn-round btn-sm btn-fill" value="Xem">
+					<input type="button" class="btn btn-success btn-fill btn-sm btn-round" value="Thêm mới" data-toggle="modal" data-target="#addModal" style="margin-left: 5px">
+				</form>
+			</div>
+			<div>
+	        	@if (Session::has('error'))
+					<span style="color: red">
+			            {{Session::get('error')}}
+			        </span>
+				@endif
+				@if (Session::has('success'))
+			        <span style="color: green">
+			            {{Session::get('success')}}
+			        </span>
+			    @endif
+			    @if (Session::has('upd_error'))
+					<span style="color: red">
+			            {{Session::get('upd_error')}}
+			        </span>
+				@endif
+				@if (Session::has('upd_success'))
+			        <span style="color: green">
+			            {{Session::get('upd_success')}}
+			        </span>
+			    @endif
+	        </div>
+	        @if(count($array_mon_hoc) > 0)
+			<table class="table table-striped table-no-bordered table-hover dataTable dtr-inline">
 				<thead>
 					<tr>
 						<th>Mã</th>
@@ -35,124 +48,78 @@
 					</tr>
 				</thead>				
 				@foreach ($array_mon_hoc as $mon_hoc)
-				<form action="{{route('mon_hoc.process_update', ['ma_mon_hoc' => $mon_hoc->ma_mon_hoc])}}" method="post">
-					{{csrf_field()}}
 					<tr>
 						<td>{{$mon_hoc->ma_mon_hoc}}</td>
 						<td>{{$mon_hoc->ten_mon_hoc}}</td>
 						<td>{{$mon_hoc->ten_khoa_hoc}}</td>
 						<td>
-							<input type="button" class='button_update' value="Cập nhật" data-toggle="modal" data-target="#myModal" data-ma_mon_hoc='{{$mon_hoc->ma_mon_hoc}}'>
+							<input type="button" class='button_update btn btn-warning btn-fill btn-sm' value="Cập nhật" data-toggle="modal" data-target="#updateModal" data-ma_mon_hoc='{{$mon_hoc->ma_mon_hoc}}'>
 						</td>
 					</tr>
-				</form>
 				@endforeach
 				<tfoot>
 					<tr>
 						<td colspan="100%">
-							Trang: 
-							@if ($trang > 1)
-								<button type="button" onclick="location.href='{{ route('mon_hoc.view_all',[
-										'trang' => 1,
-										'ma_khoa_hoc' => $ma_khoa_hoc
-									]) }}'"				
-								>
-									Đầu
-								</button>
-								<button type="button" onclick="location.href='{{ route('mon_hoc.view_all',[
-										'trang' => $prev, 
-										'ma_khoa_hoc' => $ma_khoa_hoc
-									]) }}'" style="font-weight:bold; color: black" >
-									<
-								</button>
-							@endif
-							@if ($count_trang > 7)
-								@for ($i = $startpage; $i <= $endpage; $i++)
-									<button type="button" onclick="location.href='{{ route('mon_hoc.view_all',[
-											'trang' => $i,
-											'ma_khoa_hoc' => $ma_khoa_hoc
-										]) }}'" 
-										@if ($trang==$i)
-											style="background-color: grey; color: white"
-										@endif
-									>
-										{{$i}}
-									</button>
-								@endfor
-							@else
-								@for ($i = 1; $i <= $count_trang; $i++)
-									<button type="button" onclick="location.href='{{ route('mon_hoc.view_all',[
-											'trang' => $i, 
-											'ma_khoa_hoc' => $ma_khoa_hoc
-										]) }}'"
-										@if ($trang==$i)
-											style="background-color: grey; color: white"
-										@endif
-										>
-										{{$i}}
-									</button>
-								@endfor
-							@endif
-							@if ($trang < $count_trang)
-								<button type="button" onclick="location.href='{{ route('mon_hoc.view_all',[
-										'trang' => $next, 
-										'ma_khoa_hoc' => $ma_khoa_hoc
-										]) }}'" style="font-weight:bold; color: black " >
-									>
-								</button>
-								<button type="button" onclick="location.href='{{ route('mon_hoc.view_all',[
-										'trang' => $count_trang, 
-										'ma_khoa_hoc' => $ma_khoa_hoc
-										]) }}'">
-									Cuối
-								</button>
-							@endif 
+							 {!! $array_mon_hoc->render()!!}
 						</td>
 					</tr>
 				</tfoot>
 			</table>
-		</div>
-		<div id="right_content">
-			<div><h2>Thêm môn học</h2></div>
-				<div>
-					<form action="{{route('mon_hoc.process_insert')}}" method="post" id="form_insert">
-						{{csrf_field()}}
-						<div>Tên môn</div>	
-						<div>
-							<input type="text" name="ten_mon_hoc" id="mon_hoc">
-							<span id="errMonHoc" style="color: red"></span>
-						</div><br>
-						<div>Khóa học</div>
-						<div>
-							<select name="ma_khoa_hoc" id="select_khoa_hoc" style="width: 16.5rem">
-								<option value="-1">--Tên khóa học--</option>
-								@foreach ($array_khoa_hoc as $khoa_hoc)
-									<option value="{{$khoa_hoc->ma_khoa_hoc}}">
-										{{$khoa_hoc->ten_khoa_hoc}}
-									</option>			
-								@endforeach
-							</select>
-							<span id="errKhoaHoc" style="color: red"></span>
-						</div>
-						<div>
-							@if (Session::has('error'))
-								<span style="color: red">
-	                                {{Session::get('error')}}
-	                            </span>
-							@endif
-							@if (Session::has('success'))
-                                <span style="color: green">
-                                    {{Session::get('success')}}
-                                </span>
-                            @endif
-						</div><br>
-						<div><input type="button" value="Thêm" id="button" onclick="validate()"></div>
-					</form>
-				</div>
+			@else
+				{{ $message }}	
+			@endif	
 		</div>
 	</div>
 
-	<div class="modal fade" id="myModal" role="dialog">
+	<div class="modal fade" id="addModal" role="dialog">
+    	<div class="modal-dialog">
+    
+      <!-- Modal content-->
+	      	<div class="modal-content">
+		        <div class="modal-header">
+		        	<button type="button" class="close" data-dismiss="modal">&times;</button>
+		          	<h4 class="modal-title">Thêm môn học</h4>
+		        </div>
+		        <div class="modal-body">
+			        <form action="{{route('mon_hoc.process_insert')}}" method="post" id="form_insert">
+			        	{{csrf_field()}}
+			          	<input type="hidden" name="ma_mon_hoc" id="ma_mon_hoc">
+			          	<div class="row">
+                            <label class="col-sm-3" style="margin-top: 1%;font-size: 1.75rem; font-weight:lighter">Tên môn học</label>
+                            <div class="col-sm-8">
+                                <div class="form-group">
+                                    <input type="text" name="ten_mon_hoc" id="mon_hoc" class="form-control">
+									<span id="errMonHoc" style="color: red"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-sm-3" style="margin-top: 1%;font-size: 1.75rem; font-weight: lighter">Khóa học</label>
+                            <div class="col-sm-8">
+                                <div class="form-group">
+                                    <select name="ma_khoa_hoc" id="khoa_hoc" class="form-control">
+										<option value="" disabled="disabled" selected="selected">Tên khóa học</option>
+										@foreach ($array_khoa_hoc as $khoa_hoc)
+											<option value="{{$khoa_hoc->ma_khoa_hoc}}">
+												{{$khoa_hoc->ten_khoa_hoc}}
+											</option>			
+										@endforeach
+									</select>
+									<span id="errKhoaHoc" style="color: red"></span>
+                                </div>
+                            </div>
+                        </div>					        	
+			        </form>
+		        </div>
+		        <div class="modal-footer">
+		        	<input type="button" class="btn btn-fill btn-info btn-sm btn-round" value="Thêm" id="button" onclick="validate()">
+		          	<button type="button" class="btn btn-fill btn-default btn-sm btn-round" data-dismiss="modal">Close</button>
+		        </div>
+	      	</div>
+    	</div>
+  	</div>
+
+	<div class="modal fade" id="updateModal" role="dialog">
     	<div class="modal-dialog">
     
       <!-- Modal content-->
@@ -162,27 +129,37 @@
 		          	<h4 class="modal-title">Cập nhật môn học</h4>
 		        </div>
 		        <div class="modal-body">
-			        <form action="{{route('mon_hoc.process_update', ['ma_mon_hoc' => $mon_hoc->ma_mon_hoc])}}" method="post" id="form_update">
+			        <form action="{{route('mon_hoc.process_update')}}" method="post" id="form_update">
 			        	{{csrf_field()}}
 			          	<input type="hidden" name="ma_mon_hoc" id="ma_mon_hoc">
-			          	Tên môn học<br>
-			          	<input type="text" name="ten_mon_hoc" id="ten" class="form-control"><br>
-			          	<span id="errTen" style="color: red"></span><br>
-			          	Khóa học<br>
-			          	<select name="ma_khoa_hoc" id="ma_khoa_hoc">
-			          		@foreach($array_khoa_hoc as $khoa_hoc)
-								<option value="{{$khoa_hoc->ma_khoa_hoc}}">
-									{{$khoa_hoc->ten_khoa_hoc}}
-								</option>
-							@endforeach
-			          	</select>
-			          	<div style="margin-top: 2rem">
-			          		<input type="button" value="Sửa" onclick="validate_update()" class="btn-sm">
-			          	</div>						        	
+			          	<div class="row">
+                            <label class="col-sm-3" style="margin-top: 1%;font-size: 1.75rem; font-weight:lighter">Tên môn học</label>
+                            <div class="col-sm-8">
+                                <div class="form-group">
+                                    <input type="text" name="ten_mon_hoc" id="ten" class="form-control">
+									<span id="errTen" style="color: red"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-sm-3" style="margin-top: 1%;font-size: 1.75rem; font-weight: lighter">Khóa học</label>
+                            <div class="col-sm-8">
+                                <div class="form-group">
+                                    <select name="ma_khoa_hoc" id="ma_khoa_hoc" class="form-control">
+						          		@foreach($array_khoa_hoc as $khoa_hoc)
+											<option value="{{$khoa_hoc->ma_khoa_hoc}}">
+												{{$khoa_hoc->ten_khoa_hoc}}
+											</option>
+										@endforeach
+						          	</select>
+                                </div>
+                            </div>
+                        </div>					        	
 			        </form>
 		        </div>
 		        <div class="modal-footer">
-		          	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		        	<input type="button" value="Cập nhật" onclick="validate_update()" class="btn btn-fill btn-info btn-sm btn-round">
+		          	<button type="button" class="btn btn-fill btn-default btn-sm btn-round" data-dismiss="modal">Close</button>
 		        </div>
 	      	</div>
     	</div>
@@ -217,7 +194,7 @@
 	function validate() {
 		var dem = 0;
 		var mon_hoc = document.getElementById('mon_hoc').value;
-		var ma_khoa_hoc = document.getElementById('select_khoa_hoc').value;
+		var khoa_hoc = document.getElementById('khoa_hoc').value;
 		var errMonHoc= document.getElementById('errMonHoc');
 		var errKhoaHoc = document.getElementById('errKhoaHoc');
 
@@ -227,7 +204,7 @@
 			errMonHoc.innerHTML="";
 			dem++;
 		}
-		if(ma_khoa_hoc == -1){
+		if(khoa_hoc == ''){
 			errKhoaHoc.innerHTML="Chưa chọn khóa học!";
 		}else {
 			errKhoaHoc.innerHTML="";

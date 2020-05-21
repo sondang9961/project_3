@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8" />
-	<link rel="icon" type="image/png" href="../assets/img/favicon.ico">
+	<link rel="icon" type="image/png" href="{{ asset('img/fav_icon.png') }}">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
 	<title>@yield('pageTitle')</title>
@@ -42,13 +42,16 @@
 						<!-- content -->
 						@yield('content')
 					</div>
+						
+
 				</div>
 			</div>
+			@yield('trang_chu')
 		</div>
 
 
 		<!--footer-->
-
+		
 	</div>
 </div>
 

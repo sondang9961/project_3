@@ -9,7 +9,7 @@ Route::post('process_lay_lai_mat_khau','Controller@process_lay_lai_mat_khau')->n
 Route::group(['prefix' => 'admin', 'middleware' => 'CheckAdmin'], function(){
 	//TRANG CHỦ
 	Route::get("","Controller@layer");
-	Route::get("trang_chu","Controller@layer")->name('trang_chu');
+	Route::get("trang_chu","Controller@trang_chu")->name('trang_chu');
 
 	//ĐĂNG XUẤT
 	Route::get("logout","Controller@logout")->name('logout');
@@ -62,7 +62,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'CheckAdmin'], function(){
 		->name("$group.view_all");
 		Route::post("process_insert","$controller@process_insert")
 		->name("$group.process_insert");
-		Route::post("process_update/{ma_mon_hoc}","$controller@process_update")
+		Route::post("process_update","$controller@process_update")
 		->name("$group.process_update");
 		Route::get("get_mon_hoc_by_khoa_hoc","$controller@get_mon_hoc_by_khoa_hoc")
 		->name("get_mon_hoc_by_khoa_hoc");
@@ -96,7 +96,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'CheckAdmin'], function(){
 		->name("$group.view_all");
 		Route::post("process_insert","$controller@process_insert")
 		->name("$group.process_insert");
-		Route::post("process_update/{ma_sach}","$controller@process_update")
+		Route::post("process_update","$controller@process_update")
 		->name("$group.process_update");
 		Route::get("get_sach_by_mon_hoc","$controller@get_sach_by_mon_hoc")
 		->name("get_sach_by_mon_hoc");

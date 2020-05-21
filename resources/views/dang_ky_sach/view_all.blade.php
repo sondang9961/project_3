@@ -19,9 +19,9 @@
 								<option disabled selected value="">--Chọn khóa học--</option>
 								@foreach ($array_khoa_hoc as $khoa_hoc)
 									<option value="{{$khoa_hoc->ma_khoa_hoc}}"
-									{{-- 	@if ($khoa_hoc->ma_khoa_hoc == $ma_khoa_hoc)
+										@if ($khoa_hoc->ma_khoa_hoc == $ma_khoa_hoc)
 											selected 
-										@endif --}}
+										@endif
 										>
 										{{$khoa_hoc->ten_khoa_hoc}}
 									</option>
