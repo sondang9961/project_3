@@ -108,9 +108,4 @@ class Sach extends Model
 		]);
 	}
 
-	public function get_one()
-	{
-		$array_sach = DB::select ("select * from $this->table join mon_hoc on $this->table.ma_mon_hoc = mon_hoc.ma_mon_hoc where ma_sach = ? limit 1", [$this->ma_sach]);
-		return $array_sach[0];
-	}
 }

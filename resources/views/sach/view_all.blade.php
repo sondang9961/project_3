@@ -90,27 +90,17 @@
 				<div class="modal-body">
 			        <form action="{{route('sach.process_insert')}}" method="post" id="form">
 			        	{{csrf_field()}}
-		                <div class="row">
-                            <label class="col-sm-3" style="font-size: 1.75rem; font-weight:lighter">Tên khóa học</label>
-                            <div class="col-sm-8">
-                                <div class="form-group">
-                                    <select name="ma_khoa_hoc" style="width: 37rem" id="select_khoa_hoc">
-										<option disabled selected>--Chọn khóa học--</option>
-										@foreach ($array_khoa_hoc as $khoa_hoc)
-											<option value="{{$khoa_hoc->ma_khoa_hoc}}">
-												{{$khoa_hoc->ten_khoa_hoc}}
-											</option>
-										@endforeach
-									</select>
-                                </div>
-                            </div>
-                        </div>
                         <div class="row">
                             <label class="col-sm-3" style="	font-size: 1.75rem; font-weight:lighter">Tên môn</label>
                             <div class="col-sm-8">
                                 <div class="form-group">
-                                    <select name="ma_mon_hoc" style="width: 37rem" id="select_mon_hoc" disabled>
-										<option>--Môn học--</option>
+                                    <select name="ma_mon_hoc" style="width: 37rem" id="select_mon_hoc" >
+										<option disabled selected>--Chọn môn học--</option>
+										@foreach ($array_mon_hoc as $mon_hoc)
+											<option value="{{$mon_hoc->ma_mon_hoc}}">
+												{{$mon_hoc->ten_mon_hoc}}
+											</option>
+										@endforeach
 									</select>
 									<span id="errKhoaHoc" style="color: red"></span>
                                 </div>
@@ -159,15 +149,6 @@
 			        	{{csrf_field()}}
 			          	<input type="hidden" name="ma_sach" id="ma_sach">
 			          	<div class="row">
-                            <label class="col-sm-3" style="margin-top: 1%;font-size: 1.7rem; font-weight:lighter">Tên sách</label>
-                            <div class="col-sm-8">
-                                <div class="form-group">
-                                    <input type="text" name="ten_sach" id="ten" class="form-control">
-                                    <span id="errTen" style="color: red"></span>
-                                </div>
-                            </div>
-                        </div>
-			          	<div class="row">
                             <label class="col-sm-3" style="margin-top: 1%;font-size: 1.7rem; font-weight:lighter">Môn học</label>
                             <div class="col-sm-8">
                                 <div class="form-group">
@@ -181,6 +162,15 @@
                                 </div>
                             </div>
                         </div>
+			          	<div class="row">
+                            <label class="col-sm-3" style="margin-top: 1%;font-size: 1.7rem; font-weight:lighter">Tên sách</label>
+                            <div class="col-sm-8">
+                                <div class="form-group">
+                                    <input type="text" name="ten_sach" id="ten" class="form-control">
+                                    <span id="errTen" style="color: red"></span>
+                                </div>
+                            </div>
+                        </div>			          	
 			          	<div class="row">
                             <label class="col-sm-3" style="margin-top: 1%;font-size: 1.7rem; font-weight:lighter">Số lượng</label>
                             <div class="col-sm-8">
@@ -206,14 +196,7 @@
 
 <script type="text/javascript">
 	$(document).ready(function() {
-		$("#select_khoa_hoc").select2();
-		$("#select_khoa_hoc").change(function(){
-			$("#select_mon_hoc").val(null).trigger('change');
-			$("#select_mon_hoc").attr("disabled", false);
-			$("#ten_sach").attr("disabled", true);
-			$("#so_luong_nhap").attr("disabled", true);
-			$(".add_button").attr("disabled", true);
-		});
+		$("#select_mon_hoc").select2();
 		$("#select_mon_hoc").change(function(){
 			$("#ten_sach").val(null).trigger('change');
 			$("#ten_sach").attr("disabled", false);
@@ -246,28 +229,6 @@
 				}
 			}
 		})
-		$("#select_mon_hoc").select2({
-			ajax: {
-				url: '{{route('get_mon_hoc_by_khoa_hoc')}}',
-				dataType: 'json',
-				data: function() {
-					ma_khoa_hoc = $("#select_khoa_hoc").val();
-					return {
-						ma_khoa_hoc: ma_khoa_hoc
-					}
-				},
-				processResults: function (data){
-					return {
-						results: $.map(data, function(item) {
-							return  {
-								text: item.ten_mon_hoc,
-								id: item.ma_mon_hoc 
-							}
-						})
-					};
-				}
-			}
-		});
 
 		//Search
 		$("#search_mon_hoc").select2();

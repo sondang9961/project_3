@@ -83,7 +83,6 @@
 		        <div class="modal-body">
 			        <form action="{{route('mon_hoc.process_insert')}}" method="post" id="form_insert">
 			        	{{csrf_field()}}
-			          	<input type="hidden" name="ma_mon_hoc" id="ma_mon_hoc">
 			          	<div class="row">
                             <label class="col-sm-3" style="margin-top: 1%;font-size: 1.75rem; font-weight:lighter">Tên môn học</label>
                             <div class="col-sm-8">

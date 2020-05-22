@@ -81,9 +81,8 @@ class MonHocController extends Controller
 
  	public function get_one()
 	{
-		$mon_hoc = new MonHoc();
-		$mon_hoc->ma_mon_hoc = Request::get('ma_mon_hoc');
-		$mon_hoc = $mon_hoc->get_one();
+		$ma_mon_hoc = Request::get('ma_mon_hoc');
+		$mon_hoc = MonHoc::where('ma_mon_hoc','=',$ma_mon_hoc)->first();
 		
 		return Response::json($mon_hoc);
 	}

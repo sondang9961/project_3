@@ -104,8 +104,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'CheckAdmin'], function(){
 		->name("get_sach_by_lop");
 		Route::get("get_one","$controller@get_one")
 		->name("$group.get_one");
-		Route::get("view_all_history","$controller@view_all_history")
-		->name("$group.view_all_history");	
 	});
 
 	//ĐĂNG KÝ SÁCH

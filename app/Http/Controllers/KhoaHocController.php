@@ -64,7 +64,6 @@ class KhoaHocController extends Controller
 	}
 	public function get_one()
 	{
-		$khoa_hoc = new KhoaHoc();
 		$ma_khoa_hoc = Request::get('ma_khoa_hoc');
 		$khoa_hoc = KhoaHoc::where('ma_khoa_hoc','=',$ma_khoa_hoc)->first();
 		

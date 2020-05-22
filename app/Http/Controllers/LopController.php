@@ -1,6 +1,8 @@
 <?php
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Input;
+use Sofa\Eloquence\Subquery;
 use Request;
 use Response;
 use App\Model\Lop;
@@ -17,47 +19,39 @@ class LopController extends Controller
 	private $folder = 'lop';
 	public function view_all()
 	{
-		$trang = Request::get('trang');
+		$array_khoa_hoc = KhoaHoc::all();
+		$countSinhVien = new \Sofa\Eloquence\Subquery(
+		    SinhVien::from('sinh_vien')
+		        ->selectRaw('count(*)')->whereRaw('ma_lop = lop.ma_lop'), 
+		    'sy_so'
+		);
 
-		if(empty($trang)){
-			$trang = 1;
+		$array_lop = Lop::from('lop')
+					        ->select('*', $countSinhVien)
+					        ->addBinding($countSinhVien->getBindings(), 'select')
+					        ->join('khoa_hoc','lop.ma_khoa_hoc','=','khoa_hoc.ma_khoa_hoc')
+					        ->orderBy('ma_lop','desc')
+							->paginate(5);
+		$search = Input::get('search');
+		if($search != ''){
+			$array_lop = Lop::from('lop')
+				        ->select('*', $countSinhVien)
+				        ->addBinding($countSinhVien->getBindings(), 'select')
+				        ->join('khoa_hoc','lop.ma_khoa_hoc','=','khoa_hoc.ma_khoa_hoc')
+						->where('ten_lop','LIKE','%'.$search.'%')
+						->orWhere('ten_khoa_hoc','LIKE','%'.$search.'%')
+						->orderBy('ma_lop','desc')
+						->paginate(5);
+			$array_lop->appends(array('search' => Input::get('search')));
+			if(count($array_lop) > 0){
+				return view("$this->folder.view_all",compact('array_lop','array_khoa_hoc'));
+			}
+			$message = "Không tìm thấy lớp, khóa học!";
+			return view("$this->folder.view_all",compact('message','array_lop','array_khoa_hoc'));
 		}
-		
-		$limit = 5;
-		$lop = new Lop();
-		$lop->offset = ($trang - 1)*$limit;
-		$lop->limit = $limit;
-		$ma_khoa_hoc = Request::get('ma_khoa_hoc');
-		$lop->ma_khoa_hoc = $ma_khoa_hoc;
-		$array_lop = $lop->get_all();
-
-		$count_trang = ceil($lop->count());
-
-		$khoa_hoc = new KhoaHoc();
-		$array_khoa_hoc = $khoa_hoc->get_all();
-
-		if ($trang > 1) $prev = $trang - 1; else $prev = 0;
-		if ($trang < $count_trang) $next = $trang + 1; else $next = 0;
-		if ($trang <= 3) $startpage = 1;
-		else if ($trang == $count_trang) $startpage = $trang - 6;
-		else if ($trang == $count_trang - 2) $startpage = $trang - 5;
-		else if ($trang == $count_trang - 1) $startpage = $trang - 4;
-		else $startpage = $trang - 3;
-		$endpage = $startpage + 6;	
-
-		return view ("$this->folder.view_all",[
-			'array_lop' => $array_lop,
-			'array_khoa_hoc' => $array_khoa_hoc,
-			'count_trang' => $count_trang,
-			'ma_khoa_hoc' => $ma_khoa_hoc,
-			'trang' => $trang,
-			'lop' => $lop,
-			'prev' => $prev,
-			'next' => $next,
-			'startpage' => $startpage,
-			'endpage' => $endpage
-		]);
-		
+		else {
+			return view("$this->folder.view_all",compact('array_lop','array_khoa_hoc'));
+		}
 	}
 	
 	public function get_lop_by_khoa_hoc()
