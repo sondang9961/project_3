@@ -3,7 +3,13 @@
 	<div class="card">
 		<h2 style="padding: 1%">Danh sách sinh viên lớp {{$array_sinh_vien[0]->ten_lop}}</h2>
 		<div class="content">
-			<h6>Sỹ số: {{$array_sinh_vien[0]->sy_so}}</h6>	
+			<h6>Sỹ số: 
+				@if (count($array_sinh_vien)>0)
+					{{$array_sinh_vien[0]->sy_so}}
+				@else
+					0
+				@endif
+			</h6>	
 			<table class="table table-striped">
 				<thead>
 					<tr>

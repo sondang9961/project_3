@@ -16,6 +16,29 @@
 					<input type="button" class="btn btn-success btn-fill btn-sm btn-round" value="Thêm mới" data-toggle="modal" data-target="#addModal" style="margin-left: 5px">
 			</form>
 			</div>
+			<div>
+	        	@if (Session::has('error'))
+					<span style="color: red">
+			            {{Session::get('error')}}
+			        </span>
+				@endif
+				@if (Session::has('success'))
+			        <span style="color: green">
+			            {{Session::get('success')}}
+			        </span>
+			    @endif
+			    @if (Session::has('upd_error'))
+					<span style="color: red">
+			            {{Session::get('upd_error')}}
+			        </span>
+				@endif
+				@if (Session::has('upd_success'))
+			        <span style="color: green">
+			            {{Session::get('upd_success')}}
+			        </span>
+			    @endif
+	        </div>
+	        @if(count($array_lop) > 0)
 			<table class="table table-striped">
 				<thead>
 					<tr>
@@ -48,6 +71,9 @@
 					</tr>
 				</tfoot>
 			</table>
+			@else
+				{{ $message }}	
+			@endif
 		</div>
 	</div>
 

@@ -74,11 +74,5 @@ class Lop extends Model
 				$this->ma_lop
 		]);
 	}
-
-	public function process_search()
-	{
-		$array_search_lop = DB::select("select * from $this->table join khoa_hoc on $this->table.ma_khoa_hoc = khoa_hoc.ma_khoa_hoc where $this->table.ma_khoa_hoc = ?",[$this->ma_khoa_hoc]);
-		return $array_search_lop;
-	}
 	
 }

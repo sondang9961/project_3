@@ -67,43 +67,36 @@ class LopController extends Controller
 		$lop = new Lop();
 		$lop->ten_lop = Request::get('ten_lop');
 		$lop->ma_khoa_hoc = Request::get('ma_khoa_hoc');
-		$array_lop = $lop->check_insert();
-		if (count($array_lop) == 0) {
-			$lop->insert();
-			return redirect()->route("$this->folder.view_all")->with('success', 'Đã thêm');
-		}
-		return redirect()->route("$this->folder.view_all")->with('error', 'Lớp đã tồn tại !'); 
 		
+		$count = Lop::where('ten_lop','=',$lop->ten_lop)->count();
+
+		if($count == 0) {
+			$lop->save();
+			return redirect()->route("$this->folder.view_all")->with('success','Đã thêm');
+		}
+		return redirect()->route("$this->folder.view_all")->with('error','Lớp đã tồn tại!');
 	}
 
-	public function process_update($ma_lop)
+	public function process_update()
 	{
-		$lop = new Lop();
-		$lop->ma_lop = Request::get('ma_lop');
-		$lop->ten_lop = Request::get('ten_lop');
-		$lop->ma_khoa_hoc = Request::get('ma_khoa_hoc');
-		$lop->updateLop();
+		$ma_lop = Request::get('ma_lop');
+		$ten_lop = Request::get('ten_lop');
+		$ma_khoa_hoc = Request::get('ma_khoa_hoc');
 
-		//điều hướng
-		return redirect()->route("$this->folder.view_all"); 
-	}
+		$count = Lop::where('ten_lop','=',$ten_lop)->count();
 
-	public function process_search()
-	{
-		$lop = new Lop();
-		$lop->ma_khoa_hoc = Request::get('ma_khoa_hoc');
-		$array_search_lop = $lop->process_search();
-
-		//điều hướng
-		return redirect()->route("$this->folder.view_all"); 
+		if($count == 0) {
+			Lop::where('ma_lop','=',$ma_lop)
+					->update(['ten_lop' => $ten_lop,'ma_khoa_hoc' => $ma_khoa_hoc]);
+			return redirect()->route("$this->folder.view_all")->with('success','Cập nhật thành công');
+		} 
+		return redirect()->route("$this->folder.view_all")->with('error','Tên lớp bị trùng!');
 	}
 
 	public function get_one()
 	{
-		$lop = new Lop();
-		$lop->ma_lop = Request::get('ma_lop');
-		$lop = $lop->get_one();
-		
+		$ma_lop = Request::get('ma_lop');
+		$lop = Lop::where('ma_lop','=',$ma_lop)->first();
 		return Response::json($lop);
 	}
 }
