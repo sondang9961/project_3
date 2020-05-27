@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Input;
 use Sofa\Eloquence\Subquery;
 use Request;
 use Response;
@@ -17,45 +18,30 @@ class SinhVienController extends Controller
 	private $folder='sinh_vien';
 	public function view_all()
 	{
-		$trang = Request::get('trang');
-		
-		if(empty($trang)){
-			$trang = 1;
+		$array_lop = Lop::all();
+
+		$array_sinh_vien = SinhVien::query()
+							->join('lop','sinh_vien.ma_lop','=','lop.ma_lop')
+							->orderBy('ma_sinh_vien','desc')->paginate(5);
+
+		$search = Input::get('search');
+		if($search != ''){
+			$array_sinh_vien = SinhVien::query()
+								->join('lop','sinh_vien.ma_lop','=','lop.ma_lop')
+								->where('ten_sinh_vien','LIKE','%'.$search.'%')
+								->orWhere('ten_lop','LIKE','%'.$search.'%')
+								->orderBy('ma_sinh_vien','desc')
+								->paginate(5);
+			$array_sinh_vien->appends(array('search' => Input::get('search')));
+			if(count($array_sinh_vien) > 0){
+				return view("$this->folder.view_all",compact('array_sinh_vien','array_lop'));
+			}
+			$message = "Không tìm thấy sinh viên, lớp học!";
+			return view("$this->folder.view_all",compact('message','array_sinh_vien','array_lop'));
 		}
-		//dd($trang);
-		$ma_lop =  Request::get('ma_lop');
-
-		$limit = 5;
-		$sinh_vien = new SinhVien();
-		$sinh_vien->offset = ($trang - 1)*$limit;
-		$sinh_vien->limit = $limit;
-		$sinh_vien->ma_lop = $ma_lop;
-		$array_sinh_vien = $sinh_vien->get_all();
-		$count_trang = ceil($sinh_vien->count());
-
-		$lop = new Lop();
-		$array_lop = $lop->get_all_lop();
-
-		if ($trang > 1) $prev = $trang - 1; else $prev = 0;
-		if ($trang < $count_trang) $next = $trang + 1; else $next = 0;
-		if ($trang <= 3) $startpage = 1;
-		else if ($trang == $count_trang) $startpage = $trang - 6;
-		else if ($trang == $count_trang - 2) $startpage = $trang - 5;
-		else if ($trang == $count_trang - 1) $startpage = $trang - 4;
-		else $startpage = $trang - 3;
-		$endpage = $startpage + 6;
-		return view ("$this->folder.view_all",[
-			'array_sinh_vien' => $array_sinh_vien, 
-			'array_lop' => $array_lop,
-			'count_trang' => $count_trang,
-			'ma_lop' => $ma_lop,
-			'trang' => $trang,
-			'sinh_vien' => $sinh_vien,
-			'prev' => $prev,
-			'next' => $next,
-			'startpage' => $startpage,
-			'endpage' => $endpage
-		]);	
+		else {
+			return view("$this->folder.view_all",compact('array_sinh_vien','array_lop'));
+		}
 	}
 
 	public function get_sinh_vien_by_lop()
@@ -70,21 +56,23 @@ class SinhVienController extends Controller
 	{
 		$sinh_vien = new SinhVien();
 		$sinh_vien->ten_sinh_vien = Request::get('ten_sinh_vien');
-		$sinh_vien->ma_lop        = Request::get('ma_lop');
-		$sinh_vien->insert();
+		$sinh_vien->ma_lop = Request::get('ma_lop');
+		$sinh_vien->save();
 
-		return redirect()->route("$this->folder.view_all");
+		return redirect()->route("$this->folder.view_all")->with('success','Đã thêm');
+
 	}
 
-	public function process_update($ma_sinh_vien)
+	public function process_update()
 	{
-		$sinh_vien = new SinhVien();
-		$sinh_vien->ma_sinh_vien = Request::get('ma_sinh_vien');
-		$sinh_vien->ten_sinh_vien = Request::get('ten_sinh_vien');
-		$sinh_vien->ma_lop = Request::get('ma_lop');
-		$sinh_vien->updateSinhVien();
-
-		return redirect()->route("$this->folder.view_all");
+		$ma_sinh_vien = Request::get('ma_sinh_vien');
+		$ten_sinh_vien = Request::get('ten_sinh_vien');
+		$ma_lop = Request::get('ma_lop');
+	
+		SinhVien::where('ma_sinh_vien','=',$ma_sinh_vien)
+					->update(['ten_sinh_vien' => $ten_sinh_vien,'ma_lop' => $ma_lop]);
+			
+		return redirect()->route("$this->folder.view_all")->with('success','Cập nhật thành công');
 	}
 
 	public function danh_sach_sinh_vien_by_lop($ma_lop)
@@ -107,10 +95,8 @@ class SinhVienController extends Controller
 
 	public function get_one()
 	{
-		$sinh_vien = new SinhVien();
-		$sinh_vien->ma_sinh_vien = Request::get('ma_sinh_vien');
-		$sinh_vien = $sinh_vien->get_one();
-		
+		$ma_sinh_vien = Request::get('ma_sinh_vien');
+		$sinh_vien = SinhVien::where('ma_sinh_vien','=',$ma_sinh_vien)->first();		
 		return Response::json($sinh_vien);
 	}
 }
