@@ -4,68 +4,82 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet" />
 @endpush
 @section('content')
-<center><h1 id="header">Quản lý đăng ký sách</h1></center>
-	<div id="main_content">
-		<div id="left_content">
-			<div><h2>Danh sách sinh viên đăng ký sách</h2></div>
-			<form>
-				<table style="width: 100%">
-					<tr style="height: 4rem">
-						<td>
-							Tên khóa học
-						</td>
-						<td>
-							<select name="ma_khoa_hoc" class="form-control" style="width: 14rem" id="search_khoa_hoc">
-								<option disabled selected value="">--Chọn khóa học--</option>
-								@foreach ($array_khoa_hoc as $khoa_hoc)
-									<option value="{{$khoa_hoc->ma_khoa_hoc}}"
-										@if ($khoa_hoc->ma_khoa_hoc == $ma_khoa_hoc)
-											selected 
-										@endif
-										>
-										{{$khoa_hoc->ten_khoa_hoc}}
-									</option>
-								@endforeach
-							</select>
-						</td>
-						<td>
-							Tên lớp
-						</td>
-						<td>
-							<select name="ma_lop" class="form-control" style="width: 14rem" id="search_lop" disabled>
-								<option>--Lớp--</option>
-							</select>
-						</td>
-						<td>
-							<input type="submit" value="Xem" id="button" disabled>
-						</td>
+	<div class="card">
+		<h2 style="padding: 1%">Danh sách đăng ký</h2>
+		<div class="content">
+			<div class="toolbar">
+				<form>
+					<table style="width: 100%">
+						<tr style="height: 4rem">
+							<td>
+								<b>Tên khóa học</b>
+							</td>
+							<td>
+								<select name="ma_khoa_hoc" class="form-control" style="width: 14rem" id="search_khoa_hoc">
+									<option disabled selected value="">--Chọn khóa học--</option>
+									@foreach ($array_khoa_hoc as $khoa_hoc)
+										<option value="{{$khoa_hoc->ma_khoa_hoc}}"
+											@if ($khoa_hoc->ma_khoa_hoc == $ma_khoa_hoc)
+												selected 
+											@endif
+											>
+											{{$khoa_hoc->ten_khoa_hoc}}
+										</option>
+									@endforeach
+								</select>
+							</td>
+							<td>
+								<b>Tên lớp</b>
+							</td>
+							<td>
+								<select name="ma_lop" class="form-control" style="width: 14rem" id="search_lop" disabled>
+									<option>--Lớp--</option>
+								</select>
+							</td>
+							<td>
+								<input type="submit" class="btn btn-round btn-sm btn-fill" value="Xem" id="button" disabled>
+								<input type="button" class="btn btn-success btn-fill btn-sm btn-round" value="Thêm mới" data-toggle="modal" data-target="#addModal" style="margin-left: 5px">
+								<input type="button" class="btn btn-info btn-round btn-sm btn-fill" value="Hiện tất cả" onclick="location.href='{{ route('dang_ky_sach.view_all') }}'" style="margin-left: 5px">
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<b>Tên sinh viên</b>
+							</td>
+							<td>
+								<select name="ma_sinh_vien" class="form-control" style="width: 14rem" id="search_sinh_vien" disabled>
+									<option>--Sinh viên--</option>
+								</select>
+							</td>
+							<td>
+								<b>Tên sách</b>
+							</td>
+							<td>
+								<select name="ma_sach" class="form-control" style="width: 14rem" id="search_sach" disabled>
+									<option>--Tên sách--</option>
+								</select>
+							</td>			
 					</tr>
-					<tr>
-						<td>
-							Tên môn
-						</td>
-						<td>
-							<select name="ma_mon_hoc" class="form-control" style="width: 14rem" id="search_mon_hoc" disabled>
-								<option>--Môn học--</option>
-							</select>
-						</td>
-						<td>
-							Tên sách
-						</td>
-						<td>
-							<select name="ma_sach" class="form-control" style="width: 14rem" id="search_sach" disabled>
-								<option>--Tên sách--</option>
-							</select>
-						</td>
-						<td>
-							<a href="{{ route('dang_ky_sach.view_all') }}">
-								<input type="button" value="Tất cả" id="button">
-							</a>
-						</td>
-				</tr>
-				</table>
-			</form>
-			 <br/>
+					</table>
+				</form>
+			</div>
+			<div>
+				@if (Session::has('error'))
+                    <span style="color: red">
+                        {{Session::get('error')}}
+                    </span>
+                @endif
+                @if (Session::has('error_1'))
+                    <span style="color: red">
+                        {{Session::get('error_1')}}
+                    </span>
+                @endif
+                @if (Session::has('success'))
+                    <span style="color: green">
+                        {{Session::get('success')}}
+                    </span>
+                @endif
+			</div>
 			<table class="table table-striped table-no-bordered table-hover dataTable dtr-inline">
 				<thead>
 					<tr>
@@ -98,187 +112,95 @@
 				<tfoot>
 					<tr>
 						<td colspan="100%">
-							Trang:
-							@if ($trang > 1)
-								<button type="button" onclick="location.href='{{ route('dang_ky_sach.view_all',[
-										'trang' => 1,
-										'ma_khoa_hoc' => $ma_khoa_hoc,
-										'ma_lop' => $ma_lop,
-										'ma_mon_hoc' => $ma_mon_hoc,
-										'ma_sach' => $ma_sach,
-									]) }}'"				
-								>
-									Đầu
-								</button>
-								<button type="button" onclick="location.href='{{ route('dang_ky_sach.view_all',[
-										'trang' => $prev, 
-										'ma_khoa_hoc' => $ma_khoa_hoc,
-										'ma_lop' => $ma_lop,
-										'ma_mon_hoc' => $ma_mon_hoc,
-										'ma_sach' => $ma_sach,
-									]) }}'" style="font-weight:bold; color: black" >
-									<
-								</button>
-							@endif
-							@if ($count_trang > 7)
-								@for ($i = $startpage; $i <= $endpage; $i++)
-									<button type="button" onclick="location.href='{{ route('dang_ky_sach.view_all',[
-											'trang' => $i,
-											'ma_khoa_hoc' => $ma_khoa_hoc,
-											'ma_lop' => $ma_lop,
-											'ma_mon_hoc' => $ma_mon_hoc,
-											'ma_sach' => $ma_sach,
-										]) }}'" 
-										@if ($trang==$i)
-											style="background-color: grey; color: white"
-										@endif
-									>
-										{{$i}}
-									</button>
-								@endfor
-							@else
-								@for ($i = 1; $i <= $count_trang; $i++)
-									<button type="button" onclick="location.href='{{ route('dang_ky_sach.view_all',[
-											'trang' => $i,
-											'ma_khoa_hoc' => $ma_khoa_hoc,
-											'ma_lop' => $ma_lop,
-											'ma_mon_hoc' => $ma_mon_hoc,
-											'ma_sach' => $ma_sach,
-										]) }}'"
-										@if ($trang==$i)
-											style="background-color: grey; color: white"
-										@endif
-										>
-										{{$i}}
-									</button>
-								@endfor
-							@endif
-							@if ($trang < $count_trang)
-								<button type="button" onclick="location.href='{{ route('dang_ky_sach.view_all',[
-										'trang' => $next, 
-										'ma_khoa_hoc' => $ma_khoa_hoc,
-										'ma_lop' => $ma_lop,
-										'ma_mon_hoc' => $ma_mon_hoc,
-										'ma_sach' => $ma_sach,
-										]) }}'" style="font-weight:bold; color: black " >
-									>
-								</button>
-								<button type="button" onclick="location.href='{{ route('dang_ky_sach.view_all',[
-										'trang' => $count_trang, 
-										'ma_khoa_hoc' => $ma_khoa_hoc,
-										'ma_lop' => $ma_lop,
-										'ma_mon_hoc' => $ma_mon_hoc,
-										'ma_sach' => $ma_sach,
-										]) }}'">
-									Cuối
-								</button>
-							@endif
-							
+							 {!! $array_dang_ky_sach->render()!!}
 						</td>
 					</tr>
 				</tfoot>
 			</table>		
 		</div>
-		<div id="right_content" >
-			<div><h2>Đăng ký sách</h2></div>
-				<div>
-					<form action="{{ route('dang_ky_sach.process_insert') }}" method="post">
-						{{csrf_field()}}
-						<table width="90%">
-							<tr style="height: 4rem">
-								<div>
-									<td>
-										<div>Khóa học</div>
-										<div>
-											<select name="ma_khoa_hoc" class="form-control" style="width: 14rem" id="select_khoa_hoc" >
-												<option disabled selected>--Chọn khóa học--</option>
-												@foreach ($array_khoa_hoc as $khoa_hoc)
-													<option value="{{$khoa_hoc->ma_khoa_hoc}}">
-														{{$khoa_hoc->ten_khoa_hoc}}
-													</option>
-												@endforeach
+
+		<div class="modal fade" id="addModal" role="dialog">
+	    	<div class="modal-dialog">
+	    
+	      <!-- Modal content-->
+		      	<div class="modal-content">
+			        <div class="modal-header">
+			        	<button type="button" class="close" data-dismiss="modal">&times;</button>
+			          	<h4 class="modal-title">Đăng ký</h4>
+			        </div>
+			        <div class="modal-body">
+				        <form action="{{ route('dang_ky_sach.process_insert') }}" method="post">
+				        	{{csrf_field()}}
+				          	<div class="row">
+	                            <label class="col-sm-3" style="font-size: 1.75rem; font-weight:lighter">Khóa học</label>
+	                            <div class="col-sm-8">
+	                                <div class="form-group">
+	                                    <select name="ma_khoa_hoc" class="form-control" style="width: 40rem" id="select_khoa_hoc" >
+											<option disabled selected>--Chọn khóa học--</option>
+											@foreach ($array_khoa_hoc as $khoa_hoc)
+												<option value="{{$khoa_hoc->ma_khoa_hoc}}">
+													{{$khoa_hoc->ten_khoa_hoc}}
+												</option>
+											@endforeach
+										</select>
+	                                </div>
+	                            </div>
+	                        </div>
+	                        <div class="row">
+	                            <label class="col-sm-3" style="font-size: 1.75rem; font-weight: lighter">Tên lớp</label>
+	                            <div class="col-sm-8">
+	                                <div class="form-group">
+	                                    <select name="ma_lop" class="form-control" style="width: 40rem" id="select_lop" disabled></select>
+	                                </div>
+	                            </div>
+	                        </div>	
+	                        <div class="row">
+	                            <label class="col-sm-3" style="font-size: 1.75rem; font-weight: lighter">Tên môn</label>
+	                            <div class="col-sm-8">
+	                                <div class="form-group">
+	                                    <select name="ma_mon_hoc" class="form-control" style="width: 40rem" id="select_mon_hoc" disabled></select>
+	                                </div>
+	                            </div>
+	                        </div>	
+	                        <div class="row">
+	                            <label class="col-sm-3" style="font-size: 1.75rem; font-weight: lighter">Tên sinh viên</label>
+	                            <div class="col-sm-8">
+	                                <div class="form-group">
+	                                    <select name="ma_sinh_vien" class="form-control" style="width: 40rem" id="select_sinh_vien" disabled>
 											</select>
-										</div>
-									</td>
-								</div>
-								<div id="div_lop">
-									<td>
-										<div>Tên lớp</div>
-										<div>
-											<select name="ma_lop" class="form-control" style="width: 14rem" id="select_lop" disabled>
+	                                </div>
+	                            </div>
+	                        </div>
+	                        <div class="row">
+	                            <label class="col-sm-3" style="font-size: 1.75rem; font-weight: lighter">Tên sách</label>
+	                            <div class="col-sm-8">
+	                                <div class="form-group">
+	                                    <select name="ma_sach" class="form-control" style="width: 40rem" id="select_sach" disabled>
 											</select>
-										</div>
-									</td>
-								</div>							
-							</tr>
-							<tr style="height: 7rem">
-								<div id="div_mon_hoc">
-									<td>
-										<div>Tên môn</div>
-										<div>
-											<select name="ma_mon_hoc" class="form-control" style="width: 14rem" id="select_mon_hoc" disabled>
-											</select>
-										</div>
-									</td>
-								</div>
-								<div id="div_sinh_vien">
-									<td>
-										<div>Tên sinh viên</div>
-										<div>
-											<select name="ma_sinh_vien" class="form-control" style="width: 14rem" id="select_sinh_vien" disabled>
-											</select>
-										</div>
-									</td>
-								</div>										
-							</tr>
-							<tr>
-								<div id="div_sach">
-									<td>
-										<div>Tên sách</div>	
-										<div>
-											<select name="ma_sach" class="form-control" style="width: 14rem" id="select_sach" disabled>
-											</select>
-										</div>
-									</td>
-								</div>
-								<div>
-									<td>
-										<div>Tình trạng</div>	
-										<div>
-											<select name="tinh_trang_nhan_sach" class="form-control" style="width: 14rem" id="select_tinh_trang" disabled>
+	                                </div>
+	                            </div>
+	                        </div>
+	                        <div class="row">
+	                            <label class="col-sm-3" style="font-size: 1.75rem; font-weight: lighter">Tình trạng</label>
+	                            <div class="col-sm-8">
+	                                <div class="form-group">
+	                                    <select name="tinh_trang_nhan_sach" class="form-control" style="width: 40rem" id="select_tinh_trang" disabled>
 												<option disabled selected>--Tình trạng--</option>
 												<option value="1">Đã nhận</option>
 												<option value="0">Chưa nhận</option>
-											</select>
-										</div>
-									</td>
-								</div>										
-							</tr>
-							<tr>
-								<td>
-									@if (Session::has('error'))
-                                        <span style="color: red">
-                                            {{Session::get('error')}}
-                                        </span>
-                                    @endif
-                                    @if (Session::has('error_1'))
-                                        <span style="color: red">
-                                            {{Session::get('error_1')}}
-                                        </span>
-                                    @endif
-                                    @if (Session::has('success'))
-                                        <span style="color: green">
-                                            {{Session::get('success')}}
-                                        </span>
-                                    @endif
-								</td>
-							</tr>
-						</table><br><br>
-						<div><input type="submit" value="Thêm" id="button" class="add_button" disabled></div>
-					</form>
-				</div>
-		</div>
-	</div>
+										</select>
+	                                </div>
+	                            </div>
+	                        </div>
+	                        <div class="modal-footer">
+					        	<input type="submit" value="Thêm" id="button" class="add_button btn btn-fill btn-info btn-sm btn-round" disabled>
+					          	<button type="button" class="btn btn-fill btn-default btn-sm btn-round" data-dismiss="modal">Close</button>
+					        </div>					        	
+				        </form>
+			        </div>     
+		      	</div>
+	    	</div>
+	  	</div>
 
 @endsection
 @push('js')
@@ -457,35 +379,35 @@
 			$("#search_lop").val(null).trigger('change');		
 			$("#search_lop").attr("disabled", false);
 			$("#search_sach").attr("disabled", true);
-		})
-		$("#search_mon_hoc").change(function(){
-			$("#search_sach").val(null).trigger('change');
-			$("#search_sach").attr("disabled", false);
+			$("#search_sinh_vien").attr("disabled", true);
 		})
 		$("#search_lop").change(function(){
 			$("#search_sinh_vien").val(null).trigger('change');
+			$("#search_sinh_vien").attr("disabled", false);
+			$("#search_sach").val(null).trigger('change');
+			$("#search_sach").attr("disabled", false);
 		})
 		$("#search_khoa_hoc").change(function(){
 			$("#button").attr("disabled", false);
 		})
 	
 
-		$("#search_mon_hoc").select2({
+		$("#search_sinh_vien").select2({
 			ajax: {
-				url: '{{route('get_mon_hoc_by_khoa_hoc')}}',
+				url: '{{route('get_sinh_vien_by_lop')}}',
 				dataType: 'json',
 				data: function() {
-					ma_khoa_hoc = $("#search_khoa_hoc").val();
+					ma_lop = $("#search_lop").val();
 					return {
-						ma_khoa_hoc: ma_khoa_hoc
+						ma_lop: ma_lop
 					}
 				},
 				processResults: function (data){
 					return {
 						results: $.map(data, function(item) {
 							return  {
-								text: item.ten_mon_hoc,
-								id: item.ma_mon_hoc 
+								text: item.ten_sinh_vien,
+								id: item.ma_sinh_vien 
 							}
 						})
 					};
@@ -516,12 +438,12 @@
 		});
 		$("#search_sach").select2({
 			ajax: {
-				url: '{{route('get_sach_by_mon_hoc')}}',
+				url: '{{route('get_sach_by_lop')}}',
 				dataType: 'json',
 				data: function() {
-					ma_mon_hoc = $("#search_mon_hoc").val();
+					ma_lop = $("#search_lop").val();
 					return {
-						ma_mon_hoc: ma_mon_hoc
+						ma_lop: ma_lop
 					}
 				},
 				processResults: function (data){

@@ -1,10 +1,10 @@
 <?php
 
 namespace App\Model;
-
+use Illuminate\Database\Eloquent\Model;
 use DB;
 
-class DangKySach
+class DangKySach extends Model
 {
 	public $table = 'dang_ky_sach';
 	public $limit = 5;

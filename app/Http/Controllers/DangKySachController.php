@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Input;
 use Request;
 use App\Helper;
 use App\Model\DangKySach;
@@ -17,56 +18,45 @@ class DangKySachController extends Controller
 	private $folder = 'dang_ky_sach';
 	public function view_all()
 	{
-		$trang = Request::get('trang');
+		$array_dang_ky_sach= DangKySach::query()
+							->join('sinh_vien','dang_ky_sach.ma_sinh_vien','=','sinh_vien.ma_sinh_vien')
+							->join('sach','dang_ky_sach.ma_sach','=','sach.ma_sach')
+							->join('lop','sinh_vien.ma_lop','=','lop.ma_lop')
+							->orderBy('ma_dang_ky','desc')->paginate(5);
 
-		if(empty($trang)){
-			$trang=1;
-		}
-
-		$limit = 5;
-		$dang_ky_sach = new DangKySach();
-		$dang_ky_sach->offset = ($trang - 1)*$limit;
-		$dang_ky_sach->limit = $limit;
-		$ma_khoa_hoc = Request::get('ma_khoa_hoc');
-		$ma_lop = Request::get('ma_lop');
-		$ma_mon_hoc = Request::get('ma_mon_hoc');
-		$ma_sach = Request::get('ma_sach');
-
-		$dang_ky_sach->ma_khoa_hoc = isset($ma_khoa_hoc) ? $ma_khoa_hoc: 'ma_khoa_hoc';
-		$dang_ky_sach->ma_lop = isset($ma_lop) ? $ma_lop: 'ma_lop';
-		$dang_ky_sach->ma_mon_hoc = isset($ma_mon_hoc) ? $ma_mon_hoc: 'ma_mon_hoc';
-		$dang_ky_sach->ma_sach = isset($ma_sach) ? $ma_sach: 'ma_sach';
-		$array_dang_ky_sach = $dang_ky_sach->get_all();
-
-		$count_trang = ceil($dang_ky_sach->count());
-
-		$khoa_hoc = new KhoaHoc();
-		$array_khoa_hoc = $khoa_hoc->get_all();
-
-		if ($trang > 1) $prev = $trang - 1; else $prev = 0;
-		if ($trang < $count_trang) $next = $trang + 1; else $next = 0;
-		if ($trang <= 3) $startpage = 1;
-		else if ($trang == $count_trang) $startpage = $trang - 6;
-		else if ($trang == $count_trang - 2) $startpage = $trang - 5;
-		else if ($trang == $count_trang - 1) $startpage = $trang - 4;
-		else $startpage = $trang - 3;
-		$endpage = $startpage + 6;
+		$array_khoa_hoc = KhoaHoc::all();
 	
-		return view ("$this->folder.view_all", [
-			'array_dang_ky_sach' => $array_dang_ky_sach,
-			'array_khoa_hoc' => $array_khoa_hoc,
-			'count_trang' => $count_trang,
-			'ma_khoa_hoc' => $ma_khoa_hoc,
-			'ma_lop' => $ma_lop,
-			'ma_mon_hoc' => $ma_mon_hoc,
-			'ma_sach' => $ma_sach,
-			'trang' => $trang,
-			'dang_ky_sach' => $dang_ky_sach,
-			'prev' => $prev,
-			'next' => $next,
-			'startpage' => $startpage,
-			'endpage' => $endpage
-		]);
+		$ma_khoa_hoc = Request::get('ma_khoa_hoc');
+		$ma_mon_hoc = Request::get('ma_mon_hoc');
+		$ma_lop = Request::get('ma_lop');
+		$ma_sach = Request::get('ma_sach');
+		
+		if($ma_khoa_hoc != '' && $ma_lop != '' && $ma_mon_hoc != '' && $ma_sach != ''){
+			$array_dang_ky_sach = DangKySach::query()
+								->join('sinh_vien','dang_ky_sach.ma_sinh_vien','=','sinh_vien.ma_sinh_vien')
+								->join('sach','dang_ky_sach.ma_sach','=','sach.ma_sach')
+								->join('lop','sinh_vien.ma_lop','=','lop.ma_lop')
+								->where('ma_khoa_hoc','=',$ma_khoa_hoc)
+								->where('ma_mon_hoc','=',$ma_mon_hoc)
+								->where('lop.ma_lop','=',$ma_lop)
+								->where('sach.ma_sach','=',$ma_sach)
+								->orderBy('ma_dang_ky','desc')
+								->paginate(5);
+			$array_dang_ky_sach->appends(array(
+				'ma_khoa_hoc' => Request::get('ma_khoa_hoc'),
+				'ma_mon_hoc' => Request::get('ma_mon_hoc'),
+				'ma_lop' => Request::get('ma_lop'),
+				'ma_sach' => Request::get('ma_sach'),
+			));
+			if(count($array_dang_ky_sach) > 0){
+				return view("$this->folder.view_all",compact('array_dang_ky_sach','array_khoa_hoc'));
+			}
+			$message = "Không tìm thấy môn, khóa học!";
+			return view("$this->folder.view_all",compact('message','array_dang_ky_sach','array_khoa_hoc'));
+		}
+		else {
+			return view("$this->folder.view_all",compact('array_dang_ky_sach','array_khoa_hoc'));
+		}
 	}
 
 	public function process_insert()
@@ -90,7 +80,7 @@ class DangKySachController extends Controller
 					return redirect()->route("$this->folder.view_all")->with('success', 'Đã thêm');
 				}
 				if(count($array_dang_ky_sach) == 1){
-					return redirect()->route("$this->folder.view_all")->with('error', 'Sinh viên đã đăng ký rồi!');
+					return redirect()->route("$this->folder.view_all")->with('error', 'Sinh viên đã đăng ký!');
 				}
 			}
 			else return redirect()->route("$this->folder.view_all")->with('error_1', 'Hết sách để đăng ký!');

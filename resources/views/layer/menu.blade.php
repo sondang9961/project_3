@@ -43,7 +43,7 @@
 
 		<ul class="nav">
 			<li
-				@if(Request::url() === 'http://localhost:8080/project_2/public/admin/khoa_hoc/view_all')
+				@if(Request::url() === 'http://localhost:8080/project_3/public/admin/khoa_hoc/view_all')
                 	class="active"   
                 @endif
 			>
@@ -53,7 +53,7 @@
 				</a>
 			</li>
 			<li
-				@if(Request::url() === 'http://localhost:8080/project_2/public/admin/mon_hoc/view_all')
+				@if(Request::url() === 'http://localhost:8080/project_3/public/admin/mon_hoc/view_all')
                     class="active" 
                 @endif
 			>
@@ -63,7 +63,7 @@
 				</a>
 			</li>
 			<li
-				@if(Request::url() === 'http://localhost:8080/project_2/public/admin/sach/view_all')
+				@if(Request::url() === 'http://localhost:8080/project_3/public/admin/sach/view_all')
                     class="active" 
                 @endif	
 			>
@@ -73,7 +73,7 @@
 				</a>
 			</li>
 			<li 
-				@if(Request::url() === 'http://localhost:8080/project_2/public/admin/lop/view_all')
+				@if(Request::url() === 'http://localhost:8080/project_3/public/admin/lop/view_all')
                     class="active" 
                 @endif
             >
@@ -83,7 +83,7 @@
 				</a>
 			</li>
 			<li
-				@if(Request::url() === 'http://localhost:8080/project_2/public/admin/sinh_vien/view_all')
+				@if(Request::url() === 'http://localhost:8080/project_3/public/admin/sinh_vien/view_all')
                     class="active" 
                 @endif
 			>
@@ -93,17 +93,17 @@
 				</a>
 			</li>
 			<li 
-				@if(Request::url() === 'http://localhost:8080/project_2/public/admin/dang_ky_sach/view_all')
+				@if(Request::url() === 'http://localhost:8080/project_3/public/admin/dang_ky_sach/view_all')
                     class="active" 
                 @endif
 			>
 				<a class="nav-link" href="{{route('dang_ky_sach.view_all')}}">
 					<i class="pe-7s-note"></i>
-					<p>Quản lý đăng ký sách</p>
+					<p>Đăng ký sách</p>
 				</a>
 			</li>
 			<li
-				@if(Request::url() === 'http://localhost:8080/project_2/public/admin/thong_ke/view_thong_ke_sach')
+				@if(Request::url() === 'http://localhost:8080/project_3/public/admin/thong_ke/view_thong_ke_sach')
                     class="active" 
                 @endif
 			>
@@ -113,7 +113,7 @@
 				</a>
 			</li>
 			<li
-				@if(Request::url() === 'http://localhost:8080/project_2/public/admin/thong_ke/view_thong_ke_sinh_vien')
+				@if(Request::url() === 'http://localhost:8080/project_3/public/admin/thong_ke/view_thong_ke_sinh_vien')
                     class="active" 
                 @endif
 			>
