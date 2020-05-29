@@ -103,9 +103,10 @@
 						{{date_format(date_create($dang_ky_sach->ngay_dang_ky),'d/m/Y')}}
 					</td>
 					<td id="ngay_nhan_sach_{{$dang_ky_sach->ma_dang_ky}}">
-						@isset ($dang_ky_sach->ngay_nhan_sach)
-						    {{date_format(date_create($dang_ky_sach->ngay_nhan_sach),'d/m/Y')}}
-						@endisset
+						@if($dang_ky_sach->tinh_trang_nhan_sach == 1)
+							{{date_format(date_create($dang_ky_sach->ngay_nhan_sach),'d/m/Y')}}
+						@endif
+
 					</td>
 				</tr>
 				@endforeach

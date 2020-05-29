@@ -19,13 +19,6 @@ class DangKySachController extends Controller
 	private $folder = 'dang_ky_sach';
 	public function view_all()
 	{
-		$array_dang_ky_sach= DangKySach::query()
-							->join('sinh_vien','dang_ky_sach.ma_sinh_vien','=','sinh_vien.ma_sinh_vien')
-							->join('sach','dang_ky_sach.ma_sach','=','sach.ma_sach')
-							->join('lop','sinh_vien.ma_lop','=','lop.ma_lop')
-							->join('khoa_hoc','lop.ma_khoa_hoc','=','khoa_hoc.ma_khoa_hoc')
-							->orderBy('ma_dang_ky','desc')->paginate(5);
-
 		$array_khoa_hoc = KhoaHoc::all();
 	
 		$ma_khoa_hoc = Request::get('ma_khoa_hoc');
@@ -33,63 +26,31 @@ class DangKySachController extends Controller
 		$ma_lop = Request::get('ma_lop');
 		$ma_sach = Request::get('ma_sach');
 		
-		$array_dang_ky_sach_search = DangKySach::query()
+		$array_dang_ky_sach = DangKySach::query()
 							->join('sinh_vien','dang_ky_sach.ma_sinh_vien','=','sinh_vien.ma_sinh_vien')
 							->join('sach','dang_ky_sach.ma_sach','=','sach.ma_sach')
 							->join('lop','sinh_vien.ma_lop','=','lop.ma_lop')
 							->join('khoa_hoc','lop.ma_khoa_hoc','=','khoa_hoc.ma_khoa_hoc');
-		// if(!empty($ma_khoa_hoc)){
-		// 	$array_dang_ky_sach_search = $array_dang_ky_sach_search->where('khoa_hoc.ma_khoa_hoc','=',$ma_khoa_hoc);
-		// 	// $array_dang_ky_sach_search->appends(array('ma_khoa_hoc' => Input::get('ma_khoa_hoc')));
-		// }
-		// if(!empty($ma_lop)){
-		// 	$array_dang_ky_sach_search = $array_dang_ky_sach_search->where('lop.ma_lop','=',$ma_lop);
-		// 	// $array_dang_ky_sach_search->appends(array('ma_lop' => Input::get('ma_lop')));
-		// }
-		// if(!empty($ma_sinh_vien)){
-		// 	$array_dang_ky_sach_search = $array_dang_ky_sach_search->where('sinh_vien.ma_sinh_vien','=',$ma_sinh_vien);
-		// 	// $array_dang_ky_sach_search->appends(array('ma_sinh_vien' => Input::get('ma_sinh_vien')));
-		// }
-		// if(!empty($ma_sach)){
-		// 	$array_dang_ky_sach_search = $array_dang_ky_sach_search->where('sach.ma_sach','=',$ma_sach);
-		// 	// $array_dang_ky_sach_search->appends(array('ma_sach' => Input::get('ma_sach')));
-		// }
-		// $array_dang_ky_sach_search = $array_dang_ky_sach_search->orderBy('ma_dang_ky','desc')->paginate(5);
-		// 	return view("$this->folder.view_all",compact('array_dang_ky_sach','array_dang_ky_sach_search','array_khoa_hoc'));
-
-		// if($ma_khoa_hoc == '' && $ma_sinh_vien == '' && $ma_lop == '' && $ma_sach == '') {
-		// 	return view("$this->folder.view_all",compact('array_dang_ky_sach','array_khoa_hoc'));
-		// }
-		if($ma_khoa_hoc || $ma_lop || $ma_sinh_vien || $ma_sach){
-			$array_dang_ky_sach_search = DangKySach::query()
-							->join('sinh_vien','dang_ky_sach.ma_sinh_vien','=','sinh_vien.ma_sinh_vien')
-							->join('sach','dang_ky_sach.ma_sach','=','sach.ma_sach')
-							->join('lop','sinh_vien.ma_lop','=','lop.ma_lop')
-							->join('khoa_hoc','lop.ma_khoa_hoc','=','khoa_hoc.ma_khoa_hoc')
-						->when($ma_khoa_hoc, function ($query) use ($ma_khoa_hoc) {
-			                return $query->whereHas('ma_khoa_hoc', function ($query) use ($ma_khoa_hoc) {
-			                    $query->where('ma_khoa_hoc', $ma_khoa_hoc);
-			                });
-            			})
-            			->when($ma_lop, function ($query) use ($ma_lop) {
-			                return $query->whereHas('ma_lop', function ($query) use ($ma_lop) {
-			                    $query->where('ma_lop', $ma_lop);
-			                });
-            			})
-            			->when($ma_sinh_vien, function ($query) use ($ma_sinh_vien) {
-			                return $query->whereHas('ma_sinh_vien', function ($query) use ($ma_sinh_vien) {
-			                    $query->where('ma_sinh_vien', $ma_sinh_vien);
-			                });
-            			})
-            			->when($ma_sach, function ($query) use ($ma_sach) {
-			                return $query->whereHas('ma_sach', function ($query) use ($ma_sach) {
-			                    $query->where('ma_sach', $ma_sach);
-			                });
-            			})
-            			->paginate(5)
-            			->appends(request()->query());
+		if(!empty($ma_khoa_hoc)){
+			$array_dang_ky_sach = $array_dang_ky_sach->where('khoa_hoc.ma_khoa_hoc','=',$ma_khoa_hoc);
 		}
-		return view("$this->folder.view_all",compact('array_dang_ky_sach','array_dang_ky_sach_search','array_khoa_hoc'));
+		if(!empty($ma_lop)){
+			$array_dang_ky_sach = $array_dang_ky_sach->where('lop.ma_lop','=',$ma_lop);
+		}
+		if(!empty($ma_sinh_vien)){
+			$array_dang_ky_sach = $array_dang_ky_sach->where('sinh_vien.ma_sinh_vien','=',$ma_sinh_vien);
+		}
+		if(!empty($ma_sach)){
+			$array_dang_ky_sach = $array_dang_ky_sach->where('sach.ma_sach','=',$ma_sach);
+		}
+		$array_dang_ky_sach = $array_dang_ky_sach->orderBy('ma_dang_ky','desc')->paginate(4);
+		$array_dang_ky_sach->appends(array(
+			'ma_khoa_hoc' => Input::get('ma_khoa_hoc'),
+			'ma_lop' => Input::get('ma_lop'),
+			'ma_sinh_vien' => Input::get('ma_sinh_vien'),
+			'ma_sach' => Input::get('ma_sach')
+		));
+		return view("$this->folder.view_all",compact('array_dang_ky_sach','array_khoa_hoc'));
 	}
 
 	public function process_insert()
