@@ -1,11 +1,13 @@
 <?php
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Input;
 use Request;
 use App\Model\ThongKe;
 use App\Model\Lop;
 use App\Model\Sach;
 use App\Model\MonHoc;
+use DB;
 
 class ThongKeController extends Controller
 {
@@ -64,52 +66,49 @@ class ThongKeController extends Controller
 
 	public function view_thong_ke_sach()
 	{
-		$trang = Request::get('trang');
+		$array_sach = Sach::all();
 
-		if(empty($trang)){
-			$trang = 1;
+		$array_mon_hoc = MonHoc::all();
+
+		$search = Request::get('search');
+		$start = Request::get('start');
+		$end = Request::get('end');
+
+		$array_thong_ke_sach = DB::table('sach')
+								->select(DB::raw('
+									*,
+									if(a.so_luong_da_phat is null,0,a.so_luong_da_phat) as so_luong_da_phat,
+									if(so_luong_nhap-so_luong_da_phat is null,so_luong_nhap,so_luong_nhap-so_luong_da_phat) as so_luong_ton_kho,
+									ngay_nhap_sach'))
+								
+								->leftJoin(DB::raw('(select ma_sach,count(*) as so_luong_da_phat from dang_ky_sach where tinh_trang_nhan_sach = 1  group by ma_sach)a'),'a.ma_sach','=','sach.ma_sach')
+								->join('mon_hoc','sach.ma_mon_hoc','=','mon_hoc.ma_mon_hoc');
+		if(!empty($search)){
+			$array_thong_ke_sach = $array_thong_ke_sach->where('ten_mon_hoc','like', '%'.$search.'%')
+													   ->orWhere('ten_sach','like', '%'.$search.'%');
 		}
-		
-		$limit = 7;
+		if(!empty($start)){
+			$array_thong_ke_sach = $array_thong_ke_sach->where('ngay_nhap_sach','>=',$start);
+		}
+		if(!empty($end)){
+			$array_thong_ke_sach = $array_thong_ke_sach->where('ngay_nhap_sach','<=',$end);
+		}
+		if(!empty($start) && !empty($end)){
+			$array_thong_ke_sach = $array_thong_ke_sach->where('ngay_nhap_sach','>=',$start)
+													   ->where('ngay_nhap_sach','<=',$end);
+		}
+		$array_thong_ke_sach = $array_thong_ke_sach->orderBy('sach.ma_sach','desc')->paginate(5);
 
-		$sach = new Sach();
-		$array_sach = $sach->get_all();
-
-		$mon_hoc = new MonHoc();
-		$array_mon_hoc= $mon_hoc->select_all();
-
-		$thong_ke = new ThongKe();
-		$thong_ke->offset = ($trang - 1)*$limit;
-		$thong_ke->limit = $limit;
-		$ma_mon_hoc = Request::get('ma_mon_hoc');
-		$ngay_nhap_sach = Request::get('ngay_nhap_sach');
-		$thong_ke->ma_mon_hoc = isset($ma_mon_hoc) ? $ma_mon_hoc: 'ma_mon_hoc';
-		$thong_ke->ngay_nhap_sach = isset($ngay_nhap_sach) ? $ngay_nhap_sach: 'ngay_nhap_sach';
-		$array_thong_ke_sach = $thong_ke->thong_ke_sach();
-		$count_trang = ceil($thong_ke->count_sach());
-
-		if ($trang > 1) $prev = $trang - 1; else $prev = 0;
-		if ($trang < $count_trang) $next = $trang + 1; else $next = 0;
-		if ($trang <= 3) $startpage = 1;
-		else if ($trang == $count_trang) $startpage = $trang - 6;
-		else if ($trang == $count_trang - 2) $startpage = $trang - 5;
-		else if ($trang == $count_trang - 1) $startpage = $trang - 4;
-		else $startpage = $trang - 3;
-		$endpage = $startpage + 6;
+		$array_thong_ke_sach->appends(array(
+			'search' => Input::get('search'),
+			'start' => Input::get('start'),
+			'end' => Input::get('end')
+		));
 
 		return view("$this->folder.view_thong_ke_sach",[
 			'array_thong_ke_sach' => $array_thong_ke_sach,
 			'array_sach' => $array_sach,
 			'array_mon_hoc' => $array_mon_hoc,
-			'count_trang' => $count_trang,
-			'ngay_nhap_sach' => $ngay_nhap_sach,
-			'ma_mon_hoc' => $ma_mon_hoc,
-			'trang' => $trang,
-			'thong_ke' => $thong_ke,
-			'prev' => $prev,
-			'next' => $next,
-			'startpage' => $startpage,
-			'endpage' => $endpage
 		]);
 	}
 

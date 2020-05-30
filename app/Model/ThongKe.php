@@ -16,7 +16,7 @@ class ThongKe extends Model
 			// dd($this->ma_mon_hoc);
 			$dieu_kien = "where 1 = 1 ";
 			if($this->ma_mon_hoc!='ma_mon_hoc'){
-					$dieu_kien = $dieu_kien." and ma_mon_hoc = $this->ma_mon_hoc";
+					$dieu_kien = $dieu_kien." and ma_mon_hoc = '$this->ma_mon_hoc'";
 				}
 			if($this->ngay_nhap_sach!='ngay_nhap_sach'){
 					$dieu_kien = $dieu_kien." and ngay_nhap_sach = '$this->ngay_nhap_sach'";

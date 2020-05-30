@@ -1,50 +1,49 @@
 @extends('layer.master')
 @section('pageTitle', 'Thống kê sách')
 @push('css')
-	<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="{{ asset('css/daterangepicker.css') }}" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet" />
 @endpush
 @section('content')
-	<div id="main_content">	
-		<div id="thong_ke_sach">
-			<div><h2>Thống kê sách</h2></div>
-			<form>
-				<table>
-					<tr>
-						<td >
-							<div style="margin-right: 3rem ">Tên môn<br>
-								<select name="ma_mon_hoc" class="form-control" style="width: 14rem" id="search_mon_hoc">
-									<option selected disabled>--Tên môn--</option>
-									@foreach ($array_mon_hoc as $mon_hoc)
-										<option value="{{$mon_hoc->ma_mon_hoc}}"
-											@if ($mon_hoc->ma_mon_hoc == $ma_mon_hoc)
-												selected 
-											@endif
-											>
-											{{$mon_hoc->ten_mon_hoc}}
-										</option>
-									@endforeach
-								</select>
-							</div>
-						</td>
-						<td>
-							<div style="margin-right: 3rem ">
+	<div class="card">
+		<h2 style="padding: 1%">Thống kê sách</h2>	
+		<div class="content">
+			<div class="toolbar">
+				<form>
+					<table>
+						<tr>
+							<td style="padding-bottom: 4%">
+								<div style="margin-right: 3rem ">Tìm kiếm<br>
+									<input type="text" name="search" placeholder="sách, môn học" value="{{ Request::get('search') }}" style="height: 3.8rem">
+								</div>
+							</td>
+							<td style="padding-bottom: 4%">
 								Ngày nhập
-								<input type="date" name="ngay_nhap_sach" class="form-control" id="search_ngay" 
-									@if (isset($ngay_nhap_sach))
-									value="{{$ngay_nhap_sach}}" 	
-									@endif
-								>
-							</div>
-						</td>
-						<td valign="bottom">
-							<input type="submit" value="Xem" id="button">
-						</td>
-					</tr>
-					<tr>
-						<td><a href="{{ route('thong_ke.view_thong_ke_sach') }}">Hiển thị tất cả</a></td>
-					</tr>
-				</table>				
-			</form><br>
+								<table>
+									<tr>
+										<td>
+											Từ &nbsp
+										</td>
+										<td>
+											<input type="date" name="start" class="form-control">
+										</td>
+										<td>&nbsp đến &nbsp</td>
+										<td>
+											<input type="date" name="end" class="form-control">	
+										</td>
+									</tr>
+								</table>
+							</td>
+							<td >
+								<input type="submit" class="btn btn-round btn-sm btn-fill" value="Xem"style="margin-left: 5px">
+							</td>
+							<td>
+								<input type="button" class="btn btn-info btn-round btn-sm btn-fill" value="Hiện tất cả" onclick="location.href='{{ route('thong_ke.view_thong_ke_sach') }}'" style="margin-left: 5px">
+							</td>
+						</tr>
+					</table>			
+				</form>
+			</div>
 			<table class="table table-striped">
 				<tr>
 					<th>Tên sách</th>
@@ -52,6 +51,7 @@
 					<th>Số lượng nhập</th>
 					<th>Số lượng đã phát</th>
 					<th>Số lượng tồn kho</th>
+				</tr>
 				@foreach ($array_thong_ke_sach as $thong_ke)
 					<tr>
 						<td>{{$thong_ke->ten_sach}}</td>
@@ -63,80 +63,20 @@
 				@endforeach
 				<tfoot>
 					<tr>
-						<td colspan="100%">
-							Trang:
-							@if ($trang > 1)
-								<button type="button" onclick="location.href='{{ route('thong_ke.view_thong_ke_sach',[
-										'trang' => 1, 
-										'ngay_nhap_sach' => $ngay_nhap_sach,
-										'ma_mon_hoc' => $ma_mon_hoc,
-										]) }}'" 				
-								>
-									Đầu
-								</button>
-								<button type="button" onclick="location.href='{{ route('thong_ke.view_thong_ke_sach',[
-										'trang' => $prev, 
-										'ngay_nhap_sach' => $ngay_nhap_sach,
-										'ma_mon_hoc' => $ma_mon_hoc,
-										]) }}'" style="font-weight:bold; color: black " >
-									<
-								</button>
-							@endif
-							@if ($count_trang > 7)
-								@for ($i = $startpage; $i <= $endpage; $i++)
-									<button type="button" onclick="location.href='{{ route('thong_ke.view_thong_ke_sach',[
-											'trang' => $i, 
-											'ngay_nhap_sach' => $ngay_nhap_sach,
-											'ma_mon_hoc' => $ma_mon_hoc,
-											]) }}'" 
-										@if ($trang==$i)
-											style="background-color: grey; color: white"
-										@endif
-									>
-										{{$i}}
-									</button>
-								@endfor
-							@else
-								@for ($i = 1; $i <= $count_trang; $i++)
-								<button type="button" onclick="location.href='{{ route('thong_ke.view_thong_ke_sach',[
-									'trang' => $i, 
-									'ngay_nhap_sach' => $ngay_nhap_sach,
-									'ma_mon_hoc' => $ma_mon_hoc,
-									]) }}'"
-									@if ($trang==$i)
-										style="background-color: grey; color: white"
-									@endif
-									>
-									{{$i}}
-								</button>
-							@endfor
-							@endif
-							@if ($trang < $count_trang)
-								<button type="button" onclick="location.href='{{ route('thong_ke.view_thong_ke_sach',[
-										'trang' => $next, 
-										'ngay_nhap_sach' => $ngay_nhap_sach,
-										'ma_mon_hoc' => $ma_mon_hoc,
-										]) }}'" style="font-weight:bold; color: black " >
-									>
-								</button>
-								<button type="button" onclick="location.href='{{ route('thong_ke.view_thong_ke_sach',[
-										'trang' => $count_trang, 
-										'ngay_nhap_sach' => $ngay_nhap_sach,
-										'ma_mon_hoc' => $ma_mon_hoc,
-										]) }}'">
-									Cuối
-								</button>
-							@endif  
-							
+						<td colspan="100%"> 
+							{!! $array_thong_ke_sach->render()!!}
 						</td>
 					</tr>
 				</tfoot>
 			</table>
 		</div>
-		
+	</div>
 
 @endsection
 @push('js')
+<script type="text/javascript" src="{{ asset('js/jquery.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/moment.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/daterangepicker.js') }}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
@@ -168,5 +108,13 @@
 			}
 		});		
 	});
+
+	// $(function() {
+	// 	$('input[name="start"]','input[name="end"]').daterangepicker({
+	// 	    opens: 'left'
+	// 	}, function(start, end, label) {
+	// 		console.log("A new date selection was made: " + start.date_format('D-M-Y') + ' to ' + end.date_format('D-M-Y'));
+	// 	});
+	// });
 </script>
 @endpush
