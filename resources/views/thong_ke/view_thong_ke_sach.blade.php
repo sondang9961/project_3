@@ -25,11 +25,11 @@
 											Từ &nbsp
 										</td>
 										<td>
-											<input type="date" name="start" class="form-control">
+											<input type="date" id="start" name="start" class="form-control" value="{{ Request::get('start') }}">
 										</td>
 										<td>&nbsp đến &nbsp</td>
 										<td>
-											<input type="date" name="end" class="form-control">	
+											<input type="date" id="end" name="end" class="form-control" value="{{ Request::get('end') }}">	
 										</td>
 									</tr>
 								</table>
@@ -113,12 +113,8 @@
 		});		
 	});
 
-	// $(function() {
-	// 	$('input[name="start"]','input[name="end"]').daterangepicker({
-	// 	    opens: 'left'
-	// 	}, function(start, end, label) {
-	// 		console.log("A new date selection was made: " + start.date_format('D-M-Y') + ' to ' + end.date_format('D-M-Y'));
-	// 	});
-	// });
+	 $("#start").daterangerpicker({
+		    "dateFormat" : "dd-mm-yyyy" //any valid format that you want to have
+		 });
 </script>
 @endpush

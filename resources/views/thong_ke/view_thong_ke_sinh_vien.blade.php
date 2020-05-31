@@ -4,50 +4,52 @@
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet" />
 @endpush
 @section('content')
-	<div id="main_content">	
-		<div id="thong_ke_sinh_vien" >
-			<div><h2>Thống kê sinh viên chưa đăng ký sách</h2></div>
-			<form>
-				<table>
-					<tr>
-						<td>
-							<div style="margin-right: 3rem ">Tên lớp
-								<select name="ma_lop" class="form-control" style="width: 14rem" id="search_lop">
-									<option selected disabled>--Tên lớp--</option>
-									@foreach ($array_lop as $lop)
-										<option value="{{$lop->ma_lop}}"
+	<div class="card">	
+		<h2 style="padding: 1%">Thống kê sinh viên chưa đăng ký sách</h2>
+		<div class="content">
+			<div class="toolbar">
+				<form>
+					<table>
+						<tr>
+							<td style="padding-bottom: 4%">
+								<div style="margin-right: 3rem ">Tên lớp
+									<select name="ma_lop" class="form-control" style="width: 14rem" id="search_lop">
+										<option selected disabled>--Tên lớp--</option>
+										@foreach ($array_lop as $lop)
+											<option value="{{$lop->ma_lop}}"
 											@if ($lop->ma_lop == $ma_lop)
 												selected 
 											@endif		
 											>
-											{{$lop->ten_lop}}
-										</option>
-									@endforeach
-								</select>
-							</div>
-						</td>
-						<td>
-							<div style="margin-right: 3rem ">Tên sách
-								<select name="ma_sach" class="form-control" style="width: 14rem" id="searchSach">
-									<option selected disabled>--Tên sách--</option> 
-									@foreach ($array_sach as $sach)
-										<option value="{{$sach->ma_sach}}"
-											@if ($sach->ma_sach == $ma_sach)
-												selected 
-											@endif		
-											>
-											{{$sach->ten_sach}}
-										</option>
-									@endforeach
-								</select>
-							</div>
-						</td>
-						<td valign="bottom">
-							<input type="submit" value="Xem" id="button">
-						</td>
-					</tr>
-				</table>
-			</form><br>
+												{{$lop->ten_lop}}
+											</option>
+										@endforeach
+									</select>
+								</div>
+							</td>
+							<td style="padding-bottom: 4%">
+								<div style="margin-right: 3rem ">Tên sách
+									<select name="ma_sach" class="form-control" style="width: 14rem" id="searchSach">
+										<option selected disabled>--Tên sách--</option> 
+										@foreach ($array_sach as $sach)
+											<option value="{{$sach->ma_sach}}"
+												@if ($sach->ma_sach == $ma_sach)
+													selected 
+												@endif		
+												>
+												{{$sach->ten_sach}}
+											</option>
+										@endforeach
+									</select>
+								</div>
+							</td>
+							<td style="padding-bottom: 5%">
+								<input type="submit" class="btn btn-round btn-sm btn-fill" value="Xem"style="margin-left: 5px">
+							</td>
+						</tr>
+					</table>
+				</form>
+			</div>
 			<table class="table table-striped">
 				<tr>
 					<th>Mã</th>
@@ -65,69 +67,7 @@
 					<tfoot>
 					<tr>
 						<td colspan="100%">
-							Trang:
-							@if ($trang > 1)
-								<button type="button" onclick="location.href='{{ route('thong_ke.view_thong_ke_sinh_vien',[
-										'trang' => 1,
-										'ma_lop' => $ma_lop, 
-										'ma_sach' => $ma_sach
-									]) }}'"				
-								>
-									Đầu
-								</button>
-								<button type="button" onclick="location.href='{{ route('thong_ke.view_thong_ke_sinh_vien',[
-										'trang' => $prev, 
-										'ma_lop' => $ma_lop, 
-										'ma_sach' => $ma_sach
-									]) }}'" style="font-weight:bold; color: black" >
-									<
-								</button>
-							@endif
-							@if ($count_trang > 7)
-								@for ($i = $startpage; $i <= $endpage; $i++)
-									<button type="button" onclick="location.href='{{ route('thong_ke.view_thong_ke_sinh_vien',[
-											'trang' => $i,
-											'ma_lop' => $ma_lop, 
-											'ma_sach' => $ma_sach
-										]) }}'" 
-										@if ($trang==$i)
-											style="background-color: grey; color: white"
-										@endif
-									>
-										{{$i}}
-									</button>
-								@endfor
-							@else
-								@for ($i = 1; $i <= $count_trang; $i++)
-									<button type="button" onclick="location.href='{{ route('thong_ke.view_thong_ke_sinh_vien',[
-										'trang' => $i, 
-										'ma_lop' => $ma_lop, 
-										'ma_sach' => $ma_sach
-									]) }}'"
-										@if ($trang==$i)
-											style="background-color: grey; color: white"
-										@endif
-										>
-										{{$i}}
-									</button>
-								@endfor
-							@endif
-							@if ($trang < $count_trang)
-								<button type="button" onclick="location.href='{{ route('thong_ke.view_thong_ke_sinh_vien',[
-										'trang' => $next, 
-										'ma_lop' => $ma_lop, 
-										'ma_sach' => $ma_sach
-										]) }}'" style="font-weight:bold; color: black " >
-									>
-								</button>
-								<button type="button" onclick="location.href='{{ route('thong_ke.view_thong_ke_sinh_vien',[
-										'trang' => $count_trang, 
-										'ma_lop' => $ma_lop, 
-										'ma_sach' => $ma_sach
-										]) }}'">
-									Cuối
-								</button>
-							@endif 
+							{!! $array_thong_ke_sinh_vien->render()!!}
 						</td>
 					</tr>
 				</tfoot>

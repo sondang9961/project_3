@@ -7,6 +7,8 @@ use App\Model\ThongKe;
 use App\Model\Lop;
 use App\Model\Sach;
 use App\Model\MonHoc;
+use App\Model\SinhVien;
+use App\Model\DangKySach;
 use DB;
 
 class ThongKeController extends Controller
@@ -15,61 +17,35 @@ class ThongKeController extends Controller
 
 	public function view_thong_ke_sinh_vien()
 	{
-		$trang = Request::get('trang');
+		$array_lop = Lop::all();
 
-		if(empty($trang)){
-			$trang = 1;
-		}
-		
-		$limit = 5;
+		$array_sach = Sach::all();
 
-		$lop = new Lop();
-		$array_lop = $lop->get_all_lop();
-
-		$sach = new Sach();
-		$array_sach = $sach->get_all();
-
-		$thong_ke = new ThongKe();
-		$thong_ke->offset = ($trang - 1)*$limit;
-		$thong_ke->limit = $limit;
 		$ma_lop = Request::get('ma_lop');
 		$ma_sach = Request::get('ma_sach');
-		$thong_ke->ma_lop = $ma_lop;
-		$thong_ke->ma_sach = $ma_sach;
-		$array_thong_ke_sinh_vien = $thong_ke->thong_ke_sinh_vien();
-		$count_trang = ceil($thong_ke->count_sinh_vien());
 
-		if ($trang > 1) $prev = $trang - 1; else $prev = 0;
-		if ($trang < $count_trang) $next = $trang + 1; else $next = 0;
-		if ($trang <= 3) $startpage = 1;
-		else if ($trang == $count_trang) $startpage = $trang - 6;
-		else if ($trang == $count_trang - 2) $startpage = $trang - 5;
-		else if ($trang == $count_trang - 1) $startpage = $trang - 4;
-		else $startpage = $trang - 3;
-		$endpage = $startpage + 6;
+		$array_not_in = SinhVien::query()
+			->join('dang_ky_sach','sinh_vien.ma_sinh_vien','=','dang_ky_sach.ma_sinh_vien')
+			->where('ma_lop','=',$ma_lop)
+			->where('ma_sach','=',$ma_sach)->get();
 
-		return view("$this->folder.view_thong_ke_sinh_vien",[
-			'array_thong_ke_sinh_vien' => $array_thong_ke_sinh_vien,
-			'array_lop' => $array_lop,
-			'array_sach' => $array_sach,
-			'count_trang' => $count_trang,
-			'ma_lop' => $ma_lop,
-			'ma_sach' => $ma_sach,
-			'trang' => $trang,
-			'thong_ke' => $thong_ke,
-			'prev' => $prev,
-			'next' => $next,
-			'startpage' => $startpage,
-			'endpage' => $endpage
-		]);
+		$array_thong_ke_sinh_vien = DB::table('sinh_vien')
+			->select(DB::raw('ma_sinh_vien,ten_sinh_vien,lop.ma_lop,ten_lop'))
+			->join('lop','sinh_vien.ma_lop','=','lop.ma_lop')	
+			->whereNotIn('ma_sinh_vien',$array_not_in)
+			->where('sinh_vien.ma_lop','=',$ma_lop)
+			->orderBy('ma_sinh_vien','desc')->paginate(2);
+		
+		$array_thong_ke_sinh_vien->appends(array(
+			'ma_lop' => Input::get('ma_lop'),
+			'ma_sach' => Input::get('ma_sach')
+		));
+
+		return view("$this->folder.view_thong_ke_sinh_vien",compact('array_thong_ke_sinh_vien','array_lop','array_sach','ma_lop','ma_sach'));
 	}
 
 	public function view_thong_ke_sach()
 	{
-		$array_sach = Sach::all();
-
-		$array_mon_hoc = MonHoc::all();
-
 		$search = Request::get('search');
 		$start = Request::get('start');
 		$end = Request::get('end');
@@ -104,14 +80,14 @@ class ThongKeController extends Controller
 		if(!empty($start) && !empty($end) && $start > $end){
 			$message = 'Bạn phải nhập ngày bắt đầu nhỏ hơn ngày kết thúc !';
 				return view("$this->folder.view_thong_ke_sach",
-				compact('message','array_thong_ke_sach','array_mon_hoc','array_sach')
+				compact('message','array_thong_ke_sach','search','start')
 			);
 		}
 		if(count($array_thong_ke_sach) > 0){
-			return view("$this->folder.view_thong_ke_sach",compact('array_thong_ke_sach'));
+			return view("$this->folder.view_thong_ke_sach",compact('array_thong_ke_sach','search','start'));
 		}
 		$message = 'Không tìm thấy sách, môn học!';
-		return view("$this->folder.view_thong_ke_sach",compact('message','array_thong_ke_sach'));
+		return view("$this->folder.view_thong_ke_sach",compact('message','array_thong_ke_sach','search','start'));
 	}
 
 }
