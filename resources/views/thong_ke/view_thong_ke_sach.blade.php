@@ -44,6 +44,7 @@
 					</table>			
 				</form>
 			</div>
+			@if(count($array_thong_ke_sach) > 0)
 			<table class="table table-striped">
 				<tr>
 					<th>Tên sách</th>
@@ -69,6 +70,9 @@
 					</tr>
 				</tfoot>
 			</table>
+			@else
+				{{ $message }}	
+			@endif
 		</div>
 	</div>
 

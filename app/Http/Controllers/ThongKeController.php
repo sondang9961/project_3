@@ -93,23 +93,25 @@ class ThongKeController extends Controller
 		if(!empty($end)){
 			$array_thong_ke_sach = $array_thong_ke_sach->where('ngay_nhap_sach','<=',$end);
 		}
-		if(!empty($start) && !empty($end)){
-			$array_thong_ke_sach = $array_thong_ke_sach->where('ngay_nhap_sach','>=',$start)
-													   ->where('ngay_nhap_sach','<=',$end);
-		}
-		$array_thong_ke_sach = $array_thong_ke_sach->orderBy('sach.ma_sach','desc')->paginate(5);
+		
+		$array_thong_ke_sach = $array_thong_ke_sach->orderBy('sach.ngay_nhap_sach','desc')->paginate(5);
 
 		$array_thong_ke_sach->appends(array(
 			'search' => Input::get('search'),
 			'start' => Input::get('start'),
 			'end' => Input::get('end')
 		));
-
-		return view("$this->folder.view_thong_ke_sach",[
-			'array_thong_ke_sach' => $array_thong_ke_sach,
-			'array_sach' => $array_sach,
-			'array_mon_hoc' => $array_mon_hoc,
-		]);
+		if(!empty($start) && !empty($end) && $start > $end){
+			$message = 'Bạn phải nhập ngày bắt đầu nhỏ hơn ngày kết thúc !';
+				return view("$this->folder.view_thong_ke_sach",
+				compact('message','array_thong_ke_sach','array_mon_hoc','array_sach')
+			);
+		}
+		if(count($array_thong_ke_sach) > 0){
+			return view("$this->folder.view_thong_ke_sach",compact('array_thong_ke_sach'));
+		}
+		$message = 'Không tìm thấy sách, môn học!';
+		return view("$this->folder.view_thong_ke_sach",compact('message','array_thong_ke_sach'));
 	}
 
 }
