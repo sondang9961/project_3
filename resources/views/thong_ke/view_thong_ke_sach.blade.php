@@ -46,22 +46,26 @@
 			</div>
 			@if(count($array_thong_ke_sach) > 0)
 			<table class="table table-striped">
-				<tr>
-					<th>Tên sách</th>
-					<th>Ngày nhập</th>
-					<th>Số lượng nhập</th>
-					<th>Số lượng đã phát</th>
-					<th>Số lượng tồn kho</th>
-				</tr>
-				@foreach ($array_thong_ke_sach as $thong_ke)
+				<thead>
 					<tr>
-						<td>{{$thong_ke->ten_sach}}</td>
-						<td>{{date_format(date_create($thong_ke->ngay_nhap_sach),'d/m/Y')}}</td>
-						<td>{{$thong_ke->so_luong_nhap}}</td>
-						<td>{{$thong_ke->so_luong_da_phat}}</td>
-						<td>{{$thong_ke->so_luong_ton_kho}}</td>
+						<th>Tên sách</th>
+						<th>Ngày nhập</th>
+						<th>Số lượng nhập</th>
+						<th>Số lượng đã phát</th>
+						<th>Số lượng tồn kho</th>
 					</tr>
-				@endforeach
+				</thead>
+				<tbody>
+					@foreach ($array_thong_ke_sach as $thong_ke)
+						<tr>
+							<td>{{$thong_ke->ten_sach}}</td>
+							<td>{{date_format(date_create($thong_ke->ngay_nhap_sach),'d/m/Y')}}</td>
+							<td>{{$thong_ke->so_luong_nhap}}</td>
+							<td>{{$thong_ke->so_luong_da_phat}}</td>
+							<td>{{$thong_ke->so_luong_ton_kho}}</td>
+						</tr>
+					@endforeach
+				</tbody>
 				<tfoot>
 					<tr>
 						<td colspan="100%"> 

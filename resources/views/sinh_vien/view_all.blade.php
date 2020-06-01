@@ -36,20 +36,19 @@
 						<th>Tên lớp</th>
 						<th colspan="2">Chức năng</th>
 					</tr>
-				</thead>				
-				@foreach ($array_sinh_vien as $sinh_vien)
-				<form action="" method="post">
-				{{csrf_field()}}
-				<tr>
-					<td>{{$sinh_vien->ma_sinh_vien}}</td>
-					<td>{{$sinh_vien->ten_sinh_vien}}</td>
-					<td>{{$sinh_vien->ten_lop}}</td>
-					<td>
-						<input type="button" class='button_update btn btn-warning btn-fill btn-sm' value="Cập nhật" data-toggle="modal" data-target="#myModal" data-ma_sinh_vien='{{$sinh_vien->ma_sinh_vien}}'>		
-					</td>				
-				</tr>
-				</form>
-				@endforeach
+				</thead>	
+				<tbody>
+					@foreach ($array_sinh_vien as $sinh_vien)
+						<tr>
+							<td>{{$sinh_vien->ma_sinh_vien}}</td>
+							<td>{{$sinh_vien->ten_sinh_vien}}</td>
+							<td>{{$sinh_vien->ten_lop}}</td>
+							<td>
+								<input type="button" class='button_update btn btn-warning btn-fill btn-sm' value="Cập nhật" data-toggle="modal" data-target="#myModal" data-ma_sinh_vien='{{$sinh_vien->ma_sinh_vien}}'>		
+							</td>				
+						</tr>
+					@endforeach
+				</tbody>				
 				<tfoot>
 					<tr>
 						<td colspan="100%">

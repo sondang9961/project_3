@@ -46,17 +46,19 @@
 						<th>Khóa học</th>
 						<th colspan="2">Chức năng</th>
 					</tr>
-				</thead>				
-				@foreach ($array_mon_hoc as $mon_hoc)
-					<tr>
-						<td>{{$mon_hoc->ma_mon_hoc}}</td>
-						<td>{{$mon_hoc->ten_mon_hoc}}</td>
-						<td>{{$mon_hoc->ten_khoa_hoc}}</td>
-						<td>
-							<input type="button" class='button_update btn btn-warning btn-fill btn-sm' value="Cập nhật" data-toggle="modal" data-target="#updateModal" data-ma_mon_hoc='{{$mon_hoc->ma_mon_hoc}}'>
-						</td>
-					</tr>
-				@endforeach
+				</thead>	
+				<tbody>
+					@foreach ($array_mon_hoc as $mon_hoc)
+						<tr>
+							<td>{{$mon_hoc->ma_mon_hoc}}</td>
+							<td>{{$mon_hoc->ten_mon_hoc}}</td>
+							<td>{{$mon_hoc->ten_khoa_hoc}}</td>
+							<td>
+								<input type="button" class='button_update btn btn-warning btn-fill btn-sm' value="Cập nhật" data-toggle="modal" data-target="#updateModal" data-ma_mon_hoc='{{$mon_hoc->ma_mon_hoc}}'>
+							</td>
+						</tr>
+					@endforeach
+				</tbody>
 				<tfoot>
 					<tr>
 						<td colspan="100%">

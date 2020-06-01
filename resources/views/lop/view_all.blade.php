@@ -49,20 +49,22 @@
 						<th colspan="2">Chức năng</th>
 					</tr>
 				</thead>
-				@foreach ($array_lop as $lop)		
-					<tr>
-						<td>{{$lop->ma_lop}}</td>
-						<td>{{$lop->ten_lop}}</td>
-						<td>{{$lop->ten_khoa_hoc}}</td>
-						<td>{{$lop->sy_so}}</td>
-						<td>
-							<input type="button" class='button_update btn btn-warning btn-fill btn-sm' value="Cập nhật" data-toggle="modal" data-target="#updateModal" data-ma_lop='{{$lop->ma_lop}}'>
-						</td>
-						<td>
-							<button class='button_update btn btn-info btn-fill btn-wd' onclick="location.href='{{route('sinh_vien.danh_sach_sinh_vien_by_lop', ['ma_lop' => $lop->ma_lop])}}'">Danh sách SV</button>
-						</td>
-					</tr>
-				@endforeach
+				<tbody>
+					@foreach ($array_lop as $lop)		
+						<tr>
+							<td>{{$lop->ma_lop}}</td>
+							<td>{{$lop->ten_lop}}</td>
+							<td>{{$lop->ten_khoa_hoc}}</td>
+							<td>{{$lop->sy_so}}</td>
+							<td>
+								<input type="button" class='button_update btn btn-warning btn-fill btn-sm' value="Cập nhật" data-toggle="modal" data-target="#updateModal" data-ma_lop='{{$lop->ma_lop}}'>
+							</td>
+							<td>
+								<button class='button_update btn btn-info btn-fill btn-wd' onclick="location.href='{{route('sinh_vien.danh_sach_sinh_vien_by_lop', ['ma_lop' => $lop->ma_lop])}}'">Danh sách SV</button>
+							</td>
+						</tr>
+					@endforeach
+				</tbody>				
 				<tfoot>
 					<tr>
 						<td colspan="100%">

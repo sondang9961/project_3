@@ -43,7 +43,7 @@ class DangKySachController extends Controller
 		if(!empty($ma_sach)){
 			$array_dang_ky_sach = $array_dang_ky_sach->where('sach.ma_sach','=',$ma_sach);
 		}
-		$array_dang_ky_sach = $array_dang_ky_sach->orderBy('ma_dang_ky','desc')->paginate(4);
+		$array_dang_ky_sach = $array_dang_ky_sach->orderBy('ma_dang_ky','desc')->paginate(10);
 		$array_dang_ky_sach->appends(array(
 			'ma_khoa_hoc' => Input::get('ma_khoa_hoc'),
 			'ma_lop' => Input::get('ma_lop'),

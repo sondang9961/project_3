@@ -3,12 +3,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Input;
 use Request;
-use App\Model\ThongKe;
 use App\Model\Lop;
 use App\Model\Sach;
 use App\Model\MonHoc;
 use App\Model\SinhVien;
-use App\Model\DangKySach;
 use DB;
 
 class ThongKeController extends Controller
@@ -27,7 +25,7 @@ class ThongKeController extends Controller
 		$array_not_in = SinhVien::query()
 			->join('dang_ky_sach','sinh_vien.ma_sinh_vien','=','dang_ky_sach.ma_sinh_vien')
 			->where('ma_lop','=',$ma_lop)
-			->where('ma_sach','=',$ma_sach)->get();
+			->where('ma_sach','=',$ma_sach)->get(['sinh_vien.ma_sinh_vien']);
 
 		$array_thong_ke_sinh_vien = DB::table('sinh_vien')
 			->select(DB::raw('ma_sinh_vien,ten_sinh_vien,lop.ma_lop,ten_lop'))

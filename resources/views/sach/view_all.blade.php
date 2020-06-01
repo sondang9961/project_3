@@ -49,21 +49,23 @@
 						<th>Ngày hết hạn đăng ký</th>
 						<th>Chức năng</th>
 					</tr>
-				</thead>				
-				@foreach ($array_sach as $sach)
-				<tr>
-					<td>{{$sach->ten_sach}}</td>
-					<td>{{$sach->ten_mon_hoc}}</td>
-					<td>{{$sach->so_luong_nhap}}</td>
-					<td>
-						{{date_format(date_create($sach->ngay_nhap_sach),'d/m/Y')}}
-					</td>
-					<td>{{date_format(date_create($sach->ngay_het_han),'d/m/Y')}}</td>
-					<td>
-						<input type="button" class='button_update btn btn-warning btn-fill btn-sm' value="Cập nhật" data-toggle="modal" data-target="#updateModal" data-ma_sach='{{$sach->ma_sach}}'>
-					</td>
-				</tr>
-				@endforeach
+				</thead>		
+				<tbody>
+					@foreach ($array_sach as $sach)
+						<tr>
+							<td>{{$sach->ten_sach}}</td>
+							<td>{{$sach->ten_mon_hoc}}</td>
+							<td>{{$sach->so_luong_nhap}}</td>
+							<td>
+								{{date_format(date_create($sach->ngay_nhap_sach),'d/m/Y')}}
+							</td>
+							<td>{{date_format(date_create($sach->ngay_het_han),'d/m/Y')}}</td>
+							<td>
+								<input type="button" class='button_update btn btn-warning btn-fill btn-sm' value="Cập nhật" data-toggle="modal" data-target="#updateModal" data-ma_sach='{{$sach->ma_sach}}'>
+							</td>
+						</tr>
+					@endforeach
+				</tbody>				
 				<tfoot>
 					<tr>
 						<td colspan="100%">

@@ -51,12 +51,14 @@
 				</form>
 			</div>
 			<table class="table table-striped">
-				<tr>
-					<th>Mã</th>
-					<th>Tên sinh viên</th>
-					<th>Lớp</th>
-				</tr>
-				
+				<thead>
+					<tr>
+						<th>Mã</th>
+						<th>Tên sinh viên</th>
+						<th>Lớp</th>
+					</tr>
+				</thead>
+				<tbody>
 					@foreach ($array_thong_ke_sinh_vien as $thong_ke)
 						<tr>
 							<td>{{$thong_ke->ma_sinh_vien}}</td>
@@ -64,14 +66,14 @@
 							<td>{{$thong_ke->ten_lop}}</td>
 						</tr>
 					@endforeach
-					<tfoot>
+				</tbody>
+				<tfoot>
 					<tr>
 						<td colspan="100%">
 							{!! $array_thong_ke_sinh_vien->render()!!}
 						</td>
 					</tr>
 				</tfoot>
-
 			</table>
 		</div>
 	</div>
