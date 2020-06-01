@@ -2,9 +2,6 @@
 
 Route::get('dang_nhap','Controller@view_dang_nhap')->name('view_dang_nhap');
 Route::post('process_login','Controller@process_login')->name('process_login');
-Route::get('quen_mat_khau','Controller@view_quen_mat_khau')->name('view_quen_mat_khau');
-Route::post('process_lay_lai_mat_khau','Controller@process_lay_lai_mat_khau')->name('process_lay_lai_mat_khau');
-
 
 Route::group(['prefix' => 'admin', 'middleware' => 'CheckAdmin'], function(){
 	//TRANG CHỦ
@@ -19,8 +16,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'CheckAdmin'], function(){
 	Route::post("process_update_profile","Controller@process_update_profile")->name('process_update_profile');
 	Route::get("view_doi_mat_khau","Controller@view_doi_mat_khau")->name('view_doi_mat_khau');
 	Route::post('process_update_mat_khau','Controller@process_update_mat_khau')->name('process_update_mat_khau');
-	Route::get('view_lay_lai_mat_khau','Controller@view_lay_lai_mat_khau')->name('view_lay_lai_mat_khau');
-	Route::post('process_cap_nhat_mat_khau','Controller@process_cap_nhat_mat_khau')->name('process_cap_nhat_mat_khau');
 
 	//KHÓA HỌC
 	Route::group(["prefix" => "khoa_hoc"], function(){

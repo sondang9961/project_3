@@ -81,11 +81,12 @@ class ThongKeController extends Controller
 				compact('message','array_thong_ke_sach','search','start')
 			);
 		}
-		if(count($array_thong_ke_sach) > 0){
-			return view("$this->folder.view_thong_ke_sach",compact('array_thong_ke_sach','search','start'));
+		if(count($array_thong_ke_sach) == 0){
+			$message = 'Không tìm thấy sách, môn học!';
+			return view("$this->folder.view_thong_ke_sach",compact('message','array_thong_ke_sach','search','start'));
 		}
-		$message = 'Không tìm thấy sách, môn học!';
-		return view("$this->folder.view_thong_ke_sach",compact('message','array_thong_ke_sach','search','start'));
+		
+		return view("$this->folder.view_thong_ke_sach",compact('array_thong_ke_sach','search','start'));
 	}
 
 }

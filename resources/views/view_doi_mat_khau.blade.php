@@ -10,8 +10,9 @@
 			                <h4 class="title">Đổi mật khẩu</h4>
 			            </div>
 			            <div class="content">
-			                <form method="post" action="{{route('process_update_mat_khau',['ma_giao_vu' => Session::get('ma_giao_vu')])}}" id="form">
+			                <form method="post" action="{{route('process_update_mat_khau')}}" id="form">
 			                	{{csrf_field()}}
+			                	<input type="hidden" name="ma_giao_vu" value="{{Session::get('ma_giao_vu')}}">
 	                        	<div class="form-group">
 	                                <label>Mật khẩu cũ</label>
 	                                <input type="password" name="old_password" class="form-control">

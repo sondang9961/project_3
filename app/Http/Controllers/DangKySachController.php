@@ -43,7 +43,7 @@ class DangKySachController extends Controller
 		if(!empty($ma_sach)){
 			$array_dang_ky_sach = $array_dang_ky_sach->where('sach.ma_sach','=',$ma_sach);
 		}
-		$array_dang_ky_sach = $array_dang_ky_sach->orderBy('ma_dang_ky','desc')->paginate(10);
+		$array_dang_ky_sach = $array_dang_ky_sach->orderBy('ma_dang_ky','desc')->paginate(8);
 		$array_dang_ky_sach->appends(array(
 			'ma_khoa_hoc' => Input::get('ma_khoa_hoc'),
 			'ma_lop' => Input::get('ma_lop'),
@@ -65,20 +65,16 @@ class DangKySachController extends Controller
 		}
 		$array_check_so_luong = $dang_ky_sach->check_so_luong();
 		//Nếu số lượng tồn kho > 0
-		foreach ($array_check_so_luong as $check_so_luong) {
-			if($check_so_luong->so_luong_ton_kho > 0)
-			{
-				$array_dang_ky_sach = $dang_ky_sach->check_insert();
-				if(count($array_dang_ky_sach) == 0){
-					$dang_ky_sach->insert();
-					return redirect()->route("$this->folder.view_all")->with('success', 'Đã thêm');
-				}
-				if(count($array_dang_ky_sach) == 1){
-					return redirect()->route("$this->folder.view_all")->with('error', 'Sinh viên đã đăng ký!');
-				}
+		if($array_check_so_luong[0]->so_luong_ton_kho > 0){
+			$count = DangKySach::where('ma_sinh_vien','=',$dang_ky_sach->ma_sinh_vien)
+					->where('ma_sach','=',$dang_ky_sach->ma_sach)->count();
+			if($count == 0){
+				$dang_ky_sach->save();
+				return redirect()->route("$this->folder.view_all")->with('success', 'Đã thêm');
 			}
-			else return redirect()->route("$this->folder.view_all")->with('error_1', 'Hết sách để đăng ký!');
+			return redirect()->route("$this->folder.view_all")->with('error', 'Sinh viên đã đăng ký!');
 		}
+		else return redirect()->route("$this->folder.view_all")->with('error_1', 'Hết sách để đăng ký!');
 			
 	}
 

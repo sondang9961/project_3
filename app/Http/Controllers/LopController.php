@@ -56,9 +56,8 @@ class LopController extends Controller
 	
 	public function get_lop_by_khoa_hoc()
 	{
-		$lop = new Lop();
-		$lop->ma_khoa_hoc = Request::get('ma_khoa_hoc');
-		$array_lop = $lop->get_all_by_khoa_hoc();
+		$ma_khoa_hoc = Request::get('ma_khoa_hoc');
+		$array_lop = Lop::get_all_by_khoa_hoc($ma_khoa_hoc);
 		return $array_lop;
 	}
 

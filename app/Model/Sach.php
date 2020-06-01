@@ -8,37 +8,9 @@ use DB;
 class Sach extends Model
 {
 	public $table = 'sach';
-	public $limit = 5;
-	public $offset = 0;
-	public function get_all()
-	{
-		$array_sach= DB::select ("
-			select * from $this->table join mon_hoc on $this->table.ma_mon_hoc = mon_hoc.ma_mon_hoc 
-			where (? is null or ? is null or $this->table.ma_mon_hoc = ? and ma_sach = ?)
-			order by ma_sach desc limit $this->limit offset $this->offset",[
-				$this->ma_mon_hoc,
-				$this->ma_sach,
-				$this->ma_mon_hoc,
-				$this->ma_sach,
-			]);
-		return $array_sach;
-	}
-
-	public function count()
-	{
-		$count = DB::select("select count(*)/$this->limit as count from $this->table
-			where (? is null and ? is null or $this->table.ma_mon_hoc = ? and ma_sach = ?)",[
-				$this->ma_mon_hoc,
-				$this->ma_sach,
-				$this->ma_mon_hoc,
-				$this->ma_sach,
-			]);
-		return $count[0]->count;
-	}
 
 	public function get_all_by_mon_hoc()
 	{
-		
 		$array_sach = DB::select("select * from $this->table where ma_mon_hoc = ? order by ngay_nhap_sach desc",[$this->ma_mon_hoc]);
 		return $array_sach;
 	}

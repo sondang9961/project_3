@@ -94,10 +94,6 @@ class SachController extends Controller
 		// $sach->ngay_nhap_sach = Request::get('ngay_nhap_sach');
 		// $sach->ngay_het_han = Request::get('ngay_het_han');
 		
-		$count = Sach::where('ten_sach','=',$ten_sach)
-						->where('ma_mon_hoc','=',$ma_mon_hoc)
-						->count();
-		if($count == 0) {
 			Sach::where('ma_sach','=',$ma_sach)
 					->update(['ma_mon_hoc' => $ma_mon_hoc,
 							'ten_sach' => $ten_sach,
@@ -106,8 +102,6 @@ class SachController extends Controller
 							// 'ngay_het_han' => $ngay_het_han,							
 						]);
 			return redirect()->route("$this->folder.view_all")->with('success','Cập nhật thành công');
-		}
-		return redirect()->route("$this->folder.view_all")->with('error','Sách đã tồn tại!');
 	}
 
 	public function get_one()
