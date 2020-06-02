@@ -14,6 +14,7 @@
 					<input type="text" name="ten_khoa_hoc" value="{{ Request::get('ten_khoa_hoc') }}">
 					<input type="submit" class="btn btn-round btn-sm btn-fill" value="Xem">
 					<input type="button" class="btn btn-success btn-fill btn-sm btn-round" value="Thêm mới" data-toggle="modal" data-target="#addModal" style="margin-left: 5px">
+					<input type="button" class="btn btn-info btn-round btn-sm btn-fill" value="Hiện tất cả" onclick="location.href='{{ route('khoa_hoc.view_all') }}'" style="margin-left: 5px">
 				</form>
 	        </div>
 	        <div>
@@ -69,7 +70,7 @@
 				</tfoot>
 			</table>
 			@else
-				{{ $message }}	
+				<h4><center>{{ $message}}</center></h4>
 			@endif	
 		</div>
 	</div>

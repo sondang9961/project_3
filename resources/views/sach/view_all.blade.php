@@ -75,7 +75,7 @@
 				</tfoot>
 			</table>
 			@else
-				{{ $message }}	
+				<h4><center>{{ $message}}</center></h4>	
 			@endif
 		</div>
 	</div>
@@ -231,40 +231,6 @@
 				}
 			}
 		})
-
-		//Search
-		$("#search_mon_hoc").select2();
-		$("#search_mon_hoc").change(function(){
-			$("#search_sach").attr("disabled", false);
-			$("#search_sach").val(null).trigger('change');	
-			$(".search_button").attr("disabled", true);	
-		})
-
-		$("#search_sach").change(function(){
-			$(".search_button").attr("disabled", false);	
-		})
-		$("#search_sach").select2({
-			ajax: {
-				url: '{{route('get_sach_by_mon_hoc')}}',
-				dataType: 'json',
-				data: function() {
-					ma_mon_hoc = $("#search_mon_hoc").val();
-					return {
-						ma_mon_hoc: ma_mon_hoc
-					}
-				},
-				processResults: function (data){
-					return {
-						results: $.map(data, function(item) {
-							return  {
-								text: `${item.ten_sach} (${formatDate(item.ngay_nhap_sach)})`,
-								id: item.ma_sach
-							}
-						})
-					};
-				}
-			}
-		});	
 
 		//CẬP NHẬT
 		$(".button_update").click(function(event) {

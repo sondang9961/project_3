@@ -3,6 +3,7 @@
 namespace App\Model;
 use Illuminate\Database\Eloquent\Model;
 use DB;
+use App\Model\Sach;
 
 class DangKySach extends Model
 {
@@ -11,11 +12,7 @@ class DangKySach extends Model
 
 	public function updateTinhTrang()
 	{
-		DB::update("update $this->table
-			set 
-			tinh_trang_nhan_sach = ?,
-			ngay_nhan_sach = ?
-			where ma_dang_ky = ?",[
+		DB::update("update $this->table set tinh_trang_nhan_sach = ?, ngay_nhan_sach = ? where ma_dang_ky = ?",[
 				$this->tinh_trang_nhan_sach,
 				$this->ngay_nhan_sach,
 				$this->ma_dang_ky
@@ -31,9 +28,4 @@ class DangKySach extends Model
 		return $array_check_so_luong;
 	}
 
-	public function get_all_by_mon_hoc_1()//còn hạn
-	{
-		$array_dang_ky_sach = DB::select("select * from sach where ma_mon_hoc = ? and CURRENT_DATE - ngay_het_han <= 0 order by ngay_nhap_sach desc",[$this->ma_mon_hoc]);
-		return $array_dang_ky_sach;
-	}
 }

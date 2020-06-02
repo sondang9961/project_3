@@ -29,7 +29,7 @@ class MonHocController extends Controller
 			if(count($array_mon_hoc) > 0){
 				return view("$this->folder.view_all",compact('array_mon_hoc','array_khoa_hoc'));
 			}
-			$message = "Không tìm thấy môn, khóa học!";
+			$message = "Không tìm thấy kết quả";
 			return view("$this->folder.view_all",compact('message','array_mon_hoc','array_khoa_hoc'));
 		}
 		else {
@@ -39,7 +39,6 @@ class MonHocController extends Controller
 
 	public function get_mon_hoc_by_khoa_hoc()
 	{
-
 		$ma_khoa_hoc = Request::get('ma_khoa_hoc');
 		$array_mon_hoc = MonHoc::get_all_by_khoa_hoc($ma_khoa_hoc);
 		return $array_mon_hoc;

@@ -50,31 +50,33 @@
 					</table>
 				</form>
 			</div>
-			<table class="table table-striped">
-				<thead>
-					<tr>
-						<th>Mã</th>
-						<th>Tên sinh viên</th>
-						<th>Lớp</th>
-					</tr>
-				</thead>
-				<tbody>
-					@foreach ($array_thong_ke_sinh_vien as $thong_ke)
+			@if (count($array_thong_ke_sinh_vien) > 0)
+				<table class="table table-striped">
+					<thead>
 						<tr>
-							<td>{{$thong_ke->ma_sinh_vien}}</td>
-							<td>{{$thong_ke->ten_sinh_vien}}</td>
-							<td>{{$thong_ke->ten_lop}}</td>
+							<th>Mã</th>
+							<th>Tên sinh viên</th>
+							<th>Lớp</th>
 						</tr>
-					@endforeach
-				</tbody>
-				<tfoot>
-					<tr>
-						<td colspan="100%">
-							{!! $array_thong_ke_sinh_vien->render()!!}
-						</td>
-					</tr>
-				</tfoot>
-			</table>
+					</thead>
+					<tbody>
+						@foreach ($array_thong_ke_sinh_vien as $thong_ke)
+							<tr>
+								<td>{{$thong_ke->ma_sinh_vien}}</td>
+								<td>{{$thong_ke->ten_sinh_vien}}</td>
+								<td>{{$thong_ke->ten_lop}}</td>
+							</tr>
+						@endforeach
+					</tbody>
+					<tfoot>
+						<tr>
+							<td colspan="100%">
+								{!! $array_thong_ke_sinh_vien->render()!!}
+							</td>
+						</tr>
+					</tfoot>
+				</table>
+			@endif			
 		</div>
 	</div>
 

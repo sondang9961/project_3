@@ -42,26 +42,16 @@ class SachController extends Controller
 
 	public function get_sach_by_mon_hoc()
 	{
-		$sach = new Sach();
-		$sach->ma_mon_hoc = Request::get('ma_mon_hoc');
-		//$sach->tinh_trang = Request::get('tinh_trang');
-
-		// if($sach->tinh_trang == 0)//hết hạn
-		// {
-		// 	$array_sach = $sach->get_all_by_mon_hoc_and_han_dang_ky();
-		// }
-		// if($sach->tinh_trang == 1){//còn hạn
-			$array_sach = $sach->get_all_by_mon_hoc();
-		// }
+		$ma_mon_hoc = Request::get('ma_mon_hoc');
+		$array_sach = Sach::get_all_by_mon_hoc($ma_mon_hoc);
 		
 		return $array_sach;
 	}
 
 	public function get_sach_by_lop()
 	{
-		$sach = new Sach();
-		$sach->ma_lop = Request::get('ma_lop');
-		$array_sach = $sach->get_all_by_lop();
+		$ma_lop = Request::get('ma_lop');
+		$array_sach = Sach::get_all_by_lop($ma_lop);
 		return $array_sach;
 	}
 

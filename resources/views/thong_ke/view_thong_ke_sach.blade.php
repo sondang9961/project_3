@@ -75,7 +75,7 @@
 				</tfoot>
 			</table>
 			@else
-				{{ $message }}	
+				<h4><center>{{ $message}}</center></h4>	
 			@endif
 		</div>
 	</div>

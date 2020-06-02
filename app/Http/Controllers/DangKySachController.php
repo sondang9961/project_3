@@ -50,6 +50,10 @@ class DangKySachController extends Controller
 			'ma_sinh_vien' => Input::get('ma_sinh_vien'),
 			'ma_sach' => Input::get('ma_sach')
 		));
+		if(count($array_dang_ky_sach) == 0){
+			$message = "Không tìm thấy kết quả";
+			return view("$this->folder.view_all",compact('message','array_dang_ky_sach','array_khoa_hoc'));
+		}
 		return view("$this->folder.view_all",compact('array_dang_ky_sach','array_khoa_hoc'));
 	}
 
@@ -101,13 +105,5 @@ class DangKySachController extends Controller
 		}
 		
 	}
-
-	public function get_sach_by_mon_hoc_1()
-	{
-		$dang_ky_sach = new DangKySach();
-		$dang_ky_sach->ma_mon_hoc = Request::get('ma_mon_hoc');
-		$array_dang_ky_sach = $dang_ky_sach->get_all_by_mon_hoc_1();
-		
-		return $array_dang_ky_sach;
-	}
+	
 }

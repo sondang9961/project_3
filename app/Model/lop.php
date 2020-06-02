@@ -12,6 +12,4 @@ class Lop extends Model
 	{
 		return self::query()->where('ma_khoa_hoc','=',$ma_khoa_hoc)->get();
 	}
-
-	
 }

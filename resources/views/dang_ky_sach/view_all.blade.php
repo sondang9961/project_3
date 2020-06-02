@@ -80,7 +80,8 @@
                     </span>
                 @endif
 			</div>
-			<table class="table table-striped table-no-bordered table-hover dataTable dtr-inline">
+			@if (count($array_dang_ky_sach) > 0)
+				<table class="table table-striped table-no-bordered table-hover dataTable dtr-inline">
 				<thead>
 					<tr>
 						<th>Tên sinh viên</th>
@@ -119,7 +120,10 @@
 						</td>
 					</tr>
 				</tfoot>
-			</table>		
+			</table>
+			@else
+				<h4><center>{{ $message}}</center></h4>
+			@endif	
 		</div>
 
 		<div class="modal fade" id="addModal" role="dialog">
@@ -306,7 +310,7 @@
 		});
 		$("#select_sach").select2({
 			ajax: {
-				url: '{{route('get_sach_by_mon_hoc_1')}}',
+				url: '{{route('get_sach_by_mon_hoc')}}',
 				dataType: 'json',
 				data: function() {
 					ma_mon_hoc = $("#select_mon_hoc").val();
