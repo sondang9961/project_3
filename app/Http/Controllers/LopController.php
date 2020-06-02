@@ -46,7 +46,7 @@ class LopController extends Controller
 			if(count($array_lop) > 0){
 				return view("$this->folder.view_all",compact('array_lop','array_khoa_hoc'));
 			}
-			$message = "Không tìm thấy lớp, khóa học!";
+			$message = "Không tìm thấy kết quả";
 			return view("$this->folder.view_all",compact('message','array_lop','array_khoa_hoc'));
 		}
 		else {

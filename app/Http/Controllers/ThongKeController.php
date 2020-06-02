@@ -82,7 +82,7 @@ class ThongKeController extends Controller
 			);
 		}
 		if(count($array_thong_ke_sach) == 0){
-			$message = 'Không tìm thấy sách, môn học!';
+			$message = 'Không tìm thấy kết quả';
 			return view("$this->folder.view_thong_ke_sach",compact('message','array_thong_ke_sach','search','start'));
 		}
 		

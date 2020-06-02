@@ -33,7 +33,7 @@ class SachController extends Controller
 			if(count($array_sach) > 0){
 				return view("$this->folder.view_all",compact('array_sach','array_mon_hoc','array_khoa_hoc'));
 				}
-				$message = "Không tìm thấy môn, sách!";
+				$message = "Không tìm thấy kết quả";
 				return view("$this->folder.view_all",compact('message','array_sach','array_mon_hoc','array_khoa_hoc'));
 			}
 

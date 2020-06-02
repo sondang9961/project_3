@@ -23,7 +23,7 @@ class KhoaHocController extends Controller
 				return view("$this->folder.view_all",compact('array_khoa_hoc'));
 			}
 
-			$message = "Không tìm thấy khóa học!";
+			$message = "Không tìm thấy kết quả";
 			return view("$this->folder.view_all",compact('message'));
 		}
 		else {
@@ -56,10 +56,10 @@ class KhoaHocController extends Controller
 		if($count == 0){
 			KhoaHoc::where('ma_khoa_hoc','=',$ma_khoa_hoc)
 					->update(['ten_khoa_hoc' => $ten_khoa_hoc]);
-			return redirect()->route("$this->folder.view_all")->with('upd_success', 'Cập nhật thành công');
+			return redirect()->route("$this->folder.view_all")->with('success', 'Cập nhật thành công');
 		}
 		//điều hướng
-		return redirect()->route("$this->folder.view_all")->with('upd_error', 'Khóa học đã tồn tại');
+		return redirect()->route("$this->folder.view_all")->with('error', 'Khóa học đã tồn tại');
 
 	}
 	public function get_one()

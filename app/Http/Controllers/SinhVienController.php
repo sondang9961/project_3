@@ -36,7 +36,7 @@ class SinhVienController extends Controller
 			if(count($array_sinh_vien) > 0){
 				return view("$this->folder.view_all",compact('array_sinh_vien','array_lop'));
 			}
-			$message = "Không tìm thấy sinh viên, lớp học!";
+			$message = "Không tìm thấy kết quả";
 			return view("$this->folder.view_all",compact('message','array_sinh_vien','array_lop'));
 		}
 		else {

@@ -27,16 +27,6 @@
 			            {{Session::get('success')}}
 			        </span>
 			    @endif
-			    @if (Session::has('upd_error'))
-					<span style="color: red">
-			            {{Session::get('upd_error')}}
-			        </span>
-				@endif
-				@if (Session::has('upd_success'))
-			        <span style="color: green">
-			            {{Session::get('upd_success')}}
-			        </span>
-			    @endif
 	        </div>
 	        @if(count($array_mon_hoc) > 0)
 			<table class="table table-striped table-no-bordered table-hover dataTable dtr-inline">

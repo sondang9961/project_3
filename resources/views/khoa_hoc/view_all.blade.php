@@ -28,16 +28,6 @@
 			            {{Session::get('success')}}
 			        </span>
 			    @endif
-			    @if (Session::has('upd_error'))
-					<span style="color: red">
-			            {{Session::get('upd_error')}}
-			        </span>
-				@endif
-				@if (Session::has('upd_success'))
-			        <span style="color: green">
-			            {{Session::get('upd_success')}}
-			        </span>
-			    @endif
 	        </div>
 	        @if(isset($array_khoa_hoc))
 			<table class="table table-striped table-no-bordered table-hover dataTable dtr-inline">
