@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Lop extends Migration
+class KhoaHoc extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class Lop extends Migration
      */
     public function up()
     {
-        Schema::create('lop', function (Blueprint $table) {
-            $table->increments('ma_lop');
-            $table->string('ten_lop', 20);
-            $table->integer('ma_khoa_hoc')->unsigned();
-            $table->foreign('ma_khoa_hoc')->references('ma_khoa_hoc')->on('khoa_hoc');
+        Schema::create('khoa_hoc', function (Blueprint $table) {
+            $table->increments('ma_khoa_hoc');
+            $table->string('ten_khoa_hoc', 100);
+            $table->timestamp('created_at');
+            $table->timestamp('updated_at');
         });
     }
 
@@ -28,6 +28,6 @@ class Lop extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('lop');
+        Schema::dropIfExists('khoa_hoc');
     }
 }

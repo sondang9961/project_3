@@ -12,18 +12,18 @@
 					<table style="width: 100%">
 						<tr style="height: 4rem">
 							<td>
-								<b>Tên khóa học</b>
+								<b>Tên chuyên ngành</b>
 							</td>
 							<td>
-								<select name="ma_khoa_hoc" class="form-control" style="width: 14rem" id="search_khoa_hoc">
-									<option disabled selected value="">--Chọn khóa học--</option>
-									@foreach ($array_khoa_hoc as $khoa_hoc)
-										<option value="{{$khoa_hoc->ma_khoa_hoc}}"
-											@if ($khoa_hoc->ma_khoa_hoc == $ma_khoa_hoc)
+								<select name="ma_chuyen_nganh" class="form-control" style="width: 17rem" id="search_chuyen_nganh">
+									<option disabled selected value="">--Chọn chuyên ngành--</option>
+									@foreach ($array_chuyen_nganh as $chuyen_nganh)
+										<option value="{{$chuyen_nganh->ma_chuyen_nganh}}"
+											@if ($chuyen_nganh->ma_chuyen_nganh == $ma_chuyen_nganh)
 												selected 
 											@endif
 											>
-											{{$khoa_hoc->ten_khoa_hoc}}
+											{{$chuyen_nganh->ten_chuyen_nganh}}
 										</option>
 									@endforeach
 								</select>
@@ -32,7 +32,7 @@
 								<b>Tên lớp</b>
 							</td>
 							<td>
-								<select name="ma_lop" class="form-control" style="width: 14rem" id="search_lop" disabled>
+								<select name="ma_lop" class="form-control" style="width: 17rem" id="search_lop" disabled>
 									<option>--Lớp--</option>
 								</select>
 							</td>
@@ -47,7 +47,7 @@
 								<b>Tên sinh viên</b>
 							</td>
 							<td>
-								<select name="ma_sinh_vien" class="form-control" style="width: 14rem" id="search_sinh_vien" disabled>
+								<select name="ma_sinh_vien" class="form-control" style="width: 17rem" id="search_sinh_vien" disabled>
 									<option>--Sinh viên--</option>
 								</select>
 							</td>
@@ -55,7 +55,7 @@
 								<b>Tên sách</b>
 							</td>
 							<td>
-								<select name="ma_sach" class="form-control" style="width: 14rem" id="search_sach" disabled>
+								<select name="ma_sach" class="form-control" style="width: 17rem" id="search_sach" disabled>
 									<option>--Tên sách--</option>
 								</select>
 							</td>			
@@ -139,17 +139,26 @@
 				        <form action="{{ route('dang_ky_sach.process_insert') }}" method="post">
 				        	{{csrf_field()}}
 				          	<div class="row">
-	                            <label class="col-sm-3" style="font-size: 1.75rem; font-weight:lighter">Khóa học</label>
+	                            <label class="col-sm-3" style="font-size: 1.75rem; font-weight:lighter">Chuyên ngành</label>
 	                            <div class="col-sm-8">
 	                                <div class="form-group">
-	                                    <select name="ma_khoa_hoc" class="form-control" style="width: 40rem" id="select_khoa_hoc" >
-											<option disabled selected>--Chọn khóa học--</option>
-											@foreach ($array_khoa_hoc as $khoa_hoc)
-												<option value="{{$khoa_hoc->ma_khoa_hoc}}">
-													{{$khoa_hoc->ten_khoa_hoc}}
+	                                    <select name="ma_chuyen_nganh" class="form-control" style="width: 40rem" id="select_chuyen_nganh" >
+											<option disabled selected>--Chọn chuyên ngành--</option>
+											@foreach ($array_chuyen_nganh as $chuyen_nganh)
+												<option value="{{$chuyen_nganh->ma_chuyen_nganh}}">
+													{{$chuyen_nganh->ten_chuyen_nganh}}
 												</option>
 											@endforeach
 										</select>
+	                                </div>
+	                            </div>
+	                        </div>
+	                        <div class="row">
+	                            <label class="col-sm-3" style="font-size: 1.75rem; font-weight: lighter">Tên sách</label>
+	                            <div class="col-sm-8">
+	                                <div class="form-group">
+	                                    <select name="ma_sach" class="form-control" style="width: 40rem" id="select_sach" disabled>
+											</select>
 	                                </div>
 	                            </div>
 	                        </div>
@@ -160,29 +169,12 @@
 	                                    <select name="ma_lop" class="form-control" style="width: 40rem" id="select_lop" disabled></select>
 	                                </div>
 	                            </div>
-	                        </div>	
-	                        <div class="row">
-	                            <label class="col-sm-3" style="font-size: 1.75rem; font-weight: lighter">Tên môn</label>
-	                            <div class="col-sm-8">
-	                                <div class="form-group">
-	                                    <select name="ma_mon_hoc" class="form-control" style="width: 40rem" id="select_mon_hoc" disabled></select>
-	                                </div>
-	                            </div>
-	                        </div>	
+	                        </div>		
 	                        <div class="row">
 	                            <label class="col-sm-3" style="font-size: 1.75rem; font-weight: lighter">Tên sinh viên</label>
 	                            <div class="col-sm-8">
 	                                <div class="form-group">
 	                                    <select name="ma_sinh_vien" class="form-control" style="width: 40rem" id="select_sinh_vien" disabled>
-											</select>
-	                                </div>
-	                            </div>
-	                        </div>
-	                        <div class="row">
-	                            <label class="col-sm-3" style="font-size: 1.75rem; font-weight: lighter">Tên sách</label>
-	                            <div class="col-sm-8">
-	                                <div class="form-group">
-	                                    <select name="ma_sach" class="form-control" style="width: 40rem" id="select_sach" disabled>
 											</select>
 	                                </div>
 	                            </div>
@@ -213,14 +205,7 @@
 @push('js')
 <script src="{{ asset('js/select2.min.js') }}"></script>
 <script type="text/javascript">
-	function checkTinhTrang() {
-		if($("#select_sach").val()==null || $("#select_sinh_vien").val()==null){
-			$("#select_tinh_trang").attr('disabled',true);
-		}
-		else{
-			$("#select_tinh_trang").attr('disabled',false);
-		}
-	}
+
 	function checkButton() {
 		if($("#select_tinh_trang").val() == 1 || $("#select_tinh_trang").val() == 0){
 			$(".add_button").attr("disabled", false);
@@ -231,29 +216,36 @@
 	}
 	$(document).ready(function() {
 		$("#select_tinh_trang").select2();
-		$("#select_khoa_hoc").select2();
+		$("#select_chuyen_nganh").select2();
 
-		$("#select_khoa_hoc").change(function(){
-			$("#select_mon_hoc").val(null).trigger('change');
-			$("#select_mon_hoc").attr("disabled", false);
-			$("#select_lop").val(null).trigger('change');
-			$("#select_lop").attr("disabled", false);
-			$("#select_sach").attr("disabled", true);
-			$("#select_sinh_vien").attr("disabled", true);
-		})
-		$("#select_mon_hoc").change(function(){
+		$("#select_chuyen_nganh").change(function(){
 			$("#select_sach").val(null).trigger('change');
 			$("#select_sach").attr("disabled", false);
-			$(".add_button").attr("disabled", true);
+			$("#select_lop").attr("disabled", true);
+			$("#select_sinh_vien").attr("disabled", true);
+			$("#select_tinh_trang").attr("disabled", true);
 		})
+
+		$("#select_sach").change(function(){
+			$("#select_lop").val(null).trigger('change');
+			$("#select_lop").attr("disabled", false);
+			$("#select_sinh_vien").attr("disabled", true);
+			$("#select_tinh_trang").attr("disabled", true);
+		})
+
 		$("#select_lop").change(function(){
 			$("#select_sinh_vien").val(null).trigger('change');
 			$("#select_sinh_vien").attr("disabled", false);
 			$(".add_button").attr("disabled", true);
+			$("#select_tinh_trang").attr("disabled", true);
 		})
-		$("#select_sach,#select_sinh_vien").change(function(){
-			checkTinhTrang();
-		});
+
+		$("#select_sinh_vien").change(function(){
+			$("#select_tinh_trang").val(null).trigger('change');
+			$("#select_tinh_trang").attr("disabled", false);
+			$(".add_button").attr("disabled", true);
+		})
+		
 		$("#select_tinh_trang").change(function(){
 			$(".add_button").attr("disabled", false);
 		})
@@ -264,58 +256,14 @@
 			checkButton();
 		})
 
-		$("#select_mon_hoc").select2({
-			ajax: {
-				url: '{{route('get_mon_hoc_by_khoa_hoc')}}',
-				dataType: 'json',
-				data: function() {
-					ma_khoa_hoc = $("#select_khoa_hoc").val();
-					return {
-						ma_khoa_hoc: ma_khoa_hoc
-					}
-				},
-				processResults: function (data){
-					return {
-						results: $.map(data, function(item) {
-							return  {
-								text: item.ten_mon_hoc,
-								id: item.ma_mon_hoc 
-							}
-						})
-					};
-				}
-			}
-		});
-		$("#select_lop").select2({
-			ajax: {
-				url: '{{route('get_lop_by_khoa_hoc')}}',
-				dataType: 'json',
-				data: function() {
-					ma_khoa_hoc = $("#select_khoa_hoc").val();
-					return {
-						ma_khoa_hoc: ma_khoa_hoc
-					}
-				},
-				processResults: function (data){
-					return {
-						results: $.map(data, function(item) {
-							return  {
-								text: item.ten_lop,
-								id: item.ma_lop
-							}
-						})
-					};
-				}
-			}
-		});
 		$("#select_sach").select2({
 			ajax: {
-				url: '{{route('get_sach_by_mon_hoc')}}',
+				url: '{{route('get_sach_by_chuyen_nganh')}}',
 				dataType: 'json',
 				data: function() {
-					ma_mon_hoc = $("#select_mon_hoc").val();
+					ma_chuyen_nganh = $("#select_chuyen_nganh").val();
 					return {
-						ma_mon_hoc: ma_mon_hoc
+						ma_chuyen_nganh: ma_chuyen_nganh
 					}
 				},
 				processResults: function (data){
@@ -330,6 +278,30 @@
 				}
 			}
 		});
+		
+		$("#select_lop").select2({
+			ajax: {
+				url: '{{route('get_lop_by_chuyen_nganh')}}',
+				dataType: 'json',
+				data: function() {
+					ma_chuyen_nganh = $("#select_chuyen_nganh").val();
+					return {
+						ma_chuyen_nganh: ma_chuyen_nganh
+					}
+				},
+				processResults: function (data){
+					return {
+						results: $.map(data, function(item) {
+							return  {
+								text: item.ten_lop,
+								id: item.ma_lop
+							}
+						})
+					};
+				}
+			}
+		});
+		
 		$(".radio_tinh_trang").change(function(){
 			var ma_dang_ky = $(this).data('ma_dang_ky');
 			var tinh_trang_nhan_sach = $(this).data('tinh_trang_nhan_sach');
@@ -379,8 +351,8 @@
 		});
 
 		//Search
-		$("#search_khoa_hoc").select2();
-		$("#search_khoa_hoc").change(function(){
+		$("#search_chuyen_nganh").select2();
+		$("#search_chuyen_nganh").change(function(){
 			$("#search_mon_hoc").val(null).trigger('change');
 			$("#search_mon_hoc").attr("disabled", false);		
 			$("#search_lop").val(null).trigger('change');		
@@ -394,7 +366,7 @@
 			$("#search_sach").val(null).trigger('change');
 			$("#search_sach").attr("disabled", false);
 		})
-		$("#search_khoa_hoc").change(function(){
+		$("#search_chuyen_nganh").change(function(){
 			$("#button").attr("disabled", false);
 		})
 	
@@ -423,12 +395,12 @@
 		});
 		$("#search_lop").select2({
 			ajax: {
-				url: '{{route('get_lop_by_khoa_hoc')}}',
+				url: '{{route('get_lop_by_chuyen_nganh')}}',
 				dataType: 'json',
 				data: function() {
-					ma_khoa_hoc = $("#search_khoa_hoc").val();
+					ma_chuyen_nganh = $("#search_chuyen_nganh").val();
 					return {
-						ma_khoa_hoc: ma_khoa_hoc
+						ma_chuyen_nganh: ma_chuyen_nganh
 					}
 				},
 				processResults: function (data){
@@ -445,12 +417,12 @@
 		});
 		$("#search_sach").select2({
 			ajax: {
-				url: '{{route('get_sach_by_lop')}}',
+				url: '{{route('get_sach_by_chuyen_nganh')}}',
 				dataType: 'json',
 				data: function() {
-					ma_lop = $("#search_lop").val();
+					ma_chuyen_nganh = $("#search_chuyen_nganh").val();
 					return {
-						ma_lop: ma_lop
+						ma_chuyen_nganh: ma_chuyen_nganh
 					}
 				},
 				processResults: function (data){

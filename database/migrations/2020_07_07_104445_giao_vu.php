@@ -19,6 +19,8 @@ class GiaoVu extends Migration
             $table->string('password', 100);
             $table->string('ten_giao_vu', 100);
             $table->string('email', 100);
+            $table->string('sdt', 11);
+            $table->string('dia_chi', 200);
         });
     }
 

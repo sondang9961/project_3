@@ -22,6 +22,8 @@ class DangKySach extends Migration
             $table->date('ngay_nhan_sach');
             $table->foreign('ma_sinh_vien')->references('ma_sinh_vien')->on('sinh_vien');
             $table->foreign('ma_sach')->references('ma_sach')->on('sach');
+            $table->timestamp('created_at');
+            $table->timestamp('updated_at');
         });
     }
 

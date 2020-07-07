@@ -52,17 +52,17 @@ class LopController extends Controller
 				return view("$this->folder.view_all",compact('array_lop','array_khoa_hoc','array_chuyen_nganh'));
 			}
 			$message = "Không tìm thấy kết quả";
-			return view("$this->folder.view_all",compact('message','array_lop','array_khoa_hoc'));
+			return view("$this->folder.view_all",compact('message','array_lop','array_khoa_hoc','array_chuyen_nganh'));
 		}
 		else {
 			return view("$this->folder.view_all",compact('array_lop','array_khoa_hoc','array_chuyen_nganh'));
 		}
 	}
 	
-	public function get_lop_by_khoa_hoc()
+	public function get_lop_by_chuyen_nganh()
 	{
-		$ma_khoa_hoc = Request::get('ma_khoa_hoc');
-		$array_lop = Lop::get_all_by_khoa_hoc($ma_khoa_hoc);
+		$ma_chuyen_nganh = Request::get('ma_chuyen_nganh');
+		$array_lop = Lop::get_all_by_chuyen_nganh($ma_chuyen_nganh);
 		return $array_lop;
 	}
 

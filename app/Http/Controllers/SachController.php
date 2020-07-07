@@ -6,6 +6,9 @@ use Request;
 use Response;
 use App\Model\Sach;
 use App\Model\KhoaHoc;
+use App\Model\ChuyenNganh;
+use App\Model\Lop;
+use App\Model\SinhVien;
 use App\Model\MonHoc;
 
 class SachController extends Controller
@@ -40,18 +43,42 @@ class SachController extends Controller
 		return view ("$this->folder.view_all",compact('array_sach','array_mon_hoc','array_khoa_hoc'));
 	}
 
-	public function get_sach_by_mon_hoc()
+	public function view_so_luong_sach_nhap()
 	{
-		$ma_mon_hoc = Request::get('ma_mon_hoc');
-		$array_sach = Sach::get_all_by_mon_hoc($ma_mon_hoc);
-		
-		return $array_sach;
+		$array_chuyen_nganh = ChuyenNganh::all();
+
+		$array_khoa_hoc = KhoaHoc::all();
+
+		$ma_chuyen_nganh = Request::get('ma_chuyen_nganh');
+		$ma_khoa_hoc = Request::get('ma_khoa_hoc');
+
+		$count_lop = Lop::where('ma_chuyen_nganh','=',$ma_chuyen_nganh)
+						->where('ma_khoa_hoc','=',$ma_khoa_hoc)
+						->count();
+
+		$count_sinh_vien = SinhVien::query()
+							->join('lop','sinh_vien.ma_lop','=','lop.ma_lop')
+							->where('ma_chuyen_nganh','=',$ma_chuyen_nganh)
+							->where('ma_khoa_hoc','=',$ma_khoa_hoc)
+							->count();
+
+		$count_sach = $count_lop * $count_sinh_vien;
+
+		return view ("$this->folder.view_so_luong_sach_nhap",compact('array_chuyen_nganh','array_khoa_hoc','count_lop','count_sinh_vien','count_sach','ma_chuyen_nganh','ma_khoa_hoc'));		
 	}
 
 	public function get_sach_by_lop()
 	{
 		$ma_lop = Request::get('ma_lop');
 		$array_sach = Sach::get_all_by_lop($ma_lop);
+		
+		return $array_sach;
+	}
+
+	public function get_sach_by_chuyen_nganh()
+	{
+		$ma_chuyen_nganh = Request::get('ma_chuyen_nganh');
+		$array_sach = Sach::get_all_by_chuyen_nganh($ma_chuyen_nganh);
 		return $array_sach;
 	}
 

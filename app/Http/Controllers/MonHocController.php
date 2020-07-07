@@ -5,42 +5,42 @@ use Illuminate\Support\Facades\Input;
 use Request;
 use Response;
 use App\Model\MonHoc;
-use App\Model\KhoaHoc;
+use App\Model\ChuyenNganh;
 
 class MonHocController extends Controller
 {
 	private $folder = 'mon_hoc';
 	public function view_all()
 	{
-		$array_khoa_hoc = KhoaHoc::all();
+		$array_chuyen_nganh = ChuyenNganh::all();
 
 		$array_mon_hoc = MonHoc::query()
-							->join('khoa_hoc','mon_hoc.ma_khoa_hoc','=','khoa_hoc.ma_khoa_hoc')
+							->join('chuyen_nganh','mon_hoc.ma_chuyen_nganh','=','chuyen_nganh.ma_chuyen_nganh')
 							->orderBy('ma_mon_hoc','desc')->paginate(5);
 		$search = Input::get('search');
 		if($search != ''){
 			$array_mon_hoc = MonHoc::query()
-								->join('khoa_hoc','mon_hoc.ma_khoa_hoc','=','khoa_hoc.ma_khoa_hoc')
+								->join('chuyen_nganh','mon_hoc.ma_chuyen_nganh','=','chuyen_nganh.ma_chuyen_nganh')
 								->where('ten_mon_hoc','LIKE','%'.$search.'%')
-								->orWhere('ten_khoa_hoc','LIKE','%'.$search.'%')
+								->orWhere('ten_chuyen_nganh','LIKE','%'.$search.'%')
 								->orderBy('ma_mon_hoc','desc')
 								->paginate(5);
 			$array_mon_hoc->appends(array('search' => Input::get('search')));
 			if(count($array_mon_hoc) > 0){
-				return view("$this->folder.view_all",compact('array_mon_hoc','array_khoa_hoc'));
+				return view("$this->folder.view_all",compact('array_mon_hoc','array_chuyen_nganh'));
 			}
 			$message = "Không tìm thấy kết quả";
-			return view("$this->folder.view_all",compact('message','array_mon_hoc','array_khoa_hoc'));
+			return view("$this->folder.view_all",compact('message','array_mon_hoc','array_chuyen_nganh'));
 		}
 		else {
-			return view("$this->folder.view_all",compact('array_mon_hoc','array_khoa_hoc'));
+			return view("$this->folder.view_all",compact('array_mon_hoc','array_chuyen_nganh'));
 		}
 	}
 
-	public function get_mon_hoc_by_khoa_hoc()
+	public function get_mon_hoc_by_chuyen_nganh()
 	{
-		$ma_khoa_hoc = Request::get('ma_khoa_hoc');
-		$array_mon_hoc = MonHoc::get_all_by_khoa_hoc($ma_khoa_hoc);
+		$ma_chuyen_nganh = Request::get('ma_chuyen_nganh');
+		$array_mon_hoc = MonHoc::get_all_by_chuyen_nganh($ma_chuyen_nganh);
 		return $array_mon_hoc;
 	}
 
@@ -48,10 +48,10 @@ class MonHocController extends Controller
 	{
 		$mon_hoc = new MonHoc();
 		$mon_hoc->ten_mon_hoc = Request::get('ten_mon_hoc');
-		$mon_hoc->ma_khoa_hoc = Request::get('ma_khoa_hoc');
+		$mon_hoc->ma_chuyen_nganh = Request::get('ma_chuyen_nganh');
 
 		$count = MonHoc::where('ten_mon_hoc','=',$mon_hoc->ten_mon_hoc)
-						->where('ma_khoa_hoc','=',$mon_hoc->ma_khoa_hoc)
+						->where('ma_chuyen_nganh','=',$mon_hoc->ma_chuyen_nganh)
 						->count();
 		if($count == 0) {
 			$mon_hoc->save();
@@ -65,14 +65,14 @@ class MonHocController extends Controller
  	{
  		$ma_mon_hoc = Request::get('ma_mon_hoc');
  		$ten_mon_hoc = Request::get('ten_mon_hoc');
-		$ma_khoa_hoc = Request::get('ma_khoa_hoc');
+		$ma_chuyen_nganh = Request::get('ma_chuyen_nganh');
 
 		$count = MonHoc::where('ten_mon_hoc','=',$ten_mon_hoc)
-						->where('ma_khoa_hoc','=',$ma_khoa_hoc)
+						->where('ma_chuyen_nganh','=',$ma_chuyen_nganh)
 						->count();
 		if($count == 0) {
 			MonHoc::where('ma_mon_hoc','=',$ma_mon_hoc)
-					->update(['ten_mon_hoc' => $ten_mon_hoc,'ma_khoa_hoc' => $ma_khoa_hoc]);
+					->update(['ten_mon_hoc' => $ten_mon_hoc,'ma_chuyen_nganh' => $ma_chuyen_nganh]);
 			return redirect()->route("$this->folder.view_all")->with('success','Cập nhật thành công');
 		}
 		return redirect()->route("$this->folder.view_all")->with('error','Môn học đã tồn tại!');

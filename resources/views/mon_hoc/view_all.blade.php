@@ -10,7 +10,7 @@
 			<div class="toolbar">
 				<form>
 					Tìm kiếm
-					<input type="text" name="search" placeholder="môn, khóa học" value="{{ Request::get('search') }}">
+					<input type="text" name="search" placeholder="môn, chuyên ngành" value="{{ Request::get('search') }}">
 					<input type="submit" class="btn btn-round btn-sm btn-fill" value="Xem">
 					<input type="button" class="btn btn-success btn-fill btn-sm btn-round" value="Thêm mới" data-toggle="modal" data-target="#addModal" style="margin-left: 5px">
 					<input type="button" class="btn btn-info btn-round btn-sm btn-fill" value="Hiện tất cả" onclick="location.href='{{ route('mon_hoc.view_all') }}'" style="margin-left: 5px">
@@ -34,7 +34,7 @@
 					<tr>
 						<th>Mã</th>
 						<th>Tên môn</th>
-						<th>Khóa học</th>
+						<th>Chuyên ngành</th>
 						<th colspan="2">Chức năng</th>
 					</tr>
 				</thead>	
@@ -43,7 +43,7 @@
 						<tr>
 							<td>{{$mon_hoc->ma_mon_hoc}}</td>
 							<td>{{$mon_hoc->ten_mon_hoc}}</td>
-							<td>{{$mon_hoc->ten_khoa_hoc}}</td>
+							<td>{{$mon_hoc->ten_chuyen_nganh}}</td>
 							<td>
 								<input type="button" class='button_update btn btn-warning btn-fill btn-sm' value="Cập nhật" data-toggle="modal" data-target="#updateModal" data-ma_mon_hoc='{{$mon_hoc->ma_mon_hoc}}'>
 							</td>
@@ -86,14 +86,14 @@
                             </div>
                         </div>
                         <div class="row">
-                            <label class="col-sm-3" style="margin-top: 1%;font-size: 1.75rem; font-weight: lighter">Khóa học</label>
+                            <label class="col-sm-3" style="margin-top: 1%;font-size: 1.75rem; font-weight: lighter">Chuyên ngành</label>
                             <div class="col-sm-8">
                                 <div class="form-group">
-                                    <select name="ma_khoa_hoc" id="khoa_hoc" class="form-control">
+                                    <select name="ma_chuyen_nganh" id="chuyen_nganh" class="form-control">
 										<option value="" disabled="disabled" selected="selected">Tên khóa học</option>
-										@foreach ($array_khoa_hoc as $khoa_hoc)
-											<option value="{{$khoa_hoc->ma_khoa_hoc}}">
-												{{$khoa_hoc->ten_khoa_hoc}}
+										@foreach ($array_chuyen_nganh as $chuyen_nganh)
+											<option value="{{$chuyen_nganh->ma_chuyen_nganh}}">
+												{{$chuyen_nganh->ten_chuyen_nganh}}
 											</option>			
 										@endforeach
 									</select>
@@ -134,13 +134,13 @@
                             </div>
                         </div>
                         <div class="row">
-                            <label class="col-sm-3" style="margin-top: 1%;font-size: 1.75rem; font-weight: lighter">Khóa học</label>
+                            <label class="col-sm-3" style="margin-top: 1%;font-size: 1.75rem; font-weight: lighter">Chuyên ngành</label>
                             <div class="col-sm-8">
                                 <div class="form-group">
-                                    <select name="ma_khoa_hoc" id="ma_khoa_hoc" class="form-control">
-						          		@foreach($array_khoa_hoc as $khoa_hoc)
-											<option value="{{$khoa_hoc->ma_khoa_hoc}}">
-												{{$khoa_hoc->ten_khoa_hoc}}
+                                    <select name="ma_chuyen_nganh" id="ma_chuyen_nganh" class="form-control">
+						          		@foreach($array_chuyen_nganh as $chuyen_nganh)
+											<option value="{{$chuyen_nganh->ma_chuyen_nganh}}">
+												{{$chuyen_nganh->ten_chuyen_nganh}}
 											</option>
 										@endforeach
 						          	</select>
@@ -160,8 +160,8 @@
 @push('js')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>
 <script type="text/javascript">
-	$("#search_khoa_hoc").select2();
-	$("#select_khoa_hoc").select2();
+	$("#search_chuyen_nganh").select2();
+	$("#select_chuyen_nganh").select2();
 	$(document).ready(function() {
 		$(".button_update").click(function(event) {
 			var ma_mon_hoc = $(this).data('ma_mon_hoc');
@@ -175,7 +175,7 @@
 			.done(function(response) {
 				$("#ma_mon_hoc").val(response.ma_mon_hoc);
 				$("#ten").val(response.ten_mon_hoc);
-				$("#ma_khoa_hoc").val(response.ma_khoa_hoc);
+				$("#ma_chuyen_nganh").val(response.ma_chuyen_nganh);
 			})
 			.fail(function() {
 				console.log("error");
@@ -186,7 +186,7 @@
 	function validate() {
 		var dem = 0;
 		var mon_hoc = document.getElementById('mon_hoc').value;
-		var khoa_hoc = document.getElementById('khoa_hoc').value;
+		var chuyen_nganh = document.getElementById('chuyen_nganh').value;
 		var errMonHoc= document.getElementById('errMonHoc');
 		var errKhoaHoc = document.getElementById('errKhoaHoc');
 
@@ -196,7 +196,7 @@
 			errMonHoc.innerHTML="";
 			dem++;
 		}
-		if(khoa_hoc == ''){
+		if(chuyen_nganh == ''){
 			errKhoaHoc.innerHTML="Chưa chọn khóa học!";
 		}else {
 			errKhoaHoc.innerHTML="";

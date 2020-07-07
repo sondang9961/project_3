@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class KhoaHoc extends Migration
+class ChuyenNganh extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,11 @@ class KhoaHoc extends Migration
      */
     public function up()
     {
-        Schema::create('khoa_hoc', function (Blueprint $table) {
-            $table->increments('ma_khoa_hoc');
-            $table->string('ten_khoa_hoc', 50);
+        Schema::create('chuyen_nganh', function (Blueprint $table) {
+            $table->increments('ma_chuyen_nganh');
+            $table->string('ten_chuyen_nganh', 100);
+            $table->timestamp('created_at');
+            $table->timestamp('updated_at');
         });
     }
 
@@ -26,6 +28,6 @@ class KhoaHoc extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('khoa_hoc');
+        Schema::dropIfExists('chuyen_nganh');
     }
 }

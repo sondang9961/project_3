@@ -57,8 +57,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'CheckAdmin'], function(){
 		->name("$group.process_update");
 		Route::post("process_search","$controller@process_search")
 		->name("$group.process_search");
-		Route::get("get_lop_by_khoa_hoc","$controller@get_lop_by_khoa_hoc")
-		->name("get_lop_by_khoa_hoc");
+		Route::get("get_lop_by_chuyen_nganh","$controller@get_lop_by_chuyen_nganh")
+		->name("get_lop_by_chuyen_nganh");
 		Route::get("get_one","$controller@get_one")
 		->name("$group.get_one");
 	});
@@ -73,8 +73,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'CheckAdmin'], function(){
 		->name("$group.process_insert");
 		Route::post("process_update","$controller@process_update")
 		->name("$group.process_update");
-		Route::get("get_mon_hoc_by_khoa_hoc","$controller@get_mon_hoc_by_khoa_hoc")
-		->name("get_mon_hoc_by_khoa_hoc");
+		Route::get("get_mon_hoc_by_chuyen_nganh","$controller@get_mon_hoc_by_chuyen_nganh")
+		->name("get_mon_hoc_by_chuyen_nganh");
 		Route::get("get_one","$controller@get_one")
 		->name("$group.get_one");
 	});
@@ -103,14 +103,16 @@ Route::group(['prefix' => 'admin', 'middleware' => 'CheckAdmin'], function(){
 		$controller = "SachController";
 		Route::get("view_all","$controller@view_all")
 		->name("$group.view_all");
+		Route::get("view_so_luong_sach_nhap","$controller@view_so_luong_sach_nhap")
+		->name("$group.view_so_luong_sach_nhap");
 		Route::post("process_insert","$controller@process_insert")
 		->name("$group.process_insert");
 		Route::post("process_update","$controller@process_update")
 		->name("$group.process_update");
-		Route::get("get_sach_by_mon_hoc","$controller@get_sach_by_mon_hoc")
-		->name("get_sach_by_mon_hoc");
 		Route::get("get_sach_by_lop","$controller@get_sach_by_lop")
 		->name("get_sach_by_lop");
+		Route::get("get_sach_by_chuyen_nganh","$controller@get_sach_by_chuyen_nganh")
+		->name("get_sach_by_chuyen_nganh");
 		Route::get("get_one","$controller@get_one")
 		->name("$group.get_one");
 	});

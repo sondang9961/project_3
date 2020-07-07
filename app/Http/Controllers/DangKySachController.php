@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Request;
 use App\Helper;
 use App\Model\DangKySach;
-use App\Model\KhoaHoc;
+use App\Model\ChuyenNganh;
 use App\Model\Sach;
 
 if (version_compare(PHP_VERSION, '7.2.0', '>=')) {
@@ -19,9 +19,9 @@ class DangKySachController extends Controller
 	private $folder = 'dang_ky_sach';
 	public function view_all()
 	{
-		$array_khoa_hoc = KhoaHoc::all();
+		$array_chuyen_nganh = ChuyenNganh::all();
 	
-		$ma_khoa_hoc = Request::get('ma_khoa_hoc');
+		$ma_chuyen_nganh = Request::get('ma_chuyen_nganh');
 		$ma_sinh_vien = Request::get('ma_sinh_vien');
 		$ma_lop = Request::get('ma_lop');
 		$ma_sach = Request::get('ma_sach');
@@ -30,9 +30,9 @@ class DangKySachController extends Controller
 							->join('sinh_vien','dang_ky_sach.ma_sinh_vien','=','sinh_vien.ma_sinh_vien')
 							->join('sach','dang_ky_sach.ma_sach','=','sach.ma_sach')
 							->join('lop','sinh_vien.ma_lop','=','lop.ma_lop')
-							->join('khoa_hoc','lop.ma_khoa_hoc','=','khoa_hoc.ma_khoa_hoc');
-		if(!empty($ma_khoa_hoc)){
-			$array_dang_ky_sach = $array_dang_ky_sach->where('khoa_hoc.ma_khoa_hoc','=',$ma_khoa_hoc);
+							->join('chuyen_nganh','lop.ma_chuyen_nganh','=','chuyen_nganh.ma_chuyen_nganh');
+		if(!empty($ma_chuyen_nganh)){
+			$array_dang_ky_sach = $array_dang_ky_sach->where('chuyen_nganh.ma_chuyen_nganh','=',$ma_chuyen_nganh);
 		}
 		if(!empty($ma_lop)){
 			$array_dang_ky_sach = $array_dang_ky_sach->where('lop.ma_lop','=',$ma_lop);
@@ -45,16 +45,16 @@ class DangKySachController extends Controller
 		}
 		$array_dang_ky_sach = $array_dang_ky_sach->orderBy('ma_dang_ky','desc')->paginate(8);
 		$array_dang_ky_sach->appends(array(
-			'ma_khoa_hoc' => Input::get('ma_khoa_hoc'),
+			'ma_chuyen_nganh' => Input::get('ma_chuyen_nganh'),
 			'ma_lop' => Input::get('ma_lop'),
 			'ma_sinh_vien' => Input::get('ma_sinh_vien'),
 			'ma_sach' => Input::get('ma_sach')
 		));
 		if(count($array_dang_ky_sach) == 0){
 			$message = "Không tìm thấy kết quả";
-			return view("$this->folder.view_all",compact('message','array_dang_ky_sach','array_khoa_hoc'));
+			return view("$this->folder.view_all",compact('message','array_dang_ky_sach','array_chuyen_nganh'));
 		}
-		return view("$this->folder.view_all",compact('array_dang_ky_sach','array_khoa_hoc'));
+		return view("$this->folder.view_all",compact('array_dang_ky_sach','array_chuyen_nganh'));
 	}
 
 	public function process_insert()
