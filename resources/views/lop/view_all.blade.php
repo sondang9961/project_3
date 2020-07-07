@@ -36,6 +36,7 @@
 						<th>Mã</th>
 						<th>Tên lớp</th>
 						<th>Khóa học</th>
+						<th>Chuyên ngành</th>
 						<th>Sỹ số</th>
 						<th colspan="2">Chức năng</th>
 					</tr>
@@ -46,6 +47,7 @@
 							<td>{{$lop->ma_lop}}</td>
 							<td>{{$lop->ten_lop}}</td>
 							<td>{{$lop->ten_khoa_hoc}}</td>
+							<td>{{$lop->ten_chuyen_nganh}}</td>
 							<td>{{$lop->sy_so}}</td>
 							<td>
 								<input type="button" class='button_update btn btn-warning btn-fill btn-sm' value="Cập nhật" data-toggle="modal" data-target="#updateModal" data-ma_lop='{{$lop->ma_lop}}'>
@@ -96,7 +98,7 @@
                             <div class="col-sm-8">
                                 <div class="form-group">
                                     <select name="ma_khoa_hoc" id="khoa_hoc" class="form-control">
-										<option value="" disabled="disabled" selected="selected">Tên khóa học</option>
+										<option value="-1" disabled="disabled" selected="selected">Tên khóa học</option>
 										@foreach ($array_khoa_hoc as $khoa_hoc)
 											<option value="{{$khoa_hoc->ma_khoa_hoc}}">
 												{{$khoa_hoc->ten_khoa_hoc}}
@@ -104,6 +106,22 @@
 										@endforeach
 									</select>
 									<span id="errKhoaHoc" style="color: red"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-sm-3" style="margin-top: 1%;font-size: 1.75rem; font-weight: lighter">Chuyên ngành</label>
+                            <div class="col-sm-8">
+                                <div class="form-group">
+                                    <select name="ma_chuyen_nganh" id="chuyen_nganh" class="form-control">
+										<option value="-1" disabled="disabled" selected="selected">Tên chuyên ngành</option>
+										@foreach ($array_chuyen_nganh as $chuyen_nganh)
+											<option value="{{$chuyen_nganh->ma_chuyen_nganh}}">
+												{{$chuyen_nganh->ten_chuyen_nganh}}
+											</option>			
+										@endforeach
+									</select>
+									<span id="errChuyenNganh" style="color: red"></span>
                                 </div>
                             </div>
                         </div>					        	
@@ -152,6 +170,21 @@
 						          	</select>
                                 </div>
                             </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-sm-3" style="margin-top: 1%;font-size: 1.75rem; font-weight: lighter">Chuyên ngành</label>
+                            <div class="col-sm-8">
+                                <div class="form-group">
+                                    <select name="ma_chuyen_nganh" id="ma_chuyen_nganh" class="form-control">
+										<option value="" disabled="disabled" selected="selected">Tên chuyên ngành</option>
+										@foreach ($array_chuyen_nganh as $chuyen_nganh)
+											<option value="{{$chuyen_nganh->ma_chuyen_nganh}}">
+												{{$chuyen_nganh->ten_chuyen_nganh}}
+											</option>			
+										@endforeach
+									</select>
+                                </div>
+                            </div>
                         </div>						
 			        </form>
 		        </div>
@@ -182,6 +215,7 @@
 				$("#ma_lop").val(response.ma_lop);
 				$("#ten").val(response.ten_lop);
 				$("#ma_khoa_hoc").val(response.ma_khoa_hoc);
+				$("#ma_chuyen_nganh").val(response.ma_chuyen_nganh);
 			})
 			
 		});
@@ -189,9 +223,11 @@
 	function validate() {
 		var dem = 0;
 		var lop = document.getElementById('lop').value;
-		var ma_khoa_hoc = document.getElementById('khoa_hoc').value;
+		var khoa_hoc = document.getElementById('khoa_hoc').value;
+		var chuyen_nganh = document.getElementById('chuyen_nganh').value;
 		var errLop = document.getElementById('errLop');
 		var errKhoaHoc = document.getElementById('errKhoaHoc');
+		var errChuyenNganh = document.getElementById('errChuyenNganh');
 
 		if(lop.length == 0){
 			errLop.innerHTML="Không được trống!";
@@ -199,13 +235,19 @@
 			errLop.innerHTML="";
 			dem++;
 		}
-		if(ma_khoa_hoc == -1){
+		if(khoa_hoc == -1){
 			errKhoaHoc.innerHTML="Chưa chọn khóa học!";
 		}else {
 			errKhoaHoc.innerHTML="";
 			dem++;
 		}
-		if(dem == 2){
+		if(chuyen_nganh == -1){
+			errChuyenNganh.innerHTML="Chưa chọn chuyên ngành!";
+		}else {
+			errChuyenNganh.innerHTML="";
+			dem++;
+		}
+		if(dem == 3){
 			document.getElementById('form_insert').submit();
 		}
 	}
