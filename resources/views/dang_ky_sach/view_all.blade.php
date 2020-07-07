@@ -1,7 +1,7 @@
 @extends('layer.master')
 @section('pageTitle', 'Quản lý đăng ký sách')
 @push('css')
-<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet" />
+<link href="{{ asset('css/select2.min.css') }}" rel="stylesheet" />
 @endpush
 @section('content')
 	<div class="card">
@@ -211,7 +211,7 @@
 
 @endsection
 @push('js')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>
+<script src="{{ asset('js/select2.min.js') }}"></script>
 <script type="text/javascript">
 	function checkTinhTrang() {
 		if($("#select_sach").val()==null || $("#select_sinh_vien").val()==null){

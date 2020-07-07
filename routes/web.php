@@ -17,6 +17,20 @@ Route::group(['prefix' => 'admin', 'middleware' => 'CheckAdmin'], function(){
 	Route::get("view_doi_mat_khau","Controller@view_doi_mat_khau")->name('view_doi_mat_khau');
 	Route::post('process_update_mat_khau','Controller@process_update_mat_khau')->name('process_update_mat_khau');
 
+	//CHUYÊN NGÀNH
+	Route::group(["prefix" => "chuyen_nganh"], function(){
+		$group = "chuyen_nganh";
+		$controller = "ChuyenNganhController";
+		Route::get("view_all","$controller@view_all")
+		->name("$group.view_all");
+		Route::post("process_insert","$controller@process_insert")
+		->name("$group.process_insert");
+		Route::post("process_update","$controller@process_update")
+		->name("$group.process_update");
+		Route::get("get_one","$controller@get_one")
+		->name("$group.get_one");
+	});
+
 	//KHÓA HỌC
 	Route::group(["prefix" => "khoa_hoc"], function(){
 		$group = "khoa_hoc";

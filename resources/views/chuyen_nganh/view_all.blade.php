@@ -1,20 +1,20 @@
 @extends('layer.master')
-@section('pageTitle', 'Quản lý khóa học')
+@section('pageTitle', 'Quản lý chuyên ngành')
 @push('css')
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet" />
 @endpush
 @section('content')
 <font face="Roboto,Helvetica Neue,Arial,sans-serif">
 	<div class="card">
-		<h2 style="padding: 1%">Danh sách khóa học</h2>
+		<h2 style="padding: 1%">Danh sách chuyên ngành</h2>
 		<div class="content">
 			<div class="toolbar">
 	            <form>
-					Khóa học
-					<input type="text" name="ten_khoa_hoc" value="{{ Request::get('ten_khoa_hoc') }}">
+					Chuyên ngành
+					<input type="text" name="ten_chuyen_nganh" value="{{ Request::get('ten_chuyen_nganh') }}">
 					<input type="submit" class="btn btn-round btn-sm btn-fill" value="Xem">
 					<input type="button" class="btn btn-success btn-fill btn-sm btn-round" value="Thêm mới" data-toggle="modal" data-target="#addModal" style="margin-left: 5px">
-					<input type="button" class="btn btn-info btn-round btn-sm btn-fill" value="Hiện tất cả" onclick="location.href='{{ route('khoa_hoc.view_all') }}'" style="margin-left: 5px">
+					<input type="button" class="btn btn-info btn-round btn-sm btn-fill" value="Hiện tất cả" onclick="location.href='{{ route('chuyen_nganh.view_all') }}'" style="margin-left: 5px">
 				</form>
 	        </div>
 	        <div>
@@ -29,24 +29,24 @@
 			        </span>
 			    @endif
 	        </div>
-	        @if(isset($array_khoa_hoc))
+	        @if(isset($array_chuyen_nganh))
 			<table class="table table-striped table-no-bordered table-hover dataTable dtr-inline">
 				<thead>
 					<tr>
 						<th>Mã</th>
-						<th>Tên khóa học</th>
+						<th>Tên chuyên ngành</th>
 						<th>Chức năng</th>
 					</tr>
 				</thead>	
 				<tbody>
-					@foreach ($array_khoa_hoc as $khoa_hoc)
+					@foreach ($array_chuyen_nganh as $chuyen_nganh)
 						<tr>
-							<td>{{$khoa_hoc->ma_khoa_hoc}}</td>
+							<td>{{$chuyen_nganh->ma_chuyen_nganh}}</td>
 							<td>
-								{{$khoa_hoc->ten_khoa_hoc}}
+								{{$chuyen_nganh->ten_chuyen_nganh}}
 							</td>
 							<td>
-								<input type="button" class='button_update btn btn-warning btn-fill btn-sm' value="Cập nhật" data-toggle="modal" data-target="#updateModal" data-ma_khoa_hoc='{{$khoa_hoc->ma_khoa_hoc}}'>
+								<input type="button" class='button_update btn btn-warning btn-fill btn-sm' value="Cập nhật" data-toggle="modal" data-target="#updateModal" data-ma_chuyen_nganh='{{$chuyen_nganh->ma_chuyen_nganh}}'>
 							</td>
 						</tr>
 					@endforeach
@@ -54,7 +54,7 @@
 				<tfoot>
 					<tr>
 						<td colspan="100%">
-							 {!! $array_khoa_hoc->render()!!}
+							 {!! $array_chuyen_nganh->render()!!}
 						</td>
 					</tr>
 				</tfoot>
@@ -73,14 +73,14 @@
 		          	<h4 class="modal-title">Thêm khóa học</h4>
 		        </div>
 		        <div class="modal-body">
-			        <form action="{{route('khoa_hoc.process_insert')}}" method="post" id="form_insert">
+			        <form action="{{route('chuyen_nganh.process_insert')}}" method="post" id="form_insert">
 			        	{{csrf_field()}}
 		                <div class="row">
-                            <label class="col-sm-3" style="margin-top: 1%;font-size: 1.75rem; font-weight:lighter">Tên khóa học</label>
+                            <label class="col-sm-4" style="margin-top: 1%;font-size: 1.75rem; font-weight:lighter">Tên chuyên ngành</label>
                             <div class="col-sm-8">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" name="ten_khoa_hoc" id="khoa_hoc">
-									<span id="errKhoaHoc" style="color: red"></span>
+                                    <input type="text" class="form-control" name="ten_chuyen_nganh" id="chuyen_nganh">
+									<span id="errChuyenNganh" style="color: red"></span>
                                 </div>
                             </div>
                         </div>
@@ -99,18 +99,18 @@
 	      	<div class="modal-content">
 		        <div class="modal-header">
 		        	<button type="button" class="close" data-dismiss="modal">&times;</button>
-		          	<h4 class="modal-title">Cập nhật khóa học</h4>
+		          	<h4 class="modal-title">Cập nhật chuyên ngành</h4>
 		        </div>
 		        <div class="modal-body">
-			        <form action="{{route('khoa_hoc.process_update')}}" method="post" id="form_update">
+			        <form action="{{route('chuyen_nganh.process_update')}}" method="post" id="form_update">
 			        	{{csrf_field()}}
-			          	<input type="hidden" name="ma_khoa_hoc" id="ma_khoa_hoc">
+			          	<input type="hidden" name="ma_chuyen_nganh" id="ma_chuyen_nganh">
 			        	<div class="row">
-                            <label class="col-sm-3 col-form-label" style="margin-top: 1%;font-size: 1.75rem; font-weight: lighter">Tên khóa học</label>
+                            <label class="col-sm-4" style="margin-top: 1%;font-size: 1.75rem; font-weight:lighter">Tên chuyên ngành</label>
                             <div class="col-sm-8">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" name="ten_khoa_hoc" id="ten">
-									<span id="errTen" style="color: red"></span>
+                                    <input type="text" class="form-control" name="ten_chuyen_nganh" id="ten">
+									<span id="errTenChuyenNganh" style="color: red"></span>
                                 </div>
                             </div>
                         </div>
@@ -129,17 +129,17 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		$(".button_update").click(function(event) {
-			var ma_khoa_hoc = $(this).data('ma_khoa_hoc');
+			var ma_chuyen_nganh = $(this).data('ma_chuyen_nganh');
 			$.ajax({
-				url: '{{ route('khoa_hoc.get_one') }}',
+				url: '{{ route('chuyen_nganh.get_one') }}',
 				dataType: 'json',
 				data: {
-					ma_khoa_hoc: ma_khoa_hoc
+					ma_chuyen_nganh: ma_chuyen_nganh
 				},
 			})
 			.done(function(response) {
-				$("#ma_khoa_hoc").val(response.ma_khoa_hoc);
-				$("#ten").val(response.ten_khoa_hoc);
+				$("#ma_chuyen_nganh").val(response.ma_chuyen_nganh);
+				$("#ten").val(response.ten_chuyen_nganh);
 			})
 			.fail(function() {
 				console.log("error");
@@ -149,13 +149,13 @@
 
 	function validate() {
 		var dem = 0;
-		var khoa_hoc = document.getElementById('khoa_hoc').value;
-		var errKhoaHoc = document.getElementById('errKhoaHoc');
+		var chuyen_nganh = document.getElementById('chuyen_nganh').value;
+		var errChuyenNganh = document.getElementById('errChuyenNganh');
 
-		if(khoa_hoc.length == 0){
-			errKhoaHoc.innerHTML="Không được trống!";
+		if(chuyen_nganh.length == 0){
+			errChuyenNganh.innerHTML="Không được trống!";
 		}else{
-			errKhoaHoc.innerHTML="";
+			errChuyenNganh.innerHTML="";
 			dem++;
 		}
 		if(dem == 1){
@@ -165,10 +165,10 @@
 
 	function validate_update() {
 		var ten = document.getElementById('ten').value;
-		var errTen = document.getElementById('errTen');
+		var errTenChuyenNganh = document.getElementById('errTenChuyenNganh');
 
 		if(ten.length == 0){
-			errTen.innerHTML="Không được trống!";
+			errTenChuyenNganh.innerHTML="Không được trống!";
 		}else{
 			document.getElementById('form_update').submit();
 		}

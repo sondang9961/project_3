@@ -1,7 +1,7 @@
 @extends('layer.master')
 @section('pageTitle', 'Thống kê sinh viên')
 @push('css')
-	<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet" />
+<link href="{{ asset('css/select2.min.css') }}" rel="stylesheet" />
 @endpush
 @section('content')
 	<div class="card">	
@@ -82,7 +82,7 @@
 
 @endsection
 @push('js')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>
+<script src="{{ asset('js/select2.min.js') }}"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
 		$("#search_lop").select2();

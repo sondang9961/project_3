@@ -43,6 +43,16 @@
 
 		<ul class="nav">
 			<li
+				@if(Request::url() === 'http://localhost:8080/project_3/public/admin/chuyen_nganh/view_all')
+                	class="active"   
+                @endif
+			>
+				<a class="nav-link" href="{{route('chuyen_nganh.view_all')}}">
+					<i class="pe-7s-study"></i>
+					<p>Quản lý chuyên ngành</p>
+				</a>
+			</li>
+			<li
 				@if(Request::url() === 'http://localhost:8080/project_3/public/admin/khoa_hoc/view_all')
                 	class="active"   
                 @endif
