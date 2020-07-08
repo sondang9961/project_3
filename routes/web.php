@@ -85,6 +85,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'CheckAdmin'], function(){
 		$controller = "SinhVienController";
 		Route::get("view_all","$controller@view_all")
 		->name("$group.view_all");
+		Route::post("import","$controller@import")
+		->name("$group.import");
 		Route::post("process_insert","$controller@process_insert")
 		->name("$group.process_insert");
 		Route::post("process_update/{ma_sinh_vien}","$controller@process_update")

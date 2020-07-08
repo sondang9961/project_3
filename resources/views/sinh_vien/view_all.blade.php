@@ -28,6 +28,43 @@
 			        </span>
 			    @endif
 	        </div>
+    		<br />
+		   	@if(count($errors) > 0)
+		   		<div class="alert alert-danger">
+			     	<ul>
+			     		@foreach($errors->all() as $error)
+			      			<li>{{ $error }}</li>
+			      		@endforeach
+			     	</ul>
+		    	</div>
+		   	@endif
+		   	@if($message = Session::get('success'))
+		   		<div class="alert alert-success alert-block">
+		    		<button type="button" class="close" data-dismiss="alert">×</button>
+		           <strong>{{ $message }}</strong>
+		   		</div>
+		   	@endif
+		   	<form method="post" enctype="multipart/form-data" action="{{ route('sinh_vien.import') }}">
+		    {{ csrf_field() }}
+			    <div class="form-group">
+			     	<table class="table">
+			      		<tr>
+				       		<td width="40%" align="right"><label>Nhập sinh viên từ file excel</label></td>
+				       		<td width="30">
+				        		<input type="file" name="select_file" />
+				       		</td>
+				       		<td width="30%" align="left">
+				        		<input type="submit" name="upload" class="btn btn-primary" value="Upload">
+				       		</td>
+				      	</tr>
+				      	<tr>
+				       		<td width="40%" align="right"></td>
+				       		<td width="30"></td>
+				       		<td width="30%" align="left"></td>
+				      	</tr>
+				    </table>
+				</div>
+		   	</form>
 	        @if(count($array_sinh_vien) > 0)
 			<table class="table table-striped">
 				<thead>

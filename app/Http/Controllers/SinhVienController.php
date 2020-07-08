@@ -2,11 +2,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Input;
+
 use Sofa\Eloquence\Subquery;
-use Request;
+use Illuminate\Http\Request;
 use Response;
 use App\Model\SinhVien;
 use App\Model\Lop;
+use Excel;
 
 if (version_compare(PHP_VERSION, '7.2.0', '>=')) {
 // Ignores notices and reports all other kinds... and warnings
@@ -97,5 +99,25 @@ class SinhVienController extends Controller
 		$ma_sinh_vien = Request::get('ma_sinh_vien');
 		$sinh_vien = SinhVien::where('ma_sinh_vien','=',$ma_sinh_vien)->first();		
 		return Response::json($sinh_vien);
+	}
+
+	public function import(Request $request)
+	{
+		$validate = $request->validate([
+			'select_file' => 'required|mimes:xls,xlsx'
+		]);
+
+		$path = $request->file('select_file')->getRealPath();
+
+		$data = Excel::load($path)->get();
+
+		$data = $data->toArray();
+		$results = [];
+
+		foreach ($data as $key => $value) {
+			$results[] = (object) $value;
+		}
+
+		return view("$this->folder.view_all",compact('results'))->with('success', 'Import file thành công');
 	}
 }
