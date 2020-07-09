@@ -16,8 +16,7 @@ class ChuyenNganh extends Migration
         Schema::create('chuyen_nganh', function (Blueprint $table) {
             $table->increments('ma_chuyen_nganh');
             $table->string('ten_chuyen_nganh', 100);
-            $table->timestamp('created_at');
-            $table->timestamp('updated_at');
+            $table->timestamps(0);
         });
     }
 

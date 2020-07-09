@@ -21,6 +21,7 @@ class GiaoVu extends Migration
             $table->string('email', 100);
             $table->string('sdt', 11);
             $table->string('dia_chi', 200);
+            $table->timestamps(0);
         });
     }
 

@@ -10,6 +10,7 @@ use App\Model\SinhVien;
 use App\Model\Lop;
 use Excel;
 use App\Imports\SinhVienImport;
+use Exception;
 
 if (version_compare(PHP_VERSION, '7.2.0', '>=')) {
 // Ignores notices and reports all other kinds... and warnings
@@ -58,6 +59,10 @@ class SinhVienController extends Controller
 	{
 		$sinh_vien = new SinhVien();
 		$sinh_vien->ten_sinh_vien = Request::get('ten_sinh_vien');
+		$sinh_vien->ngay_sinh = Request::get('ngay_sinh');
+		$sinh_vien->email = Request::get('email');
+		$sinh_vien->sdt = Request::get('sdt');
+		$sinh_vien->dia_chi = Request::get('dia_chi');
 		$sinh_vien->ma_lop = Request::get('ma_lop');
 		$sinh_vien->save();
 
@@ -69,10 +74,20 @@ class SinhVienController extends Controller
 	{
 		$ma_sinh_vien = Request::get('ma_sinh_vien');
 		$ten_sinh_vien = Request::get('ten_sinh_vien');
+		$ngay_sinh = Request::get('ngay_sinh');
+		$email = Request::get('email');
+		$sdt = Request::get('sdt');
+		$dia_chi = Request::get('dia_chi');
 		$ma_lop = Request::get('ma_lop');
 	
 		SinhVien::where('ma_sinh_vien','=',$ma_sinh_vien)
-					->update(['ten_sinh_vien' => $ten_sinh_vien,'ma_lop' => $ma_lop]);
+				->update([
+						'ten_sinh_vien' => $ten_sinh_vien,
+						'ngay_sinh' => $ngay_sinh,
+						'email' => $email,
+						'sdt' => $sdt,
+						'dia_chi' => $dia_chi,
+						'ma_lop' => $ma_lop]);
 			
 		return redirect()->route("$this->folder.view_all")->with('success','Cập nhật thành công');
 	}
@@ -95,9 +110,9 @@ class SinhVienController extends Controller
 		return view("$this->folder.danh_sach_sinh_vien_by_lop",compact('array_sinh_vien'));
 	}
 
-	public function get_one()
+	public function get_one(Request $request)
 	{
-		$ma_sinh_vien = Request::get('ma_sinh_vien');
+		$ma_sinh_vien = $request->has('ma_sinh_vien');
 		$sinh_vien = SinhVien::where('ma_sinh_vien','=',$ma_sinh_vien)->first();		
 		return Response::json($sinh_vien);
 	}
@@ -109,10 +124,16 @@ class SinhVienController extends Controller
 
 	public function import(Request $request)
 	{
-		$file = $request->file('select_file')->path();
+		try {
+			$file = $request->file('select_file')->path();
 
-		Excel::import(new SinhVienImport, $file);
+			Excel::import(new SinhVienImport, $file);
 
-		 return back()->with('success', 'Tải lên thành công.');
+			return back()->with('import_success', 'Tải lên thành công.');
+		} 
+		catch (Exception $e) {
+			return back()->with('import_fail', 'Tải lên không thành công.');
+		}
+		
 	}
 }

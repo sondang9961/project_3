@@ -16,8 +16,7 @@ class KhoaHoc extends Migration
         Schema::create('khoa_hoc', function (Blueprint $table) {
             $table->increments('ma_khoa_hoc');
             $table->string('ten_khoa_hoc', 100);
-            $table->timestamp('created_at');
-            $table->timestamp('updated_at');
+            $table->timestamps(0);
         });
     }
 

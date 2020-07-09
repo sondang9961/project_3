@@ -17,16 +17,22 @@
 					<input type="button" class="btn btn-info btn-round btn-sm btn-fill" value="Hiện tất cả" onclick="location.href='{{ route('lop.view_all') }}'" style="margin-left: 5px">
 			</form>
 			</div>
-			<div>
+			<div style="margin-top: 12px">
 	        	@if (Session::has('error'))
-					<span style="color: red">
-			            {{Session::get('error')}}
-			        </span>
+	        		<div class="alert alert-danger alert-block">
+						{{Session::get('error')}}
+						<button type="button" aria-hidden="true" class="close" data-dismiss="alert">
+	                        <i class="pe-7s-close"></i>
+	                    </button>
+			   		</div>
 				@endif
 				@if (Session::has('success'))
-			        <span style="color: green">
-			            {{Session::get('success')}}
-			        </span>
+					<div class="alert alert-success alert-block">
+						{{Session::get('success')}}
+						<button type="button" aria-hidden="true" class="close" data-dismiss="alert">
+	                        <i class="pe-7s-close"></i>
+	                    </button>
+			   		</div>
 			    @endif
 	        </div>
 	        @if(count($array_lop) > 0)

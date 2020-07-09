@@ -21,8 +21,7 @@ class Sach extends Migration
             $table->date('ngay_het_han');
             $table->integer('ma_mon_hoc')->unsigned();
             $table->foreign('ma_mon_hoc')->references('ma_mon_hoc')->on('mon_hoc');
-            $table->timestamp('created_at');
-            $table->timestamp('updated_at');
+            $table->timestamps(0);
         });
     }
 

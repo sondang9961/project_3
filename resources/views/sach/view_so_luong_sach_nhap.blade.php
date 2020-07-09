@@ -49,21 +49,73 @@
 						</tr>
 					</table>
 				</form>
+				@if (isset($ma_chuyen_nganh) && !isset($ma_khoa_hoc))
+			   		<div class="alert alert-danger alert-block">
+						Bạn chưa chọn khóa học
+						<button type="button" aria-hidden="true" class="close" data-dismiss="alert">
+	                        <i class="pe-7s-close"></i>
+	                    </button>
+			   		</div>
+			   	@endif
+				@if(isset($ma_khoa_hoc) && !isset($ma_chuyen_nganh))
+					<div class="alert alert-danger alert-block">
+						Bạn chưa chọn chuyên ngành
+						<button type="button" aria-hidden="true" class="close" data-dismiss="alert">
+	                        <i class="pe-7s-close"></i>
+	                    </button>
+			   		</div>
+				@endif
 				@if (isset($ma_chuyen_nganh) && isset($ma_khoa_hoc))
-					<table>
-						<tr>
-							<td><h4>Số lớp của khóa là:</h4></td>
-							<td style="padding-left: 8px"><h4><b>{{$count_lop}}</b> lớp</h4></td>
-						</tr>
-						<tr>
-							<td><h4>Số sinh viên mỗi lớp là:</h4></td>
-							<td style="padding-left: 8px"><h4><b>{{$count_sinh_vien}}</b> sinh viên</h4></td>
-						</tr>
-						<tr>
-							<td><h4>Số sách cần nhập là:</h4></td>
-							<td style="padding-left: 8px"><h4><b>{{$count_sach}}</b> quyển sách</h4></td>
-						</tr>
-					</table>
+				<table>
+					<tr>
+						<td>
+							<table>
+								<tr>
+									<td><h4>Số lớp của khóa là:</h4></td>
+									<td style="padding-left: 8px"><h4><b>{{$count_lop}}</b> lớp</h4></td>
+								</tr>
+								<tr>
+									<td><h4>Số sinh viên mỗi lớp là:</h4></td>
+									<td style="padding-left: 8px"><h4><b>{{$count_sinh_vien}}</b> sinh viên</h4></td>
+								</tr>
+								<tr>
+									<td><h4>Số sách cần nhập là:</h4></td>
+									<td style="padding-left: 8px"><h4><b>{{$count_sach}}</b> quyển sách</h4></td>
+								</tr>
+							</table>
+						</td>
+						<td>
+							@if ($ma_chuyen_nganh == 1)
+							<div style="padding-left: 8rem">
+								<h4>Danh sách những đầu sách chuyên ngành lập trình</h4>	
+									<ol>
+										<li>Toán cao cấp</li>
+										<li>Tin học văn phòng</li>
+										<li>Anh ICT</li>
+										<li>Lập trình C</li>
+										<li>Bài giảng cơ sở dữ liệu</li>
+										<li>Bài giảng PHP</li>
+										<li>Bài giảng Java</li>
+									</ol>
+								</div>
+							@endif
+							@if ($ma_chuyen_nganh == 2)
+							<div style="padding-left: 8rem">
+								<h4>Danh sách những đầu sách chuyên ngành quản trị mạng</h4>
+									<ol>
+										<li>Nhập môn mạng cơ bản</li>
+										<li>Packet tracer</li>
+										<li>Cisco</li>
+										<li>Bài giảng CCNA</li>
+										<li>Bài giảng CCNP</li>
+										<li>Bài giảng MCSA</li>
+										<li>Bài giảng MCSE</li>
+									</ol>
+								</div>
+							@endif							
+						</td>
+					</tr>
+				</table>
 				@endif
 				<button class='button_update btn btn-info btn-fill btn-wd center-block' onclick="location.href='{{ route('sach.view_all') }}'">Quay lại</button>
 			</div>

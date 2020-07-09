@@ -6,6 +6,7 @@ use App\Model\SinhVien;
 use App\Model\Lop;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Maatwebsite\Excel\Concerns\WithMapping;
 
 class SinhVienImport implements ToModel, WithHeadingRow
 {
@@ -18,8 +19,11 @@ class SinhVienImport implements ToModel, WithHeadingRow
     {
         $data = [
             'ten_sinh_vien' => $row['ten_sinh_vien'],
-
-            'ma_lop'        => Lop::firstOrCreate(['ten_lop' => $row['ma_lop']])->ma_lop
+            'ngay_sinh'     => date_format(\PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row['ngay_sinh']), 'Y-m-d'),
+            'email'         => $row['email'],
+            'sdt'           => $row['sdt'],
+            'dia_chi'       => $row['dia_chi'],
+            'ma_lop'        => Lop::where(['ten_lop' => $row['lop']])->value('ma_lop')
         ];
 
         return new SinhVien($data);

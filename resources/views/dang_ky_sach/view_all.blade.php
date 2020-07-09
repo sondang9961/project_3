@@ -63,23 +63,32 @@
 					</table>
 				</form>
 			</div>
-			<div>
-				@if (Session::has('error'))
-                    <span style="color: red">
-                        {{Session::get('error')}}
-                    </span>
-                @endif
-                @if (Session::has('error_1'))
-                    <span style="color: red">
-                        {{Session::get('error_1')}}
-                    </span>
-                @endif
-                @if (Session::has('success'))
-                    <span style="color: green">
-                        {{Session::get('success')}}
-                    </span>
-                @endif
-			</div>
+			<div style="margin-top: 12px">
+	        	@if (Session::has('error'))
+	        		<div class="alert alert-danger alert-block">
+						{{Session::get('error')}}
+						<button type="button" aria-hidden="true" class="close" data-dismiss="alert">
+	                        <i class="pe-7s-close"></i>
+	                    </button>
+			   		</div>
+				@endif
+				@if (Session::has('error_1'))
+	        		<div class="alert alert-danger alert-block">
+						{{Session::get('error_1')}}
+						<button type="button" aria-hidden="true" class="close" data-dismiss="alert">
+	                        <i class="pe-7s-close"></i>
+	                    </button>
+			   		</div>
+				@endif
+				@if (Session::has('success'))
+					<div class="alert alert-success alert-block">
+						{{Session::get('success')}}
+						<button type="button" aria-hidden="true" class="close" data-dismiss="alert">
+	                        <i class="pe-7s-close"></i>
+	                    </button>
+			   		</div>
+			    @endif
+	        </div>
 			@if (count($array_dang_ky_sach) > 0)
 				<table class="table table-striped table-no-bordered table-hover dataTable dtr-inline">
 				<thead>

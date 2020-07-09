@@ -20,8 +20,7 @@ class Lop extends Migration
             $table->foreign('ma_khoa_hoc')->references('ma_khoa_hoc')->on('khoa_hoc');
             $table->integer('ma_chuyen_nganh')->unsigned();
             $table->foreign('ma_chuyen_nganh')->references('ma_chuyen_nganh')->on('chuyen_nganh');
-            $table->timestamp('created_at');
-            $table->timestamp('updated_at');
+            $table->timestamps(0);
         });
     }
 

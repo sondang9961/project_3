@@ -22,8 +22,7 @@ class SinhVien extends Migration
             $table->string('dia_chi', 100);
             $table->integer('ma_lop')->unsigned();
             $table->foreign('ma_lop')->references('ma_lop')->on('lop');
-            $table->timestamp('created_at');
-            $table->timestamp('updated_at');
+            $table->timestamps(0);
         });
     }
 

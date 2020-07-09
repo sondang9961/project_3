@@ -1,7 +1,7 @@
 @extends('layer.master')
 @section('pageTitle', 'Quản lý sách')
 @push('css')
-<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet" />
+<link href="{{ asset('css/select2.min.css') }}" rel="stylesheet" />
 @endpush
 @section('content')
 	<div class="card">
@@ -17,16 +17,22 @@
 					<input type="button" class="btn btn-primary btn-round btn-sm btn-fill" value="Số lượng sách cần nhập" onclick="location.href='{{ route('sach.view_so_luong_sach_nhap') }}'" style="margin-left: 5px">
 				</form>
 			</div>
-			<div>
+			<div style="margin-top: 12px">
 	        	@if (Session::has('error'))
-					<span style="color: red">
-			            {{Session::get('error')}}
-			        </span>
+	        		<div class="alert alert-danger alert-block">
+						{{Session::get('error')}}
+						<button type="button" aria-hidden="true" class="close" data-dismiss="alert">
+	                        <i class="pe-7s-close"></i>
+	                    </button>
+			   		</div>
 				@endif
 				@if (Session::has('success'))
-			        <span style="color: green">
-			            {{Session::get('success')}}
-			        </span>
+					<div class="alert alert-success alert-block">
+						{{Session::get('success')}}
+						<button type="button" aria-hidden="true" class="close" data-dismiss="alert">
+	                        <i class="pe-7s-close"></i>
+	                    </button>
+			   		</div>
 			    @endif
 	        </div>
 	        @if(count($array_sach) > 0)
@@ -184,7 +190,7 @@
   	</div>
 @endsection
 @push('js')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>
+<script src="{{ asset('js/select2.min.js') }}"></script>
 <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js" type="text/javascript"></script>
 
 <script type="text/javascript">
