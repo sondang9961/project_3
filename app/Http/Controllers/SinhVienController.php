@@ -9,6 +9,7 @@ use Response;
 use App\Model\SinhVien;
 use App\Model\Lop;
 use Excel;
+use App\Imports\SinhVienImport;
 
 if (version_compare(PHP_VERSION, '7.2.0', '>=')) {
 // Ignores notices and reports all other kinds... and warnings
@@ -101,23 +102,17 @@ class SinhVienController extends Controller
 		return Response::json($sinh_vien);
 	}
 
+	public function view_import_excel()
+	{
+		return view("$this->folder.view_import_excel");
+	}
+
 	public function import(Request $request)
 	{
-		$validate = $request->validate([
-			'select_file' => 'required|mimes:xls,xlsx'
-		]);
+		$file = $request->file('select_file')->path();
 
-		$path = $request->file('select_file')->getRealPath();
+		Excel::import(new SinhVienImport, $file);
 
-		$data = Excel::load($path)->get();
-
-		$data = $data->toArray();
-		$results = [];
-
-		foreach ($data as $key => $value) {
-			$results[] = (object) $value;
-		}
-
-		return view("$this->folder.view_all",compact('results'))->with('success', 'Import file thành công');
+		 return back()->with('success', 'Tải lên thành công.');
 	}
 }

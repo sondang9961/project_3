@@ -14,6 +14,7 @@
 					<input type="submit" class="btn btn-round btn-sm btn-fill" value="Xem">
 					<input type="button" class="btn btn-success btn-fill btn-sm btn-round" value="Thêm mới" data-toggle="modal" data-target="#addModal" style="margin-left: 5px">
 					<input type="button" class="btn btn-info btn-round btn-sm btn-fill" value="Hiện tất cả" onclick="location.href='{{ route('sinh_vien.view_all') }}'" style="margin-left: 5px">
+					{{-- <input type="button" class="btn btn-primary btn-round btn-sm btn-fill" value="Thêm bằng excel" onclick="location.href='{{ route('sinh_vien.view_import_excel') }}'" style="margin-left: 5px"> --}}
 				</form>
 			</div>
 			<div>
@@ -29,37 +30,25 @@
 			    @endif
 	        </div>
     		<br />
-		   	@if(count($errors) > 0)
-		   		<div class="alert alert-danger">
-			     	<ul>
-			     		@foreach($errors->all() as $error)
-			      			<li>{{ $error }}</li>
-			      		@endforeach
-			     	</ul>
-		    	</div>
-		   	@endif
-		   	@if($message = Session::get('success'))
-		   		<div class="alert alert-success alert-block">
-		    		<button type="button" class="close" data-dismiss="alert">×</button>
-		           <strong>{{ $message }}</strong>
-		   		</div>
-		   	@endif
 		   	<form method="post" enctype="multipart/form-data" action="{{ route('sinh_vien.import') }}">
 		    {{ csrf_field() }}
 			    <div class="form-group">
+			    	<h5 align="center">Nhập sinh viên từ file excel</h5>
 			     	<table class="table">
 			      		<tr>
-				       		<td width="40%" align="right"><label>Nhập sinh viên từ file excel</label></td>
+				       		<td width="40%" align="right">
+				       			<label>Chọn file excel (.xls, .xlsx)</label>
+				       		</td>
 				       		<td width="30">
-				        		<input type="file" name="select_file" />
+				        		<input type="file" name="select_file" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />
 				       		</td>
 				       		<td width="30%" align="left">
-				        		<input type="submit" name="upload" class="btn btn-primary" value="Upload">
+				        		<input type="submit" name="upload" class="btn btn-primary btn-sm btn-fill" value="Tải lên">
 				       		</td>
 				      	</tr>
 				      	<tr>
-				       		<td width="40%" align="right"></td>
-				       		<td width="30"></td>
+				       		<td width="20%" align="right"></td>
+				       		<td width="50" align="left"></td>
 				       		<td width="30%" align="left"></td>
 				      	</tr>
 				    </table>
