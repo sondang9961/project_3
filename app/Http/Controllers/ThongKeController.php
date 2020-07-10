@@ -22,24 +22,30 @@ class ThongKeController extends Controller
 		$ma_lop = Request::get('ma_lop');
 		$ma_sach = Request::get('ma_sach');
 
+
 		$array_not_in = SinhVien::query()
 			->join('dang_ky_sach','sinh_vien.ma_sinh_vien','=','dang_ky_sach.ma_sinh_vien')
 			->where('ma_lop','=',$ma_lop)
 			->where('ma_sach','=',$ma_sach)->get(['sinh_vien.ma_sinh_vien']);
 
-		$array_thong_ke_sinh_vien = DB::table('sinh_vien')
+		if(isset($ma_lop) && isset($ma_sach)){
+			$array_thong_ke_sinh_vien = DB::table('sinh_vien')
 			->select(DB::raw('ma_sinh_vien,ten_sinh_vien,lop.ma_lop,ten_lop'))
 			->join('lop','sinh_vien.ma_lop','=','lop.ma_lop')	
 			->whereNotIn('ma_sinh_vien',$array_not_in)
 			->where('sinh_vien.ma_lop','=',$ma_lop)
-			->orderBy('ma_sinh_vien','desc')->paginate(2);
+			->orderBy('ma_sinh_vien','desc')->paginate(10);
 		
-		$array_thong_ke_sinh_vien->appends(array(
-			'ma_lop' => Input::get('ma_lop'),
-			'ma_sach' => Input::get('ma_sach')
-		));
+			$array_thong_ke_sinh_vien->appends(array(
+				'ma_lop' => Input::get('ma_lop'),
+				'ma_sach' => Input::get('ma_sach')
+			));
 
+			return view("$this->folder.view_thong_ke_sinh_vien",compact('array_thong_ke_sinh_vien','array_lop','array_sach','ma_lop','ma_sach'));
+		}
+		$array_thong_ke_sinh_vien = [];
 		return view("$this->folder.view_thong_ke_sinh_vien",compact('array_thong_ke_sinh_vien','array_lop','array_sach','ma_lop','ma_sach'));
+		
 	}
 
 	public function view_thong_ke_sach()

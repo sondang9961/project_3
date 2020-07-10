@@ -51,7 +51,19 @@
 
 
 		<!--footer-->
-		
+		<footer class="footer">
+            <div class="container">
+                <nav>
+                    <p class="copyright text-center">
+                        ©
+                        <script>
+                            document.write(new Date().getFullYear())
+                        </script>
+                        <a href="https://www.bkacad.com/vn/index.php">BKACAD</a>, made with love
+                    </p>
+                </nav>
+            </div>
+        </footer>
 	</div>
 </div>
 

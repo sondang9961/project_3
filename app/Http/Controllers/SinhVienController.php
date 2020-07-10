@@ -10,6 +10,7 @@ use App\Model\SinhVien;
 use App\Model\Lop;
 use Excel;
 use App\Imports\SinhVienImport;
+use App\Exports\SinhVienExport;
 use Exception;
 
 if (version_compare(PHP_VERSION, '7.2.0', '>=')) {
@@ -135,5 +136,10 @@ class SinhVienController extends Controller
 			return back()->with('import_fail', 'Tải lên không thành công.');
 		}
 		
+	}
+
+	public function export()
+	{
+		return Excel::download(new SinhVienExport, 'sinh_vien_list.xlsx');
 	}
 }

@@ -37,9 +37,9 @@
 								</select>
 							</td>
 							<td>
-								<input type="submit" class="btn btn-round btn-sm btn-fill" value="Xem" id="button" disabled>
+								<input type="submit" class="btn btn-info btn-round btn-sm btn-fill" value="Xem" id="button" disabled>								
+								<input type="button" class="btn btn-round btn-sm btn-fill" value="Hủy tìm kiếm" onclick="location.href='{{ route('dang_ky_sach.view_all') }}'" style="margin-left: 5px">
 								<input type="button" class="btn btn-success btn-fill btn-sm btn-round" value="Thêm mới" data-toggle="modal" data-target="#addModal" style="margin-left: 5px">
-								<input type="button" class="btn btn-info btn-round btn-sm btn-fill" value="Hiện tất cả" onclick="location.href='{{ route('dang_ky_sach.view_all') }}'" style="margin-left: 5px">
 							</td>
 						</tr>
 						<tr>

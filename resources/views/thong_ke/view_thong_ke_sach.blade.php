@@ -31,7 +31,7 @@
 								</table>
 							</td>
 							<td >
-								<input type="submit" class="btn btn-round btn-sm btn-fill" value="Xem"style="margin-left: 5px">
+								<input type="submit" class="btn btn-info btn-round btn-sm btn-fill" value="Xem"style="margin-left: 25px">
 							</td>
 						</tr>
 					</table>			

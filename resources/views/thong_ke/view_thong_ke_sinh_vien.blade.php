@@ -44,12 +44,20 @@
 								</div>
 							</td>
 							<td style="padding-bottom: 5%">
-								<input type="submit" class="btn btn-round btn-sm btn-fill" value="Xem"style="margin-left: 5px">
+								<input type="submit" class="btn btn-info btn-round btn-sm btn-fill" value="Xem">
 							</td>
 						</tr>
 					</table>
 				</form>
 			</div>
+			@if(isset($ma_sach) && !isset($ma_lop))
+				<div class="alert alert-danger alert-block">
+					Bạn chưa chọn lớp
+					<button type="button" aria-hidden="true" class="close" data-dismiss="alert">
+                        <i class="pe-7s-close"></i>
+                    </button>
+		   		</div>
+			@endif
 			@if (count($array_thong_ke_sinh_vien) > 0)
 				<table class="table table-striped">
 					<thead>
