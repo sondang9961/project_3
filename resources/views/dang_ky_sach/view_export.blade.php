@@ -1,3 +1,4 @@
+<center><h3>Danh sách sinh viên đã đăng ký sách {{$array_dang_ky_sach[0]->ten_sach}} lớp {{$array_dang_ky_sach[0]->ten_lop}}</h3></center>
 <table>
 	<thead>
 		<tr>
@@ -15,7 +16,7 @@
 				<td>{{$dang_ky_sach->ten_sinh_vien}}</td>
 				<td>{{$dang_ky_sach->ten_lop}}</td>
 				<td>
-					{!!Helper::getRadioTinhTrang($dang_ky_sach->tinh_trang_nhan_sach,$dang_ky_sach->ma_dang_ky)!!}
+					{!!Helper::getTenTinhTrang($dang_ky_sach->tinh_trang_nhan_sach)!!}
 				</td>
 				<td>{{$dang_ky_sach->ten_sach}} ({{date_format(date_create($dang_ky_sach->ngay_nhap_sach),'d/m/Y')}})</td>
 				<td>

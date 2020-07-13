@@ -7,6 +7,7 @@ use Sofa\Eloquence\Subquery;
 use Illuminate\Http\Request;
 use Response;
 use App\Model\SinhVien;
+use App\Model\DangKySach;
 use App\Model\Lop;
 use Excel;
 use App\Imports\SinhVienImport;
@@ -125,21 +126,33 @@ class SinhVienController extends Controller
 
 	public function import(Request $request)
 	{
-		// try {
+		try {
 			$file = $request->file('select_file')->path();
 
 			Excel::import(new SinhVienImport, $file);
 
 			return back()->with('import_success', 'Tải lên thành công.');
-		// } 
-		// catch (Exception $e) {
+		} 
+		catch (Exception $e) {
 			return back()->with('import_fail', 'Tải lên không thành công.');
-		// }
+		}
 		
 	}
 
 	public function export()
 	{
 		return Excel::download(new SinhVienExport, 'danh_sach_sinh_vien.xlsx');
+	}
+
+	public function delete_process($ma_sinh_vien)
+	{
+		$sinh_vien = SinhVien::where('ma_sinh_vien','=',$ma_sinh_vien);
+
+		$dang_ky_sach = DangKySach::where('ma_sinh_vien','=',$ma_sinh_vien);
+
+		$dang_ky_sach->delete();
+		$sinh_vien->delete();
+
+		return back()->with('delete', 'Đã xóa sinh viên');
 	}
 }

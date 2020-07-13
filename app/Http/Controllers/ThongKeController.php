@@ -8,6 +8,9 @@ use App\Model\Sach;
 use App\Model\MonHoc;
 use App\Model\SinhVien;
 use App\Model\DangKySach;
+use App\Exports\ThongKeSachExport;
+use App\Exports\ThongKeSinhVienExport;
+use Excel;
 use DB;
 
 class ThongKeController extends Controller
@@ -22,7 +25,6 @@ class ThongKeController extends Controller
 
 		$ma_lop = Request::get('ma_lop');
 		$ma_sach = Request::get('ma_sach');
-
 
 		$array_not_in = SinhVien::query()
 			->join('dang_ky_sach','sinh_vien.ma_sinh_vien','=','dang_ky_sach.ma_sinh_vien')
@@ -61,18 +63,17 @@ class ThongKeController extends Controller
 									if(a.so_luong_da_phat is null,0,a.so_luong_da_phat) as so_luong_da_phat,
 									if(so_luong_nhap-so_luong_da_phat is null,so_luong_nhap,so_luong_nhap-so_luong_da_phat) as so_luong_ton_kho,
 									ngay_nhap_sach'))
-								
 								->leftJoin(DB::raw('(select ma_sach,count(*) as so_luong_da_phat from dang_ky_sach where tinh_trang_nhan_sach = 1  group by ma_sach)a'),'a.ma_sach','=','sach.ma_sach')
-								->join('mon_hoc','sach.ma_mon_hoc','=','mon_hoc.ma_mon_hoc');
-		if(!empty($search)){
-			$array_thong_ke_sach = $array_thong_ke_sach->where('ten_mon_hoc','like', '%'.$search.'%')
-													   ->orWhere('ten_sach','like', '%'.$search.'%');
-		}
-		if(!empty($start)){
+								->join('mon_hoc','sach.ma_mon_hoc','=','mon_hoc.ma_mon_hoc');	
+		if(isset($start)){
 			$array_thong_ke_sach = $array_thong_ke_sach->where('ngay_nhap_sach','>=',$start);
 		}
-		if(!empty($end)){
+		if(isset($end)){
 			$array_thong_ke_sach = $array_thong_ke_sach->where('ngay_nhap_sach','<=',$end);
+		}
+		if(isset($search)){
+			$array_thong_ke_sach = $array_thong_ke_sach->where('ten_mon_hoc','like', '%'.$search.'%')
+													   ->orWhere('ten_sach','like', '%'.$search.'%');
 		}
 		
 		$array_thong_ke_sach = $array_thong_ke_sach->orderBy('sach.ngay_nhap_sach','desc')->paginate(5);
@@ -85,27 +86,46 @@ class ThongKeController extends Controller
 		if(!empty($start) && !empty($end) && $start > $end){
 			$message = 'Bạn phải nhập ngày bắt đầu nhỏ hơn ngày kết thúc !';
 				return view("$this->folder.view_thong_ke_sach",
-				compact('message','array_thong_ke_sach','search','start')
+				compact('message','array_thong_ke_sach','search','start','end')
 			);
 		}
 		if(count($array_thong_ke_sach) == 0){
 			$message = 'Không tìm thấy kết quả';
-			return view("$this->folder.view_thong_ke_sach",compact('message','array_thong_ke_sach','search','start'));
+			return view("$this->folder.view_thong_ke_sach",compact('message','array_thong_ke_sach','search','start','end'));
 		}
 		
-		return view("$this->folder.view_thong_ke_sach",compact('array_thong_ke_sach','search','start'));
+		return view("$this->folder.view_thong_ke_sach",compact('array_thong_ke_sach','search','start','end'));
 	}
 
 	public function view_thong_ke_sach_chi_tiet($ma_sach)
 	{
+		$ma_lop = Request::get('ma_lop');
+
 		$array_thong_ke_sach = DangKySach::query()
 			->join('sinh_vien','dang_ky_sach.ma_sinh_vien','=','sinh_vien.ma_sinh_vien')	
 			->join('lop','sinh_vien.ma_lop','=','lop.ma_lop')
 			->join('sach','dang_ky_sach.ma_sach','=','sach.ma_sach')
 			->where('dang_ky_sach.ma_sach', '=', $ma_sach)	
-			->where('tinh_trang_nhan_sach', '=', 1)->orderBy('lop.ma_lop')->get();
+			->where('tinh_trang_nhan_sach', '=', 1);
+		if(isset($ma_lop)){
+			$array_thong_ke_sach = $array_thong_ke_sach->where('lop.ma_lop', '=', $ma_lop);
+		}
+		
+		$array_thong_ke_sach = $array_thong_ke_sach->orderBy('lop.ma_lop')->paginate(8);
 
-		return view("$this->folder.view_thong_ke_sach_chi_tiet",compact('array_thong_ke_sach')); 
+
+		$array_lop = DB::select(DB::raw("select lop.ma_lop, ten_lop from dang_ky_sach left join sinh_vien on dang_ky_sach.ma_sinh_vien = sinh_vien.ma_sinh_vien RIGHT JOIN lop on sinh_vien.ma_lop = lop.ma_lop where dang_ky_sach.ma_sach = '$ma_sach' and dang_ky_sach.tinh_trang_nhan_sach = 1 group by lop.ma_lop, ten_lop"));
+		
+		return view("$this->folder.view_thong_ke_sach_chi_tiet",compact('array_thong_ke_sach','array_lop','ma_lop')); 
 	}
 
+	public function export_thong_ke_sach()
+	{
+		return Excel::download(new ThongKeSachExport, 'thong_ke_sach.xlsx');
+	}
+
+	public function export_thong_ke_sinh_vien()
+	{
+		return Excel::download(new ThongKeSinhVienExport, 'thong_ke_sinh_vien.xlsx');
+	}
 }

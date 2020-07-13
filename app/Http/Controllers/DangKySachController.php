@@ -108,10 +108,9 @@ class DangKySachController extends Controller
 		
 	}
 
-	public function export($ma_lop, $ma_sach)
+	public function export()
 	{
-		$exporter 	= app()->makeWith(DangKySachExport::class, compact('ma_lop','ma_sach'));	
-		return $exporter->download('danh_sach_dang_ky.xlsx');
+		return Excel::download(new DangKySachExport, 'danh_sach_sinh_vien.xlsx');
 	}
 	
 }

@@ -8,6 +8,7 @@ use App\Model\MonHoc;
 use App\Model\ChuyenNganh;
 use App\Exports\MonHocExport;
 use Excel;
+use PDF;
 
 class MonHocController extends Controller
 {
@@ -91,4 +92,20 @@ class MonHocController extends Controller
 	{
 		return Excel::download(new MonHocExport, 'danh_sach_mon_hoc.xlsx');
 	}
+
+	public function view_pdf()
+	{
+		$array_mon_hoc = MonHoc::query()->join('chuyen_nganh','mon_hoc.ma_chuyen_nganh','=','chuyen_nganh.ma_chuyen_nganh')->get();
+        
+        return view("$this->folder.view_pdf",compact('array_mon_hoc'));
+	}
+
+	public function export_pdf()
+	{
+		$pdf = PDF::loadView('mon_hoc.view_pdf');
+		return $pdf->download('danh_sach_mon_hoc.pdf');
+	}
+
+	
+
 }

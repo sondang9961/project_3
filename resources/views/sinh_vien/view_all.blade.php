@@ -68,7 +68,7 @@
 			   		</div>
 				@endif
 				@if (Session::has('delete'))
-	        		<div class="alert alert-success alert-block">
+	        		<div class="alert alert-warning alert-block">
 						{{Session::get('delete')}}
 						<button type="button" aria-hidden="true" class="close" data-dismiss="alert">
 	                        <i class="pe-7s-close"></i>

@@ -1,0 +1,35 @@
+<center>
+	<h3>Danh sách các đầu sách
+		@if (isset($search) && isset($start) && isset($end))
+			{{$array_thong_ke_sach[0]->ten_sach}} nhập từ {{$start}} đến {{$end}}
+		@elseif(isset($search) && isset($start))
+			{{$array_thong_ke_sach[0]->ten_sach}} nhập từ {{$start}}
+		@elseif(isset($search) && isset($end))
+			{{$array_thong_ke_sach[0]->ten_sach}} nhập đến {{$end}}
+		@elseif(isset($start) && isset($end))
+			nhập từ {{$start}} đến {{$end}}
+	 	@endif
+	</h3>
+</center>
+<table class="table table-striped" border="1" cellspacing="0">
+	<thead>
+		<tr>
+			<th>Tên sách</th>
+			<th>Ngày nhập</th>
+			<th>Số lượng nhập</th>
+			<th>Số lượng đã phát</th>
+			<th>Số lượng tồn kho</th>
+		</tr>
+	</thead>	
+	<tbody>
+		@foreach ($array_thong_ke_sach as $thong_ke)
+			<tr>
+				<td>{{$thong_ke->ten_sach}}</td>
+				<td>{{date_format(date_create($thong_ke->ngay_nhap_sach),'d/m/Y')}}</td>
+				<td>{{$thong_ke->so_luong_nhap}}</td>
+				<td>{{$thong_ke->so_luong_da_phat}}</td>
+				<td>{{$thong_ke->so_luong_ton_kho}}</td>			
+			</tr>
+		@endforeach
+	</tbody>
+</table>

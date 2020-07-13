@@ -1,35 +1,38 @@
 @extends('layer.master')
 @section('pageTitle', 'Thống kê sách chi tiết')
+@push('css')
+<link href="{{ asset('css/select2.min.css') }}" rel="stylesheet" />
+@endpush
 @section('content')
 	<div class="card">
 		<h2 style="padding: 1%">Danh sách sinh viên đã nhận sách <b>{{$array_thong_ke_sach[0]->ten_sach}}</b> </h2>	
 		<div class="content">
 			<div class="toolbar">
 				<form>
-					{{-- <table>
+					<table>
 						<tr>
-							<td>
-								<b>Tên lớp</b>
-							</td>
 							<td style="padding-bottom: 4%">
-								<select name="ma_lop" class="form-control" style="width: 17rem">
-									<option disabled selected value="">--Chọn lớp--</option>
-									@foreach ($array_lop as $lop)
-										<option value="{{$lop->ma_lop}}"
+								<div style="margin-right: 3rem ">Tên lớp
+									<select name="ma_lop" id="search_lop" class="form-control" style="width: 14rem">
+										<option selected disabled>--Tên lớp--</option>
+										<option value="">Hiện tất cả</option>
+										@foreach ($array_lop as $lop)
+											<option value="{{$lop->ma_lop}}"
 											@if ($lop->ma_lop == $ma_lop)
 												selected 
-											@endif
+											@endif		
 											>
-											{{$lop->ten_lop}}
-										</option>
-									@endforeach
-								</select>
+												{{$lop->ten_lop}}
+											</option>
+										@endforeach
+									</select>
+								</div>
 							</td>
-							<td>
-								<input type="submit" class="btn btn-info btn-round btn-sm btn-fill" value="Xem"style="margin-left: 25px">
+							<td >
+								<input type="submit" class="btn btn-info btn-round btn-sm btn-fill" value="Xem" style="margin-bottom: 11px">
 							</td>
 						</tr>
-					</table> --}}			
+					</table>
 				</form>
 			</div>
 			<table class="table table-striped" style="width: 70%" >
@@ -52,9 +55,7 @@
 				<tfoot>
 					<tr>
 						<td colspan="100%"> 
-							{{-- {!! $array_thong_ke_sach->render()!!} --}}
-							<button class='button_update btn btn-info btn-fill btn-wd center-block' onclick="goBack()">Quay lại</button>
-						</td>
+							{!! $array_thong_ke_sach->render()!!}
 					</tr>
 				</tfoot>
 			</table>
@@ -63,9 +64,10 @@
 
 @endsection
 @push('js')
-<script>
-	function goBack() {
-	  window.history.back();
-	}
+<script src="{{ asset('js/select2.min.js') }}">
+	
+</script>
+<script type="text/javascript">
+	$("#search_lop").select2();
 </script>
 @endpush

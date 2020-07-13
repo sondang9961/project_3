@@ -33,6 +33,13 @@
 							<td >
 								<input type="submit" class="btn btn-info btn-round btn-sm btn-fill" value="Xem"style="margin-left: 25px">
 							</td>
+							<td>
+								@if (!empty($search) || !empty($start) && !empty($end) && $start < $end )
+									<a style="margin-left: 5px" class="btn btn-primary btn-round btn-sm btn-outline" href="{{ route('thong_ke.export_thong_ke_sach',['search' => $search, 'start' => $start, 'end' => $end]) }}">
+										Xuất file excel
+									</a>
+								@endif
+							</td>
 						</tr>
 					</table>			
 				</form>

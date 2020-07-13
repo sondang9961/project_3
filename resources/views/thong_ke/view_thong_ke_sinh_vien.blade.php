@@ -46,6 +46,13 @@
 							<td style="padding-bottom: 5%">
 								<input type="submit" class="btn btn-info btn-round btn-sm btn-fill" value="Xem">
 							</td>
+							<td style="padding-bottom: 5%; padding-left: 5px">
+								@if (isset($ma_lop) && isset($ma_sach))
+									<a style="margin-left: 5px" class="btn btn-primary btn-round btn-sm btn-outline" href="{{ route('thong_ke.export_thong_ke_sinh_vien',['ma_lop' => $ma_lop, 'ma_sach' => $ma_sach]) }}">
+										Xuất file excel
+									</a>
+								@endif
+							</td>
 						</tr>
 					</table>
 				</form>

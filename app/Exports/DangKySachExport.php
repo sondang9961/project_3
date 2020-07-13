@@ -3,33 +3,23 @@
 namespace App\Exports;
 
 use App\Model\DangKySach;
-use Sofa\Eloquence\Subquery;
-use Illuminate\Database\Eloquent\Builder;
-use App\Helper;
+
 use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\FromView;
-use Maatwebsite\Excel\Concerns\FromQuery;
-use Maatwebsite\Excel\Concerns\Exportable;
 use Request;
 
-class DangKySachExport implements FromQuery
+class DangKySachExport implements FromView
 {
     /**
     * @return \Illuminate\Support\Collection
     */
 
-    use Exportable;
-	protected $ma_lop, $ma_sach;
-
-	public function __construct($ma_lop,$ma_sach)
-	{
-		$this->ma_lop = $ma_lop;
-		$this->ma_sach = $ma_sach;
-	}
-
-    public function query()
+    public function view(): View
     {
-        return DangKySach::query()
+    	$ma_lop = Request::get('ma_lop');
+    	$ma_sach = Request::get('ma_sach');
+
+        $array_dang_ky_sach = DangKySach::query()
 						->join('sinh_vien','dang_ky_sach.ma_sinh_vien','=','sinh_vien.ma_sinh_vien')
 						->join('sach','dang_ky_sach.ma_sach','=','sach.ma_sach')
 						->join('lop','sinh_vien.ma_lop','=','lop.ma_lop')
@@ -38,5 +28,6 @@ class DangKySachExport implements FromQuery
 						->where('sach.ma_sach','=',$ma_sach)
 						->get();
 
+		return view('dang_ky_sach.view_export', ['array_dang_ky_sach' => $array_dang_ky_sach]);				
     }
 }

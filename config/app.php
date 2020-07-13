@@ -165,6 +165,7 @@ return [
         Illuminate\View\ViewServiceProvider::class,
 
         'Barryvdh\Debugbar\ServiceProvider',
+        Barryvdh\DomPDF\ServiceProvider::class,
         /*
          * Package Service Providers...
          */
@@ -230,7 +231,7 @@ return [
         'Helper' => App\Helper::class,
         'Debugbar' => 'Barryvdh\Debugbar\Facade',
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
-
+        'PDF' => Barryvdh\DomPDF\Facade::class,
     ],
 
 ];
