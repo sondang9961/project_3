@@ -41,7 +41,9 @@
 								<input type="button" class="btn btn-round btn-sm btn-fill" value="Hủy tìm kiếm" onclick="location.href='{{ route('dang_ky_sach.view_all') }}'" style="margin-left: 5px">
 								<input type="button" class="btn btn-success btn-fill btn-sm btn-round" value="Thêm mới" data-toggle="modal" data-target="#addModal" style="margin-left: 5px">
 								@if (isset($ma_lop) && isset($ma_sach))
-									<input type="button" class="btn btn-primary btn-round btn-sm btn-outline" value="Xuất file excel" onclick="location.href='{{ route('dang_ky_sach.export') }}'" style="margin-left: 5px">
+									<a style="margin-left: 5px" class="btn btn-primary btn-round btn-sm btn-outline" href="{{ route('dang_ky_sach.export',['ma_lop' => $ma_lop, 'ma_sach' => $ma_sach]) }}">
+										Xuất file excel
+									</a>
 								@endif
 							</td>
 						</tr>

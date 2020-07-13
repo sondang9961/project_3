@@ -1,5 +1,4 @@
-<center><h3>Danh sách đăng ký</h3></center>
-<table class="table table-striped" border="1" cellspacing="0">
+<table>
 	<thead>
 		<tr>
 			<th>Tên sinh viên</th>

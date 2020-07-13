@@ -67,6 +67,14 @@
 	                    </button>
 			   		</div>
 				@endif
+				@if (Session::has('delete'))
+	        		<div class="alert alert-success alert-block">
+						{{Session::get('delete')}}
+						<button type="button" aria-hidden="true" class="close" data-dismiss="alert">
+	                        <i class="pe-7s-close"></i>
+	                    </button>
+			   		</div>
+				@endif
 				@if (Session::has('success'))
 					<div class="alert alert-success alert-block">
 						{{Session::get('success')}}
@@ -104,6 +112,9 @@
 							<td>{{$sinh_vien->ten_lop}}</td>
 							<td>
 								<input type="button" class='button_update btn btn-warning btn-fill btn-sm' value="Cập nhật" data-toggle="modal" data-target="#myModal" data-ma_sinh_vien='{{$sinh_vien->ma_sinh_vien}}'>		
+							</td>
+							<td>
+								<input type="button" class='button_update btn btn-danger btn-fill btn-sm' value="Xóa" onclick="if(confirm('Bạn có chắc muốn xóa!'))location.href='{{ route('sinh_vien.delete_process',['ma_sinh_vien' => $sinh_vien->ma_sinh_vien]) }}'">		
 							</td>				
 						</tr>
 					@endforeach
