@@ -7,6 +7,7 @@ use App\Model\Lop;
 use App\Model\Sach;
 use App\Model\MonHoc;
 use App\Model\SinhVien;
+use App\Model\DangKySach;
 use DB;
 
 class ThongKeController extends Controller
@@ -93,6 +94,18 @@ class ThongKeController extends Controller
 		}
 		
 		return view("$this->folder.view_thong_ke_sach",compact('array_thong_ke_sach','search','start'));
+	}
+
+	public function view_thong_ke_sach_chi_tiet($ma_sach)
+	{
+		$array_thong_ke_sach = DangKySach::query()
+			->join('sinh_vien','dang_ky_sach.ma_sinh_vien','=','sinh_vien.ma_sinh_vien')	
+			->join('lop','sinh_vien.ma_lop','=','lop.ma_lop')
+			->join('sach','dang_ky_sach.ma_sach','=','sach.ma_sach')
+			->where('dang_ky_sach.ma_sach', '=', $ma_sach)	
+			->where('tinh_trang_nhan_sach', '=', 1)->orderBy('lop.ma_lop')->get();
+
+		return view("$this->folder.view_thong_ke_sach_chi_tiet",compact('array_thong_ke_sach')); 
 	}
 
 }

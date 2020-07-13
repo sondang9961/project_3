@@ -14,6 +14,7 @@
 					<input type="submit" class="btn btn-info btn-round btn-sm btn-fill" value="Xem">					
 					<input type="button" class="btn btn-round btn-sm btn-fill" value="Hủy tìm kiếm" onclick="location.href='{{ route('mon_hoc.view_all') }}'" style="margin-left: 5px">
 					<input type="button" class="btn btn-success btn-fill btn-sm btn-round" value="Thêm mới" data-toggle="modal" data-target="#addModal" style="margin-left: 5px">
+					<input type="button" class="btn btn-primary btn-round btn-sm btn-outline" value="Xuất file excel" onclick="location.href='{{ route('mon_hoc.export') }}'" style="margin-left: 5px">
 				</form>
 			</div>
 			<div style="margin-top: 12px">

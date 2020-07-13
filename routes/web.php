@@ -61,6 +61,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'CheckAdmin'], function(){
 		->name("get_lop_by_chuyen_nganh");
 		Route::get("get_one","$controller@get_one")
 		->name("$group.get_one");
+		Route::get("export","$controller@export")
+		->name("$group.export");
 	});
 
 	//MÔN HỌC
@@ -77,6 +79,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'CheckAdmin'], function(){
 		->name("get_mon_hoc_by_chuyen_nganh");
 		Route::get("get_one","$controller@get_one")
 		->name("$group.get_one");
+		Route::get("export","$controller@export")
+		->name("$group.export");
 	});
 
 	//SINH VIÊN
@@ -135,7 +139,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'CheckAdmin'], function(){
 		->name("$group.process_update");
 		Route::get("change_tinh_trang_dang_ky_sach","$controller@change_tinh_trang_dang_ky_sach")
 		->name("$group.change_tinh_trang_dang_ky_sach");
-
+		Route::get("export","$controller@export")
+		->name("$group.export");
 	});
 
 	//THỐNG KÊ
@@ -144,6 +149,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'CheckAdmin'], function(){
 		->name("thong_ke.view_thong_ke_sinh_vien");
 		Route::get("view_thong_ke_sach","ThongKeController@view_thong_ke_sach")
 		->name("thong_ke.view_thong_ke_sach");
+		Route::get("view_thong_ke_sach_chi_tiet/{ma_sach}","ThongKeController@view_thong_ke_sach_chi_tiet")
+		->name("thong_ke.view_thong_ke_sach_chi_tiet");
 		// Route::get("view_all","ThongKeController@view_all")
 		// ->name("thong_ke.view_all");
 	});

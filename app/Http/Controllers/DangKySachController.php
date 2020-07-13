@@ -8,6 +8,8 @@ use App\Helper;
 use App\Model\DangKySach;
 use App\Model\ChuyenNganh;
 use App\Model\Sach;
+use Excel;
+use App\Exports\DangKySachExport;
 
 if (version_compare(PHP_VERSION, '7.2.0', '>=')) {
 // Ignores notices and reports all other kinds... and warnings
@@ -54,7 +56,7 @@ class DangKySachController extends Controller
 			$message = "Không tìm thấy kết quả";
 			return view("$this->folder.view_all",compact('message','array_dang_ky_sach','array_chuyen_nganh'));
 		}
-		return view("$this->folder.view_all",compact('array_dang_ky_sach','array_chuyen_nganh'));
+		return view("$this->folder.view_all",compact('array_dang_ky_sach','array_chuyen_nganh','ma_chuyen_nganh','ma_lop','ma_sinh_vien','ma_sach'));
 	}
 
 	public function process_insert()
@@ -104,6 +106,12 @@ class DangKySachController extends Controller
 				break;
 		}
 		
+	}
+
+	public function export($ma_lop, $ma_sach)
+	{
+		$exporter 	= app()->makeWith(DangKySachExport::class, compact('ma_lop','ma_sach'));	
+		return $exporter->download('danh_sach_dang_ky.xlsx');
 	}
 	
 }

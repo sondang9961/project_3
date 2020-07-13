@@ -9,6 +9,8 @@ use App\Model\Lop;
 use App\Model\KhoaHoc;
 use App\Model\ChuyenNganh;
 use App\Model\SinhVien;
+use App\Exports\LopExport;
+use Excel;
 
 if (version_compare(PHP_VERSION, '7.2.0', '>=')) {
 // Ignores notices and reports all other kinds... and warnings
@@ -112,5 +114,10 @@ class LopController extends Controller
 		$ma_lop = Request::get('ma_lop');
 		$lop = Lop::where('ma_lop','=',$ma_lop)->first();
 		return Response::json($lop);
+	}
+
+	public function export()
+	{
+		return Excel::download(new LopExport, 'danh_sach_lop.xlsx');
 	}
 }

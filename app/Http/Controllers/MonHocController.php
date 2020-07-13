@@ -6,6 +6,8 @@ use Request;
 use Response;
 use App\Model\MonHoc;
 use App\Model\ChuyenNganh;
+use App\Exports\MonHocExport;
+use Excel;
 
 class MonHocController extends Controller
 {
@@ -83,5 +85,10 @@ class MonHocController extends Controller
 		$ma_mon_hoc = Request::get('ma_mon_hoc');
 		$mon_hoc = MonHoc::where('ma_mon_hoc','=',$ma_mon_hoc)->first();
 		return Response::json($mon_hoc);
+	}
+
+	public function export()
+	{
+		return Excel::download(new MonHocExport, 'danh_sach_mon_hoc.xlsx');
 	}
 }

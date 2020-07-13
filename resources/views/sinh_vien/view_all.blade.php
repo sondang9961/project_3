@@ -268,7 +268,7 @@
                             <label class="col-sm-3" style="margin-top: 1%;font-size: 1.75rem; font-weight:lighter">Lớp</label>
                             <div class="col-sm-8">
                                 <div class="form-group">
-                                    <select name="ma_lop" id="ma_lop" class="form-control" style="width: 37rem">
+                                    <select name="ma_lop" id="ma_lop" class="form-control" style="width: 34.5rem">
 						          		@foreach($array_lop as $lop)
 											<option value="{{$lop->ma_lop}}">
 												{{$lop->ten_lop}}
@@ -289,10 +289,11 @@
   	</div>
 @endsection
 @push('js')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>
-<script type="text/javascript">
+<script src="{{ asset('js/select2.min.js') }}">
 	$("#select_lop").select2();
 	$("#ma_lop").select2();
+</script>
+<script type="text/javascript">
 	$(document).ready(function() {
 		$(".button_update").click(function(event) {
 			var ma_sinh_vien = $(this).data('ma_sinh_vien');

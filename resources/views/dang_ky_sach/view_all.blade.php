@@ -9,7 +9,7 @@
 		<div class="content">
 			<div class="toolbar">
 				<form>
-					<table style="width: 100%">
+					<table style="width: 90%">
 						<tr style="height: 4rem">
 							<td>
 								<b>Tên chuyên ngành</b>
@@ -19,9 +19,9 @@
 									<option disabled selected value="">--Chọn chuyên ngành--</option>
 									@foreach ($array_chuyen_nganh as $chuyen_nganh)
 										<option value="{{$chuyen_nganh->ma_chuyen_nganh}}"
-											@if ($chuyen_nganh->ma_chuyen_nganh == $ma_chuyen_nganh)
+											{{-- @if ($chuyen_nganh->ma_chuyen_nganh == $ma_chuyen_nganh)
 												selected 
-											@endif
+											@endif --}}
 											>
 											{{$chuyen_nganh->ten_chuyen_nganh}}
 										</option>
@@ -40,6 +40,9 @@
 								<input type="submit" class="btn btn-info btn-round btn-sm btn-fill" value="Xem" id="button" disabled>								
 								<input type="button" class="btn btn-round btn-sm btn-fill" value="Hủy tìm kiếm" onclick="location.href='{{ route('dang_ky_sach.view_all') }}'" style="margin-left: 5px">
 								<input type="button" class="btn btn-success btn-fill btn-sm btn-round" value="Thêm mới" data-toggle="modal" data-target="#addModal" style="margin-left: 5px">
+								@if (isset($ma_lop) && isset($ma_sach))
+									<input type="button" class="btn btn-primary btn-round btn-sm btn-outline" value="Xuất file excel" onclick="location.href='{{ route('dang_ky_sach.export') }}'" style="margin-left: 5px">
+								@endif
 							</td>
 						</tr>
 						<tr>
@@ -117,7 +120,6 @@
 								@if($dang_ky_sach->tinh_trang_nhan_sach == 1)
 									{{date_format(date_create($dang_ky_sach->ngay_nhan_sach),'d/m/Y')}}
 								@endif
-
 							</td>
 						</tr>
 					@endforeach
@@ -209,7 +211,7 @@
 		      	</div>
 	    	</div>
 	  	</div>
-
+	</div>
 @endsection
 @push('js')
 <script src="{{ asset('js/select2.min.js') }}"></script>

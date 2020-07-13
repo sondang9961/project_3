@@ -49,10 +49,10 @@ class SinhVienController extends Controller
 		}
 	}
 
-	public function get_sinh_vien_by_lop()
+	public function get_sinh_vien_by_lop(Request $request)
 	{
-		$ma_lop = Request::get('ma_lop');
-		$array_sinh_vien = SinhVien::get_all_by_lop($ma_lop);
+		$ma_lop = $request->get('ma_lop');
+		$array_sinh_vien = SinhVien::get_sinh_vien_by_lop($ma_lop);
 		return $array_sinh_vien;
 	}
 
@@ -113,7 +113,7 @@ class SinhVienController extends Controller
 
 	public function get_one(Request $request)
 	{
-		$ma_sinh_vien = $request->has('ma_sinh_vien');
+		$ma_sinh_vien = $request->get('ma_sinh_vien');
 		$sinh_vien = SinhVien::where('ma_sinh_vien','=',$ma_sinh_vien)->first();		
 		return Response::json($sinh_vien);
 	}
@@ -125,21 +125,21 @@ class SinhVienController extends Controller
 
 	public function import(Request $request)
 	{
-		try {
+		// try {
 			$file = $request->file('select_file')->path();
 
 			Excel::import(new SinhVienImport, $file);
 
 			return back()->with('import_success', 'Tải lên thành công.');
-		} 
-		catch (Exception $e) {
+		// } 
+		// catch (Exception $e) {
 			return back()->with('import_fail', 'Tải lên không thành công.');
-		}
+		// }
 		
 	}
 
 	public function export()
 	{
-		return Excel::download(new SinhVienExport, 'sinh_vien_list.xlsx');
+		return Excel::download(new SinhVienExport, 'danh_sach_sinh_vien.xlsx');
 	}
 }
