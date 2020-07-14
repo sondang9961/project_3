@@ -49,14 +49,21 @@
 		   	</form>
 			<div class="toolbar">
 				<form>
-					Tìm kiếm
-					<input type="text" name="search" placeholder="sinh viên, lớp học" value="{{ Request::get('search') }}">
-					<input type="submit" class="btn btn-info btn-round btn-sm btn-fill" value="Xem">					
-					<input type="button" class="btn btn-round btn-sm btn-fill" value="Hủy tìm kiếm" onclick="location.href='{{ route('sinh_vien.view_all') }}'" style="margin-left: 5px">
-					<input type="button" class="btn btn-success btn-fill btn-sm btn-round" value="Thêm mới" data-toggle="modal" data-target="#addModal" style="margin-left: 5px">
-					{{-- <input type="button" class="btn btn-primary btn-round btn-sm btn-fill" value="Thêm bằng excel" onclick="location.href='{{ route('sinh_vien.view_import_excel') }}'" style="margin-left: 5px"> --}}
-					<input type="button" class="btn btn-primary btn-round btn-sm btn-outline" value="Xuất file excel" onclick="location.href='{{ route('sinh_vien.export') }}'" style="margin-left: 5px">
-					<input type="button" class="btn btn-danger btn-round btn-sm btn-outline" value="Xuất file pdf" onclick="location.href='{{ route('sinh_vien.export_pdf') }}'" style="margin-left: 5px">
+					<table>
+						<tr>
+							<td>
+								Tìm kiếm <br>
+								<input type="text" name="search" placeholder="tên sinh viên, lớp học" value="{{ Request::get('search') }}">
+							</td>
+							<td style="padding-left: 10px; padding-top: 15px">
+								<input type="submit" class="btn btn-info btn-round btn-sm btn-fill" value="Xem">
+								<input type="button" class="btn btn-round btn-sm btn-fill" value="Hủy tìm kiếm" onclick="location.href='{{ route('sinh_vien.view_all') }}'" style="margin-left: 5px">
+								<input type="button" class="btn btn-success btn-fill btn-sm btn-round" value="Thêm mới" data-toggle="modal" data-target="#addModal" style="margin-left: 5px">
+								<input type="button" class="btn btn-primary btn-round btn-sm btn-outline" value="Xuất file excel" onclick="location.href='{{ route('sinh_vien.export',['search' => $search]) }}'" style="margin-left: 5px">
+								<input type="button" class="btn btn-danger btn-round btn-sm btn-outline" value="Xuất file pdf" onclick="location.href='{{ route('sinh_vien.export_pdf',['search' => $search]) }}'" style="margin-left: 5px">
+							</td>
+						</tr>
+					</table>
 				</form>
 			</div>
 			<div style="margin-top: 12px">
@@ -87,7 +94,7 @@
 	        </div>
     		<br />
 		   	
-	        @if(count($array_sinh_vien) > 0)
+	        @if(isset($array_sinh_vien) && count($array_sinh_vien) > 0)
 			<table class="table table-striped">
 				<thead>
 					<tr>
@@ -301,11 +308,11 @@
   	</div>
 @endsection
 @push('js')
-<script src="{{ asset('js/select2.min.js') }}">
+<script src="{{ asset('js/select2.min.js') }}"></script>
+<script type="text/javascript">
 	$("#select_lop").select2();
 	$("#ma_lop").select2();
-</script>
-<script type="text/javascript">
+
 	$(document).ready(function() {
 		$(".button_update").click(function(event) {
 			var ma_sinh_vien = $(this).data('ma_sinh_vien');

@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-	<title>Danh sách lớp</title>
+	<title>
+		Danh sách lớp</title>
 	<style>
 		.page-break {
 		    page-break-after: always;

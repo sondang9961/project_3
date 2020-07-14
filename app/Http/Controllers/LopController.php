@@ -48,10 +48,10 @@ class LopController extends Controller
 		
 		$array_lop->appends(array('search' => Input::get('search')));
 		if(count($array_lop) > 0){
-			return view("$this->folder.view_all",compact('array_lop','array_khoa_hoc','array_chuyen_nganh'));
+			return view("$this->folder.view_all",compact('array_lop','array_khoa_hoc','array_chuyen_nganh','search'));
 		}
 		$message = "Không tìm thấy kết quả";
-		return view("$this->folder.view_all",compact('message','array_lop','array_khoa_hoc','array_chuyen_nganh'));
+		return view("$this->folder.view_all",compact('message','array_lop','array_khoa_hoc','array_chuyen_nganh','search'));
 	}
 	
 	public function get_lop_by_chuyen_nganh()
@@ -122,13 +122,22 @@ class LopController extends Controller
 		    'sy_so'
 		);
 
+		$search = Request::get('search');
+	
 		$array_lop = Lop::from('lop')
-	        ->select('*', $countSinhVien)
-	        ->addBinding($countSinhVien->getBindings(), 'select')
-	        ->join('khoa_hoc','lop.ma_khoa_hoc','=','khoa_hoc.ma_khoa_hoc')
-	        ->join('chuyen_nganh','lop.ma_chuyen_nganh','=','chuyen_nganh.ma_chuyen_nganh')->get();
+			        ->select('*', $countSinhVien)
+			        ->addBinding($countSinhVien->getBindings(), 'select')
+			        ->join('khoa_hoc','lop.ma_khoa_hoc','=','khoa_hoc.ma_khoa_hoc')
+			        ->join('chuyen_nganh','lop.ma_chuyen_nganh','=','chuyen_nganh.ma_chuyen_nganh');
+		if(isset($search)){		
+			$array_lop = $array_lop->where('ten_lop','LIKE','%'.$search.'%')
+				->orWhere('ten_khoa_hoc','LIKE','%'.$search.'%')
+				->orWhere('ten_chuyen_nganh','LIKE','%'.$search.'%');
+		}
 
-	    $pdf = PDF::loadView("$this->folder.view_pdf", ['array_lop' => $array_lop]);
+		$array_lop = $array_lop->get();
+
+	    $pdf = PDF::loadView("$this->folder.view_pdf", ['array_lop' => $array_lop, 'search' => $search]);
 		return $pdf->download('danh_sach_lop.pdf');
 	}
 }

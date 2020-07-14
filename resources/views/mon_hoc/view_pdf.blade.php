@@ -13,7 +13,8 @@
 	</style>
 </head>
 <body>
-	<center><h3>Danh sách môn học</h3>
+	<center>
+		<h3>Danh sách môn học</h3>
 		<table class="table table-striped" border="1" cellspacing="0">
 			<thead>
 				<tr>
