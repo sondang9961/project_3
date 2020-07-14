@@ -11,6 +11,7 @@ use App\Model\ChuyenNganh;
 use App\Model\SinhVien;
 use App\Exports\LopExport;
 use Excel;
+use PDF;
 
 if (version_compare(PHP_VERSION, '7.2.0', '>=')) {
 // Ignores notices and reports all other kinds... and warnings
@@ -30,35 +31,27 @@ class LopController extends Controller
 		    'sy_so'
 		);
 
-		$array_lop = Lop::from('lop')
-					        ->select('*', $countSinhVien)
-					        ->addBinding($countSinhVien->getBindings(), 'select')
-					        ->join('khoa_hoc','lop.ma_khoa_hoc','=','khoa_hoc.ma_khoa_hoc')
-					        ->join('chuyen_nganh','lop.ma_chuyen_nganh','=','chuyen_nganh.ma_chuyen_nganh')
-					        ->orderBy('ma_lop','desc')
-							->paginate(5);
 		$search = Input::get('search');
-		if($search != ''){
-			$array_lop = Lop::from('lop')
-				        ->select('*', $countSinhVien)
-				        ->addBinding($countSinhVien->getBindings(), 'select')
-				        ->join('khoa_hoc','lop.ma_khoa_hoc','=','khoa_hoc.ma_khoa_hoc')
-				        ->join('chuyen_nganh','lop.ma_chuyen_nganh','=','chuyen_nganh.ma_chuyen_nganh')
-						->where('ten_lop','LIKE','%'.$search.'%')
-						->orWhere('ten_khoa_hoc','LIKE','%'.$search.'%')
-						->orWhere('ten_chuyen_nganh','LIKE','%'.$search.'%')
-						->orderBy('ma_lop','desc')
-						->paginate(5);
-			$array_lop->appends(array('search' => Input::get('search')));
-			if(count($array_lop) > 0){
-				return view("$this->folder.view_all",compact('array_lop','array_khoa_hoc','array_chuyen_nganh'));
-			}
-			$message = "Không tìm thấy kết quả";
-			return view("$this->folder.view_all",compact('message','array_lop','array_khoa_hoc','array_chuyen_nganh'));
+	
+		$array_lop = Lop::from('lop')
+			        ->select('*', $countSinhVien)
+			        ->addBinding($countSinhVien->getBindings(), 'select')
+			        ->join('khoa_hoc','lop.ma_khoa_hoc','=','khoa_hoc.ma_khoa_hoc')
+			        ->join('chuyen_nganh','lop.ma_chuyen_nganh','=','chuyen_nganh.ma_chuyen_nganh');
+		if($search != ''){		
+			$array_lop = $array_lop->where('ten_lop','LIKE','%'.$search.'%')
+				->orWhere('ten_khoa_hoc','LIKE','%'.$search.'%')
+				->orWhere('ten_chuyen_nganh','LIKE','%'.$search.'%');
 		}
-		else {
+
+		$array_lop = $array_lop->orderBy('ma_lop','desc')->paginate(5);
+		
+		$array_lop->appends(array('search' => Input::get('search')));
+		if(count($array_lop) > 0){
 			return view("$this->folder.view_all",compact('array_lop','array_khoa_hoc','array_chuyen_nganh'));
 		}
+		$message = "Không tìm thấy kết quả";
+		return view("$this->folder.view_all",compact('message','array_lop','array_khoa_hoc','array_chuyen_nganh'));
 	}
 	
 	public function get_lop_by_chuyen_nganh()
@@ -119,5 +112,23 @@ class LopController extends Controller
 	public function export()
 	{
 		return Excel::download(new LopExport, 'danh_sach_lop.xlsx');
+	}
+
+	public function export_pdf()
+	{
+		$countSinhVien = new \Sofa\Eloquence\Subquery(
+		    SinhVien::from('sinh_vien')
+		        ->selectRaw('count(*)')->whereRaw('ma_lop = lop.ma_lop'), 
+		    'sy_so'
+		);
+
+		$array_lop = Lop::from('lop')
+	        ->select('*', $countSinhVien)
+	        ->addBinding($countSinhVien->getBindings(), 'select')
+	        ->join('khoa_hoc','lop.ma_khoa_hoc','=','khoa_hoc.ma_khoa_hoc')
+	        ->join('chuyen_nganh','lop.ma_chuyen_nganh','=','chuyen_nganh.ma_chuyen_nganh')->get();
+
+	    $pdf = PDF::loadView("$this->folder.view_pdf", ['array_lop' => $array_lop]);
+		return $pdf->download('danh_sach_lop.pdf');
 	}
 }

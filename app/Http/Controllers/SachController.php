@@ -20,27 +20,24 @@ class SachController extends Controller
 
 		$array_mon_hoc = MonHoc::all();
 
-		$array_sach = Sach::query()
-				->join('mon_hoc','sach.ma_mon_hoc','=','mon_hoc.ma_mon_hoc')
-				->orderBy('ma_sach','desc')->paginate(5);
-
 		$search = Request::get('search');
-		if($search != ''){
-			$array_sach = Sach::query()
-				->join('mon_hoc','sach.ma_mon_hoc','=','mon_hoc.ma_mon_hoc')
-                ->where('ten_mon_hoc','LIKE','%'.$search.'%')
-				->orWhere('ten_sach','LIKE','%'.$search.'%')
-                ->orderBy('ma_sach','desc')->paginate(3);
+		
+		$array_sach = Sach::query()->join('mon_hoc','sach.ma_mon_hoc','=','mon_hoc.ma_mon_hoc');
 
-            $array_sach->appends(array('search' => Input::get('search')));
-			if(count($array_sach) > 0){
-				return view("$this->folder.view_all",compact('array_sach','array_mon_hoc','array_khoa_hoc'));
-				}
-				$message = "Không tìm thấy kết quả";
-				return view("$this->folder.view_all",compact('message','array_sach','array_mon_hoc','array_khoa_hoc'));
-			}
+		if($search != ''){	
+            $array_sach = $array_sach->where('ten_mon_hoc','LIKE','%'.$search.'%')
+            						 ->orWhere('ten_sach','LIKE','%'.$search.'%');
+        }
 
-		return view ("$this->folder.view_all",compact('array_sach','array_mon_hoc','array_khoa_hoc'));
+		$array_sach = $array_sach->orderBy('ma_sach','desc')->paginate(5);
+
+        $array_sach->appends(array('search' => Input::get('search')));
+        
+		if(count($array_sach) > 0){
+			return view("$this->folder.view_all",compact('array_sach','array_mon_hoc','array_khoa_hoc'));
+		}
+		$message = "Không tìm thấy kết quả";
+		return view("$this->folder.view_all",compact('message','array_sach','array_mon_hoc','array_khoa_hoc'));
 	}
 
 	public function view_so_luong_sach_nhap()

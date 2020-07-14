@@ -17,27 +17,24 @@ class MonHocController extends Controller
 	{
 		$array_chuyen_nganh = ChuyenNganh::all();
 
-		$array_mon_hoc = MonHoc::query()
-							->join('chuyen_nganh','mon_hoc.ma_chuyen_nganh','=','chuyen_nganh.ma_chuyen_nganh')
-							->orderBy('ma_mon_hoc','desc')->paginate(5);
 		$search = Input::get('search');
+		
+		$array_mon_hoc = MonHoc::query()
+			->join('chuyen_nganh','mon_hoc.ma_chuyen_nganh','=','chuyen_nganh.ma_chuyen_nganh');
+		
 		if($search != ''){
-			$array_mon_hoc = MonHoc::query()
-								->join('chuyen_nganh','mon_hoc.ma_chuyen_nganh','=','chuyen_nganh.ma_chuyen_nganh')
-								->where('ten_mon_hoc','LIKE','%'.$search.'%')
-								->orWhere('ten_chuyen_nganh','LIKE','%'.$search.'%')
-								->orderBy('ma_mon_hoc','desc')
-								->paginate(5);
-			$array_mon_hoc->appends(array('search' => Input::get('search')));
-			if(count($array_mon_hoc) > 0){
-				return view("$this->folder.view_all",compact('array_mon_hoc','array_chuyen_nganh'));
-			}
-			$message = "Không tìm thấy kết quả";
-			return view("$this->folder.view_all",compact('message','array_mon_hoc','array_chuyen_nganh'));
+			$array_mon_hoc = $array_mon_hoc->where('ten_mon_hoc','LIKE','%'.$search.'%')
+							->orWhere('ten_chuyen_nganh','LIKE','%'.$search.'%');
 		}
-		else {
+
+		$array_mon_hoc = $array_mon_hoc->orderBy('ma_mon_hoc','desc')->paginate(5);
+		
+		$array_mon_hoc->appends(array('search' => Input::get('search')));
+		if(count($array_mon_hoc) > 0){
 			return view("$this->folder.view_all",compact('array_mon_hoc','array_chuyen_nganh'));
 		}
+		$message = "Không tìm thấy kết quả";
+		return view("$this->folder.view_all",compact('message','array_mon_hoc','array_chuyen_nganh'));
 	}
 
 	public function get_mon_hoc_by_chuyen_nganh()
@@ -93,19 +90,13 @@ class MonHocController extends Controller
 		return Excel::download(new MonHocExport, 'danh_sach_mon_hoc.xlsx');
 	}
 
-	public function view_pdf()
-	{
-		$array_mon_hoc = MonHoc::query()->join('chuyen_nganh','mon_hoc.ma_chuyen_nganh','=','chuyen_nganh.ma_chuyen_nganh')->get();
-        
-        return view("$this->folder.view_pdf",compact('array_mon_hoc'));
-	}
-
 	public function export_pdf()
 	{
-		$pdf = PDF::loadView('mon_hoc.view_pdf');
+		$array_mon_hoc = MonHoc::query()
+		->join('chuyen_nganh','mon_hoc.ma_chuyen_nganh','=','chuyen_nganh.ma_chuyen_nganh')->get();
+
+		$pdf = PDF::loadView("$this->folder.view_pdf", ['array_mon_hoc' => $array_mon_hoc]);
 		return $pdf->download('danh_sach_mon_hoc.pdf');
 	}
-
-	
 
 }

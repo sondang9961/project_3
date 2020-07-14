@@ -11,24 +11,22 @@ class ChuyenNganhController extends Controller
 	private $folder = 'chuyen_nganh';
 	public function view_all(Request $req)
 	{
-		$array_chuyen_nganh = ChuyenNganh::query()->orderBy('ma_chuyen_nganh','desc')->paginate(2);
-
 		$ten_chuyen_nganh = Input::get('ten_chuyen_nganh');
+		
+		$array_chuyen_nganh = ChuyenNganh::query();
 		if($ten_chuyen_nganh != '' ){
-			$array_chuyen_nganh = ChuyenNganh::where('ten_chuyen_nganh','LIKE','%'.$ten_chuyen_nganh.'%')
-									->orderBy('ma_chuyen_nganh','desc')
-									->paginate(1);
-			$array_chuyen_nganh->appends(array('ten_chuyen_nganh' => Input::get('ten_chuyen_nganh')));
-			if(count($array_chuyen_nganh) > 0){
-				return view("$this->folder.view_all",compact('array_chuyen_nganh'));
-			}
-
-			$message = "Không tìm thấy kết quả";
-			return view("$this->folder.view_all",compact('message'));
+			$array_chuyen_nganh = $array_chuyen_nganh->where('ten_chuyen_nganh','LIKE','%'.$ten_chuyen_nganh.'%');
 		}
-		else {
+		$array_chuyen_nganh = $array_chuyen_nganh->orderBy('ma_chuyen_nganh','desc')->paginate(3);
+		
+		$array_chuyen_nganh->appends(array('ten_chuyen_nganh' => Input::get('ten_chuyen_nganh')));
+		if(count($array_chuyen_nganh) > 0){
 			return view("$this->folder.view_all",compact('array_chuyen_nganh'));
 		}
+
+		$message = "Không tìm thấy kết quả";
+		return view("$this->folder.view_all",compact('message'));
+
 	}
 
 	public function process_insert()

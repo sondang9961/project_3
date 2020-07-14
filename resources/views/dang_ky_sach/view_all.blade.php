@@ -40,11 +40,6 @@
 								<input type="submit" class="btn btn-info btn-round btn-sm btn-fill" value="Xem" id="button" disabled>								
 								<input type="button" class="btn btn-round btn-sm btn-fill" value="Hủy tìm kiếm" onclick="location.href='{{ route('dang_ky_sach.view_all') }}'" style="margin-left: 5px">
 								<input type="button" class="btn btn-success btn-fill btn-sm btn-round" value="Thêm mới" data-toggle="modal" data-target="#addModal" style="margin-left: 5px">
-								@if (isset($ma_lop) && isset($ma_sach))
-									<a style="margin-left: 5px" class="btn btn-primary btn-round btn-sm btn-outline" href="{{ route('dang_ky_sach.export',['ma_lop' => $ma_lop, 'ma_sach' => $ma_sach]) }}">
-										Xuất file excel
-									</a>
-								@endif
 							</td>
 						</tr>
 						<tr>
@@ -63,6 +58,16 @@
 								<select name="ma_sach" class="form-control" style="width: 17rem" id="search_sach" disabled>
 									<option>--Tên sách--</option>
 								</select>
+							</td>
+							<td>
+								@if (isset($ma_lop) && isset($ma_sach))
+									<a style="margin-left: 5px" class="btn btn-primary btn-round btn-sm btn-outline" href="{{ route('dang_ky_sach.export',['ma_lop' => $ma_lop, 'ma_sach' => $ma_sach]) }}">
+										Xuất file excel
+									</a>
+									<a class="btn btn-danger btn-round btn-sm btn-outline" href="{{ route('dang_ky_sach.export_pdf',['ma_lop' => $ma_lop, 'ma_sach' => $ma_sach]) }}" style="margin-left: 5px">
+										Xuất file pdf
+									</a>
+								@endif
 							</td>			
 					</tr>
 					</table>

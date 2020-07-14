@@ -38,6 +38,9 @@
 									<a style="margin-left: 5px" class="btn btn-primary btn-round btn-sm btn-outline" href="{{ route('thong_ke.export_thong_ke_sach',['search' => $search, 'start' => $start, 'end' => $end]) }}">
 										Xuất file excel
 									</a>
+									<a class="btn btn-danger btn-round btn-sm btn-outline" href="{{ route('thong_ke.export_pdf_thong_ke_sach',['search' => $search, 'start' => $start, 'end' => $end]) }}" style="margin-left: 5px">
+										Xuất file pdf
+									</a>
 								@endif
 							</td>
 						</tr>

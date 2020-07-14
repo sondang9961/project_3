@@ -11,24 +11,22 @@ class KhoaHocController extends Controller
 	private $folder = 'khoa_hoc';
 	public function view_all(Request $req)
 	{
-		$array_khoa_hoc = KhoaHoc::query()->orderBy('ma_khoa_hoc','desc')->paginate(2);
-
 		$ten_khoa_hoc = Input::get('ten_khoa_hoc');
+		
+		$array_khoa_hoc = KhoaHoc::query();
 		if($ten_khoa_hoc != '' ){
-			$array_khoa_hoc = KhoaHoc::where('ten_khoa_hoc','LIKE','%'.$ten_khoa_hoc.'%')
-									->orderBy('ma_khoa_hoc','desc')
-									->paginate(1);
-			$array_khoa_hoc->appends(array('ten_khoa_hoc' => Input::get('ten_khoa_hoc')));
-			if(count($array_khoa_hoc) > 0){
-				return view("$this->folder.view_all",compact('array_khoa_hoc'));
-			}
+			$array_khoa_hoc = $array_khoa_hoc->where('ten_khoa_hoc','LIKE','%'.$ten_khoa_hoc.'%');
+ 		}
+		
+		$array_khoa_hoc = $array_khoa_hoc->orderBy('ma_khoa_hoc','desc')->paginate(2);
 
-			$message = "Không tìm thấy kết quả";
-			return view("$this->folder.view_all",compact('message'));
-		}
-		else {
+		$array_khoa_hoc->appends(array('ten_khoa_hoc' => Input::get('ten_khoa_hoc')));
+		if(count($array_khoa_hoc) > 0){
 			return view("$this->folder.view_all",compact('array_khoa_hoc'));
 		}
+		$message = "Không tìm thấy kết quả";
+		return view("$this->folder.view_all",compact('message'));
+
 	}
 
 	public function process_insert()

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-	<title>Danh sách môn học</title>
+	<title>Danh sách lớp</title>
 	<style>
 		.page-break {
 		    page-break-after: always;
@@ -13,21 +13,25 @@
 	</style>
 </head>
 <body>
-	<center><h3>Danh sách môn học</h3>
+	<center><h3>Danh sách lớp</h3>
 		<table class="table table-striped" border="1" cellspacing="0">
 			<thead>
 				<tr>
 					<th>Mã</th>
-					<th>Tên môn học</th>
+					<th>Tên lớp</th>
+					<th>Khóa học</th>
 					<th>Chuyên ngành</th>
+					<th>Sỹ số</th>
 				</tr>
 			</thead>	
 			<tbody>
-				@foreach ($array_mon_hoc as $mon_hoc)
+				@foreach ($array_lop as $lop)
 					<tr>
-						<td>{{$mon_hoc->ma_mon_hoc}}</td>
-						<td>{{$mon_hoc->ten_mon_hoc}}</td>
-						<td>{{$mon_hoc->ten_chuyen_nganh}}</td>			
+						<td>{{$lop->ma_lop}}</td>
+						<td>{{$lop->ten_lop}}</td>
+						<td>{{$lop->ten_khoa_hoc}}</td>
+						<td>{{$lop->ten_chuyen_nganh}}</td>
+						<td>{{$lop->sy_so}}</td>			
 					</tr>
 				@endforeach
 			</tbody>
@@ -35,4 +39,3 @@
 	</center>
 </body>
 </html>
-

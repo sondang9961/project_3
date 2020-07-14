@@ -63,6 +63,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'CheckAdmin'], function(){
 		->name("$group.get_one");
 		Route::get("export","$controller@export")
 		->name("$group.export");
+		Route::get("export_pdf","$controller@export_pdf")
+		->name("$group.export_pdf");
 	});
 
 	//MÔN HỌC
@@ -81,8 +83,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'CheckAdmin'], function(){
 		->name("$group.get_one");
 		Route::get("export","$controller@export")
 		->name("$group.export");
-		Route::get("view_pdf","$controller@view_pdf")
-		->name("$group.view_pdf");
 		Route::get("export_pdf","$controller@export_pdf")
 		->name("$group.export_pdf");
 	});
@@ -111,6 +111,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'CheckAdmin'], function(){
 		->name("$group.get_one");
 		Route::get("delete_process/{ma_sinh_vien}","$controller@delete_process")
 		->name("$group.delete_process");
+		Route::get("export_pdf","$controller@export_pdf")
+		->name("$group.export_pdf");
 	});
 
 	//SÁCH
@@ -147,6 +149,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'CheckAdmin'], function(){
 		->name("$group.change_tinh_trang_dang_ky_sach");
 		Route::get("export","$controller@export")
 		->name("$group.export");
+		Route::get("export_pdf","$controller@export_pdf")
+		->name("$group.export_pdf");
 	});
 
 	//THỐNG KÊ
@@ -161,6 +165,10 @@ Route::group(['prefix' => 'admin', 'middleware' => 'CheckAdmin'], function(){
 		->name("thong_ke.export_thong_ke_sach");
 		Route::get("export_thong_ke_sinh_vien","ThongKeController@export_thong_ke_sinh_vien")
 		->name("thong_ke.export_thong_ke_sinh_vien");
+		Route::get("export_pdf_thong_ke_sach","ThongKeController@export_pdf_thong_ke_sach")
+		->name("thong_ke.export_pdf_thong_ke_sach");
+		Route::get("export_pdf_thong_ke_sinh_vien","ThongKeController@export_pdf_thong_ke_sinh_vien")
+		->name("thong_ke.export_pdf_thong_ke_sinh_vien");
 	});
 
 });

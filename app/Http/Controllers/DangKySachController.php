@@ -10,6 +10,7 @@ use App\Model\ChuyenNganh;
 use App\Model\Sach;
 use Excel;
 use App\Exports\DangKySachExport;
+use PDF;
 
 if (version_compare(PHP_VERSION, '7.2.0', '>=')) {
 // Ignores notices and reports all other kinds... and warnings
@@ -111,6 +112,24 @@ class DangKySachController extends Controller
 	public function export()
 	{
 		return Excel::download(new DangKySachExport, 'danh_sach_sinh_vien.xlsx');
+	}
+
+	public function export_pdf()
+	{
+		$ma_lop = Request::get('ma_lop');
+    	$ma_sach = Request::get('ma_sach');
+
+    	$array_dang_ky_sach = DangKySach::query()
+			->join('sinh_vien','dang_ky_sach.ma_sinh_vien','=','sinh_vien.ma_sinh_vien')
+			->join('sach','dang_ky_sach.ma_sach','=','sach.ma_sach')
+			->join('lop','sinh_vien.ma_lop','=','lop.ma_lop')
+			->join('chuyen_nganh','lop.ma_chuyen_nganh','=','chuyen_nganh.ma_chuyen_nganh')
+			->where('lop.ma_lop','=',$ma_lop)
+			->where('sach.ma_sach','=',$ma_sach)
+			->get();
+
+		$pdf = PDF::loadView("$this->folder.view_pdf", ['array_dang_ky_sach' => $array_dang_ky_sach]);
+		return $pdf->download('danh_sach_dang_ky.pdf');
 	}
 	
 }

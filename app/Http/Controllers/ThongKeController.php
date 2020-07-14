@@ -12,6 +12,7 @@ use App\Exports\ThongKeSachExport;
 use App\Exports\ThongKeSinhVienExport;
 use Excel;
 use DB;
+use PDF;
 
 class ThongKeController extends Controller
 {
@@ -127,5 +128,61 @@ class ThongKeController extends Controller
 	public function export_thong_ke_sinh_vien()
 	{
 		return Excel::download(new ThongKeSinhVienExport, 'thong_ke_sinh_vien.xlsx');
+	}
+
+	public function export_pdf_thong_ke_sach()
+	{
+		$search = Request::get('search');
+		$start = Request::get('start');
+		$end = Request::get('end');
+
+		$array_thong_ke_sach = DB::table('sach')
+			->select(DB::raw('
+				*,
+				if(a.so_luong_da_phat is null,0,a.so_luong_da_phat) as so_luong_da_phat,
+				if(so_luong_nhap-so_luong_da_phat is null,so_luong_nhap,so_luong_nhap-so_luong_da_phat) as so_luong_ton_kho,
+				ngay_nhap_sach'))
+			
+			->leftJoin(DB::raw('(select ma_sach,count(*) as so_luong_da_phat from dang_ky_sach where tinh_trang_nhan_sach = 1  group by ma_sach)a'),'a.ma_sach','=','sach.ma_sach')
+			->join('mon_hoc','sach.ma_mon_hoc','=','mon_hoc.ma_mon_hoc');
+		if(!empty($search)){
+			$array_thong_ke_sach = $array_thong_ke_sach->where('ten_mon_hoc','like', '%'.$search.'%')
+													   ->orWhere('ten_sach','like', '%'.$search.'%');
+		}
+		if(!empty($start)){
+			$array_thong_ke_sach = $array_thong_ke_sach->where('ngay_nhap_sach','>=',$start);
+		}
+		if(!empty($end)){
+			$array_thong_ke_sach = $array_thong_ke_sach->where('ngay_nhap_sach','<=',$end);
+		}
+		
+		$array_thong_ke_sach = $array_thong_ke_sach->orderBy('sach.ngay_nhap_sach','desc')->get();
+
+		$pdf = PDF::loadView("$this->folder.view_pdf_thong_ke_sach", ['array_thong_ke_sach' => $array_thong_ke_sach,'search' => $search,'start' => $start,'end' => $end]);
+		return $pdf->download('danh_sach_cac_dau_sach.pdf');
+
+	}
+
+	public function export_pdf_thong_ke_sinh_vien()
+	{
+		$ma_lop = Request::get('ma_lop');
+		$ma_sach = Request::get('ma_sach');
+
+		$array_not_in = SinhVien::query()
+			->join('dang_ky_sach','sinh_vien.ma_sinh_vien','=','dang_ky_sach.ma_sinh_vien')
+			->where('ma_lop','=',$ma_lop)
+			->where('dang_ky_sach.ma_sach','=',$ma_sach)->get(['sinh_vien.ma_sinh_vien']);
+
+		$array_thong_ke_sinh_vien = DB::table('sinh_vien')
+			->select(DB::raw('sinh_vien.ma_sinh_vien,ten_sinh_vien,lop.ma_lop,ten_lop'))
+			->join('lop','sinh_vien.ma_lop','=','lop.ma_lop')
+			->whereNotIn('sinh_vien.ma_sinh_vien',$array_not_in)
+			->where('sinh_vien.ma_lop','=',$ma_lop)
+			->orderBy('ma_sinh_vien','desc')->get();
+
+		$ten_sach = Sach::where('ma_sach','=', $ma_sach)->select('ten_sach')->get();
+
+		$pdf = PDF::loadView("$this->folder.view_pdf_thong_ke_sinh_vien", ['array_thong_ke_sinh_vien' => $array_thong_ke_sinh_vien, 'ten_sach' => $ten_sach]);
+		return $pdf->download('danh_sach_sinh_vien_chua_dang_ky.pdf');
 	}
 }

@@ -56,6 +56,7 @@
 					<input type="button" class="btn btn-success btn-fill btn-sm btn-round" value="Thêm mới" data-toggle="modal" data-target="#addModal" style="margin-left: 5px">
 					{{-- <input type="button" class="btn btn-primary btn-round btn-sm btn-fill" value="Thêm bằng excel" onclick="location.href='{{ route('sinh_vien.view_import_excel') }}'" style="margin-left: 5px"> --}}
 					<input type="button" class="btn btn-primary btn-round btn-sm btn-outline" value="Xuất file excel" onclick="location.href='{{ route('sinh_vien.export') }}'" style="margin-left: 5px">
+					<input type="button" class="btn btn-danger btn-round btn-sm btn-outline" value="Xuất file pdf" onclick="location.href='{{ route('sinh_vien.export_pdf') }}'" style="margin-left: 5px">
 				</form>
 			</div>
 			<div style="margin-top: 12px">

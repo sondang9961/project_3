@@ -13,6 +13,7 @@ use Excel;
 use App\Imports\SinhVienImport;
 use App\Exports\SinhVienExport;
 use Exception;
+use PDF;
 
 if (version_compare(PHP_VERSION, '7.2.0', '>=')) {
 // Ignores notices and reports all other kinds... and warnings
@@ -26,28 +27,23 @@ class SinhVienController extends Controller
 	{
 		$array_lop = Lop::all();
 
-		$array_sinh_vien = SinhVien::query()
-							->join('lop','sinh_vien.ma_lop','=','lop.ma_lop')
-							->orderBy('ma_sinh_vien','desc')->paginate(5);
-
 		$search = Input::get('search');
+	
+		$array_sinh_vien = SinhVien::query()->join('lop','sinh_vien.ma_lop','=','lop.ma_lop');
 		if($search != ''){
-			$array_sinh_vien = SinhVien::query()
-								->join('lop','sinh_vien.ma_lop','=','lop.ma_lop')
-								->where('ten_sinh_vien','LIKE','%'.$search.'%')
-								->orWhere('ten_lop','LIKE','%'.$search.'%')
-								->orderBy('ma_sinh_vien','desc')
-								->paginate(5);
-			$array_sinh_vien->appends(array('search' => Input::get('search')));
-			if(count($array_sinh_vien) > 0){
-				return view("$this->folder.view_all",compact('array_sinh_vien','array_lop'));
-			}
-			$message = "Không tìm thấy kết quả";
-			return view("$this->folder.view_all",compact('message','array_sinh_vien','array_lop'));
+			$array_sinh_vien = $array_sinh_vien->where('ten_sinh_vien','LIKE','%'.$search.'%')
+				->orWhere('ten_lop','LIKE','%'.$search.'%');
 		}
-		else {
+		$array_sinh_vien = $array_sinh_vien->orderBy('ma_sinh_vien','desc')->paginate(5);
+
+		$array_sinh_vien->appends(array('search' => Input::get('search')));
+		
+		if(count($array_sinh_vien) > 0){
 			return view("$this->folder.view_all",compact('array_sinh_vien','array_lop'));
 		}
+		$message = "Không tìm thấy kết quả";
+		return view("$this->folder.view_all",compact('message','array_sinh_vien','array_lop'));
+	
 	}
 
 	public function get_sinh_vien_by_lop(Request $request)
@@ -154,5 +150,13 @@ class SinhVienController extends Controller
 		$sinh_vien->delete();
 
 		return back()->with('delete', 'Đã xóa sinh viên');
+	}
+
+	public function export_pdf()
+	{
+		$array_sinh_vien = SinhVien::query()->join('lop','sinh_vien.ma_lop','=','lop.ma_lop')->get();
+
+		$pdf = PDF::loadView("$this->folder.view_pdf", ['array_sinh_vien' => $array_sinh_vien]);
+		return $pdf->download('danh_sach_sinh_vien.pdf');
 	}
 }
