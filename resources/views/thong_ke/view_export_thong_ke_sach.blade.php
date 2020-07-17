@@ -1,13 +1,17 @@
 <center>
 	<h3>Danh sách các đầu sách
 		@if (isset($search) && isset($start) && isset($end))
-			{{$array_thong_ke_sach[0]->ten_sach}} nhập từ {{$start}} đến {{$end}}
+			{{$array_thong_ke_sach[0]->ten_sach}} nhập từ ngày {{date_format(date_create($start),'d/m/Y')}} đến {{date_format(date_create($end),'d/m/Y')}}
 		@elseif(isset($search) && isset($start))
-			{{$array_thong_ke_sach[0]->ten_sach}} nhập từ {{$start}}
+			{{$array_thong_ke_sach[0]->ten_sach}} nhập từ ngày {{date_format(date_create($start),'d/m/Y')}}
 		@elseif(isset($search) && isset($end))
-			{{$array_thong_ke_sach[0]->ten_sach}} nhập đến {{$end}}
+			{{$array_thong_ke_sach[0]->ten_sach}} nhập đến ngày {{date_format(date_create($end),'d/m/Y')}}
 		@elseif(isset($start) && isset($end))
-			nhập từ {{$start}} đến {{$end}}
+			nhập từ ngày {{date_format(date_create($start),'d/m/Y')}} đến {{date_format(date_create($end),'d/m/Y')}}
+		@elseif(isset($start))
+			nhập từ ngày {{date_format(date_create($start),'d/m/Y')}}
+		@elseif(isset($end))
+		 	nhập đến ngày {{date_format(date_create($end),'d/m/Y')}}
 	 	@endif
 	</h3>
 </center>

@@ -94,7 +94,7 @@
 	        </div>
     		<br />
 		   	
-	        @if(isset($array_sinh_vien) && count($array_sinh_vien) > 0)
+	        @if(count($array_sinh_vien) > 0)
 			<table class="table table-striped">
 				<thead>
 					<tr>
@@ -136,7 +136,7 @@
 				</tfoot>
 			</table>
 			@else
-				<h4><center>{{ $message}}</center></h4>	
+				<h4><center>Không tìm thấy kết quả</center></h4>	
 			@endif	
 		</div>
 	</div>

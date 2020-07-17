@@ -43,7 +43,7 @@ class SinhVienController extends Controller
 		}
 		$message = "Không tìm thấy kết quả";
 		return view("$this->folder.view_all",compact('message','array_sinh_vien','array_lop','search'));
-	
+		
 	}
 
 	public function get_sinh_vien_by_lop(Request $request)

@@ -34,7 +34,7 @@
 								<input type="submit" class="btn btn-info btn-round btn-sm btn-fill" value="Xem"style="margin-left: 25px">
 							</td>
 							<td>
-								@if (!empty($search) || !empty($start) && !empty($end) && $start < $end )
+								@if (!empty($search) || !empty($start) || !empty($end) && $start < $end )
 									<a style="margin-left: 5px" class="btn btn-primary btn-round btn-sm btn-outline" href="{{ route('thong_ke.export_thong_ke_sach',['search' => $search, 'start' => $start, 'end' => $end]) }}">
 										Xuất file excel
 									</a>
@@ -48,7 +48,7 @@
 				</form>
 			</div>
 			@if(count($array_thong_ke_sach) > 0)
-			@if (isset($search) || isset($start) && isset($end))
+			@if (isset($search) || isset($start) || isset($end))
 				<table class="table table-striped">
 					<thead>
 						<tr>

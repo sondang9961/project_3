@@ -3,15 +3,19 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 	<title>Danh sách các đầu sách
-			@if (isset($search) && isset($start) && isset($end))
-				{{$array_thong_ke_sach[0]->ten_sach}} nhập từ {{$start}} đến {{$end}}
-			@elseif(isset($search) && isset($start))
-				{{$array_thong_ke_sach[0]->ten_sach}} nhập từ {{$start}}
-			@elseif(isset($search) && isset($end))
-				{{$array_thong_ke_sach[0]->ten_sach}} nhập đến {{$end}}
-			@elseif(isset($start) && isset($end))
-				nhập từ {{$start}} đến {{$end}}
-		 	@endif
+		@if (isset($search) && isset($start) && isset($end))
+			{{$array_thong_ke_sach[0]->ten_sach}} nhập từ ngày {{date_format(date_create($start),'d/m/Y')}} đến {{date_format(date_create($end),'d/m/Y')}}
+		@elseif(isset($search) && isset($start))
+			{{$array_thong_ke_sach[0]->ten_sach}} nhập từ ngày {{date_format(date_create($start),'d/m/Y')}}
+		@elseif(isset($search) && isset($end))
+			{{$array_thong_ke_sach[0]->ten_sach}} nhập đến ngày {{date_format(date_create($end),'d/m/Y')}}
+		@elseif(isset($start) && isset($end))
+			nhập từ ngày {{date_format(date_create($start),'d/m/Y')}} đến {{date_format(date_create($end),'d/m/Y')}}
+		@elseif(isset($start))
+			nhập từ ngày {{date_format(date_create($start),'d/m/Y')}}
+		@elseif(isset($end))
+		 	nhập đến ngày {{date_format(date_create($end),'d/m/Y')}}
+	 	@endif
 	</title>
 	<style>
 		.page-break {
@@ -26,14 +30,18 @@
 	<center>
 		<h3>Danh sách các đầu sách
 			@if (isset($search) && isset($start) && isset($end))
-				{{$array_thong_ke_sach[0]->ten_sach}} nhập từ {{$start}} đến {{$end}}
-			@elseif(isset($search) && isset($start))
-				{{$array_thong_ke_sach[0]->ten_sach}} nhập từ {{$start}}
-			@elseif(isset($search) && isset($end))
-				{{$array_thong_ke_sach[0]->ten_sach}} nhập đến {{$end}}
-			@elseif(isset($start) && isset($end))
-				nhập từ {{$start}} đến {{$end}}
-		 	@endif
+			{{$array_thong_ke_sach[0]->ten_sach}} nhập từ ngày {{date_format(date_create($start),'d/m/Y')}} đến {{date_format(date_create($end),'d/m/Y')}}
+		@elseif(isset($search) && isset($start))
+			{{$array_thong_ke_sach[0]->ten_sach}} nhập từ ngày {{date_format(date_create($start),'d/m/Y')}}
+		@elseif(isset($search) && isset($end))
+			{{$array_thong_ke_sach[0]->ten_sach}} nhập đến ngày {{date_format(date_create($end),'d/m/Y')}}
+		@elseif(isset($start) && isset($end))
+			nhập từ ngày {{date_format(date_create($start),'d/m/Y')}} đến {{date_format(date_create($end),'d/m/Y')}}
+		@elseif(isset($start))
+			nhập từ ngày {{date_format(date_create($start),'d/m/Y')}}
+		@elseif(isset($end))
+		 	nhập đến ngày {{date_format(date_create($end),'d/m/Y')}}
+	 	@endif
 		</h3>
 		<table class="table table-striped" border="1" cellspacing="0">
 			<thead>
