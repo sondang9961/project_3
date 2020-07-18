@@ -98,8 +98,9 @@ class ThongKeController extends Controller
 		return view("$this->folder.view_thong_ke_sach",compact('array_thong_ke_sach','search','start','end'));
 	}
 
-	public function view_thong_ke_sach_chi_tiet($ma_sach)
+	public function view_thong_ke_sach_chi_tiet()
 	{
+		$ma_sach = Request::get('ma_sach');
 		$ma_lop = Request::get('ma_lop');
 
 		$array_thong_ke_sach = DangKySach::query()
@@ -114,10 +115,11 @@ class ThongKeController extends Controller
 		
 		$array_thong_ke_sach = $array_thong_ke_sach->orderBy('lop.ma_lop')->paginate(8);
 
+		$array_thong_ke_sach->appends(array('ma_sach' => Request::get('ma_sach'),'ma_lop' => Request::get('ma_lop')));
 
 		$array_lop = DB::select(DB::raw("select lop.ma_lop, ten_lop from dang_ky_sach left join sinh_vien on dang_ky_sach.ma_sinh_vien = sinh_vien.ma_sinh_vien RIGHT JOIN lop on sinh_vien.ma_lop = lop.ma_lop where dang_ky_sach.ma_sach = '$ma_sach' and dang_ky_sach.tinh_trang_nhan_sach = 1 group by lop.ma_lop, ten_lop"));
-		
-		return view("$this->folder.view_thong_ke_sach_chi_tiet",compact('array_thong_ke_sach','array_lop','ma_lop')); 
+
+		return view("$this->folder.view_thong_ke_sach_chi_tiet",compact('array_thong_ke_sach','array_lop','ma_lop','ma_sach')); 
 	}
 
 	public function export_thong_ke_sach()

@@ -15,8 +15,10 @@
 					<input type="submit" class="btn btn-info btn-round btn-sm btn-fill" value="Xem">	
 					<input type="button" class="btn btn-round btn-sm btn-fill" value="Hủy tìm kiếm" onclick="location.href='{{ route('lop.view_all') }}'" style="margin-left: 5px">
 					<input type="button" class="btn btn-success btn-fill btn-sm btn-round" value="Thêm mới" data-toggle="modal" data-target="#addModal" style="margin-left: 5px">
-					<input type="button" class="btn btn-primary btn-round btn-sm btn-outline" value="Xuất file excel" onclick="location.href='{{ route('lop.export',['search' => $search]) }}'" style="margin-left: 5px">
-					<input type="button" class="btn btn-danger btn-round btn-sm btn-outline" value="Xuất file pdf" onclick="location.href='{{ route('lop.export_pdf',['search' => $search]) }}'" style="margin-left: 5px">
+					@if(count($array_lop) > 0)
+						<input type="button" class="btn btn-primary btn-round btn-sm btn-outline" value="Xuất file excel" onclick="location.href='{{ route('lop.export',['search' => $search]) }}'" style="margin-left: 5px">
+						<input type="button" class="btn btn-danger btn-round btn-sm btn-outline" value="Xuất file pdf" onclick="location.href='{{ route('lop.export_pdf',['search' => $search]) }}'" style="margin-left: 5px">
+					@endif
 			</form>
 			</div>
 			<div style="margin-top: 12px">
@@ -153,7 +155,7 @@
 		          	<h4 class="modal-title">Cập nhật lớp</h4>
 		        </div>
 		        <div class="modal-body">
-			        <form action="{{route('lop.process_update', ['ma_lop' => $lop->ma_lop])}}" method="post" id="form_update">
+			        <form action="{{route('lop.process_update')}}" method="post" id="form_update">
 			        	{{csrf_field()}}
 			          	<input type="hidden" name="ma_lop" id="ma_lop">
 			          	<div class="row">

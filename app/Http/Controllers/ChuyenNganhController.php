@@ -41,7 +41,7 @@ class ChuyenNganhController extends Controller
 			return redirect()->route("$this->folder.view_all")->with('success', 'Đã thêm');
 		}
 		//điều hướng
-		return redirect()->route("$this->folder.view_all")->with('error', 'Khóa học đã tồn tại');
+		return redirect()->route("$this->folder.view_all")->with('error', 'Chuyên ngành đã tồn tại');
 	}
 
 	public function process_update()
@@ -57,7 +57,7 @@ class ChuyenNganhController extends Controller
 			return redirect()->route("$this->folder.view_all")->with('success', 'Cập nhật thành công');
 		}
 		//điều hướng
-		return redirect()->route("$this->folder.view_all")->with('error', 'Khóa học đã tồn tại');
+		return redirect()->route("$this->folder.view_all")->with('error', 'Chuyên ngành đã tồn tại');
 
 	}
 	public function get_one()

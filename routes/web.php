@@ -53,7 +53,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'CheckAdmin'], function(){
 		->name("$group.view_all");
 		Route::post("process_insert","$controller@process_insert")
 		->name("$group.process_insert");
-		Route::post("process_update/{ma_lop}","$controller@process_update")
+		Route::post("process_update","$controller@process_update")
 		->name("$group.process_update");
 		Route::post("process_search","$controller@process_search")
 		->name("$group.process_search");
@@ -101,9 +101,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'CheckAdmin'], function(){
 		->name("$group.import");
 		Route::post("process_insert","$controller@process_insert")
 		->name("$group.process_insert");
-		Route::post("process_update/{ma_sinh_vien}","$controller@process_update")
+		Route::post("process_update","$controller@process_update")
 		->name("$group.process_update");
-		Route::get("danh_sach_sinh_vien_by_lop/{ma_lop}","$controller@danh_sach_sinh_vien_by_lop")
+		Route::get("danh_sach_sinh_vien_by_lop","$controller@danh_sach_sinh_vien_by_lop")
 		->name("$group.danh_sach_sinh_vien_by_lop");
 		Route::get("get_sinh_vien_by_lop","$controller@get_sinh_vien_by_lop")
 		->name("get_sinh_vien_by_lop");
@@ -159,7 +159,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'CheckAdmin'], function(){
 		->name("thong_ke.view_thong_ke_sinh_vien");
 		Route::get("view_thong_ke_sach","ThongKeController@view_thong_ke_sach")
 		->name("thong_ke.view_thong_ke_sach");
-		Route::get("view_thong_ke_sach_chi_tiet/{ma_sach}","ThongKeController@view_thong_ke_sach_chi_tiet")
+		Route::get("view_thong_ke_sach_chi_tiet","ThongKeController@view_thong_ke_sach_chi_tiet")
 		->name("thong_ke.view_thong_ke_sach_chi_tiet");
 		Route::get("export_thong_ke_sach","ThongKeController@export_thong_ke_sach")
 		->name("thong_ke.export_thong_ke_sach");

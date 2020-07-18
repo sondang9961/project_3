@@ -5,10 +5,15 @@
 @endpush
 @section('content')
 	<div class="card">
-		<h2 style="padding: 1%">Danh sách sinh viên đã nhận sách <b>{{$array_thong_ke_sach[0]->ten_sach}}</b> </h2>	
+		<h2 style="padding: 1%">Danh sách sinh viên đã nhận sách <b>
+			@if(count($array_thong_ke_sach) > 0)
+				{{$array_thong_ke_sach[0]->ten_sach}}</b>
+			@endif
+		 </h2>	
 		<div class="content">
 			<div class="toolbar">
 				<form>
+					<input type="hidden" name="ma_sach" value="{{ $ma_sach }}">
 					<table>
 						<tr>
 							<td style="padding-bottom: 4%">
@@ -35,30 +40,34 @@
 					</table>
 				</form>
 			</div>
-			<table class="table table-striped" style="width: 70%" >
-				<thead>
-					<tr>
-						<th>Mã sinh viên</th>
-						<th>Tên sinh viên</th>
-						<th>Tên lớp</th>
-					</tr>
-				</thead>
-				<tbody>
-					@foreach ($array_thong_ke_sach as $thong_ke)
+			@if(count($array_thong_ke_sach) > 0)
+				<table class="table table-striped" style="width: 70%" >
+					<thead>
 						<tr>
-							<td>{{$thong_ke->ma_sinh_vien}}</td>
-							<td>{{$thong_ke->ten_sinh_vien}}</td>
-							<td>{{$thong_ke->ten_lop}}</td>
+							<th>Mã sinh viên</th>
+							<th>Tên sinh viên</th>
+							<th>Tên lớp</th>
 						</tr>
-					@endforeach
-				</tbody>
-				<tfoot>
-					<tr>
-						<td colspan="100%"> 
-							{!! $array_thong_ke_sach->render()!!}
-					</tr>
-				</tfoot>
-			</table>
+					</thead>
+					<tbody>
+						@foreach ($array_thong_ke_sach as $thong_ke)
+							<tr>
+								<td>{{$thong_ke->ma_sinh_vien}}</td>
+								<td>{{$thong_ke->ten_sinh_vien}}</td>
+								<td>{{$thong_ke->ten_lop}}</td>
+							</tr>
+						@endforeach
+					</tbody>
+					<tfoot>
+						<tr>
+							<td colspan="100%"> 
+								{!! $array_thong_ke_sach->render()!!}
+						</tr>
+					</tfoot>
+				</table>
+			@else
+				<center><h4>Chưa có sinh viên nào nhận sách</h4></center>
+			@endif
 		</div>
 	</div>
 

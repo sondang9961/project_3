@@ -47,7 +47,7 @@
 								<input type="submit" class="btn btn-info btn-round btn-sm btn-fill" value="Xem">
 							</td>
 							<td style="padding-bottom: 5%; padding-left: 5px">
-								@if (isset($ma_lop) && isset($ma_sach))
+								@if (isset($ma_lop) && isset($ma_sach) && count($array_thong_ke_sinh_vien) > 0)
 									<a style="margin-left: 5px" class="btn btn-primary btn-round btn-sm btn-outline" href="{{ route('thong_ke.export_thong_ke_sinh_vien',['ma_lop' => $ma_lop, 'ma_sach' => $ma_sach]) }}">
 										Xuất file excel
 									</a>
@@ -60,9 +60,9 @@
 					</table>
 				</form>
 			</div>
-			@if(isset($ma_sach) && !isset($ma_lop))
+			@if(!isset($ma_sach) && isset($ma_lop))
 				<div class="alert alert-danger alert-block">
-					Bạn chưa chọn lớp
+					Bạn chưa chọn sách
 					<button type="button" aria-hidden="true" class="close" data-dismiss="alert">
                         <i class="pe-7s-close"></i>
                     </button>
@@ -94,6 +94,8 @@
 						</tr>
 					</tfoot>
 				</table>
+			@elseif(isset($ma_sach) && isset($ma_lop))
+				<center><h4>Tất cả sinh viên của lớp đã đăng ký sách</h4></center>
 			@endif			
 		</div>
 	</div>

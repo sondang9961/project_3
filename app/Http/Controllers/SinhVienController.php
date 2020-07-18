@@ -90,8 +90,10 @@ class SinhVienController extends Controller
 		return redirect()->route("$this->folder.view_all")->with('success','Cập nhật thành công');
 	}
 
-	public function danh_sach_sinh_vien_by_lop($ma_lop)
+	public function danh_sach_sinh_vien_by_lop(Request $request)
 	{
+		$ma_lop = $request->get('ma_lop');
+
 		$countSinhVien = new \Sofa\Eloquence\Subquery(
 		    SinhVien::from('sinh_vien')
 		        ->selectRaw('count(*)')->where('ma_lop', '=', $ma_lop), 
@@ -105,6 +107,9 @@ class SinhVienController extends Controller
 								->where('sinh_vien.ma_lop','=',$ma_lop)
 								->orderBy('ma_sinh_vien','desc')
 								->paginate(5);
+								
+		$array_sinh_vien->appends(array('ma_lop' => Input::get('ma_lop')));	
+
 		return view("$this->folder.danh_sach_sinh_vien_by_lop",compact('array_sinh_vien'));
 	}
 

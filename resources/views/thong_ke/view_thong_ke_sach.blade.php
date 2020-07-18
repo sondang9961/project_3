@@ -30,17 +30,19 @@
 									</tr>
 								</table>
 							</td>
-							<td >
+							<td style="padding-bottom: 12px">
 								<input type="submit" class="btn btn-info btn-round btn-sm btn-fill" value="Xem"style="margin-left: 25px">
 							</td>
-							<td>
-								@if (!empty($search) || !empty($start) || !empty($end) && $start < $end )
-									<a style="margin-left: 5px" class="btn btn-primary btn-round btn-sm btn-outline" href="{{ route('thong_ke.export_thong_ke_sach',['search' => $search, 'start' => $start, 'end' => $end]) }}">
-										Xuất file excel
-									</a>
-									<a class="btn btn-danger btn-round btn-sm btn-outline" href="{{ route('thong_ke.export_pdf_thong_ke_sach',['search' => $search, 'start' => $start, 'end' => $end]) }}" style="margin-left: 5px">
-										Xuất file pdf
-									</a>
+							<td style="padding-bottom: 12px">
+								@if (!empty($search) || !empty($start) || !empty($end) && $start < $end)
+									@if(count($array_thong_ke_sach) > 0)
+										<a style="margin-left: 5px" class="btn btn-primary btn-round btn-sm btn-outline" href="{{ route('thong_ke.export_thong_ke_sach',['search' => $search, 'start' => $start, 'end' => $end]) }}">
+											Xuất file excel
+										</a>
+										<a class="btn btn-danger btn-round btn-sm btn-outline" href="{{ route('thong_ke.export_pdf_thong_ke_sach',['search' => $search, 'start' => $start, 'end' => $end]) }}" style="margin-left: 5px">
+											Xuất file pdf
+										</a>
+									@endif
 								@endif
 							</td>
 						</tr>

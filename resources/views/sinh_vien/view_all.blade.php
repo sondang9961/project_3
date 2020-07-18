@@ -59,8 +59,10 @@
 								<input type="submit" class="btn btn-info btn-round btn-sm btn-fill" value="Xem">
 								<input type="button" class="btn btn-round btn-sm btn-fill" value="Hủy tìm kiếm" onclick="location.href='{{ route('sinh_vien.view_all') }}'" style="margin-left: 5px">
 								<input type="button" class="btn btn-success btn-fill btn-sm btn-round" value="Thêm mới" data-toggle="modal" data-target="#addModal" style="margin-left: 5px">
-								<input type="button" class="btn btn-primary btn-round btn-sm btn-outline" value="Xuất file excel" onclick="location.href='{{ route('sinh_vien.export',['search' => $search]) }}'" style="margin-left: 5px">
-								<input type="button" class="btn btn-danger btn-round btn-sm btn-outline" value="Xuất file pdf" onclick="location.href='{{ route('sinh_vien.export_pdf',['search' => $search]) }}'" style="margin-left: 5px">
+								@if(count($array_sinh_vien) > 0)
+									<input type="button" class="btn btn-primary btn-round btn-sm btn-outline" value="Xuất file excel" onclick="location.href='{{ route('sinh_vien.export',['search' => $search]) }}'" style="margin-left: 5px">
+									<input type="button" class="btn btn-danger btn-round btn-sm btn-outline" value="Xuất file pdf" onclick="location.href='{{ route('sinh_vien.export_pdf',['search' => $search]) }}'" style="margin-left: 5px">
+								@endif
 							</td>
 						</tr>
 					</table>
@@ -235,7 +237,7 @@
 		          	<h4 class="modal-title">Cập nhật sinh viên</h4>
 		        </div>
 		        <div class="modal-body">
-			        <form action="{{route('sinh_vien.process_update', ['ma_sinh_vien' => $sinh_vien->ma_sinh_vien])}}" method="post" id="form_update">
+			        <form action="{{route('sinh_vien.process_update')}}" method="post" id="form_update">
 			        	{{csrf_field()}}
 			          	<input type="hidden" name="ma_sinh_vien" id="ma_sinh_vien">
 						<div class="row">

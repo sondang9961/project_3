@@ -94,8 +94,10 @@
 			</li>
 			<li
 				@if(Request::url() === 'http://localhost:8080/project_3/public/admin/sinh_vien/view_all')
-                    class="active" 
-                @endif
+                    class="active"
+                @elseif (Request::url() == 'http://localhost:8080/project_3/public/admin/sinh_vien/danh_sach_sinh_vien_by_lop')
+                    class="active"
+                @endif 
 			>
 				<a class="nav-link" href="{{route('sinh_vien.view_all')}}">
 					<i class="pe-7s-users"></i>
@@ -114,7 +116,9 @@
 			</li>
 			<li
 				@if(Request::url() === 'http://localhost:8080/project_3/public/admin/thong_ke/view_thong_ke_sach')
-                    class="active" 
+                    class="active"
+                @elseif (Request::url() == 'http://localhost:8080/project_3/public/admin/thong_ke/view_thong_ke_sach_chi_tiet')
+                class="active" 
                 @endif
 			>
 				<a href="{{route('thong_ke.view_thong_ke_sach')}}">
