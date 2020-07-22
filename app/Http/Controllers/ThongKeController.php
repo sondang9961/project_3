@@ -34,7 +34,7 @@ class ThongKeController extends Controller
 
 		if(isset($ma_lop) && isset($ma_sach)){
 			$array_thong_ke_sinh_vien = DB::table('sinh_vien')
-			->select(DB::raw('ma_sinh_vien,ten_sinh_vien,lop.ma_lop,ten_lop'))
+			->select(DB::raw('*'))
 			->join('lop','sinh_vien.ma_lop','=','lop.ma_lop')	
 			->whereNotIn('ma_sinh_vien',$array_not_in)
 			->where('sinh_vien.ma_lop','=',$ma_lop)
@@ -176,7 +176,7 @@ class ThongKeController extends Controller
 			->where('dang_ky_sach.ma_sach','=',$ma_sach)->get(['sinh_vien.ma_sinh_vien']);
 
 		$array_thong_ke_sinh_vien = DB::table('sinh_vien')
-			->select(DB::raw('sinh_vien.ma_sinh_vien,ten_sinh_vien,lop.ma_lop,ten_lop'))
+			->select(DB::raw('*'))
 			->join('lop','sinh_vien.ma_lop','=','lop.ma_lop')
 			->whereNotIn('sinh_vien.ma_sinh_vien',$array_not_in)
 			->where('sinh_vien.ma_lop','=',$ma_lop)

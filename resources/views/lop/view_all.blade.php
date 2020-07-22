@@ -63,7 +63,7 @@
 								<input type="button" class='button_update btn btn-warning btn-fill btn-sm' value="Cập nhật" data-toggle="modal" data-target="#updateModal" data-ma_lop='{{$lop->ma_lop}}'>
 							</td>
 							<td>
-								<button class='button_update btn btn-info btn-fill btn-wd' onclick="location.href='{{route('sinh_vien.danh_sach_sinh_vien_by_lop', ['ma_lop' => $lop->ma_lop])}}'">Danh sách SV</button>
+								<a class='button_update btn btn-info btn-fill btn-wd' href="{{route('sinh_vien.danh_sach_sinh_vien_by_lop', ['ma_lop' => $lop->ma_lop])}}" target="_blank">Danh sách SV</a>
 							</td>
 						</tr>
 					@endforeach

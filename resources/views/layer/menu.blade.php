@@ -74,6 +74,8 @@
 			</li>
 			<li
 				@if(Request::url() === 'http://localhost:8080/project_3/public/admin/sach/view_all')
+                    class="active"
+                @elseif(Request::url() === 'http://localhost:8080/project_3/public/admin/sach/view_so_luong_sach_nhap')
                     class="active" 
                 @endif	
 			>
@@ -84,6 +86,8 @@
 			</li>
 			<li 
 				@if(Request::url() === 'http://localhost:8080/project_3/public/admin/lop/view_all')
+                    class="active"
+                @elseif (Request::url() == 'http://localhost:8080/project_3/public/admin/sinh_vien/danh_sach_sinh_vien_by_lop')
                     class="active" 
                 @endif
             >
@@ -94,8 +98,6 @@
 			</li>
 			<li
 				@if(Request::url() === 'http://localhost:8080/project_3/public/admin/sinh_vien/view_all')
-                    class="active"
-                @elseif (Request::url() == 'http://localhost:8080/project_3/public/admin/sinh_vien/danh_sach_sinh_vien_by_lop')
                     class="active"
                 @endif 
 			>

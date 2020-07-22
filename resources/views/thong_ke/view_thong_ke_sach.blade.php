@@ -71,7 +71,7 @@
 								<td>{{$thong_ke->so_luong_da_phat}}</td>
 								<td>{{$thong_ke->so_luong_ton_kho}}</td>
 								<td>
-									<input type="button" class="btn btn-primary btn-round btn-sm btn-fill" value="Những sinh viên đã nhận sách" onclick="location.href='{{ route('thong_ke.view_thong_ke_sach_chi_tiet', ['ma_sach' => $thong_ke->ma_sach]) }}'">
+									<a class="btn btn-primary btn-round btn-sm btn-fill" href="{{ route('thong_ke.view_thong_ke_sach_chi_tiet', ['ma_sach' => $thong_ke->ma_sach]) }}" target="_blank">Những sinh viên đã nhận sách</a>
 								</td>
 							</tr>
 						@endforeach

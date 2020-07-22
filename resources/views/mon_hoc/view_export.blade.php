@@ -1,11 +1,5 @@
 <center>
-	<h3>Danh sách môn học
-		@if (isset($search) && $array_mon_hoc[0]->ma_chuyen_nganh == 1)
-			chuyên ngành lập trình
-		@elseif(isset($search) && $array_mon_hoc[0]->ma_chuyen_nganh == 2)
-			chuyên ngành quản trị mạng
-		@endif
-	</h3>
+	<h3>Danh sách môn học</h3>
 
 </center>
 <table class="table table-striped" border="1" cellspacing="0">

@@ -41,11 +41,15 @@
 				</form>
 			</div>
 			@if(count($array_thong_ke_sach) > 0)
-				<table class="table table-striped" style="width: 70%" >
+				<table class="table table-striped">
 					<thead>
 						<tr>
-							<th>Mã sinh viên</th>
+							<th>Mã</th>
 							<th>Tên sinh viên</th>
+							<th>Ngày sinh</th>
+							<th>Email</th>
+							<th>Số điện thoại</th>
+							<th>Địa chỉ</th>
 							<th>Tên lớp</th>
 						</tr>
 					</thead>
@@ -54,6 +58,10 @@
 							<tr>
 								<td>{{$thong_ke->ma_sinh_vien}}</td>
 								<td>{{$thong_ke->ten_sinh_vien}}</td>
+								<td>{{date_format(date_create($thong_ke->ngay_sinh),'d/m/Y')}}</td>
+								<td>{{$thong_ke->email}}</td>
+								<td>{{$thong_ke->sdt}}</td>
+								<td>{{$thong_ke->dia_chi}}</td>
 								<td>{{$thong_ke->ten_lop}}</td>
 							</tr>
 						@endforeach

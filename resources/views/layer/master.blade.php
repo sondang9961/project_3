@@ -59,7 +59,7 @@
                         <script>
                             document.write(new Date().getFullYear())
                         </script>
-                        <a href="https://www.bkacad.com/vn/index.php">BKACAD</a>, made with love
+                        <a href="https://www.bkacad.com/vn/index.php" target="_blank">BKACAD</a>, made with love
                     </p>
                 </nav>
             </div>
