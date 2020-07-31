@@ -17,7 +17,7 @@ class ChuyenNganhController extends Controller
 		if($ten_chuyen_nganh != '' ){
 			$array_chuyen_nganh = $array_chuyen_nganh->where('ten_chuyen_nganh','LIKE','%'.$ten_chuyen_nganh.'%');
 		}
-		$array_chuyen_nganh = $array_chuyen_nganh->orderBy('ma_chuyen_nganh','desc')->paginate(3);
+		$array_chuyen_nganh = $array_chuyen_nganh->orderBy('ma_chuyen_nganh','desc')->paginate(5);
 		
 		$array_chuyen_nganh->appends(array('ten_chuyen_nganh' => Input::get('ten_chuyen_nganh')));
 		if(count($array_chuyen_nganh) > 0){

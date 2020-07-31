@@ -181,6 +181,15 @@
 	                            </div>
 	                        </div>
 	                        <div class="row">
+	                            <label class="col-sm-3" style="font-size: 1.75rem; font-weight: lighter">Khóa học</label>
+	                            <div class="col-sm-8">
+	                                <div class="form-group">
+	                                    <select name="ma_khoa_hoc" class="form-control" style="width: 40rem" id="select_khoa_hoc" disabled>
+										</select>
+	                                </div>
+	                            </div>
+	                        </div>
+	                        <div class="row">
 	                            <label class="col-sm-3" style="font-size: 1.75rem; font-weight: lighter">Tên lớp</label>
 	                            <div class="col-sm-8">
 	                                <div class="form-group">

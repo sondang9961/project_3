@@ -18,7 +18,7 @@ class KhoaHocController extends Controller
 			$array_khoa_hoc = $array_khoa_hoc->where('ten_khoa_hoc','LIKE','%'.$ten_khoa_hoc.'%');
  		}
 		
-		$array_khoa_hoc = $array_khoa_hoc->orderBy('ma_khoa_hoc','desc')->paginate(2);
+		$array_khoa_hoc = $array_khoa_hoc->orderBy('ma_khoa_hoc','desc')->paginate(5);
 
 		$array_khoa_hoc->appends(array('ten_khoa_hoc' => Input::get('ten_khoa_hoc')));
 		if(count($array_khoa_hoc) > 0){

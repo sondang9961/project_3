@@ -72,18 +72,6 @@
 					<p>Quản lý môn học</p>
 				</a>
 			</li>
-			<li
-				@if(Request::url() === 'http://localhost:8080/project_3/public/admin/sach/view_all')
-                    class="active"
-                @elseif(Request::url() === 'http://localhost:8080/project_3/public/admin/sach/view_so_luong_sach_nhap')
-                    class="active" 
-                @endif	
-			>
-				<a class="nav-link" href="{{route('sach.view_all')}}">
-					<i class="pe-7s-notebook"></i>
-					<p>Quản lý sách</p>
-				</a>
-			</li>
 			<li 
 				@if(Request::url() === 'http://localhost:8080/project_3/public/admin/lop/view_all')
                     class="active"
@@ -104,6 +92,18 @@
 				<a class="nav-link" href="{{route('sinh_vien.view_all')}}">
 					<i class="pe-7s-users"></i>
 					<p>Quản lý sinh viên</p>
+				</a>
+			</li>
+			<li
+				@if(Request::url() === 'http://localhost:8080/project_3/public/admin/sach/view_all')
+                    class="active"
+                @elseif(Request::url() === 'http://localhost:8080/project_3/public/admin/sach/view_so_luong_sach_nhap')
+                    class="active" 
+                @endif	
+			>
+				<a class="nav-link" href="{{route('sach.view_all')}}">
+					<i class="pe-7s-notebook"></i>
+					<p>Quản lý sách</p>
 				</a>
 			</li>
 			<li 
