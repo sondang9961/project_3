@@ -60,7 +60,7 @@
 								<input type="button" class="btn btn-round btn-sm btn-fill" value="Hủy tìm kiếm" onclick="location.href='{{ route('sinh_vien.view_all') }}'" style="margin-left: 5px">
 								<input type="button" class="btn btn-success btn-fill btn-sm btn-round" value="Thêm mới" data-toggle="modal" data-target="#addModal" style="margin-left: 5px">
 								@if(count($array_sinh_vien) > 0)
-									<input type="button" class="btn btn-primary btn-round btn-sm btn-outline" value="Xuất file excel" onclick="location.href='{{ route('sinh_vien.export',['search' => $search]) }}'" style="margin-left: 5px">
+									<input type="button" class="btn btn-round btn-sm btn-outline" value="Xuất file excel" onclick="location.href='{{ route('sinh_vien.export',['search' => $search]) }}'" style="margin-left: 5px; color: green; border: 1px green solid">
 									<input type="button" class="btn btn-danger btn-round btn-sm btn-outline" value="Xuất file pdf" onclick="location.href='{{ route('sinh_vien.export_pdf',['search' => $search]) }}'" style="margin-left: 5px">
 								@endif
 							</td>
@@ -204,7 +204,7 @@
                             <label class="col-sm-3" style="font-size: 1.75rem; font-weight: lighter">Lớp</label>
                             <div class="col-sm-8">
                                 <div class="form-group">
-                                    <select name="ma_lop" id="select_lop" class="form-control" style="width: 37rem">
+                                    <select name="ma_lop" id="select_lop" class="form-control" style="width: 34.5rem">
 										<option value="-1">--Tên lớp--</option>
 										@foreach($array_lop as $lop)
 											<option value="{{$lop->ma_lop}}">
@@ -289,7 +289,7 @@
                             <label class="col-sm-3" style="margin-top: 1%;font-size: 1.75rem; font-weight:lighter">Lớp</label>
                             <div class="col-sm-8">
                                 <div class="form-group">
-                                    <select name="ma_lop" id="ma_lop" class="form-control" style="width: 34.5rem">
+                                    <select name="ma_lop" id="ma_lop" class="form-control">
 						          		@foreach($array_lop as $lop)
 											<option value="{{$lop->ma_lop}}">
 												{{$lop->ten_lop}}
@@ -312,8 +312,9 @@
 @push('js')
 <script src="{{ asset('js/select2.min.js') }}"></script>
 <script type="text/javascript">
-	$("#select_lop").select2();
-	$("#ma_lop").select2();
+	$("#
+		").select2();
+	
 
 	$(document).ready(function() {
 		$(".button_update").click(function(event) {
@@ -337,6 +338,7 @@
 			
 		});
 	});
+
 	function validate() {
 		var dem = 0;
 		var sinh_vien = document.getElementById('sinh_vien').value;

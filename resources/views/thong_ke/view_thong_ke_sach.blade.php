@@ -36,7 +36,7 @@
 							<td style="padding-bottom: 12px">
 								@if (!empty($search) || !empty($start) || !empty($end) && $start < $end)
 									@if(count($array_thong_ke_sach) > 0)
-										<a style="margin-left: 5px" class="btn btn-primary btn-round btn-sm btn-outline" href="{{ route('thong_ke.export_thong_ke_sach',['search' => $search, 'start' => $start, 'end' => $end]) }}">
+										<a style="margin-left: 5px; color: green; border: 1px green solid" class="btn btn-primary btn-round btn-sm btn-outline" href="{{ route('thong_ke.export_thong_ke_sach',['search' => $search, 'start' => $start, 'end' => $end]) }}">
 											Xuất file excel
 										</a>
 										<a class="btn btn-danger btn-round btn-sm btn-outline" href="{{ route('thong_ke.export_pdf_thong_ke_sach',['search' => $search, 'start' => $start, 'end' => $end]) }}" style="margin-left: 5px">

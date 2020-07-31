@@ -75,7 +75,7 @@
 									<td style="padding-left: 8px"><h4><b>{{$count_lop}}</b> lớp</h4></td>
 								</tr>
 								<tr>
-									<td><h4>Số sinh viên mỗi lớp là:</h4></td>
+									<td><h4>Tổng số sinh viên của {{$count_lop}} lớp là:</h4></td>
 									<td style="padding-left: 8px"><h4><b>{{$count_sinh_vien}}</b> sinh viên</h4></td>
 								</tr>
 								<tr>

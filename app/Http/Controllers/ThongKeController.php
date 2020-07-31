@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Input;
 use Request;
 use App\Model\Lop;
 use App\Model\Sach;
+use App\Model\ChuyenNganh;
 use App\Model\MonHoc;
 use App\Model\SinhVien;
 use App\Model\DangKySach;
@@ -21,18 +22,19 @@ class ThongKeController extends Controller
 	public function view_thong_ke_sinh_vien()
 	{
 		$array_lop = Lop::all();
-
 		$array_sach = Sach::all();
+		$array_chuyen_nganh = ChuyenNganh::all();		
 
 		$ma_lop = Request::get('ma_lop');
 		$ma_sach = Request::get('ma_sach');
+		$ma_chuyen_nganh = Request::get('ma_chuyen_nganh');
 
 		$array_not_in = SinhVien::query()
 			->join('dang_ky_sach','sinh_vien.ma_sinh_vien','=','dang_ky_sach.ma_sinh_vien')
 			->where('ma_lop','=',$ma_lop)
 			->where('ma_sach','=',$ma_sach)->get(['sinh_vien.ma_sinh_vien']);
 
-		if(isset($ma_lop) && isset($ma_sach)){
+		if(isset($ma_chuyen_nganh) && isset($ma_lop) && isset($ma_sach)){
 			$array_thong_ke_sinh_vien = DB::table('sinh_vien')
 			->select(DB::raw('*'))
 			->join('lop','sinh_vien.ma_lop','=','lop.ma_lop')	
@@ -42,13 +44,14 @@ class ThongKeController extends Controller
 		
 			$array_thong_ke_sinh_vien->appends(array(
 				'ma_lop' => Input::get('ma_lop'),
-				'ma_sach' => Input::get('ma_sach')
+				'ma_sach' => Input::get('ma_sach'),
+				'ma_chuyen_nganh' => Input::get('ma_chuyen_nganh'),
 			));
 
-			return view("$this->folder.view_thong_ke_sinh_vien",compact('array_thong_ke_sinh_vien','array_lop','array_sach','ma_lop','ma_sach'));
+			return view("$this->folder.view_thong_ke_sinh_vien",compact('array_thong_ke_sinh_vien','array_lop','array_sach','array_chuyen_nganh','ma_lop','ma_sach','ma_chuyen_nganh'));
 		}
 		$array_thong_ke_sinh_vien = [];
-		return view("$this->folder.view_thong_ke_sinh_vien",compact('array_thong_ke_sinh_vien','array_lop','array_sach','ma_lop','ma_sach'));
+		return view("$this->folder.view_thong_ke_sinh_vien",compact('array_thong_ke_sinh_vien','array_lop','array_sach','array_chuyen_nganh','ma_lop','ma_sach','ma_chuyen_nganh'));
 		
 	}
 

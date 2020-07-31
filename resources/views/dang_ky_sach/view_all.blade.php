@@ -61,7 +61,7 @@
 							</td>
 							<td>
 								@if (isset($ma_lop) && isset($ma_sach))
-									<a style="margin-left: 5px" class="btn btn-primary btn-round btn-sm btn-outline" href="{{ route('dang_ky_sach.export',['ma_lop' => $ma_lop, 'ma_sach' => $ma_sach]) }}">
+									<a style="margin-left: 5px; color: green; border: 1px green solid" class="btn btn-round btn-sm btn-outline" href="{{ route('dang_ky_sach.export',['ma_lop' => $ma_lop, 'ma_sach' => $ma_sach]) }}">
 										Xuất file excel
 									</a>
 									<a class="btn btn-danger btn-round btn-sm btn-outline" href="{{ route('dang_ky_sach.export_pdf',['ma_lop' => $ma_lop, 'ma_sach' => $ma_sach]) }}" style="margin-left: 5px">
@@ -184,7 +184,13 @@
 	                            <label class="col-sm-3" style="font-size: 1.75rem; font-weight: lighter">Khóa học</label>
 	                            <div class="col-sm-8">
 	                                <div class="form-group">
-	                                    <select name="ma_khoa_hoc" class="form-control" style="width: 40rem" id="select_khoa_hoc" disabled>
+	                                	<select name="ma_khoa_hoc" class="form-control" style="width: 40rem" id="select_khoa_hoc" disabled>
+		                                    <option disabled selected>--Chọn khóa học--</option>
+											@foreach ($array_khoa_hoc as $khoa_hoc)
+												<option value="{{$khoa_hoc->ma_khoa_hoc}}">
+													{{$khoa_hoc->ten_khoa_hoc}}
+												</option>
+											@endforeach
 										</select>
 	                                </div>
 	                            </div>
@@ -244,6 +250,7 @@
 	$(document).ready(function() {
 		$("#select_tinh_trang").select2();
 		$("#select_chuyen_nganh").select2();
+		$("#select_khoa_hoc").select2();
 
 		$("#select_chuyen_nganh").change(function(){
 			$("#select_sach").val(null).trigger('change');
@@ -251,9 +258,18 @@
 			$("#select_lop").attr("disabled", true);
 			$("#select_sinh_vien").attr("disabled", true);
 			$("#select_tinh_trang").attr("disabled", true);
+			$("#select_khoa_hoc").attr("disabled", true);
 		})
 
 		$("#select_sach").change(function(){
+			$("#select_khoa_hoc").val(null).trigger('change');
+			$("#select_khoa_hoc").attr("disabled", false);
+			$("#select_sinh_vien").attr("disabled", true);
+			$("#select_tinh_trang").attr("disabled", true);
+			$("#select_lop").attr("disabled", true);
+		})
+
+		$("#select_khoa_hoc").change(function(){
 			$("#select_lop").val(null).trigger('change');
 			$("#select_lop").attr("disabled", false);
 			$("#select_sinh_vien").attr("disabled", true);
@@ -308,12 +324,14 @@
 		
 		$("#select_lop").select2({
 			ajax: {
-				url: '{{route('get_lop_by_chuyen_nganh')}}',
+				url: '{{route('get_lop_by_chuyen_nganh_and_khoa_hoc')}}',
 				dataType: 'json',
 				data: function() {
 					ma_chuyen_nganh = $("#select_chuyen_nganh").val();
+					ma_khoa_hoc = $("#select_khoa_hoc").val();
 					return {
-						ma_chuyen_nganh: ma_chuyen_nganh
+						ma_chuyen_nganh: ma_chuyen_nganh,
+						ma_khoa_hoc: ma_khoa_hoc						
 					}
 				},
 				processResults: function (data){

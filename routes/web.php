@@ -59,6 +59,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'CheckAdmin'], function(){
 		->name("$group.process_search");
 		Route::get("get_lop_by_chuyen_nganh","$controller@get_lop_by_chuyen_nganh")
 		->name("get_lop_by_chuyen_nganh");
+		Route::get("get_lop_by_chuyen_nganh_and_khoa_hoc","$controller@get_lop_by_chuyen_nganh_and_khoa_hoc")
+		->name("get_lop_by_chuyen_nganh_and_khoa_hoc");
 		Route::get("get_one","$controller@get_one")
 		->name("$group.get_one");
 		Route::get("export","$controller@export")

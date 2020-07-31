@@ -16,7 +16,7 @@
 					<input type="button" class="btn btn-round btn-sm btn-fill" value="Hủy tìm kiếm" onclick="location.href='{{ route('lop.view_all') }}'" style="margin-left: 5px">
 					<input type="button" class="btn btn-success btn-fill btn-sm btn-round" value="Thêm mới" data-toggle="modal" data-target="#addModal" style="margin-left: 5px">
 					@if(count($array_lop) > 0)
-						<input type="button" class="btn btn-primary btn-round btn-sm btn-outline" value="Xuất file excel" onclick="location.href='{{ route('lop.export',['search' => $search]) }}'" style="margin-left: 5px">
+						<input type="button" class="btn btn-round btn-sm btn-outline" value="Xuất file excel" onclick="location.href='{{ route('lop.export',['search' => $search]) }}'" style="margin-left: 5px; color: green; border: 1px green solid">
 						<input type="button" class="btn btn-danger btn-round btn-sm btn-outline" value="Xuất file pdf" onclick="location.href='{{ route('lop.export_pdf',['search' => $search]) }}'" style="margin-left: 5px">
 					@endif
 			</form>

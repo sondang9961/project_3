@@ -7,6 +7,7 @@ use Request;
 use App\Helper;
 use App\Model\DangKySach;
 use App\Model\ChuyenNganh;
+use App\Model\KhoaHoc;
 use App\Model\Sach;
 use Excel;
 use App\Exports\DangKySachExport;
@@ -23,6 +24,7 @@ class DangKySachController extends Controller
 	public function view_all()
 	{
 		$array_chuyen_nganh = ChuyenNganh::all();
+		$array_khoa_hoc = KhoaHoc::all();
 	
 		$ma_chuyen_nganh = Request::get('ma_chuyen_nganh');
 		$ma_sinh_vien = Request::get('ma_sinh_vien');
@@ -55,9 +57,9 @@ class DangKySachController extends Controller
 		));
 		if(count($array_dang_ky_sach) == 0){
 			$message = "Không tìm thấy kết quả";
-			return view("$this->folder.view_all",compact('message','array_dang_ky_sach','array_chuyen_nganh'));
+			return view("$this->folder.view_all",compact('message','array_dang_ky_sach','array_chuyen_nganh','array_khoa_hoc'));
 		}
-		return view("$this->folder.view_all",compact('array_dang_ky_sach','array_chuyen_nganh','ma_chuyen_nganh','ma_lop','ma_sinh_vien','ma_sach'));
+		return view("$this->folder.view_all",compact('array_dang_ky_sach','array_chuyen_nganh','array_khoa_hoc','ma_chuyen_nganh','ma_lop','ma_sinh_vien','ma_sach'));
 	}
 
 	public function process_insert()

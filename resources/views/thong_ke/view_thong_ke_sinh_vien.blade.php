@@ -12,6 +12,22 @@
 					<table>
 						<tr>
 							<td style="padding-bottom: 4%">
+								<div style="margin-right: 3rem ">Tên chuyên ngành
+									<select name="ma_chuyen_nganh" class="form-control" style="width: 14rem" id="search_chuyen_nganh">
+										<option selected disabled>--Tên chuyên ngành--</option>
+										@foreach ($array_chuyen_nganh as $chuyen_nganh)
+											<option value="{{$chuyen_nganh->ma_chuyen_nganh}}"
+											@if ($chuyen_nganh->ma_chuyen_nganh == $ma_chuyen_nganh)
+												selected 
+											@endif		
+											>
+												{{$chuyen_nganh->ten_chuyen_nganh}}
+											</option>
+										@endforeach
+									</select>
+								</div>
+							</td>
+							<td style="padding-bottom: 4%">
 								<div style="margin-right: 3rem ">Tên lớp
 									<select name="ma_lop" class="form-control" style="width: 14rem" id="search_lop">
 										<option selected disabled>--Tên lớp--</option>
@@ -32,7 +48,11 @@
 									<select name="ma_sach" class="form-control" style="width: 14rem" id="searchSach">
 										<option selected disabled>--Tên sách--</option> 
 										@foreach ($array_sach as $sach)
-											<option value="{{$sach->ma_sach}}">
+											<option value="{{$sach->ma_sach}}"
+											@if ($sach->ma_sach == $ma_sach)
+												selected 
+											@endif
+											>
 												{{$sach->ten_sach}}
 											</option>
 										@endforeach
@@ -44,7 +64,7 @@
 							</td>
 							<td style="padding-bottom: 5%; padding-left: 5px">
 								@if (isset($ma_lop) && isset($ma_sach) && count($array_thong_ke_sinh_vien) > 0)
-									<a style="margin-left: 5px" class="btn btn-primary btn-round btn-sm btn-outline" href="{{ route('thong_ke.export_thong_ke_sinh_vien',['ma_lop' => $ma_lop, 'ma_sach' => $ma_sach]) }}">
+									<a style="margin-left: 5px; color: green; border: 1px green solid" class="btn btn-primary btn-round btn-sm btn-outline" href="{{ route('thong_ke.export_thong_ke_sinh_vien',['ma_lop' => $ma_lop, 'ma_sach' => $ma_sach]) }}">
 										Xuất file excel
 									</a>
 									<a class="btn btn-danger btn-round btn-sm btn-outline" href="{{ route('thong_ke.export_pdf_thong_ke_sinh_vien',['ma_lop' => $ma_lop, 'ma_sach' => $ma_sach]) }}" style="margin-left: 5px">
@@ -109,7 +129,32 @@
 <script src="{{ asset('js/select2.min.js') }}"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
+		$("#search_chuyen_nganh").select2();
 		$("#search_lop").select2();
+
+		$("#search_lop").select2({
+			ajax: {
+				url: '{{route('get_lop_by_chuyen_nganh')}}',
+				dataType: 'json',
+				data: function() {
+					ma_chuyen_nganh = $("#search_chuyen_nganh").val();
+					return {
+						ma_chuyen_nganh: ma_chuyen_nganh
+					}
+				},
+				processResults: function (data){
+					return {
+						results: $.map(data, function(item) {
+							return  {
+								text: item.ten_lop,
+								id: item.ma_lop
+							}
+						})
+					};
+				}
+			}
+		});	
+
 		$("#searchSach").select2({
 			ajax: {
 				url: '{{route('get_sach_by_lop')}}',
