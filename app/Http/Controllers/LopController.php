@@ -60,6 +60,13 @@ class LopController extends Controller
 		$array_lop = Lop::get_all_by_chuyen_nganh($ma_chuyen_nganh);
 		return $array_lop;
 	}
+	
+	public function get_lop_by_khoa_hoc()
+	{
+		$ma_khoa_hoc = Request::get('ma_khoa_hoc');
+		$array_lop = Lop::where('ma_khoa_hoc','=',$ma_khoa_hoc)->get();
+		return $array_lop;
+	}
 
 	public function get_lop_by_chuyen_nganh_and_khoa_hoc()
 	{

@@ -48,7 +48,7 @@
                 @endif
 			>
 				<a class="nav-link" href="{{route('chuyen_nganh.view_all')}}">
-					<i class="pe-7s-study"></i>
+					<i class="pe-7s-portfolio"></i>
 					<p>Quản lý chuyên ngành</p>
 				</a>
 			</li>

@@ -9,6 +9,7 @@ use Response;
 use App\Model\SinhVien;
 use App\Model\DangKySach;
 use App\Model\Lop;
+use App\Model\KhoaHoc;
 use Excel;
 use App\Imports\SinhVienImport;
 use App\Exports\SinhVienExport;
@@ -26,6 +27,7 @@ class SinhVienController extends Controller
 	public function view_all(Request $request)
 	{
 		$array_lop = Lop::all();
+		$array_khoa_hoc = KhoaHoc::all();
 
 		$search = Input::get('search');
 	
@@ -39,10 +41,10 @@ class SinhVienController extends Controller
 		$array_sinh_vien->appends(array('search' => Input::get('search')));
 		
 		if(count($array_sinh_vien) > 0){
-			return view("$this->folder.view_all",compact('array_sinh_vien','array_lop','search'));
+			return view("$this->folder.view_all",compact('array_sinh_vien','array_lop','array_khoa_hoc','search'));
 		}
 		$message = "Không tìm thấy kết quả";
-		return view("$this->folder.view_all",compact('message','array_sinh_vien','array_lop','search'));
+		return view("$this->folder.view_all",compact('message','array_sinh_vien','array_lop','array_khoa_hoc','search'));
 		
 	}
 

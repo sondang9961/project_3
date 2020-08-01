@@ -201,19 +201,29 @@
                             </div>
                         </div>
                         <div class="row">
+                            <label class="col-sm-3" style="font-size: 1.75rem; font-weight: lighter">Khóa học</label>
+                            <div class="col-sm-8">
+                                <div class="form-group">
+                                    <select name="ma_khoa_hoc" id="select_khoa_hoc" class="form-control" style="width: 34.5rem">
+										<option value="-1">--Tên khóa học--</option>
+										@foreach($array_khoa_hoc as $khoa_hoc)
+											<option value="{{$khoa_hoc->ma_khoa_hoc}}">
+												{{$khoa_hoc->ten_khoa_hoc}}
+											</option>
+										@endforeach
+									</select>
+									<span id="errKhoaHoc" style="color: red"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
                             <label class="col-sm-3" style="font-size: 1.75rem; font-weight: lighter">Lớp</label>
                             <div class="col-sm-8">
                                 <div class="form-group">
                                     <select name="ma_lop" id="select_lop" class="form-control" style="width: 34.5rem">
 										<option value="-1">--Tên lớp--</option>
-										@foreach($array_lop as $lop)
-											<option value="{{$lop->ma_lop}}">
-												{{$lop->ten_lop}}
-											</option>
-										@endforeach
 									</select>
 									<span id="errLop" style="color: red"></span>
-									<span id="errKhoaHoc" style="color: red"></span>
                                 </div>
                             </div>
                         </div>					        	
@@ -312,9 +322,29 @@
 @push('js')
 <script src="{{ asset('js/select2.min.js') }}"></script>
 <script type="text/javascript">
-	$("#
-		").select2();
-	
+	$("#select_khoa_hoc").select2();
+	$("#select_lop").select2({
+		ajax: {
+			url: '{{route('get_lop_by_khoa_hoc')}}',
+			dataType: 'json',
+			data: function() {
+				ma_khoa_hoc = $("#select_khoa_hoc").val();
+				return {
+					ma_khoa_hoc: ma_khoa_hoc						
+				}
+			},
+			processResults: function (data){
+				return {
+					results: $.map(data, function(item) {
+						return  {
+							text: item.ten_lop,
+							id: item.ma_lop
+						}
+					})
+				};
+			}
+		}
+	});
 
 	$(document).ready(function() {
 		$(".button_update").click(function(event) {
@@ -346,12 +376,14 @@
 		var sdt = document.getElementById('sdt').value;
 		var email = document.getElementById('email').value;
 		var dia_chi = document.getElementById('dia_chi').value;
+		var ma_khoa_hoc = document.getElementById('select_khoa_hoc').value;
 		var ma_lop = document.getElementById('select_lop').value;
 		var errSinhVien = document.getElementById('errSinhVien');
 		var errNgaySinh = document.getElementById('errNgaySinh');
 		var errSdt = document.getElementById('errSdt');
 		var errEmail = document.getElementById('errEmail');
 		var errDiaChi = document.getElementById('errDiaChi');
+		var errKhoaHoc = document.getElementById('errKhoaHoc');
 		var errLop = document.getElementById('errLop');
 
 		if(sinh_vien.length == 0){
@@ -389,13 +421,20 @@
 			dem++;
 		}
 
+		if(ma_khoa_hoc == -1){
+			errKhoaHoc.innerHTML="Chưa chọn khóa học!";
+		}else {
+			errKhoaHoc.innerHTML="";
+			dem++;
+		}
+
 		if(ma_lop == -1){
 			errLop.innerHTML="Chưa chọn lớp!";
 		}else {
 			errLop.innerHTML="";
 			dem++;
 		}
-		if(dem == 6){
+		if(dem == 7){
 			document.getElementById('form_insert').submit();
 		}
 	}
