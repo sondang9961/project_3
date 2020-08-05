@@ -83,7 +83,7 @@ class LopController extends Controller
 		$lop->ma_khoa_hoc = Request::get('ma_khoa_hoc');
 		$lop->ma_chuyen_nganh = Request::get('ma_chuyen_nganh');
 		
-		$count = Lop::where('ten_lop','=',$lop->ten_lop)->count()
+		$count = Lop::where('ten_lop','=',$lop->ten_lop)
 					->where('ma_khoa_hoc','=',$ma_khoa_hoc)
 					->where('ma_chuyen_nganh','=',$ma_chuyen_nganh)->count();
 

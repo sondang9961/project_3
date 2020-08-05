@@ -33,7 +33,7 @@
 				       			<label>Chọn file excel (.xls, .xlsx)</label>
 				       		</td>
 				       		<td width="30">
-				        		<input type="file" name="select_file" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />
+				        		<input type="file" name="select_file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />
 				       		</td>
 				       		<td width="30%" align="left">
 				        		<input type="submit" name="upload" class="btn btn-primary btn-sm btn-fill" value="Tải lên">
@@ -100,7 +100,6 @@
 			<table class="table table-striped">
 				<thead>
 					<tr>
-						<th>Mã</th>
 						<th>Tên sinh viên</th>
 						<th>Ngày sinh</th>
 						<th>Email</th>
@@ -113,7 +112,6 @@
 				<tbody>
 					@foreach ($array_sinh_vien as $sinh_vien)
 						<tr>
-							<td>{{$sinh_vien->ma_sinh_vien}}</td>
 							<td>{{$sinh_vien->ten_sinh_vien}}</td>
 							<td>{{date_format(date_create($sinh_vien->ngay_sinh),'d/m/Y')}}</td>
 							<td>{{$sinh_vien->email}}</td>
@@ -226,12 +224,12 @@
 									<span id="errLop" style="color: red"></span>
                                 </div>
                             </div>
-                        </div>					        	
+                        </div>			        	
 			        </form>
 		        </div>
 		        <div class="modal-footer">
 		        	<input type="button" class="btn btn-fill btn-info btn-sm btn-round" value="Thêm" id="button" onclick="validate()">
-		          	<button type="button" class="btn btn-fill btn-default btn-sm btn-round" data-dismiss="modal">Close</button>
+		          	<button type="button" class="btn btn-fill btn-default btn-sm btn-round" data-dismiss="modal">Close</button>		
 		        </div>
 	      	</div>
     	</div>

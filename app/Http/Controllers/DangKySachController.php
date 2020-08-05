@@ -9,6 +9,7 @@ use App\Model\DangKySach;
 use App\Model\ChuyenNganh;
 use App\Model\KhoaHoc;
 use App\Model\Sach;
+use App\Model\Lop;
 use Excel;
 use App\Exports\DangKySachExport;
 use PDF;
@@ -23,22 +24,17 @@ class DangKySachController extends Controller
 	private $folder = 'dang_ky_sach';
 	public function view_all()
 	{
-		$array_chuyen_nganh = ChuyenNganh::all();
-		$array_khoa_hoc = KhoaHoc::all();
+		$array_lop = Lop::all();
 	
-		$ma_chuyen_nganh = Request::get('ma_chuyen_nganh');
 		$ma_sinh_vien = Request::get('ma_sinh_vien');
 		$ma_lop = Request::get('ma_lop');
 		$ma_sach = Request::get('ma_sach');
+		$tinh_trang_nhan_sach = Request::get('tinh_trang_nhan_sach');
 		
 		$array_dang_ky_sach = DangKySach::query()
 							->join('sinh_vien','dang_ky_sach.ma_sinh_vien','=','sinh_vien.ma_sinh_vien')
 							->join('sach','dang_ky_sach.ma_sach','=','sach.ma_sach')
-							->join('lop','sinh_vien.ma_lop','=','lop.ma_lop')
-							->join('chuyen_nganh','lop.ma_chuyen_nganh','=','chuyen_nganh.ma_chuyen_nganh');
-		if(!empty($ma_chuyen_nganh)){
-			$array_dang_ky_sach = $array_dang_ky_sach->where('chuyen_nganh.ma_chuyen_nganh','=',$ma_chuyen_nganh);
-		}
+							->join('lop','sinh_vien.ma_lop','=','lop.ma_lop');
 		if(!empty($ma_lop)){
 			$array_dang_ky_sach = $array_dang_ky_sach->where('lop.ma_lop','=',$ma_lop);
 		}
@@ -48,18 +44,21 @@ class DangKySachController extends Controller
 		if(!empty($ma_sach)){
 			$array_dang_ky_sach = $array_dang_ky_sach->where('sach.ma_sach','=',$ma_sach);
 		}
+		if(isset($tinh_trang_nhan_sach)){
+			$array_dang_ky_sach = $array_dang_ky_sach->where('tinh_trang_nhan_sach','=',$tinh_trang_nhan_sach);
+		}
 		$array_dang_ky_sach = $array_dang_ky_sach->orderBy('ma_dang_ky','desc')->paginate(8);
 		$array_dang_ky_sach->appends(array(
-			'ma_chuyen_nganh' => Input::get('ma_chuyen_nganh'),
 			'ma_lop' => Input::get('ma_lop'),
 			'ma_sinh_vien' => Input::get('ma_sinh_vien'),
-			'ma_sach' => Input::get('ma_sach')
+			'ma_sach' => Input::get('ma_sach'),
+			'tinh_trang_nhan_sach' => Input::get('tinh_trang_nhan_sach'),
 		));
 		if(count($array_dang_ky_sach) == 0){
 			$message = "Không tìm thấy kết quả";
-			return view("$this->folder.view_all",compact('message','array_dang_ky_sach','array_chuyen_nganh','array_khoa_hoc'));
+			return view("$this->folder.view_all",compact('message','array_dang_ky_sach','array_lop','tinh_trang_nhan_sach','ma_lop','ma_sinh_vien','ma_sach'));
 		}
-		return view("$this->folder.view_all",compact('array_dang_ky_sach','array_chuyen_nganh','array_khoa_hoc','ma_chuyen_nganh','ma_lop','ma_sinh_vien','ma_sach'));
+		return view("$this->folder.view_all",compact('array_dang_ky_sach','array_lop','tinh_trang_nhan_sach','ma_lop','ma_sinh_vien','ma_sach'));
 	}
 
 	public function process_insert()

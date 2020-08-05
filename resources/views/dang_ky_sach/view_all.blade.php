@@ -12,37 +12,22 @@
 					<table style="width: 90%">
 						<tr style="height: 4rem">
 							<td>
-								<b>Tên chuyên ngành</b>
+								<b>Tên lớp</b>
 							</td>
 							<td>
-								<select name="ma_chuyen_nganh" class="form-control" style="width: 17rem" id="search_chuyen_nganh">
-									<option disabled selected value="">--Chọn chuyên ngành--</option>
-									@foreach ($array_chuyen_nganh as $chuyen_nganh)
-										<option value="{{$chuyen_nganh->ma_chuyen_nganh}}"
-											{{-- @if ($chuyen_nganh->ma_chuyen_nganh == $ma_chuyen_nganh)
+								<select name="ma_lop" class="form-control" style="width: 17rem" id="search_lop" >
+									<option disabled selected value="">--Chọn lớp--</option>
+									@foreach ($array_lop as $lop)
+										<option value="{{$lop->ma_lop}}"
+											@if ($lop->ma_lop == $ma_lop)
 												selected 
-											@endif --}}
-											>
-											{{$chuyen_nganh->ten_chuyen_nganh}}
+											@endif
+										>
+											{{$lop->ten_lop}}
 										</option>
 									@endforeach
 								</select>
 							</td>
-							<td>
-								<b>Tên lớp</b>
-							</td>
-							<td>
-								<select name="ma_lop" class="form-control" style="width: 17rem" id="search_lop" disabled>
-									<option>--Lớp--</option>
-								</select>
-							</td>
-							<td>
-								<input type="submit" class="btn btn-info btn-round btn-sm btn-fill" value="Xem" id="button" disabled>								
-								<input type="button" class="btn btn-round btn-sm btn-fill" value="Hủy tìm kiếm" onclick="location.href='{{ route('dang_ky_sach.view_all') }}'" style="margin-left: 5px">
-								<input type="button" class="btn btn-success btn-fill btn-sm btn-round" value="Thêm mới" data-toggle="modal" data-target="#addModal" style="margin-left: 5px">
-							</td>
-						</tr>
-						<tr>
 							<td>
 								<b>Tên sinh viên</b>
 							</td>
@@ -51,12 +36,40 @@
 									<option>--Sinh viên--</option>
 								</select>
 							</td>
+						
+							<td>
+								<input type="submit" class="btn btn-info btn-round btn-sm btn-fill" value="Xem" id="button" disabled>								
+								<input type="button" class="btn btn-round btn-sm btn-fill" value="Hủy tìm kiếm" onclick="location.href='{{ route('dang_ky_sach.view_all') }}'" style="margin-left: 5px">
+								<input type="button" class="btn btn-success btn-fill btn-sm btn-round" value="Thêm mới" data-toggle="modal" data-target="#addModal" style="margin-left: 5px">
+							</td>
+						</tr>
+						<tr>
 							<td>
 								<b>Tên sách</b>
 							</td>
 							<td>
 								<select name="ma_sach" class="form-control" style="width: 17rem" id="search_sach" disabled>
 									<option>--Tên sách--</option>
+								</select>
+							</td>
+							<td>
+								<b>Tình trạng</b>
+							</td>
+							<td>
+								<select name="tinh_trang_nhan_sach" class="form-control" style="width: 17rem" id="search_tinh_trang">
+									<option value="">--Chọn tình trạng--</option>
+									<option value="1"
+										@if(isset($tinh_trang_nhan_sach))
+											selected 
+										@endif
+									>
+										Đã nhận
+									</option>
+									<option value="0"
+										@if(isset($tinh_trang_nhan_sach) && $tinh_trang_nhan_sach == 0)
+											selected
+										@endif
+									>Chưa nhận</option>
 								</select>
 							</td>
 							<td>
@@ -108,7 +121,7 @@
 						<th>Tình trạng</th>
 						<th>Tên sách</th>
 						<th>Ngày đăng ký</th>
-						<th>Ngày nhận sách</th>						
+						{{-- <th>Ngày nhận sách</th>						 --}}
 					</tr>
 				</thead>
 				<tbody>
@@ -123,11 +136,14 @@
 							<td>
 								{{date_format(date_create($dang_ky_sach->ngay_dang_ky),'d/m/Y')}}
 							</td>
-							<td id="ngay_nhan_sach_{{$dang_ky_sach->ma_dang_ky}}">
+							{{-- <td id="ngay_nhan_sach_{{$dang_ky_sach->ma_dang_ky}}">
 								@if($dang_ky_sach->tinh_trang_nhan_sach == 1)
 									{{date_format(date_create($dang_ky_sach->ngay_nhan_sach),'d/m/Y')}}
 								@endif
-							</td>
+								@isset ($dang_ky_sach->ngay_nhan_sach)
+								    {!!date_format(date_create($dang_ky_sach->ngay_nhan_sach),'d/m/Y')!!}
+								@endisset
+							</td> --}}
 						</tr>
 					@endforeach
 				</tbody>				
@@ -155,51 +171,19 @@
 			        </div>
 			        <div class="modal-body">
 				        <form action="{{ route('dang_ky_sach.process_insert') }}" method="post">
-				        	{{csrf_field()}}
-				          	<div class="row">
-	                            <label class="col-sm-3" style="font-size: 1.75rem; font-weight:lighter">Chuyên ngành</label>
-	                            <div class="col-sm-8">
-	                                <div class="form-group">
-	                                    <select name="ma_chuyen_nganh" class="form-control" style="width: 40rem" id="select_chuyen_nganh" >
-											<option disabled selected>--Chọn chuyên ngành--</option>
-											@foreach ($array_chuyen_nganh as $chuyen_nganh)
-												<option value="{{$chuyen_nganh->ma_chuyen_nganh}}">
-													{{$chuyen_nganh->ten_chuyen_nganh}}
-												</option>
-											@endforeach
-										</select>
-	                                </div>
-	                            </div>
-	                        </div>
-	                        <div class="row">
-	                            <label class="col-sm-3" style="font-size: 1.75rem; font-weight: lighter">Tên sách</label>
-	                            <div class="col-sm-8">
-	                                <div class="form-group">
-	                                    <select name="ma_sach" class="form-control" style="width: 40rem" id="select_sach" disabled>
-											</select>
-	                                </div>
-	                            </div>
-	                        </div>
-	                        <div class="row">
-	                            <label class="col-sm-3" style="font-size: 1.75rem; font-weight: lighter">Khóa học</label>
-	                            <div class="col-sm-8">
-	                                <div class="form-group">
-	                                	<select name="ma_khoa_hoc" class="form-control" style="width: 40rem" id="select_khoa_hoc" disabled>
-		                                    <option disabled selected>--Chọn khóa học--</option>
-											@foreach ($array_khoa_hoc as $khoa_hoc)
-												<option value="{{$khoa_hoc->ma_khoa_hoc}}">
-													{{$khoa_hoc->ten_khoa_hoc}}
-												</option>
-											@endforeach
-										</select>
-	                                </div>
-	                            </div>
-	                        </div>
+				        	{{csrf_field()}}        
 	                        <div class="row">
 	                            <label class="col-sm-3" style="font-size: 1.75rem; font-weight: lighter">Tên lớp</label>
 	                            <div class="col-sm-8">
 	                                <div class="form-group">
-	                                    <select name="ma_lop" class="form-control" style="width: 40rem" id="select_lop" disabled></select>
+	                                    <select name="ma_lop" class="form-control" style="width: 40rem" id="select_lop">
+											<option disabled selected>--Chọn lớp--</option>
+											@foreach ($array_lop as $lop)
+												<option value="{{$lop->ma_lop}}">
+													{{$lop->ten_lop}}
+												</option>
+											@endforeach
+										</select>
 	                                </div>
 	                            </div>
 	                        </div>		
@@ -208,6 +192,15 @@
 	                            <div class="col-sm-8">
 	                                <div class="form-group">
 	                                    <select name="ma_sinh_vien" class="form-control" style="width: 40rem" id="select_sinh_vien" disabled>
+											</select>
+	                                </div>
+	                            </div>
+	                        </div>
+	                        <div class="row">
+	                            <label class="col-sm-3" style="font-size: 1.75rem; font-weight: lighter">Tên sách</label>
+	                            <div class="col-sm-8">
+	                                <div class="form-group">
+	                                    <select name="ma_sach" class="form-control" style="width: 40rem" id="select_sach" disabled>
 											</select>
 	                                </div>
 	                            </div>
@@ -236,9 +229,9 @@
 	</div>
 @endsection
 @push('js')
-<script src="{{ asset('js/select2.min.js') }}"></script>
+<script src="{{ asset('js/select2.min.js') }}">
+</script>
 <script type="text/javascript">
-
 	function checkButton() {
 		if($("#select_tinh_trang").val() == 1 || $("#select_tinh_trang").val() == 0){
 			$(".add_button").attr("disabled", false);
@@ -249,41 +242,24 @@
 	}
 	$(document).ready(function() {
 		$("#select_tinh_trang").select2();
-		$("#select_chuyen_nganh").select2();
-		$("#select_khoa_hoc").select2();
-
-		$("#select_chuyen_nganh").change(function(){
-			$("#select_sach").val(null).trigger('change');
-			$("#select_sach").attr("disabled", false);
-			$("#select_lop").attr("disabled", true);
-			$("#select_sinh_vien").attr("disabled", true);
-			$("#select_tinh_trang").attr("disabled", true);
-			$("#select_khoa_hoc").attr("disabled", true);
-		})
-
-		$("#select_sach").change(function(){
-			$("#select_khoa_hoc").val(null).trigger('change');
-			$("#select_khoa_hoc").attr("disabled", false);
-			$("#select_sinh_vien").attr("disabled", true);
-			$("#select_tinh_trang").attr("disabled", true);
-			$("#select_lop").attr("disabled", true);
-		})
-
-		$("#select_khoa_hoc").change(function(){
-			$("#select_lop").val(null).trigger('change');
-			$("#select_lop").attr("disabled", false);
-			$("#select_sinh_vien").attr("disabled", true);
-			$("#select_tinh_trang").attr("disabled", true);
-		})
-
+		$("#select_lop").select2();
 		$("#select_lop").change(function(){
 			$("#select_sinh_vien").val(null).trigger('change');
 			$("#select_sinh_vien").attr("disabled", false);
-			$(".add_button").attr("disabled", true);
+			$("#select_sach").attr("disabled", true);
 			$("#select_tinh_trang").attr("disabled", true);
+			$(".add_button").attr("disabled", true);
 		})
 
 		$("#select_sinh_vien").change(function(){
+			$("#select_sach").val(null).trigger('change');
+			$("#select_sach").attr("disabled", false);
+			$("#select_tinh_trang").val(null).trigger('change');
+			$("#select_tinh_trang").attr("disabled", true);
+			$(".add_button").attr("disabled", true);
+		})
+
+		$("#select_sach").change(function(){
 			$("#select_tinh_trang").val(null).trigger('change');
 			$("#select_tinh_trang").attr("disabled", false);
 			$(".add_button").attr("disabled", true);
@@ -301,12 +277,12 @@
 
 		$("#select_sach").select2({
 			ajax: {
-				url: '{{route('get_sach_by_chuyen_nganh')}}',
+				url: '{{route('get_sach_by_lop')}}',
 				dataType: 'json',
 				data: function() {
-					ma_chuyen_nganh = $("#select_chuyen_nganh").val();
+					ma_lop = $("#select_lop").val();
 					return {
-						ma_chuyen_nganh: ma_chuyen_nganh
+						ma_lop: ma_lop
 					}
 				},
 				processResults: function (data){
@@ -315,31 +291,6 @@
 							return  {
 								text: `${item.ten_sach} (${formatDate(item.ngay_nhap_sach)})`,
 								id: item.ma_sach
-							}
-						})
-					};
-				}
-			}
-		});
-		
-		$("#select_lop").select2({
-			ajax: {
-				url: '{{route('get_lop_by_chuyen_nganh_and_khoa_hoc')}}',
-				dataType: 'json',
-				data: function() {
-					ma_chuyen_nganh = $("#select_chuyen_nganh").val();
-					ma_khoa_hoc = $("#select_khoa_hoc").val();
-					return {
-						ma_chuyen_nganh: ma_chuyen_nganh,
-						ma_khoa_hoc: ma_khoa_hoc						
-					}
-				},
-				processResults: function (data){
-					return {
-						results: $.map(data, function(item) {
-							return  {
-								text: item.ten_lop,
-								id: item.ma_lop
 							}
 						})
 					};
@@ -396,22 +347,19 @@
 		});
 
 		//Search
-		$("#search_chuyen_nganh").select2();
-		$("#search_chuyen_nganh").change(function(){
-			$("#search_mon_hoc").val(null).trigger('change');
-			$("#search_mon_hoc").attr("disabled", false);		
-			$("#search_lop").val(null).trigger('change');		
-			$("#search_lop").attr("disabled", false);
-			$("#search_sach").attr("disabled", true);
-			$("#search_sinh_vien").attr("disabled", true);
-		})
+		$("#search_lop").select2();
+		$("#search_tinh_trang").select2();
 		$("#search_lop").change(function(){
 			$("#search_sinh_vien").val(null).trigger('change');
 			$("#search_sinh_vien").attr("disabled", false);
 			$("#search_sach").val(null).trigger('change');
 			$("#search_sach").attr("disabled", false);
 		})
-		$("#search_chuyen_nganh").change(function(){
+		$("#search_lop").change(function(){
+			$("#button").attr("disabled", false);
+		})
+
+		$("#search_tinh_trang").change(function(){
 			$("#button").attr("disabled", false);
 		})
 	
@@ -438,36 +386,15 @@
 				}
 			}
 		});
-		$("#search_lop").select2({
-			ajax: {
-				url: '{{route('get_lop_by_chuyen_nganh')}}',
-				dataType: 'json',
-				data: function() {
-					ma_chuyen_nganh = $("#search_chuyen_nganh").val();
-					return {
-						ma_chuyen_nganh: ma_chuyen_nganh
-					}
-				},
-				processResults: function (data){
-					return {
-						results: $.map(data, function(item) {
-							return  {
-								text: item.ten_lop,
-								id: item.ma_lop
-							}
-						})
-					};
-				}
-			}
-		});
+
 		$("#search_sach").select2({
 			ajax: {
-				url: '{{route('get_sach_by_chuyen_nganh')}}',
+				url: '{{route('get_sach_by_lop')}}',
 				dataType: 'json',
 				data: function() {
-					ma_chuyen_nganh = $("#search_chuyen_nganh").val();
+					ma_lop = $("#search_lop").val();
 					return {
-						ma_chuyen_nganh: ma_chuyen_nganh
+						ma_lop: ma_lop
 					}
 				},
 				processResults: function (data){
