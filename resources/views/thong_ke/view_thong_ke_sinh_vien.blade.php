@@ -84,6 +84,22 @@
                     </button>
 		   		</div>
 			@endif
+			@if(!isset($ma_lop) && isset($ma_sach))
+				<div class="alert alert-danger alert-block">
+					Bạn chưa chọn lớp
+					<button type="button" aria-hidden="true" class="close" data-dismiss="alert">
+                        <i class="pe-7s-close"></i>
+                    </button>
+		   		</div>
+			@endif
+			@if(!isset($ma_lop) && !isset($ma_sach) && isset($ma_chuyen_nganh))
+				<div class="alert alert-danger alert-block">
+					Bạn chưa chọn lớp và sách
+					<button type="button" aria-hidden="true" class="close" data-dismiss="alert">
+                        <i class="pe-7s-close"></i>
+                    </button>
+		   		</div>
+			@endif
 			@if (count($array_thong_ke_sinh_vien) > 0)
 				<table class="table table-striped">
 					<thead>
@@ -157,12 +173,12 @@
 
 		$("#searchSach").select2({
 			ajax: {
-				url: '{{route('get_sach_by_lop')}}',
+				url: '{{route('get_sach_by_chuyen_nganh')}}',
 				dataType: 'json',
 				data: function() {
-					ma_lop = $("#search_lop").val();
+					ma_chuyen_nganh = $("#search_chuyen_nganh").val();
 					return {
-						ma_lop: ma_lop
+						ma_chuyen_nganh: ma_chuyen_nganh
 					}
 				},
 				processResults: function (data){

@@ -10,6 +10,7 @@ use App\Model\ChuyenNganh;
 use App\Model\KhoaHoc;
 use App\Model\Sach;
 use App\Model\Lop;
+use App\Model\SinhVien;
 use Excel;
 use App\Exports\DangKySachExport;
 use PDF;
@@ -25,6 +26,9 @@ class DangKySachController extends Controller
 	public function view_all()
 	{
 		$array_lop = Lop::all();
+		$array_chuyen_nganh = ChuyenNganh::all();
+		$array_sach = Sach::all();
+		$array_sinh_vien = SinhVien::all();
 	
 		$ma_sinh_vien = Request::get('ma_sinh_vien');
 		$ma_lop = Request::get('ma_lop');
@@ -56,9 +60,9 @@ class DangKySachController extends Controller
 		));
 		if(count($array_dang_ky_sach) == 0){
 			$message = "Không tìm thấy kết quả";
-			return view("$this->folder.view_all",compact('message','array_dang_ky_sach','array_lop','tinh_trang_nhan_sach','ma_lop','ma_sinh_vien','ma_sach'));
+			return view("$this->folder.view_all",compact('message','array_dang_ky_sach','array_chuyen_nganh','array_lop','array_sach','array_sinh_vien','tinh_trang_nhan_sach','ma_lop','ma_sinh_vien','ma_sach'));
 		}
-		return view("$this->folder.view_all",compact('array_dang_ky_sach','array_lop','tinh_trang_nhan_sach','ma_lop','ma_sinh_vien','ma_sach'));
+		return view("$this->folder.view_all",compact('array_dang_ky_sach','array_chuyen_nganh','array_lop','array_sach','array_sinh_vien','tinh_trang_nhan_sach','ma_lop','ma_sinh_vien','ma_sach'));
 	}
 
 	public function process_insert()

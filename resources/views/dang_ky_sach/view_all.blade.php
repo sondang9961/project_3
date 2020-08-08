@@ -15,7 +15,7 @@
 								<b>Tên lớp</b>
 							</td>
 							<td>
-								<select name="ma_lop" class="form-control" style="width: 17rem" id="search_lop" >
+								<select name="ma_lop" class="form-control" style="width: 18rem" id="search_lop" >
 									<option disabled selected value="">--Chọn lớp--</option>
 									@foreach ($array_lop as $lop)
 										<option value="{{$lop->ma_lop}}"
@@ -34,6 +34,15 @@
 							<td>
 								<select name="ma_sinh_vien" class="form-control" style="width: 17rem" id="search_sinh_vien" disabled>
 									<option>--Sinh viên--</option>
+									@foreach ($array_sinh_vien as $sinh_vien)
+										<option value="{{$sinh_vien->ma_sinh_vien}}"
+											@if ($sinh_vien->ma_sinh_vien == $ma_sinh_vien)
+												selected 
+											@endif
+										>
+											{{$sinh_vien->ten_sinh_vien}}
+										</option>
+									@endforeach
 								</select>
 							</td>
 						
@@ -48,8 +57,17 @@
 								<b>Tên sách</b>
 							</td>
 							<td>
-								<select name="ma_sach" class="form-control" style="width: 17rem" id="search_sach" disabled>
+								<select name="ma_sach" class="form-control" style="width: 18rem" id="search_sach" disabled>
 									<option>--Tên sách--</option>
+									@foreach ($array_sach as $sach)
+										<option value="{{$sach->ma_sach}}"
+											@if ($sach->ma_sach == $ma_sach)
+												selected 
+											@endif
+										>
+											{{$sach->ten_sach}} ({{date_format(date_create($dang_ky_sach->ngay_nhap_sach),'d/m/Y')}})
+										</option>
+									@endforeach
 								</select>
 							</td>
 							<td>
@@ -173,16 +191,26 @@
 				        <form action="{{ route('dang_ky_sach.process_insert') }}" method="post">
 				        	{{csrf_field()}}        
 	                        <div class="row">
+	                            <label class="col-sm-3" style="font-size: 1.75rem; font-weight: lighter">Chuyên ngành</label>
+	                            <div class="col-sm-8">
+	                                <div class="form-group">
+	                                    <select name="ma_chuyen_nganh" class="form-control" style="width: 40rem" id="select_chuyen_nganh">
+											<option disabled selected>--Chọn chuyên ngành--</option>
+											@foreach ($array_chuyen_nganh as $chuyen_nganh)
+												<option value="{{$chuyen_nganh->ma_chuyen_nganh}}">
+													{{$chuyen_nganh->ten_chuyen_nganh}}
+												</option>
+											@endforeach
+										</select>
+	                                </div>
+	                            </div>
+	                        </div>
+	                        <div class="row">
 	                            <label class="col-sm-3" style="font-size: 1.75rem; font-weight: lighter">Tên lớp</label>
 	                            <div class="col-sm-8">
 	                                <div class="form-group">
 	                                    <select name="ma_lop" class="form-control" style="width: 40rem" id="select_lop">
-											<option disabled selected>--Chọn lớp--</option>
-											@foreach ($array_lop as $lop)
-												<option value="{{$lop->ma_lop}}">
-													{{$lop->ten_lop}}
-												</option>
-											@endforeach
+	                                    	<option disabled selected>--Chọn lớp--</option>
 										</select>
 	                                </div>
 	                            </div>
@@ -192,7 +220,8 @@
 	                            <div class="col-sm-8">
 	                                <div class="form-group">
 	                                    <select name="ma_sinh_vien" class="form-control" style="width: 40rem" id="select_sinh_vien" disabled>
-											</select>
+	                                    	<option disabled selected>--Chọn sinh viên--</option>
+										</select>
 	                                </div>
 	                            </div>
 	                        </div>
@@ -201,7 +230,8 @@
 	                            <div class="col-sm-8">
 	                                <div class="form-group">
 	                                    <select name="ma_sach" class="form-control" style="width: 40rem" id="select_sach" disabled>
-											</select>
+	                                    	<option disabled selected>--Chọn sách--</option>
+										</select>
 	                                </div>
 	                            </div>
 	                        </div>
@@ -242,9 +272,16 @@
 	}
 	$(document).ready(function() {
 		$("#select_tinh_trang").select2();
-		$("#select_lop").select2();
+		$("#select_chuyen_nganh").select2();
+		$("#select_chuyen_nganh").change(function(){
+			$("#select_lop").attr("disabled", false);
+			$("#select_sinh_vien").attr("disabled", true);
+			$("#select_sach").attr("disabled", true);
+			$("#select_tinh_trang").attr("disabled", true);
+			$(".add_button").attr("disabled", true);
+		})
+
 		$("#select_lop").change(function(){
-			$("#select_sinh_vien").val(null).trigger('change');
 			$("#select_sinh_vien").attr("disabled", false);
 			$("#select_sach").attr("disabled", true);
 			$("#select_tinh_trang").attr("disabled", true);
@@ -252,19 +289,18 @@
 		})
 
 		$("#select_sinh_vien").change(function(){
-			$("#select_sach").val(null).trigger('change');
 			$("#select_sach").attr("disabled", false);
-			$("#select_tinh_trang").val(null).trigger('change');
 			$("#select_tinh_trang").attr("disabled", true);
 			$(".add_button").attr("disabled", true);
 		})
 
 		$("#select_sach").change(function(){
-			$("#select_tinh_trang").val(null).trigger('change');
 			$("#select_tinh_trang").attr("disabled", false);
 			$(".add_button").attr("disabled", true);
 		})
 		
+		$("#select_lop").attr("disabled", true);
+
 		$("#select_tinh_trang").change(function(){
 			$(".add_button").attr("disabled", false);
 		})
@@ -275,14 +311,37 @@
 			checkButton();
 		})
 
-		$("#select_sach").select2({
+		$("#select_lop").select2({
 			ajax: {
-				url: '{{route('get_sach_by_lop')}}',
+				url: '{{route('get_lop_by_chuyen_nganh')}}',
 				dataType: 'json',
 				data: function() {
-					ma_lop = $("#select_lop").val();
+					ma_chuyen_nganh = $("#select_chuyen_nganh").val();
 					return {
-						ma_lop: ma_lop
+						ma_chuyen_nganh: ma_chuyen_nganh
+					}
+				},
+				processResults: function (data){
+					return {
+						results: $.map(data, function(item) {
+							return  {
+								text: item.ten_lop,
+								id: item.ma_lop
+							}
+						})
+					};
+				}
+			}
+		});
+
+		$("#select_sach").select2({
+			ajax: {
+				url: '{{route('get_sach_by_chuyen_nganh')}}',
+				dataType: 'json',
+				data: function() {
+					ma_chuyen_nganh = $("#select_chuyen_nganh").val();
+					return {
+						ma_chuyen_nganh: ma_chuyen_nganh
 					}
 				},
 				processResults: function (data){
