@@ -10,8 +10,8 @@
 		<div class="content">
 			<div class="toolbar">
 	            <form>
-					Chuyên ngành
-					<input type="text" name="ten_chuyen_nganh" value="{{ Request::get('ten_chuyen_nganh') }}">
+					Tìm kiếm
+					<input type="text" name="ten_chuyen_nganh" placeholder="tên chuyên ngành" value="{{ Request::get('ten_chuyen_nganh') }}">
 					<input type="submit" class="btn btn-info btn-round btn-sm btn-fill" value="Xem">
 					<input type="button" class="btn btn-round btn-sm btn-fill" value="Hủy tìm kiếm" onclick="location.href='{{ route('chuyen_nganh.view_all') }}'" style="margin-left: 5px">
 					<input type="button" class="btn btn-success btn-fill btn-sm btn-round" value="Thêm mới" data-toggle="modal" data-target="#addModal" style="margin-left: 5px">

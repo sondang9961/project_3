@@ -10,7 +10,7 @@
 			<div class="toolbar">
 				<form>
 					Tìm kiếm
-					<input type="text" name="search" placeholder="môn, chuyên ngành" value="{{ Request::get('search') }}">
+					<input type="text" name="search" placeholder="môn học, chuyên ngành" value="{{ Request::get('search') }}">
 					<input type="submit" class="btn btn-info btn-round btn-sm btn-fill" value="Xem">					
 					<input type="button" class="btn btn-round btn-sm btn-fill" value="Hủy tìm kiếm" onclick="location.href='{{ route('mon_hoc.view_all') }}'" style="margin-left: 5px">
 					<input type="button" class="btn btn-success btn-fill btn-sm btn-round" value="Thêm mới" data-toggle="modal" data-target="#addModal" style="margin-left: 5px;">
@@ -43,7 +43,7 @@
 				<thead>
 					<tr>
 						<th>Mã</th>
-						<th>Tên môn</th>
+						<th>Tên môn học</th>
 						<th>Chuyên ngành</th>
 						<th colspan="2">Chức năng</th>
 					</tr>
@@ -100,7 +100,7 @@
                             <div class="col-sm-8">
                                 <div class="form-group">
                                     <select name="ma_chuyen_nganh" id="chuyen_nganh" class="form-control">
-										<option value="" disabled="disabled" selected="selected">Tên khóa học</option>
+										<option value="" disabled="disabled" selected="selected">Tên chuyên ngành</option>
 										@foreach ($array_chuyen_nganh as $chuyen_nganh)
 											<option value="{{$chuyen_nganh->ma_chuyen_nganh}}">
 												{{$chuyen_nganh->ten_chuyen_nganh}}

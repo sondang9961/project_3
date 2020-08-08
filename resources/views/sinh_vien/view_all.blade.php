@@ -53,7 +53,7 @@
 						<tr>
 							<td>
 								Tìm kiếm <br>
-								<input type="text" name="search" placeholder="tên sinh viên, lớp học" value="{{ Request::get('search') }}">
+								<input type="text" name="search" placeholder="tên sinh viên, tên lớp" value="{{ Request::get('search') }}">
 							</td>
 							<td style="padding-left: 10px; padding-top: 15px">
 								<input type="submit" class="btn btn-info btn-round btn-sm btn-fill" value="Xem">

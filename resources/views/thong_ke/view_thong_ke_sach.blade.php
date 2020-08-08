@@ -10,7 +10,7 @@
 						<tr>
 							<td style="padding-bottom: 4%">
 								<div style="margin-right: 3rem ">Tìm kiếm<br>
-									<input type="text" name="search" placeholder="sách, môn học" value="{{ Request::get('search') }}" style="height: 3.8rem">
+									<input type="text" name="search" placeholder="tên sách, tên môn học" value="{{ Request::get('search') }}" style="height: 3.8rem">
 								</div>
 							</td>
 							<td style="padding-bottom: 4%">

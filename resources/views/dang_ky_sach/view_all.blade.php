@@ -139,7 +139,7 @@
 						<th>Tình trạng</th>
 						<th>Tên sách</th>
 						<th>Ngày đăng ký</th>
-						{{-- <th>Ngày nhận sách</th>						 --}}
+						<th>Ngày nhận sách</th>		
 					</tr>
 				</thead>
 				<tbody>
@@ -154,14 +154,12 @@
 							<td>
 								{{date_format(date_create($dang_ky_sach->ngay_dang_ky),'d/m/Y')}}
 							</td>
-							{{-- <td id="ngay_nhan_sach_{{$dang_ky_sach->ma_dang_ky}}">
+							<td id="ngay_nhan_sach_{{$dang_ky_sach->ma_dang_ky}}">
 								@if($dang_ky_sach->tinh_trang_nhan_sach == 1)
-									{{date_format(date_create($dang_ky_sach->ngay_nhan_sach),'d/m/Y')}}
+
+								{{date_format(date_create($dang_ky_sach->toArray()['ngay_nhan_sach']),'d/m/Y')}}
 								@endif
-								@isset ($dang_ky_sach->ngay_nhan_sach)
-								    {!!date_format(date_create($dang_ky_sach->ngay_nhan_sach),'d/m/Y')!!}
-								@endisset
-							</td> --}}
+							</td>
 						</tr>
 					@endforeach
 				</tbody>				

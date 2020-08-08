@@ -11,7 +11,7 @@
 			<div class="toolbar">
 	            <form>
 				Tìm kiếm
-					<input type="text" name="search" placeholder="lớp, khóa học" value="{{ Request::get('search') }}">
+					<input type="text" name="search" placeholder="lớp, khóa học, chuyên ngành" value="{{ Request::get('search') }}" size="25">
 					<input type="submit" class="btn btn-info btn-round btn-sm btn-fill" value="Xem">	
 					<input type="button" class="btn btn-round btn-sm btn-fill" value="Hủy tìm kiếm" onclick="location.href='{{ route('lop.view_all') }}'" style="margin-left: 5px">
 					<input type="button" class="btn btn-success btn-fill btn-sm btn-round" value="Thêm mới" data-toggle="modal" data-target="#addModal" style="margin-left: 5px">
