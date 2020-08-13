@@ -7,6 +7,140 @@
     "content-hash": "b7904d07d1e1765a0a199aa11d6301a3",
     "packages": [
         {
+<<<<<<< Updated upstream
+=======
+            "name": "barryvdh/laravel-debugbar",
+            "version": "v3.4.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/barryvdh/laravel-debugbar.git",
+                "reference": "9e785aa5584e8839fd43070202dd7f2e912db51c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/barryvdh/laravel-debugbar/zipball/9e785aa5584e8839fd43070202dd7f2e912db51c",
+                "reference": "9e785aa5584e8839fd43070202dd7f2e912db51c",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/routing": "^5.5|^6|^7",
+                "illuminate/session": "^5.5|^6|^7",
+                "illuminate/support": "^5.5|^6|^7",
+                "maximebf/debugbar": "^1.16.3",
+                "php": ">=7.0",
+                "symfony/debug": "^3|^4|^5",
+                "symfony/finder": "^3|^4|^5"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^3.5|^4.0|^5.0",
+                "phpunit/phpunit": "^6.0|^7.0|^8.5|^9.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.2-dev"
+                },
+                "laravel": {
+                    "providers": [
+                        "Barryvdh\\Debugbar\\ServiceProvider"
+                    ],
+                    "aliases": {
+                        "Debugbar": "Barryvdh\\Debugbar\\Facade"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Barryvdh\\Debugbar\\": "src/"
+                },
+                "files": [
+                    "src/helpers.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Barry vd. Heuvel",
+                    "email": "barryvdh@gmail.com"
+                }
+            ],
+            "description": "PHP Debugbar integration for Laravel",
+            "keywords": [
+                "debug",
+                "debugbar",
+                "laravel",
+                "profiler",
+                "webprofiler"
+            ],
+            "funding": [
+                {
+                    "url": "https://github.com/barryvdh",
+                    "type": "github"
+                }
+            ],
+            "time": "2020-08-11T10:30:51+00:00"
+        },
+        {
+            "name": "barryvdh/laravel-dompdf",
+            "version": "v0.8.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/barryvdh/laravel-dompdf.git",
+                "reference": "d7108f78cf5254a2d8c224542967f133e5a6d4e8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/barryvdh/laravel-dompdf/zipball/d7108f78cf5254a2d8c224542967f133e5a6d4e8",
+                "reference": "d7108f78cf5254a2d8c224542967f133e5a6d4e8",
+                "shasum": ""
+            },
+            "require": {
+                "dompdf/dompdf": "^0.8",
+                "illuminate/support": "^5.5|^6|^7",
+                "php": ">=7"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.8-dev"
+                },
+                "laravel": {
+                    "providers": [
+                        "Barryvdh\\DomPDF\\ServiceProvider"
+                    ],
+                    "aliases": {
+                        "PDF": "Barryvdh\\DomPDF\\Facade"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Barryvdh\\DomPDF\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Barry vd. Heuvel",
+                    "email": "barryvdh@gmail.com"
+                }
+            ],
+            "description": "A DOMPDF Wrapper for Laravel",
+            "keywords": [
+                "dompdf",
+                "laravel",
+                "pdf"
+            ],
+            "time": "2020-02-25T20:44:34+00:00"
+        },
+        {
+>>>>>>> Stashed changes
             "name": "dnoegel/php-xdg-base-dir",
             "version": "0.1",
             "source": {
@@ -162,6 +296,7 @@
         },
         {
             "name": "egulias/email-validator",
+<<<<<<< Updated upstream
             "version": "2.1.8",
             "source": {
                 "type": "git",
@@ -172,6 +307,18 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/egulias/EmailValidator/zipball/c26463ff9241f27907112fbcd0c86fa670cfef98",
                 "reference": "c26463ff9241f27907112fbcd0c86fa670cfef98",
+=======
+            "version": "2.1.19",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/egulias/EmailValidator.git",
+                "reference": "840d5603eb84cc81a6a0382adac3293e57c1c64c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/egulias/EmailValidator/zipball/840d5603eb84cc81a6a0382adac3293e57c1c64c",
+                "reference": "840d5603eb84cc81a6a0382adac3293e57c1c64c",
+>>>>>>> Stashed changes
                 "shasum": ""
             },
             "require": {
@@ -215,7 +362,11 @@
                 "validation",
                 "validator"
             ],
+<<<<<<< Updated upstream
             "time": "2019-05-16T22:02:54+00:00"
+=======
+            "time": "2020-08-08T21:28:19+00:00"
+>>>>>>> Stashed changes
         },
         {
             "name": "erusev/parsedown",
@@ -689,6 +840,7 @@
         {
             "name": "league/flysystem",
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
             "version": "1.0.52",
             "source": {
                 "type": "git",
@@ -711,22 +863,40 @@
                 "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/585824702f534f8d3cf7fab7225e8466cc4b7493",
                 "reference": "585824702f534f8d3cf7fab7225e8466cc4b7493",
 >>>>>>> Stashed changes
+=======
+            "version": "1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/thephpleague/flysystem.git",
+                "reference": "481c0174b9c99b189959e2bb9d6f52188ed1f692"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/481c0174b9c99b189959e2bb9d6f52188ed1f692",
+                "reference": "481c0174b9c99b189959e2bb9d6f52188ed1f692",
+>>>>>>> Stashed changes
                 "shasum": ""
             },
             "require": {
                 "ext-fileinfo": "*",
-                "php": ">=5.5.9"
+                "league/mime-type-detection": "^1.3",
+                "php": "^7.2.5 || ^8.0"
             },
             "conflict": {
                 "league/flysystem-sftp": "<1.0.6"
             },
             "require-dev": {
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
                 "phpspec/phpspec": "^3.4",
                 "phpunit/phpunit": "^5.7.10"
 =======
                 "phpspec/phpspec": "^3.4 || ^4.0 || ^5.0 || ^6.0",
                 "phpunit/phpunit": "^5.7.26"
+>>>>>>> Stashed changes
+=======
+                "phpspec/prophecy": "^1.11.1",
+                "phpunit/phpunit": "^8.5.8"
 >>>>>>> Stashed changes
             },
             "suggest": {
@@ -842,6 +1012,7 @@
                     "type": "other"
                 }
             ],
+<<<<<<< Updated upstream
             "time": "2020-07-26T07:20:36+00:00"
         },
         {
@@ -856,6 +1027,73 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/Maatwebsite/Laravel-Excel/zipball/39545fa96b84d5a90f702239659c49a5d7b1edea",
                 "reference": "39545fa96b84d5a90f702239659c49a5d7b1edea",
+=======
+            "time": "2020-08-09T15:57:10+00:00"
+        },
+        {
+            "name": "league/mime-type-detection",
+            "version": "1.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/thephpleague/mime-type-detection.git",
+                "reference": "fda190b62b962d96a069fcc414d781db66d65b69"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/thephpleague/mime-type-detection/zipball/fda190b62b962d96a069fcc414d781db66d65b69",
+                "reference": "fda190b62b962d96a069fcc414d781db66d65b69",
+                "shasum": ""
+            },
+            "require": {
+                "ext-fileinfo": "*",
+                "php": "^7.2 || ^8.0"
+            },
+            "require-dev": {
+                "phpstan/phpstan": "^0.12.36",
+                "phpunit/phpunit": "^8.5.8"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "League\\MimeTypeDetection\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Frank de Jonge",
+                    "email": "info@frankdejonge.nl"
+                }
+            ],
+            "description": "Mime-type detection for Flysystem",
+            "funding": [
+                {
+                    "url": "https://github.com/frankdejonge",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/league/flysystem",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2020-08-09T10:34:01+00:00"
+        },
+        {
+            "name": "maatwebsite/excel",
+            "version": "3.1.21",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Maatwebsite/Laravel-Excel.git",
+                "reference": "405ff5f0dd014a0d5a1fdb8fd6f525a9a1ece3f6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Maatwebsite/Laravel-Excel/zipball/405ff5f0dd014a0d5a1fdb8fd6f525a9a1ece3f6",
+                "reference": "405ff5f0dd014a0d5a1fdb8fd6f525a9a1ece3f6",
+>>>>>>> Stashed changes
                 "shasum": ""
             },
             "require": {
@@ -900,9 +1138,13 @@
                 "psr-3"
             ],
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
             "time": "2018-11-05T09:00:11+00:00"
 =======
             "time": "2020-07-17T20:39:28+00:00"
+>>>>>>> Stashed changes
+=======
+            "time": "2020-08-06T09:25:20+00:00"
 >>>>>>> Stashed changes
         },
         {
@@ -948,11 +1190,14 @@
                 "cron",
                 "schedule"
             ],
+<<<<<<< Updated upstream
             "time": "2017-01-23T04:29:33+00:00"
 =======
                 "stream",
                 "zip"
             ],
+=======
+>>>>>>> Stashed changes
             "time": "2020-05-30T13:11:16+00:00"
 >>>>>>> Stashed changes
         },
@@ -1389,6 +1634,7 @@
         },
         {
             "name": "nikic/php-parser",
+<<<<<<< Updated upstream
             "version": "v4.7.0",
             "source": {
                 "type": "git",
@@ -1399,6 +1645,18 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/21dce06dfbf0365c6a7cc8fdbdc995926c6a9300",
                 "reference": "21dce06dfbf0365c6a7cc8fdbdc995926c6a9300",
+=======
+            "version": "v4.8.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nikic/PHP-Parser.git",
+                "reference": "8c58eb4cd4f3883f82611abeac2efbc3dbed787e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/8c58eb4cd4f3883f82611abeac2efbc3dbed787e",
+                "reference": "8c58eb4cd4f3883f82611abeac2efbc3dbed787e",
+>>>>>>> Stashed changes
                 "shasum": ""
             },
             "require": {
@@ -1406,8 +1664,8 @@
                 "php": ">=7.0"
             },
             "require-dev": {
-                "ircmaxell/php-yacc": "0.0.5",
-                "phpunit/phpunit": "^6.5 || ^7.0 || ^8.0"
+                "ircmaxell/php-yacc": "^0.0.6",
+                "phpunit/phpunit": "^6.5 || ^7.0 || ^8.0 || ^9.0"
             },
             "bin": [
                 "bin/php-parse"
@@ -1415,7 +1673,11 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
+<<<<<<< Updated upstream
                     "dev-master": "4.7-dev"
+=======
+                    "dev-master": "4.8-dev"
+>>>>>>> Stashed changes
                 }
             },
             "autoload": {
@@ -1437,7 +1699,11 @@
                 "parser",
                 "php"
             ],
+<<<<<<< Updated upstream
             "time": "2020-07-25T13:18:53+00:00"
+=======
+            "time": "2020-08-09T10:23:20+00:00"
+>>>>>>> Stashed changes
         },
         {
             "name": "paragonie/random_compat",
@@ -2499,6 +2765,7 @@
         {
             "name": "symfony/console",
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
             "version": "v3.4.27",
             "source": {
                 "type": "git",
@@ -2510,6 +2777,8 @@
                 "url": "https://api.github.com/repos/symfony/console/zipball/15a9104356436cb26e08adab97706654799d31d8",
                 "reference": "15a9104356436cb26e08adab97706654799d31d8",
 =======
+=======
+>>>>>>> Stashed changes
             "version": "v3.4.43",
             "source": {
                 "type": "git",
@@ -2520,6 +2789,9 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/console/zipball/afc7189694d2c59546cf24ea606a236fa46a966e",
                 "reference": "afc7189694d2c59546cf24ea606a236fa46a966e",
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
                 "shasum": ""
             },
@@ -2605,6 +2877,9 @@
         {
             "name": "symfony/css-selector",
             "version": "v5.1.3",
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
             "source": {
                 "type": "git",
@@ -2699,6 +2974,9 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/debug/zipball/7ce874f4432d8b11cc45a80cc5130a6e2609728d",
                 "reference": "7ce874f4432d8b11cc45a80cc5130a6e2609728d",
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
                 "shasum": ""
             },
@@ -2740,6 +3018,7 @@
 <<<<<<< Updated upstream
             "description": "Symfony CssSelector Component",
             "homepage": "https://symfony.com",
+<<<<<<< Updated upstream
             "time": "2019-01-16T20:31:39+00:00"
         },
         {
@@ -2755,6 +3034,22 @@
                 "url": "https://api.github.com/repos/symfony/debug/zipball/681afbb26488903c5ac15e63734f1d8ac430c9b9",
                 "reference": "681afbb26488903c5ac15e63734f1d8ac430c9b9",
 =======
+=======
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+>>>>>>> Stashed changes
             "time": "2020-07-16T09:41:49+00:00"
         },
         {
@@ -2769,6 +3064,9 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/event-dispatcher/zipball/6140fc7047dafc5abbe84ba16a34a86c0b0229b8",
                 "reference": "6140fc7047dafc5abbe84ba16a34a86c0b0229b8",
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
                 "shasum": ""
             },
@@ -2830,6 +3128,9 @@
                 }
             ],
             "time": "2020-06-18T17:59:13+00:00"
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
         },
         {
@@ -2914,6 +3215,9 @@
         {
             "name": "symfony/finder",
             "version": "v3.4.43",
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
             "source": {
                 "type": "git",
@@ -2964,6 +3268,7 @@
         {
             "name": "symfony/http-foundation",
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
             "version": "v3.4.27",
             "source": {
                 "type": "git",
@@ -2974,6 +3279,18 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/http-foundation/zipball/fa02215233be8de1c2b44617088192f9e8db3512",
                 "reference": "fa02215233be8de1c2b44617088192f9e8db3512",
+=======
+            "version": "v3.4.43",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/http-foundation.git",
+                "reference": "5219dba1253aa07ed3ad82f73c08146fb3f517d0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/http-foundation/zipball/5219dba1253aa07ed3ad82f73c08146fb3f517d0",
+                "reference": "5219dba1253aa07ed3ad82f73c08146fb3f517d0",
+>>>>>>> Stashed changes
 =======
             "version": "v3.4.43",
             "source": {
@@ -3070,6 +3387,9 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/http-kernel/zipball/4a1c6b310806adce0f299411951d06747edf9e28",
                 "reference": "4a1c6b310806adce0f299411951d06747edf9e28",
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
                 "shasum": ""
             },
@@ -3190,6 +3510,9 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/polyfill-ctype/zipball/1c302646f6efc070cd46856e600e5e0684d6b454",
                 "reference": "1c302646f6efc070cd46856e600e5e0684d6b454",
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
                 "shasum": ""
             },
@@ -3203,8 +3526,11 @@
             "extra": {
                 "branch-alias": {
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
                     "dev-master": "1.11-dev"
 =======
+=======
+>>>>>>> Stashed changes
                     "dev-master": "1.18-dev"
                 },
                 "thanks": {
@@ -3287,6 +3613,9 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/polyfill-iconv/zipball/6c2f78eb8f5ab8eaea98f6d414a5915f2e0fce36",
                 "reference": "6c2f78eb8f5ab8eaea98f6d414a5915f2e0fce36",
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
                 "shasum": ""
             },
@@ -3300,8 +3629,11 @@
             "extra": {
                 "branch-alias": {
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
                     "dev-master": "1.11-dev"
 =======
+=======
+>>>>>>> Stashed changes
                     "dev-master": "1.18-dev"
                 },
                 "thanks": {
@@ -3385,15 +3717,21 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/polyfill-intl-idn/zipball/5dcab1bc7146cf8c1beaa4502a3d9be344334251",
                 "reference": "5dcab1bc7146cf8c1beaa4502a3d9be344334251",
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3",
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
                 "symfony/polyfill-mbstring": "^1.3",
                 "symfony/polyfill-php72": "^1.9"
 =======
+=======
+>>>>>>> Stashed changes
                 "symfony/polyfill-intl-normalizer": "^1.10",
                 "symfony/polyfill-php70": "^1.10",
                 "symfony/polyfill-php72": "^1.10"
@@ -3406,8 +3744,11 @@
             "extra": {
                 "branch-alias": {
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
                     "dev-master": "1.9-dev"
 =======
+=======
+>>>>>>> Stashed changes
                     "dev-master": "1.18-dev"
                 },
                 "thanks": {
@@ -3440,6 +3781,9 @@
                     "email": "trevor.rowbotham@pm.me"
                 },
                 {
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
                     "name": "Symfony Community",
                     "homepage": "https://symfony.com/contributors"
@@ -3570,6 +3914,90 @@
                     "type": "tidelift"
                 }
             ],
+<<<<<<< Updated upstream
+=======
+            "time": "2020-08-04T06:02:08+00:00"
+        },
+        {
+            "name": "symfony/polyfill-intl-normalizer",
+            "version": "v1.18.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/polyfill-intl-normalizer.git",
+                "reference": "37078a8dd4a2a1e9ab0231af7c6cb671b2ed5a7e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/polyfill-intl-normalizer/zipball/37078a8dd4a2a1e9ab0231af7c6cb671b2ed5a7e",
+                "reference": "37078a8dd4a2a1e9ab0231af7c6cb671b2ed5a7e",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "suggest": {
+                "ext-intl": "For best performance"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.18-dev"
+                },
+                "thanks": {
+                    "name": "symfony/polyfill",
+                    "url": "https://github.com/symfony/polyfill"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Polyfill\\Intl\\Normalizer\\": ""
+                },
+                "files": [
+                    "bootstrap.php"
+                ],
+                "classmap": [
+                    "Resources/stubs"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nicolas Grekas",
+                    "email": "p@tchwork.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony polyfill for intl's Normalizer class and related functions",
+            "homepage": "https://symfony.com",
+            "keywords": [
+                "compatibility",
+                "intl",
+                "normalizer",
+                "polyfill",
+                "portable",
+                "shim"
+            ],
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+>>>>>>> Stashed changes
             "time": "2020-07-14T12:35:20+00:00"
         },
         {
@@ -3584,6 +4012,9 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/a6977d63bf9a0ad4c65cd352709e230876f9904a",
                 "reference": "a6977d63bf9a0ad4c65cd352709e230876f9904a",
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
                 "shasum": ""
             },
@@ -3597,8 +4028,11 @@
             "extra": {
                 "branch-alias": {
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
                     "dev-master": "1.11-dev"
 =======
+=======
+>>>>>>> Stashed changes
                     "dev-master": "1.18-dev"
                 },
                 "thanks": {
@@ -3833,6 +4267,9 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/polyfill-php72/zipball/639447d008615574653fb3bc60d1986d7172eaae",
                 "reference": "639447d008615574653fb3bc60d1986d7172eaae",
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
                 "shasum": ""
             },
@@ -3844,13 +4281,19 @@
             "extra": {
                 "branch-alias": {
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
                     "dev-master": "1.11-dev"
 =======
+=======
+>>>>>>> Stashed changes
                     "dev-master": "1.18-dev"
                 },
                 "thanks": {
                     "name": "symfony/polyfill",
                     "url": "https://github.com/symfony/polyfill"
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
                 }
             },
@@ -3931,6 +4374,9 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/polyfill-util/zipball/46b910c71e9828f8ec2aa7a0314de1130d9b295a",
                 "reference": "46b910c71e9828f8ec2aa7a0314de1130d9b295a",
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
                 "shasum": ""
             },
@@ -3941,8 +4387,11 @@
             "extra": {
                 "branch-alias": {
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
                     "dev-master": "1.11-dev"
 =======
+=======
+>>>>>>> Stashed changes
                     "dev-master": "1.18-dev"
                 },
                 "thanks": {
@@ -4025,6 +4474,9 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/process/zipball/af8d812d75fcdf2eae30928b42396fe17df137e4",
                 "reference": "af8d812d75fcdf2eae30928b42396fe17df137e4",
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
                 "shasum": ""
             },
@@ -4105,6 +4557,9 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/routing/zipball/58381b7b815c1e3afaf60a534fbf769157fe5fe7",
                 "reference": "58381b7b815c1e3afaf60a534fbf769157fe5fe7",
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
                 "shasum": ""
             },
@@ -4186,6 +4641,9 @@
                 }
             ],
             "time": "2020-07-23T09:37:51+00:00"
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
         },
         {
@@ -4352,6 +4810,9 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/var-dumper/zipball/276cdd86063d42f9468cd26dab32daf546765050",
                 "reference": "276cdd86063d42f9468cd26dab32daf546765050",
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
                 "shasum": ""
             },
@@ -4494,6 +4955,7 @@
             "description": "CssToInlineStyles is a class that enables you to convert HTML-pages/files into HTML-pages/files with inline styles. This is very useful when you're sending emails.",
             "homepage": "https://github.com/tijsverkoyen/CssToInlineStyles",
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
             "time": "2017-11-27T11:13:29+00:00"
         },
         {
@@ -4514,6 +4976,8 @@
                 "php": ">=5.3.9",
                 "symfony/polyfill-ctype": "^1.9"
 =======
+=======
+>>>>>>> Stashed changes
             "time": "2020-07-13T06:12:54+00:00"
         },
         {
@@ -4533,6 +4997,9 @@
             "require": {
                 "php": "^5.3.9 || ^7.0 || ^8.0",
                 "symfony/polyfill-ctype": "^1.17"
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
             },
             "require-dev": {
@@ -4580,6 +5047,9 @@
                 }
             ],
             "time": "2020-07-14T17:54:18+00:00"
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
         }
     ],
@@ -4797,6 +5267,7 @@
                 "test"
             ],
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
             "time": "2016-01-20T08:20:44+00:00"
         },
         {
@@ -4812,10 +5283,13 @@
                 "url": "https://api.github.com/repos/mockery/mockery/zipball/0eb0b48c3f07b3b89f5169ce005b7d05b18cf1d2",
                 "reference": "0eb0b48c3f07b3b89f5169ce005b7d05b18cf1d2",
 =======
+=======
+>>>>>>> Stashed changes
             "time": "2020-07-09T08:09:16+00:00"
         },
         {
             "name": "mockery/mockery",
+<<<<<<< Updated upstream
             "version": "1.3.2",
             "source": {
                 "type": "git",
@@ -4827,6 +5301,18 @@
                 "url": "https://api.github.com/repos/mockery/mockery/zipball/9b6f117dd7d36dc3858d8d8ddf9b3d584fcae283",
                 "reference": "9b6f117dd7d36dc3858d8d8ddf9b3d584fcae283",
 >>>>>>> Stashed changes
+=======
+            "version": "1.3.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mockery/mockery.git",
+                "reference": "60fa2f67f6e4d3634bb4a45ff3171fa52215800d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mockery/mockery/zipball/60fa2f67f6e4d3634bb4a45ff3171fa52215800d",
+                "reference": "60fa2f67f6e4d3634bb4a45ff3171fa52215800d",
+>>>>>>> Stashed changes
                 "shasum": ""
             },
             "require": {
@@ -4835,7 +5321,11 @@
                 "php": ">=5.6.0"
             },
             "require-dev": {
+<<<<<<< Updated upstream
                 "phpunit/phpunit": "~5.7.10|~6.5|~7.0|~8.0|~9.0"
+=======
+                "phpunit/phpunit": "^5.7.10|^6.5|^7.5|^8.5|^9.3"
+>>>>>>> Stashed changes
             },
             "type": "library",
             "extra": {
@@ -4879,9 +5369,13 @@
                 "testing"
             ],
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
             "time": "2019-02-13T09:37:52+00:00"
 =======
             "time": "2020-07-09T08:23:05+00:00"
+>>>>>>> Stashed changes
+=======
+            "time": "2020-08-11T18:10:21+00:00"
 >>>>>>> Stashed changes
         },
         {
@@ -4931,8 +5425,11 @@
                 "object graph"
             ],
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
             "time": "2019-04-07T13:18:21+00:00"
 =======
+=======
+>>>>>>> Stashed changes
             "time": "2020-06-29T13:22:24+00:00"
 >>>>>>> Stashed changes
         },
@@ -5095,6 +5592,7 @@
         {
             "name": "phpdocumentor/reflection-docblock",
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
             "version": "4.3.1",
             "source": {
                 "type": "git",
@@ -5131,6 +5629,21 @@
                 "shasum": ""
             },
             "require": {
+=======
+            "version": "5.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/phpDocumentor/ReflectionDocBlock.git",
+                "reference": "3170448f5769fe19f456173d833734e0ff1b84df"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/phpDocumentor/ReflectionDocBlock/zipball/3170448f5769fe19f456173d833734e0ff1b84df",
+                "reference": "3170448f5769fe19f456173d833734e0ff1b84df",
+                "shasum": ""
+            },
+            "require": {
+>>>>>>> Stashed changes
                 "ext-filter": "*",
                 "php": "^7.2 || ^8.0",
                 "phpdocumentor/reflection-common": "^2.2",
@@ -5139,6 +5652,9 @@
             },
             "require-dev": {
                 "mockery/mockery": "~1.3.2"
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
             },
             "type": "library",
@@ -5166,7 +5682,11 @@
             ],
             "description": "With this component, a library can provide support for annotations via DocBlocks or otherwise retrieve information that is embedded in a DocBlock.",
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
             "time": "2019-04-30T17:48:53+00:00"
+=======
+            "time": "2020-07-20T20:05:34+00:00"
+>>>>>>> Stashed changes
 =======
             "time": "2020-07-20T20:05:34+00:00"
 >>>>>>> Stashed changes
@@ -5221,6 +5741,9 @@
 =======
             "description": "A PSR-5 based resolver of Class names, Types and Structural Element Names",
             "time": "2020-06-27T10:12:23+00:00"
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
         },
         {
@@ -6310,6 +6833,9 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/theseer/tokenizer/zipball/75a63c33a8577608444246075ea0af0d052e452a",
                 "reference": "75a63c33a8577608444246075ea0af0d052e452a",
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
                 "shasum": ""
             },
@@ -6338,6 +6864,7 @@
             ],
             "description": "A small library for converting tokenized PHP source code into XML and potentially other formats",
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
             "time": "2019-04-04T09:56:43+00:00"
         },
         {
@@ -6353,6 +6880,8 @@
                 "url": "https://api.github.com/repos/webmozart/assert/zipball/83e253c8e0be5b0257b881e1827274667c5c17a9",
                 "reference": "83e253c8e0be5b0257b881e1827274667c5c17a9",
 =======
+=======
+>>>>>>> Stashed changes
             "funding": [
                 {
                     "url": "https://github.com/theseer",
@@ -6373,6 +6902,9 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/webmozart/assert/zipball/bafc69caeb4d49c39fd0779086c03a3738cbb389",
                 "reference": "bafc69caeb4d49c39fd0779086c03a3738cbb389",
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
                 "shasum": ""
             },
@@ -6412,7 +6944,11 @@
                 "validate"
             ],
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
             "time": "2018-12-25T11:19:39+00:00"
+=======
+            "time": "2020-07-08T17:02:28+00:00"
+>>>>>>> Stashed changes
 =======
             "time": "2020-07-08T17:02:28+00:00"
 >>>>>>> Stashed changes
