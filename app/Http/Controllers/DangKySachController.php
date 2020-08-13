@@ -26,8 +26,9 @@ class DangKySachController extends Controller
 	public function view_all()
 	{
 		$array_lop = Lop::all();
+		$array_khoa_hoc = KhoaHoc::all();
 		$array_chuyen_nganh = ChuyenNganh::all();
-		$array_sach = Sach::all();
+		$array_sach = Sach::join('khoa_hoc','sach.ma_khoa_hoc','=','khoa_hoc.ma_khoa_hoc')->get();
 		$array_sinh_vien = SinhVien::all();
 	
 		$ma_sinh_vien = Request::get('ma_sinh_vien');
@@ -38,6 +39,7 @@ class DangKySachController extends Controller
 		$array_dang_ky_sach = DangKySach::query()
 							->join('sinh_vien','dang_ky_sach.ma_sinh_vien','=','sinh_vien.ma_sinh_vien')
 							->join('sach','dang_ky_sach.ma_sach','=','sach.ma_sach')
+							->join('khoa_hoc','sach.ma_khoa_hoc','=','khoa_hoc.ma_khoa_hoc')
 							->join('lop','sinh_vien.ma_lop','=','lop.ma_lop');
 		if(!empty($ma_lop)){
 			$array_dang_ky_sach = $array_dang_ky_sach->where('lop.ma_lop','=',$ma_lop);
@@ -60,9 +62,9 @@ class DangKySachController extends Controller
 		));
 		if(count($array_dang_ky_sach) == 0){
 			$message = "Không tìm thấy kết quả";
-			return view("$this->folder.view_all",compact('message','array_dang_ky_sach','array_chuyen_nganh','array_lop','array_sach','array_sinh_vien','tinh_trang_nhan_sach','ma_lop','ma_sinh_vien','ma_sach'));
+			return view("$this->folder.view_all",compact('message','array_dang_ky_sach','array_chuyen_nganh','array_khoa_hoc','array_lop','array_sach','array_sinh_vien','tinh_trang_nhan_sach','ma_lop','ma_sinh_vien','ma_sach'));
 		}
-		return view("$this->folder.view_all",compact('array_dang_ky_sach','array_chuyen_nganh','array_lop','array_sach','array_sinh_vien','tinh_trang_nhan_sach','ma_lop','ma_sinh_vien','ma_sach'));
+		return view("$this->folder.view_all",compact('array_dang_ky_sach','array_chuyen_nganh','array_khoa_hoc','array_lop','array_sach','array_sinh_vien','tinh_trang_nhan_sach','ma_lop','ma_sinh_vien','ma_sach'));
 	}
 
 	public function process_insert()
@@ -127,8 +129,8 @@ class DangKySachController extends Controller
     	$array_dang_ky_sach = DangKySach::query()
 			->join('sinh_vien','dang_ky_sach.ma_sinh_vien','=','sinh_vien.ma_sinh_vien')
 			->join('sach','dang_ky_sach.ma_sach','=','sach.ma_sach')
+			->join('khoa_hoc','sach.ma_khoa_hoc','=','khoa_hoc.ma_khoa_hoc')
 			->join('lop','sinh_vien.ma_lop','=','lop.ma_lop')
-			->join('chuyen_nganh','lop.ma_chuyen_nganh','=','chuyen_nganh.ma_chuyen_nganh')
 			->where('lop.ma_lop','=',$ma_lop)
 			->where('sach.ma_sach','=',$ma_sach)
 			->get();

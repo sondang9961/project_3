@@ -99,7 +99,7 @@ class MonHocController extends Controller
     		$array_mon_hoc = $array_mon_hoc->where('ten_mon_hoc','LIKE','%'.$search.'%')
 							->orWhere('ten_chuyen_nganh','LIKE','%'.$search.'%');
     	}
-    	$array_mon_hoc = $array_mon_hoc->get();
+    	$array_mon_hoc = $array_mon_hoc->orderBy('ma_mon_hoc','desc')->get();
 
 		$pdf = PDF::loadView("$this->folder.view_pdf", ['array_mon_hoc' => $array_mon_hoc,'search' => $search]);
 		return $pdf->download('danh_sach_mon_hoc.pdf');

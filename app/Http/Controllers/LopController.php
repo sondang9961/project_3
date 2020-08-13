@@ -148,7 +148,7 @@ class LopController extends Controller
 				->orWhere('ten_chuyen_nganh','LIKE','%'.$search.'%');
 		}
 
-		$array_lop = $array_lop->get();
+		$array_lop =  $array_lop->orderBy('ma_lop','desc')->get();
 
 	    $pdf = PDF::loadView("$this->folder.view_pdf", ['array_lop' => $array_lop, 'search' => $search]);
 		return $pdf->download('danh_sach_lop.pdf');

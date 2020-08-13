@@ -12,16 +12,16 @@
 					<table>
 						<tr>
 							<td style="padding-bottom: 4%">
-								<div style="margin-right: 3rem ">Tên chuyên ngành
-									<select name="ma_chuyen_nganh" class="form-control" style="width: 14rem" id="search_chuyen_nganh">
-										<option selected disabled>--Tên chuyên ngành--</option>
-										@foreach ($array_chuyen_nganh as $chuyen_nganh)
-											<option value="{{$chuyen_nganh->ma_chuyen_nganh}}"
-											@if ($chuyen_nganh->ma_chuyen_nganh == $ma_chuyen_nganh)
+								<div style="margin-right: 3rem ">Khóa học
+									<select name="ma_khoa_hoc" class="form-control" style="width: 14rem" id="search_khoa_hoc">
+										<option selected disabled>--Tên khóa học--</option>
+										@foreach ($array_khoa_hoc as $khoa_hoc)
+											<option value="{{$khoa_hoc->ma_khoa_hoc}}"
+											@if ($khoa_hoc->ma_khoa_hoc == $ma_khoa_hoc)
 												selected 
 											@endif		
 											>
-												{{$chuyen_nganh->ten_chuyen_nganh}}
+												{{$khoa_hoc->ten_khoa_hoc}}
 											</option>
 										@endforeach
 									</select>
@@ -46,7 +46,7 @@
 							<td style="padding-bottom: 4%">
 								<div style="margin-right: 3rem ">Tên sách
 									<select name="ma_sach" class="form-control" style="width: 14rem" id="searchSach">
-										<option selected disabled>--Tên sách--</option> 
+										<option selected disabled>--Tên sách--</option>
 										@foreach ($array_sach as $sach)
 											<option value="{{$sach->ma_sach}}"
 											@if ($sach->ma_sach == $ma_sach)
@@ -84,15 +84,7 @@
                     </button>
 		   		</div>
 			@endif
-			@if(!isset($ma_lop) && isset($ma_sach))
-				<div class="alert alert-danger alert-block">
-					Bạn chưa chọn lớp
-					<button type="button" aria-hidden="true" class="close" data-dismiss="alert">
-                        <i class="pe-7s-close"></i>
-                    </button>
-		   		</div>
-			@endif
-			@if(!isset($ma_lop) && !isset($ma_sach) && isset($ma_chuyen_nganh))
+			@if(!isset($ma_lop) && !isset($ma_sach) && isset($ma_khoa_hoc))
 				<div class="alert alert-danger alert-block">
 					Bạn chưa chọn lớp và sách
 					<button type="button" aria-hidden="true" class="close" data-dismiss="alert">
@@ -145,17 +137,16 @@
 <script src="{{ asset('js/select2.min.js') }}"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
-		$("#search_chuyen_nganh").select2();
-		$("#search_lop").select2();
+		$("#search_khoa_hoc").select2();
 
 		$("#search_lop").select2({
 			ajax: {
-				url: '{{route('get_lop_by_chuyen_nganh')}}',
+				url: '{{route('get_lop_by_khoa_hoc')}}',
 				dataType: 'json',
 				data: function() {
-					ma_chuyen_nganh = $("#search_chuyen_nganh").val();
+					ma_khoa_hoc = $("#search_khoa_hoc").val();
 					return {
-						ma_chuyen_nganh: ma_chuyen_nganh
+						ma_khoa_hoc: ma_khoa_hoc
 					}
 				},
 				processResults: function (data){
@@ -173,19 +164,21 @@
 
 		$("#searchSach").select2({
 			ajax: {
-				url: '{{route('get_sach_by_chuyen_nganh')}}',
+				url: '{{route('get_sach_by_khoa_hoc_and_lop')}}',
 				dataType: 'json',
 				data: function() {
-					ma_chuyen_nganh = $("#search_chuyen_nganh").val();
+					ma_lop = $("#search_lop").val();
+					ma_khoa_hoc = $("#search_khoa_hoc").val();
 					return {
-						ma_chuyen_nganh: ma_chuyen_nganh
+						ma_lop: ma_lop,
+						ma_khoa_hoc: ma_khoa_hoc
 					}
 				},
 				processResults: function (data){
 					return {
 						results: $.map(data, function(item) {
 							return  {
-								text: `${item.ten_sach} (${formatDate(item.ngay_nhap_sach)})`,
+								text: `${item.ten_sach} - ${item.ten_khoa_hoc}`,
 								id: item.ma_sach
 							}
 						})

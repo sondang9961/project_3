@@ -107,7 +107,7 @@
 											</option>			
 										@endforeach
 									</select>
-									<span id="errKhoaHoc" style="color: red"></span>
+									<span id="errChuyenNganh" style="color: red"></span>
                                 </div>
                             </div>
                         </div>					        	
@@ -198,7 +198,7 @@
 		var mon_hoc = document.getElementById('mon_hoc').value;
 		var chuyen_nganh = document.getElementById('chuyen_nganh').value;
 		var errMonHoc= document.getElementById('errMonHoc');
-		var errKhoaHoc = document.getElementById('errKhoaHoc');
+		var errChuyenNganh = document.getElementById('errChuyenNganh');
 
 		if(mon_hoc.length == 0){
 			errMonHoc.innerHTML="Không được trống!";
@@ -207,9 +207,9 @@
 			dem++;
 		}
 		if(chuyen_nganh == ''){
-			errKhoaHoc.innerHTML="Chưa chọn khóa học!";
+			errChuyenNganh.innerHTML="Chưa chọn chuyên ngành!";
 		}else {
-			errKhoaHoc.innerHTML="";
+			errChuyenNganh.innerHTML="";
 			dem++;
 		}
 		if(dem == 2){

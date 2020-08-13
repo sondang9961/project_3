@@ -22,8 +22,8 @@ class DangKySachExport implements FromView
         $array_dang_ky_sach = DangKySach::query()
 						->join('sinh_vien','dang_ky_sach.ma_sinh_vien','=','sinh_vien.ma_sinh_vien')
 						->join('sach','dang_ky_sach.ma_sach','=','sach.ma_sach')
+                        ->join('khoa_hoc','sach.ma_khoa_hoc','=','khoa_hoc.ma_khoa_hoc')
 						->join('lop','sinh_vien.ma_lop','=','lop.ma_lop')
-						->join('chuyen_nganh','lop.ma_chuyen_nganh','=','chuyen_nganh.ma_chuyen_nganh')
 						->where('lop.ma_lop','=',$ma_lop)
 						->where('sach.ma_sach','=',$ma_sach)
 						->get();

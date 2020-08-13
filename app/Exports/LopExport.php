@@ -35,7 +35,7 @@ class LopExport implements FromView
 				->orWhere('ten_chuyen_nganh','LIKE','%'.$search.'%');
 		}
 
-		$array_lop = $array_lop->get();
+		$array_lop = $array_lop->orderBy('ma_lop','desc')->get();
         
         return view('lop.view_export', ['array_lop' => $array_lop, 'search' => $search]);
     }

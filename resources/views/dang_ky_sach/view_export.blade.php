@@ -18,7 +18,7 @@
 				<td>
 					{!!Helper::getTenTinhTrang($dang_ky_sach->tinh_trang_nhan_sach)!!}
 				</td>
-				<td>{{$dang_ky_sach->ten_sach}} ({{date_format(date_create($dang_ky_sach->ngay_nhap_sach),'d/m/Y')}})</td>
+				<td>{{$dang_ky_sach->ten_sach}} - {{$dang_ky_sach->ten_khoa_hoc}}</td>
 				<td>
 					{{date_format(date_create($dang_ky_sach->ngay_dang_ky),'d/m/Y')}}
 				</td>

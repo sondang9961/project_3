@@ -168,7 +168,7 @@ class SinhVienController extends Controller
 			$array_sinh_vien = $array_sinh_vien->where('ten_sinh_vien','LIKE','%'.$search.'%')
 				->orWhere('ten_lop','LIKE','%'.$search.'%');
 		}
-		$array_sinh_vien = $array_sinh_vien->get();
+		$array_sinh_vien = $array_sinh_vien->orderBy('ma_sinh_vien','desc')->get();
 
 		$pdf = PDF::loadView("$this->folder.view_pdf", ['array_sinh_vien' => $array_sinh_vien]);
 		return $pdf->download('danh_sach_sinh_vien.pdf');

@@ -41,6 +41,7 @@
 					<tr>
 						<th>Tên sách</th>
 						<th>Môn học</th>
+						<th>Khóa học</th>
 						<th>Số lượng nhập</th>
 						<th>Ngày nhập</th>
 						<th>Ngày hết hạn đăng ký</th>
@@ -52,6 +53,7 @@
 						<tr>
 							<td>{{$sach->ten_sach}}</td>
 							<td>{{$sach->ten_mon_hoc}}</td>
+							<td>{{$sach->ten_khoa_hoc}}</td>
 							<td>{{$sach->so_luong_nhap}}</td>
 							<td>
 								{{date_format(date_create($sach->ngay_nhap_sach),'d/m/Y')}}
@@ -98,6 +100,22 @@
 										@foreach ($array_mon_hoc as $mon_hoc)
 											<option value="{{$mon_hoc->ma_mon_hoc}}">
 												{{$mon_hoc->ten_mon_hoc}}
+											</option>
+										@endforeach
+									</select>
+									<span id="errMonHoc" style="color: red"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-sm-3" style="	font-size: 1.75rem; font-weight:lighter">Khóa học</label>
+                            <div class="col-sm-8">
+                                <div class="form-group">
+                                    <select name="ma_khoa_hoc" style="width: 37rem" id="select_khoa_hoc" >
+										<option disabled selected>--Chọn khóa học--</option>
+										@foreach ($array_khoa_hoc as $khoa_hoc)
+											<option value="{{$khoa_hoc->ma_khoa_hoc}}">
+												{{$khoa_hoc->ten_khoa_hoc}}
 											</option>
 										@endforeach
 									</select>
@@ -161,6 +179,20 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="row">
+                            <label class="col-sm-3" style="margin-top: 1%;font-size: 1.7rem; font-weight:lighter">Khóa học</label>
+                            <div class="col-sm-8">
+                                <div class="form-group">
+                                    <select name="ma_khoa_hoc" id="khoa_hoc" class="form-control">
+						          		@foreach($array_khoa_hoc as $khoa_hoc)
+											<option value="{{$khoa_hoc->ma_khoa_hoc}}">
+												{{$khoa_hoc->ten_khoa_hoc}}
+											</option>
+										@endforeach
+						          	</select>
+                                </div>
+                            </div>
+                        </div>
 			          	<div class="row">
                             <label class="col-sm-3" style="margin-top: 1%;font-size: 1.7rem; font-weight:lighter">Tên sách</label>
                             <div class="col-sm-8">
@@ -195,9 +227,15 @@
 
 <script type="text/javascript">
 	$(document).ready(function() {
+		$("#select_khoa_hoc").select2();
 		$("#select_mon_hoc").select2();
 		$("#select_mon_hoc").change(function(){
-			$("#ten_sach").val(null).trigger('change');
+			$("#select_khoa_hoc").attr("disabled", false);
+			$("#ten_sach").attr("disabled", true);
+			$("#so_luong_nhap").attr("disabled", true);
+			$(".add_button").attr("disabled", true);
+		})
+		$("#select_khoa_hoc").change(function(){
 			$("#ten_sach").attr("disabled", false);
 			$("#so_luong_nhap").attr("disabled", true);
 			$(".add_button").attr("disabled", true);
@@ -218,6 +256,8 @@
 				$(".add_button").attr("disabled", false);
 			}	
 		})
+
+		$("#select_khoa_hoc").attr("disabled", true);
 		
 		$("#demoForm").validate({
 			ignore: [], 
@@ -243,6 +283,7 @@
 				$("#ma_sach").val(response.ma_sach);
 				$("#ten").val(response.ten_sach);
 				$("#mon_hoc").val(response.ma_mon_hoc);
+				$("#khoa_hoc").val(response.ma_khoa_hoc);
 				$("#so_luong").val(response.so_luong_nhap);
 			})
 			.fail(function() {

@@ -20,6 +20,7 @@
 		<tr>
 			<th>Tên sách</th>
 			<th>Ngày nhập</th>
+			<th>Khóa học</th>
 			<th>Số lượng nhập</th>
 			<th>Số lượng đã phát</th>
 			<th>Số lượng tồn kho</th>
@@ -30,6 +31,7 @@
 			<tr>
 				<td>{{$thong_ke->ten_sach}}</td>
 				<td>{{date_format(date_create($thong_ke->ngay_nhap_sach),'d/m/Y')}}</td>
+				<td>{{$thong_ke->ten_khoa_hoc}}</td>
 				<td>{{$thong_ke->so_luong_nhap}}</td>
 				<td>{{$thong_ke->so_luong_da_phat}}</td>
 				<td>{{$thong_ke->so_luong_ton_kho}}</td>			

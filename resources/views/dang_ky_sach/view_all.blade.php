@@ -65,7 +65,7 @@
 												selected 
 											@endif
 										>
-											{{$sach->ten_sach}} ({{date_format(date_create($dang_ky_sach->ngay_nhap_sach),'d/m/Y')}})
+											{{$sach->ten_sach}} - {{$sach->ten_khoa_hoc}}
 										</option>
 									@endforeach
 								</select>
@@ -150,7 +150,7 @@
 							<td>
 								{!!Helper::getRadioTinhTrang($dang_ky_sach->tinh_trang_nhan_sach,$dang_ky_sach->ma_dang_ky)!!}
 							</td>
-							<td>{{$dang_ky_sach->ten_sach}} ({{date_format(date_create($dang_ky_sach->ngay_nhap_sach),'d/m/Y')}})</td>
+							<td>{{$dang_ky_sach->ten_sach}} - {{$dang_ky_sach->ten_khoa_hoc}}</td>
 							<td>
 								{{date_format(date_create($dang_ky_sach->ngay_dang_ky),'d/m/Y')}}
 							</td>
@@ -197,6 +197,21 @@
 											@foreach ($array_chuyen_nganh as $chuyen_nganh)
 												<option value="{{$chuyen_nganh->ma_chuyen_nganh}}">
 													{{$chuyen_nganh->ten_chuyen_nganh}}
+												</option>
+											@endforeach
+										</select>
+	                                </div>
+	                            </div>
+	                        </div>
+	                        <div class="row">
+	                            <label class="col-sm-3" style="font-size: 1.75rem; font-weight: lighter">Khóa học</label>
+	                            <div class="col-sm-8">
+	                                <div class="form-group">
+	                                    <select name="ma_khoa_hoc" class="form-control" style="width: 40rem" id="select_khoa_hoc">
+											<option disabled selected>--Chọn khóa học--</option>
+											@foreach ($array_khoa_hoc as $khoa_hoc)
+												<option value="{{$khoa_hoc->ma_khoa_hoc}}">
+													{{$khoa_hoc->ten_khoa_hoc}}
 												</option>
 											@endforeach
 										</select>
@@ -270,8 +285,18 @@
 	}
 	$(document).ready(function() {
 		$("#select_tinh_trang").select2();
+		$("#select_khoa_hoc").select2();
 		$("#select_chuyen_nganh").select2();
 		$("#select_chuyen_nganh").change(function(){
+			$("#select_khoa_hoc").attr("disabled", false);
+			$("#select_lop").attr("disabled", true);
+			$("#select_sinh_vien").attr("disabled", true);
+			$("#select_sach").attr("disabled", true);
+			$("#select_tinh_trang").attr("disabled", true);
+			$(".add_button").attr("disabled", true);
+		})
+
+		$("#select_khoa_hoc").change(function(){
 			$("#select_lop").attr("disabled", false);
 			$("#select_sinh_vien").attr("disabled", true);
 			$("#select_sach").attr("disabled", true);
@@ -298,6 +323,7 @@
 		})
 		
 		$("#select_lop").attr("disabled", true);
+		$("#select_khoa_hoc").attr("disabled", true);
 
 		$("#select_tinh_trang").change(function(){
 			$(".add_button").attr("disabled", false);
@@ -311,12 +337,14 @@
 
 		$("#select_lop").select2({
 			ajax: {
-				url: '{{route('get_lop_by_chuyen_nganh')}}',
+				url: '{{route('get_lop_by_chuyen_nganh_and_khoa_hoc')}}',
 				dataType: 'json',
 				data: function() {
 					ma_chuyen_nganh = $("#select_chuyen_nganh").val();
+					ma_khoa_hoc = $("#select_khoa_hoc").val();
 					return {
-						ma_chuyen_nganh: ma_chuyen_nganh
+						ma_chuyen_nganh: ma_chuyen_nganh,
+						ma_khoa_hoc: ma_khoa_hoc,
 					}
 				},
 				processResults: function (data){
@@ -334,19 +362,21 @@
 
 		$("#select_sach").select2({
 			ajax: {
-				url: '{{route('get_sach_by_chuyen_nganh')}}',
+				url: '{{route('get_sach_by_khoa_hoc_and_lop')}}',
 				dataType: 'json',
 				data: function() {
-					ma_chuyen_nganh = $("#select_chuyen_nganh").val();
+					ma_khoa_hoc = $("#select_khoa_hoc").val();
+					ma_lop = $("#select_lop").val();
 					return {
-						ma_chuyen_nganh: ma_chuyen_nganh
+						ma_khoa_hoc: ma_khoa_hoc,
+						ma_lop: ma_lop,
 					}
 				},
 				processResults: function (data){
 					return {
 						results: $.map(data, function(item) {
 							return  {
-								text: `${item.ten_sach} (${formatDate(item.ngay_nhap_sach)})`,
+								text: `${item.ten_sach}`,
 								id: item.ma_sach
 							}
 						})
@@ -458,7 +488,7 @@
 					return {
 						results: $.map(data, function(item) {
 							return  {
-								text: `${item.ten_sach} (${formatDate(item.ngay_nhap_sach)})`,
+								text: `${item.ten_sach} - ${item.ten_khoa_hoc}`,
 								id: item.ma_sach
 							}
 						})

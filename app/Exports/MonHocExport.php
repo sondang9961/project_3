@@ -21,7 +21,7 @@ class MonHocExport implements FromView
     		$array_mon_hoc = $array_mon_hoc->where('ten_mon_hoc','LIKE','%'.$search.'%')
 							->orWhere('ten_chuyen_nganh','LIKE','%'.$search.'%');
     	}
-    	$array_mon_hoc = $array_mon_hoc->get();
+    	$array_mon_hoc = $array_mon_hoc->orderBy('ma_mon_hoc','desc')->get();
         
         return view('mon_hoc.view_export', ['array_mon_hoc' => $array_mon_hoc, 'search' => $search]);
     }

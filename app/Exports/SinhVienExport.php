@@ -21,7 +21,7 @@ class SinhVienExport implements FromView
 			$array_sinh_vien = $array_sinh_vien->where('ten_sinh_vien','LIKE','%'.$search.'%')
 				->orWhere('ten_lop','LIKE','%'.$search.'%');
 		}
-		$array_sinh_vien = $array_sinh_vien->get();
+		$array_sinh_vien = $array_sinh_vien->orderBy('ma_sinh_vien','desc')->get();
 
         return view('sinh_vien.view_export', ['array_sinh_vien' => $array_sinh_vien]);
     }

@@ -22,10 +22,12 @@ class SachController extends Controller
 
 		$search = Request::get('search');
 		
-		$array_sach = Sach::query()->join('mon_hoc','sach.ma_mon_hoc','=','mon_hoc.ma_mon_hoc');
+		$array_sach = Sach::query()->join('mon_hoc','sach.ma_mon_hoc','=','mon_hoc.ma_mon_hoc')
+								   ->join('khoa_hoc','sach.ma_khoa_hoc','=','khoa_hoc.ma_khoa_hoc');
 
 		if($search != ''){	
             $array_sach = $array_sach->where('ten_mon_hoc','LIKE','%'.$search.'%')
+            						 ->orWhere('ten_khoa_hoc','LIKE','%'.$search.'%')
             						 ->orWhere('ten_sach','LIKE','%'.$search.'%');
         }
 
@@ -67,8 +69,23 @@ class SachController extends Controller
 	public function get_sach_by_lop()
 	{
 		$ma_lop = Request::get('ma_lop');
-		$array_sach = Sach::get_all_by_lop($ma_lop);
-		
+		$array_sach = Sach::query()->join('lop','sach.ma_khoa_hoc','=','lop.ma_khoa_hoc')
+							->join('khoa_hoc','sach.ma_khoa_hoc','=','khoa_hoc.ma_khoa_hoc')
+							->where('lop.ma_lop','=',$ma_lop)
+							->orderBy('ngay_nhap_sach','desc')->get();
+		return $array_sach;
+	}
+
+	public function get_sach_by_khoa_hoc_and_lop()
+	{
+		$ma_khoa_hoc= Request::get('ma_khoa_hoc');
+		$ma_lop = Request::get('ma_lop');
+		$array_sach = Sach::query()->join('khoa_hoc','sach.ma_khoa_hoc','=','khoa_hoc.ma_khoa_hoc')
+							->join('lop','khoa_hoc.ma_khoa_hoc','=','lop.ma_khoa_hoc')						
+							->where('khoa_hoc.ma_khoa_hoc','=',$ma_khoa_hoc)
+							->where('lop.ma_lop','=',$ma_lop)
+							->orderBy('ngay_nhap_sach','desc')->get();
+
 		return $array_sach;
 	}
 
@@ -83,6 +100,7 @@ class SachController extends Controller
 	{
 		$sach = new Sach();
 		$sach->ma_mon_hoc = Request::get('ma_mon_hoc');
+		$sach->ma_khoa_hoc = Request::get('ma_khoa_hoc');
 		$sach->ten_sach = Request::get('ten_sach');
 		$sach->so_luong_nhap = Request::get('so_luong_nhap');
 		$sach->ngay_nhap_sach = date("Y-m-d");
@@ -90,13 +108,14 @@ class SachController extends Controller
 
 		$count = Sach::where('ten_sach','=',$sach->ten_sach)
 						->where('ma_mon_hoc','=',$sach->ma_mon_hoc)
+						->where('ma_khoa_hoc','=',$sach->ma_khoa_hoc)
 						->where('ngay_nhap_sach','=',$sach->ngay_nhap_sach)
 						->count();
 		if($count == 0) {
 			$sach->save();
 			return redirect()->route("$this->folder.view_all")->with('success','Đã thêm');
 		}
-		return redirect()->route("$this->folder.view_all")->with('error','Hôm nay bạn đã thêm sách này rồi vui lòng cập nhật số lượng!');
+		return redirect()->route("$this->folder.view_all")->with('error','Sách đã tồn tại vui lòng cập nhật số lượng!');
 	}
 
 	public function process_update()
